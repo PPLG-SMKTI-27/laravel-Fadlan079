@@ -1,138 +1,160 @@
-<div class="absolute inset-0 -z-10 overflow-hidden">
-<div
-    class="absolute -top-32 -left-32
-        w-96 h-96
-        bg-primary opacity-10
-        blur-md
-        rounded-full">
-</div>
+<style>
+@keyframes orbit {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
 
-<div
-    class="absolute -bottom-32 -right-32
-        w-100 h-100
-        bg-primary opacity-10
-        blur-md
-        rounded-full">
-</div>
-</div>
+@keyframes orbit-reverse {
+    from { transform: rotate(360deg); }
+    to   { transform: rotate(0deg); }
+}
 
-<div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
-<div class="text-center lg:text-left">
-    <span
-    class="inline-flex items-center gap-2 px-4 py-1 mb-6
-            rounded-full border border-border bg-surface
-            text-sm text-muted"
-    >
-    <i class="fa-solid fa-code text-primary"></i>
-    Available for Collaboration
-    </span>
+@keyframes counter {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(-360deg); }
+}
 
-    <h2 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-    Hi, Saya
-    <span
-        class="bg-linear-to-r from-primary to-red-400
-                bg-clip-text text-transparent"
-    >
-        Fadlan
-    </span>
-    <br />
-    <span class="text-3xl md:text-4xl text-muted font-semibold">
-        Full Stack Developer
-    </span>
-    </h2>
+@keyframes sunPulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
 
-    <p class="text-muted max-w-xl mb-8 leading-relaxed">
-    Fokus membangun aplikasi web modern menggunakan
-    <strong class="text-text">Laravel</strong>,
-    backend rapi, frontend responsif,
-    serta deployment di
-    <strong class="text-text">Linux Server</strong>.
-    </p>
+.orbit {
+    position: absolute;
+    border-radius: 9999px;
+    border: 1px dashed rgba(239,68,68,.35);
+    animation: orbit linear infinite;
+}
 
-    <div class="flex gap-4 flex-wrap justify-center lg:justify-start">
-    <a
-        href="#projects"
-        class="px-7 py-3 rounded-xl bg-primary text-white font-semibold
-                hover:opacity-90 transition shadow-lg shadow-primary/30"
-    >
-        Lihat Project
-    </a>
+.orbit.reverse {
+    animation-name: orbit-reverse;
+}
 
-    <a
-        href="#contact"
-        class="px-7 py-3 rounded-xl border border-border
-                hover:border-primary hover:text-primary transition"
-    >
-        Kontak Saya
-    </a>
+.planet {
+    animation: counter linear infinite;
+}
+</style>
+
+<div class="max-w-6xl mx-auto mt-12 md:mt-0 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+
+    <!-- ================= TEXT ================= -->
+    <div class="text-center lg:text-left">
+        <!-- badge -->
+        <span class="inline-flex items-center gap-2 px-4 py-1 mb-6
+            rounded-full border border-border bg-surface text-sm text-muted">
+            <i class="fa-solid fa-code text-primary"></i>
+            Available for Collaboration
+        </span>
+
+        <!-- title -->
+        <h2 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+            Hi, Saya
+            <span class="bg-linear-to-r from-primary to-red-400 bg-clip-text text-transparent">
+                Fadlan
+            </span>
+            <br>
+            <span class="text-3xl md:text-4xl text-muted font-semibold">
+                Full Stack Developer
+            </span>
+        </h2>
+
+        <!-- desc -->
+        <p class="text-muted max-w-xl mb-8 leading-relaxed">
+            Fokus membangun aplikasi web modern dengan struktur
+            <strong class="text-text">backend</strong> yang jelas,
+            <strong class="text-text">frontend</strong> responsif,
+            dan sistem siap produksi.
+        </p>
+
+        <!-- CTA -->
+        <div class="flex gap-4 flex-wrap justify-center lg:justify-start">
+            <a href="#projects"
+                class="px-7 py-3 rounded-xl bg-primary text-white font-semibold
+                shadow-lg shadow-primary/30 hover:opacity-90 transition">
+                Lihat Project
+            </a>
+
+            <a href="#contact"
+                class="px-7 py-3 rounded-xl border border-border
+                hover:border-primary hover:text-primary transition">
+                Kontak Saya
+            </a>
+        </div>
+
+        <!-- social -->
+        <div class="mt-8 flex gap-4 justify-center lg:justify-start">
+            <a href="https://github.com/Fadlan079" target="_blank" class="social-btn">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/fadlan-firdaus-148344386/" target="_blank" class="social-btn">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a href="https://instagram.com/fdln007" target="_blank" class="social-btn">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="mailto:fadlanfirdaus220@gmail.com" class="social-btn">
+                <i class="fa-solid fa-envelope"></i>
+            </a>
+            <a href="https://wa.me/6282210732928" target="_blank" class="social-btn">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </div>
     </div>
 
-    <div class="mt-8 flex gap-4 justify-center lg:justify-start">
-    <a href="https://github.com/Fadlan079" target="_blank"
-        class="w-11 h-11 rounded-xl border border-border
-                flex items-center justify-center
-                text-muted hover:text-primary hover:border-primary
-                hover:shadow-lg hover:shadow-primary/30
-                transition">
-        <i class="fa-brands fa-github text-lg"></i>
-    </a>
+    <!-- ================= ORBIT ANIMATION ================= -->
+    <div class="relative flex items-center justify-center h-[380px]">
 
-    <a href="https://instagram.com/fdln007" target="_blank"
-        class="w-11 h-11 rounded-xl border border-border
-                flex items-center justify-center
-                text-muted hover:text-primary hover:border-primary
-                hover:shadow-lg hover:shadow-primary/30
-                transition">
-        <i class="fa-brands fa-instagram text-lg"></i>
-    </a>
+        <!-- glow background -->
+        <div class="absolute w-72 h-72 bg-primary/20 blur-3xl rounded-full"></div>
 
-    <a href="mailto:fadlanfirdaus220@gmail.com"
-        class="w-11 h-11 rounded-xl border border-border
-                flex items-center justify-center
-                text-muted hover:text-primary hover:border-primary
-                hover:shadow-lg hover:shadow-primary/30
-                transition">
-        <i class="fa-solid fa-envelope text-lg"></i>
-    </a>
+        <!-- ===== SUN ===== -->
+        <div class="relative z-20">
+            <div class="absolute inset-0 bg-primary/30 blur-3xl rounded-full"></div>
+            <div class="w-48 h-48 rounded-full
+                animate-[sunPulse_6s_ease-in-out_infinite]
+                bg-gradient-to-br from-primary via-red-400 to-primary
+                shadow-[0_0_120px_rgba(239,68,68,0.9)]">
+            </div>
+        </div>
 
-    <a href="https://wa.me/6282210732928" target="_blank"
-        class="w-11 h-11 rounded-xl border border-border
-                flex items-center justify-center
-                text-muted hover:text-primary hover:border-primary
-                hover:shadow-lg hover:shadow-primary/30
-                transition">
-        <i class="fa-brands fa-whatsapp text-lg"></i>
-    </a>
+        <!-- ===== ORBIT BESAR ===== -->
+        <div class="orbit w-105 h-105" style="animation-duration:36s">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2">
+                <i class="fa-brands fa-laravel text-red-500 text-5xl planet" style="animation-duration:36s"></i>
+            </div>
+            <div class="absolute right-0 top-1/2 -translate-y-1/2">
+                <i class="fa-brands fa-php text-indigo-400 text-5xl planet" style="animation-duration:36s"></i>
+            </div>
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2">
+                <i class="fa-brands fa-js text-yellow-400 text-5xl planet" style="animation-duration:36s"></i>
+            </div>
+            <div class="absolute left-0 top-1/2 -translate-y-1/2">
+                <i class="fa-brands fa-html5 text-orange-500 text-5xl planet" style="animation-duration:36s"></i>
+            </div>
+        </div>
+
+        <!-- ===== ORBIT MEDIUM ===== -->
+        <div class="orbit reverse w-75 h-75 opacity-80" style="animation-duration:26s">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2">
+                <i class="fa-brands fa-css3-alt text-blue-500 text-4xl planet" style="animation-duration:26s"></i>
+            </div>
+            <div class="absolute right-0 top-1/2 -translate-y-1/2">
+                <i class="fa-brands fa-bootstrap text-purple-500 text-4xl planet" style="animation-duration:26s"></i>
+            </div>
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2">
+                <i class="fa-brands fa-git-alt text-orange-500 text-4xl planet" style="animation-duration:26s"></i>
+            </div>
+        </div>
+
+        <!-- ===== ORBIT KECIL ===== -->
+        <div class="orbit w-50 h-50 opacity-70" style="animation-duration:18s">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2">
+                <i class="fa-solid fa-database text-sky-400 text-3xl planet" style="animation-duration:18s"></i>
+            </div>
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2">
+                <i class="fa-brands fa-linux text-3xl planet" style="animation-duration:18s"></i>
+            </div>
+        </div>
+
     </div>
-
-    <div class="mt-10 flex gap-6 text-muted text-sm flex-wrap
-                justify-center lg:justify-start">
-    <span class="flex items-center gap-2">
-        <i class="fa-brands fa-laravel text-primary"></i> Laravel
-    </span>
-    <span class="flex items-center gap-2">
-        <i class="fa-solid fa-database"></i> MySQL
-    </span>
-    <span class="flex items-center gap-2">
-        <i class="fa-brands fa-linux"></i> Linux
-    </span>
-    <span class="flex items-center gap-2">
-        <i class="fa-brands fa-html5"></i> Tailwind
-    </span>
-    </div>
-</div>
-
-<div class="relative flex justify-center">
-    <div
-    class="relative w-72 h-72 md:w-80 md:h-80
-            rounded-3xl overflow-hidden
-            border border-border
-            bg-surface shadow-xl">
-    <img
-        src="profil.jpg"
-        alt="Fadlan"
-        class="w-full h-full object-cover"
-    />
-    </div>
-</div>
 </div>

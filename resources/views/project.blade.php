@@ -158,15 +158,17 @@
 </section>
 
   <x-footer
-    brand="Fadlan.dev"
-    description="Full Stack Developer yang fokus pada pengembangan aplikasi web modern menggunakan Laravel, frontend responsif, dan backend yang scalable."
+    brand="Fadlan"
+    description="Full Stack Developer yang membangun aplikasi web modern dengan antarmuka responsif, backend yang terstruktur, dan pengelolaan data yang rapi."
     :links="[
-        ['label' => 'Home', 'href' => '#home'],
+        ['label' => 'Home', 'href' => '/'],
     ]"
     :socials="[
         ['icon' => 'fa-brands fa-github', 'href' => 'https://github.com/Fadlan079'],
+        ['icon' => 'fa-brands fa-linkedin', 'href' => 'https://www.linkedin.com/in/fadlan-firdaus-148344386/'],
         ['icon' => 'fa-brands fa-instagram', 'href' => 'https://instagram.com/fdln007'],
         ['icon' => 'fa-solid fa-envelope', 'href' => 'mailto:fadlanfirdaus220@gmail.com'],
+        ['icon' => 'fa-brands fa-whatsapp', 'href' => 'https://wa.me/6282210732928'],
     ]"
   />
 </body>

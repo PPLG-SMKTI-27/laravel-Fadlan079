@@ -1,108 +1,102 @@
 <div class="max-w-6xl mx-auto px-6">
-<div class="mb-16 text-center">
+  <div class="mb-16 text-center">
     <h3 class="text-4xl font-extrabold">
-    Pendidikan
-    <span class="text-primary">Saya</span>
+      Pendidikan <span class="text-primary">Saya</span>
     </h3>
     <p class="text-muted mt-3 max-w-2xl mx-auto">
-    Latar belakang pendidikan yang membentuk skill teknis
-    dan minat saya di dunia pengembangan web.
+      Pendidikan formal yang menjadi fondasi dalam memahami logika pemrograman, pengelolaan sistem, dan pengembangan web.
     </p>
-</div>
+  </div>
 
-<div class="relative pl-8 md:pl-12">
+  <div class="relative">
+    <div class="absolute z-0 left-4 md:left-1/2 top-0 h-full w-0.5 bg-border md:-translate-x-1/2"></div>
 
-    <div class="absolute left-3 top-0 h-full w-[2px] bg-border"></div>
 
-    <div class="relative mb-12">
-    <div class="absolute -left-[2px] top-2">
-        <span
-        class="block w-4 h-4 rounded-full bg-primary
-                shadow-lg shadow-primary/40">
-        </span>
-    </div>
-    <div
-        class="bg-surface border border-border rounded-2xl p-6
-                hover:-translate-y-1 transition"
-    >
-        <div class="flex flex-wrap items-center gap-3 mb-2">
-        <h4 class="text-xl font-semibold">
-            SMK – PPLG (Pengembangan Perangkat Lunak & Gim)
-        </h4>
-        <span
-            class="text-xs px-3 py-1 rounded-full
-                    bg-success/20 text-success"
-        >
-            Aktif
-        </span>
+    <div class="space-y-14">
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <div class="md:text-right">
+          <div
+            class="bg-bg border border-border rounded-2xl p-6
+                   hover:-translate-y-1 transition inline-block"
+          >
+            <div class="flex md:justify-end flex-wrap items-center gap-3 mb-2">
+              <h4 class="text-xl font-semibold">
+                SMK TI Airlangga Samarinda - PPLG
+              </h4>
+              <span
+                class="text-xs px-3 py-1 rounded-full
+                       bg-success/20 text-success"
+              >
+                Aktif
+              </span>
+            </div>
+
+            <p class="text-sm text-muted mb-3">
+              2024 – Sekarang
+            </p>
+            <p class="text-muted leading-relaxed">
+              Mulai mendalami pengembangan aplikasi web secara terstruktur, mencakup penggunaan
+              <strong class="text-text">Laravel</strong> sebagai backend,
+              pemahaman dasar alur data dan
+              <strong class="text-text">database</strong>,
+              serta penguatan pondasi pemrograman melalui
+              <strong class="text-text">PHP</strong> dan
+              <strong class="text-text">Python</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <div class="relative hidden md:block">
+
         </div>
 
-        <p class="text-sm text-muted mb-3">
-        2023 – Sekarang
-        </p>
+        <div>
+          <div
+            class="bg-bg border border-border rounded-2xl p-6
+                   hover:-translate-y-1 transition"
+          >
+            <h4 class="text-xl font-semibold mb-1">
+              Sekolah Menengah Pertama (SMP)
+            </h4>
 
-        <p class="text-muted leading-relaxed">
-        Mendalami pengembangan web modern dengan
-        <strong class="text-text">Laravel</strong>,
-        REST API, database MySQL, Tailwind CSS,
-        serta deployment ke Linux server.
-        </p>
+            <p class="text-sm text-muted mb-3">
+              2021 – 2024
+            </p>
+
+            <p class="text-muted leading-relaxed">
+              Mengenal penggunaan teknologi untuk kebutuhan produktivitas,
+              seperti pengolahan data dan manajemen informasi menggunakan
+              aplikasi perkantoran. Pada fase ini, ketertarikan terhadap
+              dunia IT mulai terbentuk, meski belum berfokus pada pemrograman.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <div class="md:text-right">
+          <div
+            class="bg-bg border border-border rounded-2xl p-6
+                   hover:-translate-y-1 transition inline-block"
+          >
+            <h4 class="text-xl font-semibold mb-1">
+              Sekolah Dasar (SD)
+            </h4>
+
+            <p class="text-sm text-muted mb-3">
+              2015 – 2021
+            </p>
+
+            <p class="text-muted leading-relaxed">
+              Menjalani pendidikan dasar yang membentuk kemampuan belajar,
+              disiplin, dan adaptasi terhadap teknologi digital
+              sebagai bagian dari kehidupan sehari-hari.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
-
-    <div class="relative mb-12">
-    <div class="absolute -left-[2px] top-2">
-        <span
-        class="block w-4 h-4 rounded-full bg-primary/70
-                shadow-lg shadow-primary/30">
-        </span>
-    </div>
-
-    <div
-        class="bg-surface border border-border rounded-2xl p-6
-                hover:-translate-y-1 transition"
-    >
-        <h4 class="text-xl font-semibold mb-1">
-        Sekolah Menengah Pertama (SMP)
-        </h4>
-
-        <p class="text-sm text-muted mb-3">
-        2020 – 2023
-        </p>
-
-        <p class="text-muted leading-relaxed">
-        Mulai tertarik dengan dunia IT, komputer,
-        dan belajar logika pemrograman dasar secara mandiri.
-        </p>
-    </div>
-    </div>
-
-    <div class="relative">
-    <div class="absolute -left-[2px] top-2">
-        <span
-        class="block w-4 h-4 rounded-full bg-primary/40
-                shadow-lg shadow-primary/20">
-        </span>
-    </div>
-
-    <div
-        class="bg-surface border border-border rounded-2xl p-6
-                hover:-translate-y-1 transition"
-    >
-        <h4 class="text-xl font-semibold mb-1">
-        Sekolah Dasar (SD)
-        </h4>
-
-        <p class="text-sm text-muted mb-3">
-        2014 – 2020
-        </p>
-
-        <p class="text-muted leading-relaxed">
-        Pendidikan dasar dan awal mengenal komputer
-        serta teknologi digital.
-        </p>
-    </div>
-    </div>
-
-</div>
+  </div>
 </div>

@@ -43,8 +43,8 @@
     </div>
 
     <div class="border-t border-border text-center py-4 text-muted text-sm">
-        © {{ $year }}
-        <span class="text-text font-semibold">{{ $brand }}</span>.
-        Built with <span class="text-primary">Laravel</span> & Tailwind CSS.
+        © {{ date('Y') }}
+        <span class="text-primary font-semibold">{{ $brand }}</span>.
+        All rights reserved.
     </div>
 </footer>
