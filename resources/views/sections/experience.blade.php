@@ -7,10 +7,13 @@
                 Studi kasus - Uji Unit Keterampilan
             </p>
             <ul class="list-disc list-inside text-sm text-muted space-y-1 mb-4">
-                <li>Pencatatan kendaraan masuk dan keluar</li>
-                <li>Pengelolaan data parkir menggunakan database</li>
-                <li>Autentikasi dasar untuk admin</li>
+                <li>Mengembangkan fitur pencatatan kendaraan</li>
+                <li>Mengelola database dan autentikasi admin</li>
+                <li>Integrasi OCR untuk plat nomor</li>
             </ul>
+            <p class="text-sm text-muted mb-2">
+                <strong>Peran:</strong> Pengembangan aplikasi full-stack
+            </p>
             <div class="flex flex-wrap gap-2 mb-2">
                 <span class="text-xs px-3 py-1 rounded-full bg-bg border border-border text-muted">
                     PHP (Native)
@@ -48,12 +51,12 @@
                 Proyek Akhir Semester (Proyek kelompok)
             </p>
             <ul class="list-disc list-inside text-sm text-muted space-y-1 mb-4">
-                <li>CRUD data kendaraan dan transaksi penyewaan</li>
-                <li>Pengelolaan relasi data kendaraan dan penyewa</li>
-                <li>Validasi input dan penyimpanan data ke database</li>
+                <li>Menyusun struktur MVC dan routing aplikasi</li>
+                <li>Mengelola relasi data serta validasi input</li>
+                <li>Integrasi backend–frontend dan desain UI/UX</li>
             </ul>
             <p class="text-sm text-muted mb-2">
-                <strong>Kontribusi:</strong> Pengembangan backend dan implementasi antarmuka pengguna
+                <strong>Peran:</strong> Pengembangan backend dan implementasi antarmuka pengguna
             </p>
             <div class="flex flex-wrap gap-2 mb-2">
                 <span class="text-xs px-3 py-1 rounded-full bg-bg border border-border text-muted">
