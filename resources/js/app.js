@@ -1,54 +1,5 @@
 import './bootstrap';
 
-safelist: [
-  'text-yellow-400',
-  'bg-yellow-400/10',
-
-  'text-blue-500',
-  'bg-blue-500/10',
-
-  'text-indigo-500',
-  'bg-indigo-500/10',
-
-  'text-amber-500',
-  'bg-amber-500/10',
-
-  'text-sky-500',
-  'bg-sky-500/10',
-
-  'text-orange-500',
-  'bg-orange-500/10',
-]
-
-document.addEventListener('DOMContentLoaded', () => {
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('nav a[href^="#"]');
-
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute('id');
-
-          navLinks.forEach(link => {
-            link.classList.remove('text-primary');
-
-            if (link.getAttribute('href') === `#${id}`) {
-              link.classList.add('text-primary');
-            }
-          });
-        }
-      });
-    },
-    {
-      rootMargin: '-50% 0px -50% 0px',
-      threshold: 0
-    }
-  );
-
-  sections.forEach(section => observer.observe(section));
-});
-
 const THEME_KEY = 'theme';
 const html = document.documentElement;
 
@@ -70,9 +21,9 @@ function updateIcon(theme) {
     if (!icon) return;
 
     if (!localStorage.getItem(THEME_KEY)) {
-        icon.className = 'fa-solid fa-moon text-text'; 
+        icon.className = 'fa-solid fa-moon text-text';
     } else if (theme === 'dark') {
-        icon.className = 'fa-solid fa-sun text-text'; 
+        icon.className = 'fa-solid fa-sun text-text';
     } else {
         icon.className = 'fa-solid fa-desktop text-text';
     }
@@ -115,3 +66,74 @@ window.matchMedia('(prefers-color-scheme: dark)')
             applyTheme(e.matches ? 'dark' : 'light');
         }
     });
+
+async function loadLanguage(locale) {
+    const res = await fetch(`/api/lang/${locale}`);
+    const dict = await res.json();
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (dict[key]) {
+            el.innerHTML = dict[key];
+        }
+    });
+
+    document.documentElement.lang = locale;
+}
+
+const langToggle = document.getElementById('langToggle');
+
+let currentLocale = document.documentElement.lang || 'id';
+
+langToggle?.addEventListener('click', async () => {
+    const next = currentLocale === 'id' ? 'en' : 'id';
+
+    await loadLanguage(next);
+
+    localStorage.setItem('locale', next);
+    document.cookie = `locale=${next};path=/;max-age=31536000`;
+
+    currentLocale = next;
+    updateLangIcon(next);
+});
+
+function updateLangIcon(currentLocale) {
+    const flag = document.getElementById('langFlag');
+    if (!flag) return;
+
+    const nextLocale = currentLocale === 'id' ? 'en' : 'id';
+
+    flag.classList.remove('fi-id', 'fi-us');
+    flag.classList.add(nextLocale === 'id' ? 'fi-id' : 'fi-us');
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.classList.remove('text-primary');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('text-primary');
+                    }
+                });
+            }
+        });
+    }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
+    sections.forEach(section => observer.observe(section));
+
+    const saved = localStorage.getItem('locale')
+        ?? document.cookie.split('; ').find(row => row.startsWith('locale='))?.split('=')[1]
+        ?? 'id';
+
+    if (!localStorage.getItem('locale') && saved) {
+        localStorage.setItem('locale', saved);
+    }
+
+    currentLocale = saved;
+    await loadLanguage(saved);
+    updateLangIcon(saved);
+});

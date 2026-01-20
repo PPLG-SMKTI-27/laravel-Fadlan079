@@ -1,8 +1,6 @@
 <div class="max-w-7xl mx-auto px-6">
-    <h3 class="text-3xl font-bold text-center mb-4 text-primary">Projects</h3>
-    <p class="text-muted text-center mb-12">
-    Beberapa project yang pernah saya kerjakan
-    </p>
+    <h3 class="text-3xl font-bold text-center mb-4 text-primary" data-i18n="projects"></h3>
+    <p class="text-muted text-center mb-12" data-i18n="subtitle.projects"></p>
 
     <div class="grid md:grid-cols-3 gap-8">
 
@@ -29,7 +27,7 @@
         Lihat Detail →
     </a>
     </div>
-    
+
     <div class="bg-surface border border-border rounded-2xl p-6 hover:-translate-y-2 transition">
     <div class="flex justify-between items-center mb-3">
         <h4 class="text-xl font-semibold">Website Sekolah</h4>

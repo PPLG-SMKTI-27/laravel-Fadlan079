@@ -8,21 +8,30 @@
     <ul class="hidden md:flex gap-6 text-sm">
       @foreach ($menus as $menu)
         <li class="relative group">
-          <a href="{{ $menu['href'] }}"
-             class="{{ request()->is(ltrim($menu['href'], '/')) ? 'text-primary' : 'hover:text-primary' }}">
-            {{ $menu['label'] }}
-          </a>
+            <a href="{{ $menu['href'] }}"
+            data-i18n="{{ $menu['key'] }}"
+            class="hover:text-primary">
+            </a>
           <span class="absolute left-0 -bottom-1 h-0.5 w-0 bg-primary transition-all group-hover:w-full"></span>
         </li>
       @endforeach
     </ul>
 
     <div class="flex items-center gap-2">
-      <button onclick="toggleTheme()"
+        <button onclick="toggleTheme()"
+            class="w-10 h-10 rounded-lg border border-border bg-surface
+                flex items-center justify-center hover:bg-bg transition">
+            <i id="themeIcon" class="fa-solid fa-moon"></i>
+        </button>
+
+        <button id="langToggle"
         class="w-10 h-10 rounded-lg border border-border bg-surface
-               flex items-center justify-center hover:bg-bg transition">
-        <i id="themeIcon" class="fa-solid fa-moon"></i>
-      </button>
+                flex items-center justify-center hover:bg-bg transition"
+        aria-label="Toggle language">
+
+    <span id="langFlag"
+            class="fi fi-id w-6 h-4 rounded-sm"></span>
+    </button>
 
       <button id="mobileMenuBtn"
         class="md:hidden w-10 h-10 rounded-lg border border-border bg-surface
@@ -56,9 +65,9 @@
   <nav class="p-6 flex flex-col gap-4 text-sm">
     @foreach ($menus as $menu)
       <a href="{{ $menu['href'] }}"
+        data-i18n="{{ $menu['key'] }}"
         class="block py-2 px-3 rounded-lg
         {{ request()->is(ltrim($menu['href'], '/')) ? 'bg-primary text-primary font-semibold' : 'hover:bg-bg' }}">
-        {{ $menu['label'] }}
       </a>
     @endforeach
   </nav>

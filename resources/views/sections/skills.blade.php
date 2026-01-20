@@ -1,15 +1,13 @@
 <div class="max-w-6xl mx-auto px-6">
-  <h3 class="text-3xl font-bold mb-12 text-primary text-center">
-    Skills & Bahasa
-  </h3>
+  <h3 data-i18n="skills" class="text-3xl font-bold mb-12 text-primary text-center"></h3>
 
   <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
     <x-skill-card
       icon="fa-brands fa-laravel"
       title="Laravel"
       subtitle="Digunakan sebagai backend utama"
-      badge="Digunakan di beberapa proyek web"
-      color="primary"
+      badge="Pengembangan web berbasis MVC"
+      color="red-500"
       :items="[
         'Autentikasi & manajemen user',
         'CRUD & validasi data',
@@ -22,7 +20,7 @@
       icon="fa-brands fa-php"
       title="PHP (Native)"
       subtitle="Digunakan untuk logika backend"
-      badge="Digunakan di proyek web Native"
+      badge="Fondasi logika backend"
       color="indigo-500"
       :items="[
         'CRUD & Pengolahan data',
@@ -36,7 +34,7 @@
       icon="fa-solid fa-database"
       title="MySQL"
       subtitle="Manajemen databse relasional"
-      badge="Digunakan di proyek web Native"
+      badge="Manajemen data applikasi"
       color="blue-500"
       :items="[
         'Query CRUD & filtering data',
@@ -50,7 +48,7 @@
       icon="fa-brands fa-html5"
       title="HTML"
       subtitle="Struktur halaman web"
-      badge="Digunakan di proyek web Native"
+      badge="Fondasi struktur frontend"
       color="orange-500"
       :items="[
         'Struktur semantik HTML',
@@ -64,7 +62,7 @@
       icon="fa-brands fa-css3-alt"
       title="CSS"
       subtitle="Styling layout antarmuka"
-      badge="Digunakan di proyek web Native"
+      badge="Responsive & UI styling"
       color="sky-500"
       :items="[
         'Responsive layout dengan TailwindCSS',
@@ -78,7 +76,7 @@
       icon="fa-brands fa-js"
       title="JavaScript"
       subtitle="Interaksi sisi klien"
-      badge="Digunakan di proyek web Native"
+      badge="Frontend interactivity"
       color="yellow-400"
       :items="[
         'Manipulasi DOM',
@@ -92,7 +90,7 @@
       icon="fa-brands fa-python"
       title="Python"
       subtitle="Scripting & logika dasar"
-      badge="Digunakan di proyek web Native"
+      badge="Automation ringan"
       color="blue-500"
       :items="[
         'Dasar pemprograman python',
@@ -106,7 +104,7 @@
       icon="fa-brands fa-linux"
       title="Linux"
       subtitle="lingkungan server & deployment"
-      badge="Digunakan di proyek web Native"
+      badge="Server environment"
       color="amber-500"
       :items="[
         'Manajemen file & permission',

@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="{{app()->getLocale()}}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projects | Fadlan</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.1/css/flag-icons.min.css"/>
 </head>
 <body class="bg-bg text-text">
-  <x-navbar 
+    <x-navbar
     brand="Fadlan"
     :menus="[
-        ['label' => 'Home', 'href' => '/'],
+        ['key' => 'nav.home', 'href' => '/'],
     ]"
-  />
+    />
 
 <header class="pt-32 pb-16 text-center">
   <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
@@ -161,7 +162,7 @@
     brand="Fadlan"
     description="Full Stack Developer yang membangun aplikasi web modern dengan antarmuka responsif, backend yang terstruktur, dan pengelolaan data yang rapi."
     :links="[
-        ['label' => 'Home', 'href' => '/'],
+        ['key' => 'nav.home', 'href' => '/'],
     ]"
     :socials="[
         ['icon' => 'fa-brands fa-github', 'href' => 'https://github.com/Fadlan079'],

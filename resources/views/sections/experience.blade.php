@@ -1,19 +1,16 @@
 <div class="max-w-6xl mx-auto px-6">
-    <h3 class="text-3xl font-bold mb-12 text-primary text-center">Pengalaman</h3>
+    <h3 data-i18n="experience" class="text-3xl font-bold mb-12 text-primary text-center"></h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="bg-surface border border-border rounded-xl p-6">
-            <h4 class="font-semibold text-lg">Sistem Manajemen Parkir Berbasis Web</h4>
-            <p class="text-sm text-muted mb-3">
-                Studi kasus - Uji Unit Keterampilan
+            <h4 data-i18n="title.experience.parking_system" class="font-semibold text-lg"></h4>
+            <p data-i18n="subtitle.experience.parking_system" class="text-sm text-muted mb-3">
             </p>
             <ul class="list-disc list-inside text-sm text-muted space-y-1 mb-4">
-                <li>Mengembangkan fitur pencatatan kendaraan</li>
-                <li>Mengelola database dan autentikasi admin</li>
-                <li>Integrasi OCR untuk plat nomor</li>
+                <li data-i18n="list.experience.parking_system.point1"></li>
+                <li data-i18n="list.experience.parking_system.point2"></li>
+                <li data-i18n="list.experience.parking_system.point3"></li>
             </ul>
-            <p class="text-sm text-muted mb-2">
-                <strong>Peran:</strong> Pengembangan aplikasi full-stack
-            </p>
+            <p data-i18n="role.experience.parking_system" class="text-sm text-muted mb-2"></p>
             <div class="flex flex-wrap gap-2 mb-2">
                 <span class="text-xs px-3 py-1 rounded-full bg-bg border border-border text-muted">
                     PHP (Native)
@@ -40,24 +37,18 @@
                     JavaScript
                 </span>
             </div>
-            <a href="https://github.com/Fadlan079/Sistem-Manajemen-Parkir" target="_blank" class="text-primary text-sm hover:underline">
-                Lihat Repository
-            </a>
+            <a href="https://github.com/Fadlan079/Sistem-Manajemen-Parkir" target="_blank" class="text-primary text-sm hover:underline" data-i18n="view.repo"> </a>
         </div>
 
         <div class="bg-surface border border-border rounded-xl p-6">
-            <h4 class="font-semibold text-lg">Sistem Peminjaman Mobil Berbasis Web</h4>
-            <p class="text-sm text-muted mb-3">
-                Proyek Akhir Semester (Proyek kelompok)
-            </p>
+            <h4 class="font-semibold text-lg" data-i18n="title.experience.car_rental"></h4>
+            <p data-i18n="subtitle.experience.car_rental" class="text-sm text-muted mb-3"></p>
             <ul class="list-disc list-inside text-sm text-muted space-y-1 mb-4">
-                <li>Menyusun struktur MVC dan routing aplikasi</li>
-                <li>Mengelola relasi data serta validasi input</li>
-                <li>Integrasi backend–frontend dan desain UI/UX</li>
+                <li data-i18n="list.experience.car_rental.point1"></li>
+                <li data-i18n="list.experience.car_rental.point2"></li>
+                <li data-i18n="list.experience.car_rental.point3"></li>
             </ul>
-            <p class="text-sm text-muted mb-2">
-                <strong>Peran:</strong> Pengembangan backend dan implementasi antarmuka pengguna
-            </p>
+            <p data-i18n="role.experience.car_rental" class="text-sm text-muted mb-2"></p>
             <div class="flex flex-wrap gap-2 mb-2">
                 <span class="text-xs px-3 py-1 rounded-full bg-bg border border-border text-muted">
                     PHP (Native)
@@ -75,9 +66,7 @@
                     JavaScript
                 </span>
             </div>
-            <a href="https://github.com/Fadlan079/FinalProject-RentalMobil" target="_blank" class="text-primary text-sm hover:underline">
-                Lihat Repository
-            </a>
+            <a href="https://github.com/Fadlan079/FinalProject-RentalMobil" target="_blank" class="text-primary text-sm hover:underline" data-i18n="view.repo"></a>
         </div>
     </div>
 </div>

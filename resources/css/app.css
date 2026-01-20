@@ -10,39 +10,39 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 :root {
-    --color-bg: #1c1c1e;             
+    --color-bg: #1c1c1e;
     --color-surface: #262629;
     --color-border: #3a3a3d;
     --color-text: #f4f4f5;
     --color-muted: #a1a1aa;
-    --color-primary: #ef4444;        
-    --color-success: #3fb950;       
-    --color-danger: #f87171;         
+    --color-primary: #ef4444;
+    --color-success: #3fb950;
+    --color-danger: #f87171;
     --color-warning: #facc15;
 }
 
 .theme-light {
-    --color-bg: #ffffff;        
-    --color-surface: #f4f4f5;     
+    --color-bg: #ffffff;
+    --color-surface: #f4f4f5;
     --color-border: #e4e4e7;
-    --color-text: #18181b;      
-    --color-muted: #71717a;      
-    --color-primary: #b91c1c;   
-    --color-success: #16a34a;   
-    --color-danger: #dc2626;     
-    --color-warning: #eab308;   
+    --color-text: #18181b;
+    --color-muted: #71717a;
+    --color-primary: #b91c1c;
+    --color-success: #16a34a;
+    --color-danger: #dc2626;
+    --color-warning: #eab308;
 }
 
 
 .theme-dark {
-    --color-bg: #1c1c1e;             
+    --color-bg: #1c1c1e;
     --color-surface: #262629;
     --color-border: #3a3a3d;
     --color-text: #f4f4f5;
     --color-muted: #a1a1aa;
-    --color-primary: #ef4444;        
-    --color-success: #3fb950;       
-    --color-danger: #f87171;         
+    --color-primary: #ef4444;
+    --color-success: #3fb950;
+    --color-danger: #f87171;
     --color-warning: #facc15;
 }
 
@@ -94,3 +94,26 @@ html {
     color-mix(in srgb, var(--color-primary) 90%, black)
   );
 }
+
+safelist: [
+  'text-yellow-400',
+  'bg-yellow-400/10',
+
+  'text-blue-500',
+  'bg-blue-500/10',
+
+  'text-indigo-500',
+  'bg-indigo-500/10',
+
+  'text-amber-500',
+  'bg-amber-500/10',
+
+  'text-sky-500',
+  'bg-sky-500/10',
+
+  'text-orange-500',
+  'bg-orange-500/10',
+
+  'text-red-500',
+  'bg-red-500/10',
+]

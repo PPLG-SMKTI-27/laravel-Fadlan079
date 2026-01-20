@@ -1,11 +1,7 @@
 <div class="max-w-6xl mx-auto px-6">
   <div class="mb-16 text-center">
-    <h3 class="text-4xl font-extrabold">
-      Pendidikan <span class="text-primary">Saya</span>
-    </h3>
-    <p class="text-muted mt-3 max-w-2xl mx-auto">
-      Pendidikan formal yang menjadi fondasi dalam memahami logika pemrograman, pengelolaan sistem, dan pengembangan web.
-    </p>
+    <h3 class="text-4xl font-extrabold text-primary" data-i18n="education"></h3>
+    <p class="text-muted mt-3 max-w-2xl mx-auto" data-i18n="subtitle.education"></p>
   </div>
 
   <div class="relative">
@@ -24,25 +20,16 @@
                 SMK TI Airlangga Samarinda - PPLG
               </h4>
               <span
+              data-i18n="active"
                 class="text-xs px-3 py-1 rounded-full
-                       bg-success/20 text-success"
-              >
-                Aktif
+                       bg-success/20 text-success">
               </span>
             </div>
 
             <p class="text-sm text-muted mb-3">
-              2024 – Sekarang
+              2024 – <span data-i18n="now"></span>
             </p>
-            <p class="text-muted leading-relaxed">
-              Mulai mendalami pengembangan aplikasi web secara terstruktur, mencakup penggunaan
-              <strong class="text-text">Laravel</strong> sebagai backend,
-              pemahaman dasar alur data dan
-              <strong class="text-text">database</strong>,
-              serta penguatan pondasi pemrograman melalui
-              <strong class="text-text">PHP</strong> dan
-              <strong class="text-text">Python</strong>.
-            </p>
+            <p class="text-muted leading-relaxed" data-i18n="smk.description"></p>
           </div>
         </div>
       </div>
@@ -57,20 +44,13 @@
             class="bg-bg border border-border rounded-2xl p-6
                    hover:-translate-y-1 transition"
           >
-            <h4 class="text-xl font-semibold mb-1">
-              Sekolah Menengah Pertama (SMP)
-            </h4>
+            <h4 class="text-xl font-semibold mb-1" data-i18n="smp"></h4>
 
             <p class="text-sm text-muted mb-3">
               2021 – 2024
             </p>
 
-            <p class="text-muted leading-relaxed">
-              Mengenal penggunaan teknologi untuk kebutuhan produktivitas,
-              seperti pengolahan data dan manajemen informasi menggunakan
-              aplikasi perkantoran. Pada fase ini, ketertarikan terhadap
-              dunia IT mulai terbentuk, meski belum berfokus pada pemrograman.
-            </p>
+            <p class="text-muted leading-relaxed" data-i18n="smp.description"></p>
           </div>
         </div>
       </div>
@@ -81,19 +61,13 @@
             class="bg-bg border border-border rounded-2xl p-6
                    hover:-translate-y-1 transition inline-block"
           >
-            <h4 class="text-xl font-semibold mb-1">
-              Sekolah Dasar (SD)
-            </h4>
+            <h4 class="text-xl font-semibold mb-1" data-i18n="sd"></h4>
 
             <p class="text-sm text-muted mb-3">
               2015 – 2021
             </p>
 
-            <p class="text-muted leading-relaxed">
-              Menjalani pendidikan dasar yang membentuk kemampuan belajar,
-              disiplin, dan adaptasi terhadap teknologi digital
-              sebagai bagian dari kehidupan sehari-hari.
-            </p>
+            <p class="text-muted leading-relaxed" data-i18n="sd.description"></p>
           </div>
         </div>
       </div>

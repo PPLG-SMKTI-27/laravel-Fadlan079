@@ -1,3 +1,10 @@
+@props([
+    'brand',
+    'descriptionKey' => null,
+    'links' => [],
+    'socials' => [],
+])
+
 <footer class="relative bg-bg border-t border-border">
     <div class="max-w-7xl mx-auto px-6 py-14 grid gap-10 md:grid-cols-3">
 
@@ -5,19 +12,19 @@
             <h3 class="text-xl font-bold text-primary mb-3">
                 {{ $brand }}
             </h3>
-            <p class="text-muted leading-relaxed">
-                {{ $description }}
+            <p data-i18n="footer.description"
+            class="text-muted leading-relaxed">
             </p>
         </div>
 
         <div>
-            <h4 class="font-semibold mb-4 text-text">Quick Links</h4>
+            <h4 class="font-semibold mb-4 text-text" data-i18n="quick.links"></h4>
             <ul class="space-y-2 text-muted text-sm grid grid-cols-2">
                 @foreach ($links as $link)
                     <li>
                         <a href="{{ $link['href'] }}"
+                        data-i18n="{{ $link['key'] }}"
                            class="hover:text-primary transition">
-                            {{ $link['label'] }}
                         </a>
                     </li>
                 @endforeach
@@ -25,7 +32,7 @@
         </div>
 
         <div>
-            <h4 class="font-semibold mb-4 text-text">Connect</h4>
+            <h4 class="font-semibold mb-4 text-text" data-i18n="footer.connect"></h4>
             <div class="flex gap-4">
                 @foreach ($socials as $social)
                     <a href="{{ $social['href'] }}"
@@ -42,9 +49,9 @@
 
     </div>
 
-    <div class="border-t border-border text-center py-4 text-muted text-sm">
+    <div class="border-t border-border text-center py-4 text-muted text-sm flex gap-1 justify-center">
         © {{ date('Y') }}
-        <span class="text-primary font-semibold">{{ $brand }}</span>.
-        All rights reserved.
+        <span class="text-primary font-semibold">{{ $brand }}</span>
+        <p data-i18n="copyright"></p>
     </div>
 </footer>
