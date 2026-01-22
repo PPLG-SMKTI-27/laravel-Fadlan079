@@ -1,4 +1,6 @@
 import './bootstrap';
+import { heroAnimation } from './animations/hero';
+import { educationScrollAnimation } from './animations/education';
 
 const THEME_KEY = 'theme';
 const html = document.documentElement;
@@ -147,4 +149,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     currentLocale = saved;
     await loadLanguage(saved);
     updateLangIcon(saved);
+    heroAnimation();
+    educationScrollAnimation();
 });

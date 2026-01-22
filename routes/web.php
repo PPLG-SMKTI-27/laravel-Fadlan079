@@ -2,11 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return view('portofolio');
 });
+
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/project', [ProjectController::class, 'index']);
 

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use illuminate\view\project;
 
-class ProjectController extends Controller
+class HomeController extends Controller
 {
 public function index()
     {
@@ -25,7 +24,7 @@ public function index()
                     'statusColor' => 'warning',
                     'desc' => 'Aplikasi manajemen rental mobil untuk pengelolaan kendaraan, pelanggan, dan transaksi sewa',
                     'tech' => ['Laravel', 'MySQL', 'Tailwind CSS'],
-                    'repo' => 'https://github.com/Fadlan079/rental-mobil.git'
+                    'repo' => 'https://github.com/Fadlan079/FinalProject-RentalMobil.git'
                 ],
                 [
                     'title' => 'Sistem Kasir',
@@ -84,9 +83,7 @@ public function index()
                     'repo' => '#'
                 ],
             ];
-        return view('project', [
-            'nama' => 'Fadlan',
-            'list' => $list,
-        ]);
+        $featuredProjects = array_slice($list, 0, 3);
+        return view('portofolio', compact('featuredProjects'));
     }
 }
