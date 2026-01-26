@@ -343,7 +343,7 @@ background-color: var(--color-primary);
         <div class="flex gap-4 flex-wrap justify-center text-md">
             <div class="flex justify-center">
                 <a
-                    href="#project"
+                    href="pages.project"
                     class="cta-btn relative overflow-hidden px-8 py-3
                         bg-primary text-text font-semibold"
                         style="--cta-bubble-color: var(--color-bg);">
@@ -353,15 +353,30 @@ background-color: var(--color-primary);
                 </a>
             </div>
             <div class="flex justify-center">
-                <a
-                    href="login"
-                    class="cta-btn relative overflow-hidden px-8 py-3
-                        border-2 border-border text-text font-semibold"
+                @if (!session('is_login'))
+                    <a
+                        href="/login"
+                        class="cta-btn relative overflow-hidden px-8 py-3
+                            border-2 border-border text-text font-semibold"
                         style="--cta-bubble-color: var(--color-primary);">
-                    <span class="cta-bubble"></span>
 
-                    <span class="cta-text relative z-10">Login</span>
-                </a>
+                        <span class="cta-bubble"></span>
+                        <span class="cta-text relative z-10">Login</span>
+                    </a>
+                @else
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button
+                            type="submit"
+                            class="cta-btn relative overflow-hidden px-8 py-3
+                                border-2 border-border text-text font-semibold"
+                            style="--cta-bubble-color: #ef4444;">
+
+                            <span class="cta-bubble"></span>
+                            <span class="cta-text relative z-10">Logout</span>
+                        </button>
+                    </form>
+                @endif
             </div>
         </div>
     </div>

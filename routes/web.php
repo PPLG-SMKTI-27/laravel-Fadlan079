@@ -14,6 +14,7 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/login', [AuthController::class, 'Showlogin']);
 Route::post('/login', [AuthController::class, 'Storelogin']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/pages.project', [ProjectController::class, 'index']);
 
