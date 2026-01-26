@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('portofolio');
@@ -11,10 +12,12 @@ Route::get('/', function () {
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/project', [ProjectController::class, 'index']);
+Route::get('/login', [AuthController::class, 'Showlogin']);
+Route::post('/login', [AuthController::class, 'Storelogin']);
 
-Route::post('/contact', [ContactController::class, 'send'])
-    ->name('contact.send');
+Route::get('/pages.project', [ProjectController::class, 'index']);
+
+Route::post('/contact', [ContactController::class, 'send']) ->name('contact.send');
 
 Route::get('/api/lang/{locale}', function ($locale) {
     if (! in_array($locale, ['id', 'en'])) {

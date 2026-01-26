@@ -1,4 +1,5 @@
 {
+    "title.portfolio": "Portfolio",
     "nav.home": "Home",
     "nav.about": "About",
     "nav.skills": "Skills",
@@ -37,6 +38,7 @@
 
     "projects": "Projects",
     "subtitle.projects": "Some of the projects I have worked on",
+    "more.projects": "More Projects",
 
     "education": "Education",
     "subtitle.education": "Formal education that forms the foundation in understanding programming logic, system management, and web development.",

@@ -1,15 +1,15 @@
 @extends('layouts.main')
-@section('title', 'Project | Fadlan')
+@section('title', __('projects'))
 @section('content')
-    <x-navbar
-    brand="Fadlan"
-    :menus="[
-        ['key' => 'nav.home', 'href' => '/'],
-    ]"
-    />
+<x-navbar
+brand="Fadlan"
+:menus="[
+    ['key' => 'nav.home', 'href' => '/'],
+]"
+/>
 
 <header class="pt-32 pb-16 text-center">
-  <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+  <h1 class="text-4xl md:text-5xl font-extrabold mb-4"> 
     Projects <span class="text-primary">{{$nama}}</span>
   </h1>
   <p class="text-muted max-w-2xl mx-auto">
@@ -56,18 +56,18 @@
   </div>
 </section>
 
-    <x-footer
-    brand="Fadlan"
-    description="Full Stack Developer yang membangun aplikasi web modern dengan antarmuka responsif, backend yang terstruktur, dan pengelolaan data yang rapi."
-    :links="[
-        ['key' => 'nav.home', 'href' => '/'],
-    ]"
-    :socials="[
-        ['icon' => 'fa-brands fa-github', 'href' => 'https://github.com/Fadlan079'],
-        ['icon' => 'fa-brands fa-linkedin', 'href' => 'https://www.linkedin.com/in/fadlan-firdaus-148344386/'],
-        ['icon' => 'fa-brands fa-instagram', 'href' => 'https://instagram.com/fdln007'],
-        ['icon' => 'fa-solid fa-envelope', 'href' => 'mailto:fadlanfirdaus220@gmail.com'],
-        ['icon' => 'fa-brands fa-whatsapp', 'href' => 'https://wa.me/6282210732928'],
-    ]"
-  />
+<x-footer
+brand="Fadlan"
+description="Full Stack Developer yang membangun aplikasi web modern dengan antarmuka responsif, backend yang terstruktur, dan pengelolaan data yang rapi."
+:links="[
+    ['key' => 'nav.home', 'href' => '/'],
+]"
+:socials="[
+    ['icon' => 'fa-brands fa-github', 'href' => 'https://github.com/Fadlan079'],
+    ['icon' => 'fa-brands fa-linkedin', 'href' => 'https://www.linkedin.com/in/fadlan-firdaus-148344386/'],
+    ['icon' => 'fa-brands fa-instagram', 'href' => 'https://instagram.com/fdln007'],
+    ['icon' => 'fa-solid fa-envelope', 'href' => 'mailto:fadlanfirdaus220@gmail.com'],
+    ['icon' => 'fa-brands fa-whatsapp', 'href' => 'https://wa.me/6282210732928'],
+]"
+/>
 @endsection

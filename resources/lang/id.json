@@ -1,4 +1,5 @@
 {
+    "title.portfolio": "Portofolio",
     "nav.home": "Beranda",
     "nav.about": "Tentang",
     "nav.skills": "Keahlian",
@@ -37,6 +38,7 @@
 
     "projects": "Proyek",
     "subtitle.projects": "Beberapa proyek yang pernah saya kerjakan",
+    "more.projects": "Proyek Lainnya",
 
     "education": "Pendidikan",
     "subtitle.education": "Pendidikan formal yang menjadi fondasi dalam memahami logika pemrograman, pengelolaan sistem, dan pengembangan web.",
