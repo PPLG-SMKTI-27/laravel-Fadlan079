@@ -1,19 +1,13 @@
-<section class="py-16 bg-bg border-t border-border">
+<section class="py-16 ">
   <div class="max-w-7xl mx-auto px-6">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <div>
-        <div class="rounded-3xl bg-bg overflow-hidden max-w-full">
+        <div class="rounded-3xl overflow-hidden max-w-full">
             <div class="relative ">
                 <div
                     id="three-canvas"
-                      class="max-w-full h-70 sm:h-90 md:h-105 lg:h-110 rounded-2xl bg-bg ">
+                      class="max-w-full h-70 sm:h-90 md:h-105 lg:h-110 rounded-2xl ">
                 </div>
-
-                {{-- <div id="device-screen" class="bsolute z-20 top-[14%] left-[10%] w-[80%] h-[62%] rounded-lg overflow-hidden bg-black">
-                    <iframe src=""
-                    class="w-full h-full rounded-xl">
-                    </iframe>
-                </div> --}}
             </div>
 
             <div class="flex justify-center">
@@ -93,6 +87,12 @@
 
     </div>
   </div>
+
+<div id="html-content" style="position: absolute; top: -9999px; visibility: visible;">
+  <h1>Hi, I'm Fadlan</h1>
+  <p>Check out my latest projects!</p>
+</div>
+
 </section>
 
 <script>

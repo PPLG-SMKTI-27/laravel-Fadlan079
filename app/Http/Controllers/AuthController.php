@@ -17,6 +17,10 @@ class AuthController extends Controller
         $data = $request->validate([
             'email'    => ['required', 'email'],
             'password' => ['required'],
+        ], [
+            'email.required' => __('email_required'),
+            'email.email'    => __('email_email'),
+            'password.required' => __('password_required'),
         ]);
 
         if (
@@ -43,4 +47,5 @@ class AuthController extends Controller
         return redirect('/')
             ->with('success', 'Logout berhasil');
     }
+
 }

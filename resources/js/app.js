@@ -7,6 +7,8 @@ import { heroFloatingCards } from './animations/hero';
 import { heroIconParallax } from './animations/hero';
 import { navbarFloatAnimation } from "./animations/navbar";
 import { navbarScrollEffect } from "./animations/navbar";
+import { aboutAnimation } from "./animations/about";
+import { projectAnimation } from "./animations/project";
 
 const THEME_KEY = 'theme';
 const html = document.documentElement;
@@ -87,15 +89,24 @@ async function loadLanguage(locale) {
     const res = await fetch(`/api/lang/${locale}`);
     const dict = await res.json();
 
-    document.querySelectorAll('[data-i18n]').forEach(el => {
+    function getNestedValue(obj, path) {
+        return path.split('.').reduce((o, k) => (o || {})[k], obj);
+    }
+
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(el => {
         const key = el.dataset.i18n;
-        if (dict[key]) {
-            el.innerHTML = dict[key];
-        }
+        const text = getNestedValue(dict, key);
+        if (text) el.innerHTML = text;
+    });
+
+    elements.forEach(el => {
+        el.style.visibility = 'visible';
     });
 
     document.documentElement.lang = locale;
 }
+
 
 const langToggle = document.getElementById('langToggle');
 
@@ -155,10 +166,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     currentLocale = saved;
     await loadLanguage(saved);
     updateLangIcon(saved);
-    heroAnimation();
-    heroRibbonAnimation();
-    heroFloatingCards();
-    heroIconParallax();
-    navbarFloatAnimation();
-    navbarScrollEffect();
+    try { heroAnimation(); } catch(e){ console.warn(e) }
+    try { heroRibbonAnimation(); } catch(e){ console.warn(e) }
+    try { heroFloatingCards(); } catch(e){ console.warn(e) }
+    try { heroIconParallax(); } catch(e){ console.warn(e) }
+    try { navbarFloatAnimation(); } catch(e){ console.warn(e) }
+    try { navbarScrollEffect(); } catch(e){ console.warn(e) }
+    try { aboutAnimation(); } catch(e){ console.warn(e) }
+    try { projectAnimation(); } catch(e){ console.warn(e) }
 });

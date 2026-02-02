@@ -116,7 +116,7 @@
     <div class="hero-center relative z-10 text-center max-w-3xl -top-10">
         <div class="text-center">
             <span
-                data-i18n="collaboration"
+                data-i18n="hero.collaboration"
                 class="hero-badge inline-flex items-center gap-2 px-4 py-1 mb-6
                 rounded-full border border-border bg-surface text-sm text-muted">
             </span>
@@ -126,7 +126,7 @@
                 <div
                     class="hero-big hero-solid"
                     data-text="HI">
-                    <span data-i18n="hi"></span>
+                    <span data-i18n="hero.hi"></span>
                 </div>
 
                 <div class="hero-big hero-outline">
@@ -154,7 +154,7 @@
                             style="--cta-bubble-color: var(--color-bg);">
                         <span class="cta-bubble"></span>
 
-                        <span class="cta-text relative z-10" data-i18n="more.projects"> </span>
+                        <span class="cta-text relative z-10" data-i18n="hero.view_projects"> </span>
                     </a>
                 </div>
                 <div class="flex justify-center">
@@ -165,7 +165,7 @@
                             style="--cta-bubble-color: var(--color-primary);">
 
                             <span class="cta-bubble"></span>
-                            <span class="cta-text relative z-10" data-i18n="contact.me"></span>
+                            <span class="cta-text relative z-10" data-i18n="hero.contact_me"></span>
                         </a>
                 </div>
             </div>

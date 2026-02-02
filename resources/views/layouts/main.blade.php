@@ -64,19 +64,77 @@
             transform: translateX(-50%) scale(0);
             z-index: 0;
         }
-        .project-card {
-        scroll-snap-align: start;
+
+        [data-i18n] {
+            visibility: hidden;
         }
-    </style>
+
+        .text-outline {
+        color: transparent;
+        -webkit-text-stroke: 1px var(--color-text);
+        text-stroke: 1px var(--color-text);
+        }
+
+        .text-outline-muted {
+        color: transparent;
+        -webkit-text-stroke: 1px var(--color-muted);
+        }
+
+        /* .page-texture {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image:
+                linear-gradient(to right, var(--color-surface) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--color-surface) 1px, transparent 1px);
+            background-size: 60px 60px;
+        } */
+
+                /* .page-texture {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background-image:
+            radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+        background-size: 20px 20px; /* jarak antar titik */
+        } */
+
+   </style>
 </head>
 <body class="bg-bg text-text overflow-x-hidden">
+    <div class="page-texture"></div>
+    <x-navbar
+    brand="Fadlan"
+    :menus="[
+        ['key' => 'nav.home', 'href' => route('Home')],
+        ['key' => 'nav.about', 'href' => route('About')],
+        ['key' => 'nav.projects', 'href' => route('Project')],
+        ['key' => 'nav.contact', 'href' => route('Contact')],
+    ]"
+    />
     <x-global-modal />
 
-    <main>
+    <main id="content" class="relative z-10">
         @yield('content')
     </main>
 
-    @yield('script')
-    @vite(['resources/js/app.js'])
+    <x-footer
+    brand="Fadlan"
+    :links="[
+        ['key' => 'nav.home', 'href' => route('Home')],
+        ['key' => 'nav.about', 'href' => route('About')],
+        ['key' => 'nav.projects', 'href' => route('Project')],
+        ['key' => 'nav.contact', 'href' => route('Contact')],
+    ]"
+    :socials="[
+        ['icon' => 'fa-brands fa-github', 'href' => 'https://github.com/Fadlan079'],
+        ['icon' => 'fa-brands fa-linkedin', 'href' => 'https://www.linkedin.com/in/fadlan-firdaus-148344386/'],
+        ['icon' => 'fa-brands fa-instagram', 'href' => 'https://instagram.com/fdln007'],
+        ['icon' => 'fa-solid fa-envelope', 'href' => 'mailto:fadlanfirdaus220@gmail.com'],
+        ['icon' => 'fa-brands fa-whatsapp', 'href' => 'https://wa.me/6282210732928'],
+    ]"
+    />
 </body>
 </html>

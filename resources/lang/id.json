@@ -1,67 +1,66 @@
 {
-    "title.portfolio": "Portofolio",
-    "title.about": "Tentang",
-    "title.contact": "kontak",
-    "title.project": "Proyek",
+    "title": {
+        "portfolio": "Portofolio",
+        "about": "Tentang",
+        "contact": "Kontak",
+        "project": "Proyek"
+    },
 
-    "nav.home": "Beranda",
-    "nav.about": "Tentang",
-    "nav.skills": "Keahlian",
-    "nav.experience": "Pengalaman",
-    "nav.projects": "Proyek",
-    "nav.education": "Pendidikan",
-    "nav.contact": "Kontak",
+    "nav": {
+        "home": "Beranda",
+        "about": "Tentang",
+        "skills": "Keahlian",
+        "experience": "Pengalaman",
+        "projects": "Proyek",
+        "education": "Pendidikan",
+        "contact": "Kontak"
+    },
 
-    "collaboration": "<i class='fa-solid fa-code text-primary'></i> Tersedia untuk Kolaborasi",
-    "hi": "Hai, saya",
-    "hero.description": "Fokus membangun aplikasi web modern dengan struktur <strong class='text-text'>backend</strong> yang jelas, <strong class='text-text'>frontend</strong> responsive dan sistem siap produksi",
-    "view.projects": "Lihat Proyek",
-    "contact.me": "Hubungi Saya",
+    "login": {
+        "subtitle": "Silakan masuk ke akun Anda",
+        "password": "Kata Sandi",
+        "demo_account": "Akun Demo: <span class='font-medium text-text'>admin@example.com</span> / <span class='font-medium text-text'>1234567</span>",
+        "enter": "Masuk"
+    },
 
-    "about.me": "Tentang Saya",
-    "about.description": "Saya adalah pelajar SMK jurusan PPLG yang menekuni pengembangan aplikasi web.Terbiasa membangun sistem dari perancangan hingga implementasi, dengan fokus pada struktur backend yang rapi, antarmuka yang responsif, dan data yang terkelola dengan baik.<br /><br /> Dalam setiap proyek, saya mengutamakan keterbacaan kode, konsistensi struktur, serta solusi yang dapat dipertanggungjawabkan. Beberapa aplikasi yang saya buat telah melalui proses pengujian, integrasi database, dan deployment ke server.",
+    "email_required": "Email wajib diisi.",
+    "email_email": "Email harus berupa alamat email yang valid.",
+    "password_required": "Kata sandi wajib diisi.",
 
-    "skills": "Kemampuan",
+    "hero": {
+        "collaboration": "<i class='fa-solid fa-code text-primary'></i> Tersedia untuk Kolaborasi",
+        "hi": "Hai, saya",
+        "description": "Fokus membangun aplikasi web modern dengan struktur <strong class='text-text'>backend</strong> yang jelas, <strong class='text-text'>frontend</strong> responsif, dan sistem siap produksi.",
+        "view_projects": "Lihat Proyek",
+        "contact_me": "Hubungi Saya"
+    },
 
-    "experience": "Pengalaman",
-    "title.experience.parking_system": "Sistem Manajemen Parkir Berbasis Web",
-    "subtitle.experience.parking_system": "Studi kasus - Uji Unit Keterampilan",
-    "list.experience.parking_system.point1": "Mengembangkan fitur pencatatan kendaraan",
-    "list.experience.parking_system.point2": "Mengelola database dan autentikasi admin",
-    "list.experience.parking_system.point3": "Integrasi OCR untuk plat nomor kendaraan",
-    "role.experience.parking_system": "<strong>Peran:</strong> Pengembangan aplikasi full-stack",
+    "about": {
+        "title": "TENTANG",
+        "hero_outline": "STRUKTUR<br>DAN PERILAKU",
+        "narrative_1": "Saya merancang pengalaman digital dengan fokus pada <span class='text-primary'>struktur</span>, gerakan, dan <span class='text-text'>interaksi</span> yang intuitif.",
+        "narrative_2": "Karya saya berada di persimpangan desain dan teknologi — di mana antarmuka diperlakukan sebagai sistem yang hidup, bukan sekadar dekorasi.",
+        "values_title": "PRINSIP",
+        "values_subtitle": "Cara saya berpikir dan mengambil keputusan",
+        "principles": [
+            { "title": "KEJELASAN", "desc": "Informasi yang jelas selalu diutamakan, visual mendukung cerita." },
+            { "title": "STRUKTUR", "desc": "Tata letak bekerja konsisten dan dapat diprediksi." },
+            { "title": "SISTEM", "desc": "Komponen dirancang agar mudah berkembang dan beradaptasi." },
+            { "title": "DETAIL", "desc": "Gerakan, jarak, dan timing membentuk pengalaman yang hidup." }
+        ],
+        "constraints_title": "BATASAN",
+        "constraints_lines": [
+            "SEDIKIT,TAPI BERMAKNA",
+            "TIDAK ADA DEKORASI TANPA TUJUAN",
+            "GERAKAN HARUS MENJELASKAN TUJUAN",
+            "STRUKTUR LEBIH DULU ,GAYA MENYUSUL"
+        ]
+    },
 
-    "title.experience.car_rental": "Sistem Manajemen Rental Mobil Berbasis Web",
-    "subtitle.experience.car_rental": "Proyek Akhir Semester - Proyek Kelompok",
-    "list.experience.car_rental.point1": "Menyusun struktur MVC dan routing aplikasi",
-    "list.experience.car_rental.point2": "Mengelola relasi data serta validasi input",
-    "list.experience.car_rental.point3": "Integrasi backend–frontend dan desain UI/UX",
-    "role.experience.car_rental": "<strong>Peran:</strong> Pengembangan backend dan implementasi antarmuka pengguna",
-
-    "view.repo" : "Lihat Repository",
-
-    "projects": "Proyek",
-    "subtitle.projects": "Beberapa proyek yang pernah saya kerjakan",
-    "more.projects": "Proyek Lainnya",
-
-    "education": "Pendidikan",
-    "subtitle.education": "Pendidikan formal yang menjadi fondasi dalam memahami logika pemrograman, pengelolaan sistem, dan pengembangan web.",
-    "active": "Aktif",
-    "now": "Sekarang",
-    "smk.description" : "Mulai mendalami pengembangan aplikasi web secara terstruktur, mencakup penggunaan <strong class='text-text'>Laravel</strong> sebagai backend,pemahaman dasar alur data dan <strong class='text-text'>database</strong>, serta penguatan pondasi pemrograman melalui <strong class='text-text'>PHP</strong> dan <strong class='text-text'>Python</strong>.",
-    "smp" : "Sekolah Menengah Pertama",
-    "smp.description" : "Mengenal penggunaan teknologi untuk kebutuhan produktivitas, seperti pengolahan data dan manajemen informasi menggunakan aplikasi perkantoran. Pada fase ini, ketertarikan terhadap dunia IT mulai terbentuk, meski belum berfokus pada pemrograman.",
-    "sd" : "Sekolah Dasar",
-    "sd.description" : "Menjalani pendidikan dasar yang membentuk kemampuan belajar, disiplin, dan adaptasi terhadap teknologi digital sebagai bagian dari kehidupan sehari-hari.",
-
-    "contact.description": "Punya ide proyek web? Saya siap berkolaborasi dan membantu mengembangkannya.",
-    "send.message": "Kirim Pesan",
-    "name": "Nama",
-    "message": "Pesan",
-    "social.media": "Media Sosial",
-
-    "footer.description": "Full Stack Developer yang membangun aplikasi web modern dengan antarmuka responsif, backend yang terstruktur, dan pengelolaan data yang rapi.",
-    "quick.links": "Tautan Cepat",
-    "footer.connect": "Hubungi",
-    "copyright": "Semua hak dilindungi undang-undang."
+    "footer": {
+        "description": "Dibangun dengan struktur, kejelasan, dan tujuan.",
+        "quick_links": "Tautan Cepat",
+        "connect": "Hubungi",
+        "copyright": "Hak cipta dilindungi."
+    }
 }

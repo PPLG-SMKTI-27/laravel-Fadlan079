@@ -3,9 +3,9 @@
 
 @section('content')
 <div class="min-h-screen flex items-center justify-center bg-bg text-text px-4">
-    <div class="w-full max-w-md bg-surface border border-border p-8 shadow-lg">
+    <div class="w-full max-w-md bg-surface border border-border p-8 shadow-lg mt-13">
         <h1 class="text-2xl font-bold mb-2">Login</h1>
-        <p class="text-muted mb-6">Silakan masuk ke akun kamu</p>
+        <p class="text-muted mb-6" data-i18n="login.subtitle"></p>
 
         <form action="/login" method="post" class="space-y-4">
             @csrf
@@ -38,7 +38,7 @@
             </div>
 
             <div>
-                <label class="block text-sm mb-1 text-muted">Password</label>
+                <label class="block text-sm mb-1 text-muted" data-i18n="login.password"></label>
                 <input
                     type="password"
                     name="password"
@@ -50,10 +50,8 @@
                     required
                 >
             </div>
-            <p class="text-xs text-muted mb-6">
-                Akun demo:
-                <span class="font-medium text-text">admin@example.com</span> /
-                <span class="font-medium text-text">1234567</span>
+            <p class="text-xs text-muted mb-6" data-i18n="login.demo_account">
+
             </p>
 
             <div class="flex flex-col gap-4 flex-wrap text-center justify-center text-md">
@@ -65,19 +63,8 @@
                             style="--cta-bubble-color: var(--color-bg);">
                         <span class="cta-bubble"></span>
 
-                        <span class="cta-text relative z-10">Login</span>
+                        <span class="cta-text relative z-10" data-i18n="login.enter"></span>
                     </button>
-                </div>
-                <div class="flex justify-center">
-                    <a
-                        href="/"
-                        class="cta-btn relative overflow-hidden px-8 py-3 w-full
-                            border-2 border-border text-text font-semibold"
-                            style="--cta-bubble-color: var(--color-primary);">
-                        <span class="cta-bubble"></span>
-
-                        <span class="cta-text relative z-10">Kembali</span>
-                    </a>
                 </div>
             </div>
         </form>

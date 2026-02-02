@@ -1,68 +1,121 @@
 {
-    "title.portfolio": "Portfolio",
-    "title.about": "About",
-    "title.contact": "Contact",
-    "title.project": "Project",
+    "title": {
+        "portfolio": "Portfolio",
+        "about": "About",
+        "contact": "Contact",
+        "project": "Project"
+    },
 
-    "nav.home": "Home",
-    "nav.about": "About",
-    "nav.skills": "Skills",
-    "nav.experience": "Experience",
-    "nav.projects": "Projects",
-    "nav.education": "Education",
-    "nav.contact": "Contact",
+    "nav": {
+        "home": "Home",
+        "about": "About",
+        "skills": "Skills",
+        "experience": "Experience",
+        "projects": "Projects",
+        "education": "Education",
+        "contact": "Contact"
+    },
 
-    "collaboration": "<i class='fa-solid fa-code text-primary'></i> Available for Collaboration",
-    "hi": "Hi, I'm",
-    "hero.description": "Focus on building modern web applications with clear <strong class='text-text'>backend</strong> structures, responsive <strong class='text-text'>frontend</strong> and production-ready systems.",
-    "view.projects": "View Projects",
-    "contact.me": "Contact Me",
+    "login": {
+        "subtitle": "Please sign in to your account",
+        "password": "Password",
+        "demo_account": "Demo Account: <span class='font-medium text-text'>admin@example.com</span> / <span class='font-medium text-text'>1234567</span>",
+        "enter": "Enter"
+    },
 
-    "about.me": "About Me",
-    "about.description": "I am a vocational high school student majoring in PPLG who is passionate about web application development. I am accustomed to building systems from design to implementation, with a focus on clean backend structures, responsive interfaces, and well-managed data.<br /><br /> In every project, I prioritize code readability, structural consistency, and accountable solutions. Some of the applications I have created have undergone testing, database integration, and deployment to servers.",
+    "email_required": "Email is required.",
+    "email_email": "The email must be a valid email address.",
+    "password_required": "Password is required.",
 
-    "skills": "Skills",
+    "hero": {
+        "collaboration": "<i class='fa-solid fa-code text-primary'></i> Available for Collaboration",
+        "hi": "Hi, I'm",
+        "description": "Focus on building modern web applications with clear <strong class='text-text'>backend</strong> structures, responsive <strong class='text-text'>frontend</strong> and production-ready systems.",
+        "view_projects": "View Projects",
+        "contact_me": "Contact Me"
+    },
 
-    "experience": "Experience",
-    "title.experience.parking_system": "Web-Based Parking Management System",
-    "subtitle.experience.parking_system": "Case Study - Skills Unit Test",
-    "list.experience.parking_system.point1": "Developing vehicle recording features",
-    "list.experience.parking_system.point2": "Managing database and admin authentication",
-    "list.experience.parking_system.point3": "Integrating OCR for vehicle plate numbers",
-    "role.experience.parking_system": "<strong>Role:</strong> Full-stack application development",
+    "about": {
+        "title": "ABOUT",
+        "hero_outline": "STRUCTURE<br>AND BEHAVIOR",
+        "narrative_1": "I design and build digital experiences with a strong focus on <span class='text-primary'>structure</span>, motion, and <span class='text-text'>interaction</span>.",
+        "narrative_2": "My work lives between design and engineering — where interfaces are treated as systems, not decorations.",
+        "values_title": "PRINCIPLES",
+        "values_subtitle": "How I think and make decisions",
+        "principles": [
+        { "title": "CLARITY", "desc": "Information comes first, visuals follow." },
+        { "title": "STRUCTURE", "desc": "Layouts behave predictably." },
+        { "title": "SYSTEMS", "desc": "Components are designed to scale." },
+        { "title": "DETAILS", "desc": "Motion, spacing, and timing matter." }
+        ],
+        "constraints_title": "CONSTRAINTS",
+        "constraints_lines": [
+        "LESS, BUT INTENTIONAL",
+        "NO DECORATION WITHOUT FUNCTION",
+        "MOTION MUST EXPLAIN",
+        "STRUCTURE BEFORE STYLE"
+        ]
+    },
 
-    "title.experience.car_rental": "Web-Based Car Rental Management System",
-    "subtitle.experience.car_rental": "Final Semester Project - Group Project",
-    "list.experience.car_rental.point1": "Structuring MVC and application routing",
-    "list.experience.car_rental.point2": "Managing data relations and input validation",
-    "list.experience.car_rental.point3": "Backend–frontend integration and UI/UX design",
-    "role.experience.car_rental": "<strong>Role:</strong> Backend development and user interface implementation",
+    "project": {
+        "hero": {
+        "label": "archive / selected work",
+        "title": "Projects",
+        "subtitle": "I had to think through.",
+        "description": "A collection of systems, tools, and interfaces I designed and built. Some shipped to real users. Some still evolving behind the scenes.",
+        "meta": {
+            "year": "2019 – Present",
+            "category": "Web / Systems",
+            "status": "Shipped & In Progress"
+        }
+        },
+        "index": {
+        "label": "index / selected",
+        "title": "Selected Works",
+        "description": "A focused selection of projects that represent how I approach structure, systems, and clarity.",
+        "meta": {
+            "projects_count": "3 Projects",
+            "categories": "3 Categories",
+            "year": "2019 – Present"
+        },
+        "projects": [
+            {
+            "type": "Web App",
+            "title": "Inventory System",
+            "description": "Structured backend, clean UI, real usage.",
+            "status": "Shipped",
+            "tech": ["LARAVEL", "HTMX", "TAILWIND", "+3"],
+            "tech_details": ["Alpine.js", "Redis", "MySQL"]
+            },
+            {
+            "type": "Website",
+            "title": "Portfolio V2",
+            "description": "An internal tool built to reduce friction, streamline workflows, and support daily operational needs.",
+            "status": "Shipped",
+            "tech": ["LARAVEL", "HTMX", "TAILWIND", "+3"],
+            "tech_details": ["Alpine.js", "Redis", "MySQL"]
+            },
+            {
+            "type": "Dashboard",
+            "title": "Analytics Panel",
+            "description": "Data-focused interface with clarity.",
+            "status": "Shipped",
+            "tech": ["LARAVEL", "HTMX", "TAILWIND", "+3"],
+            "tech_details": ["Alpine.js", "Redis", "MySQL"]
+            }
+        ]
+        },
+        "end": {
+        "label": "end of index",
+        "title": "Each project is a response to a real constraint, not a design exercise.",
+        "description": "Some were built under pressure. Some evolved over time. All of them shaped how I think about systems and responsibility."
+        }
+    },
 
-    "view.repo" : "View Repository",
-
-    "projects": "Projects",
-    "subtitle.projects": "Some of the projects I have worked on",
-    "more.projects": "More Projects",
-
-    "education": "Education",
-    "subtitle.education": "Formal education that forms the foundation in understanding programming logic, system management, and web development.",
-    "active": "Active",
-    "now": "Present",
-    "smk.description" : "Beginning to delve into web application development in a structured manner, including the use of <strong class='text-text'>Laravel</strong> as the backend, basic understanding of data flow and <strong class='text-text'>database</strong>, as well as strengthening programming foundations through <strong class='text-text'>PHP</strong> and <strong class='text-text'>Python</strong>.",
-    "smp" : "Secondary School",
-    "smp.description" : "Understanding the use of technology for productivity needs, such as data processing and information management using office applications. At this stage, an interest in the world of IT begins to develop, although programming is not yet a focus.",
-    "sd" : "Elementary School",
-    "sd.description" : "Undergoing basic education that shapes learning abilities, discipline, and adaptation to digital technology as part of everyday life.",
-
-    "contact.description": "Got a web project idea? I'm ready to collaborate and help develop it.",
-    "send.message": "Send Message",
-    "name": "Name",
-    "email": "Email",
-    "message": "Message",
-    "social.media": "Social Media",
-
-    "footer.description": "Full Stack Developer who builds modern web applications with responsive interfaces, structured backends, and clean data management.",
-    "quick.links": "Quick Links",
-    "footer.connect": "Connect",
-    "copyright": "All rights reserved."
+    "footer": {
+        "description": "Built with structure, clarity, and intention.",
+        "quick_links": "Quick Links",
+        "connect": "Connect",
+        "copyright": "All rights reserved."
+    }
 }
