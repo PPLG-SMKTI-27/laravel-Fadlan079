@@ -2,51 +2,20 @@
 @section('title', 'Project')
 @vite(['resources/css/project.css'])
 @section('content')
-<section id="projects-hero" class="py-32 max-w-7xl mx-auto px-6 space-y-10 overflow-hidden">
-  <p class="text-xs uppercase tracking-widest flex items-center gap-3">
-    <span class="w-6 h-px bg-primary"></span>
-    <span class="text-primary font-semibold">archive / selected work</span>
-  </p>
+<section id="projects-hero" class="py-34 max-w-7xl mx-auto px-6 space-y-10 overflow-hidden">
+    <p class="text-xs uppercase tracking-widest text-muted">
+    index / intro
+    </p>
 
-  <h1 class="text-[clamp(3.5rem,9vw,7rem)] font-semibold leading-[0.95]">
-    <span class="text-text">Projects</span>
-    <span class="block text-muted font-normal">
-      I had to think through.
-    </span>
+  <h1 class="text-[clamp(3.5rem,9vw,7rem)] font-semibold leading-[1.1]">
+    <span class="text-text" data-i18n="project.hero.title"></span>
+    <span class="block text-muted font-normal" data-i18n="project.hero.subtitle"></span>
   </h1>
 
-  <p class="text-muted max-w-xl leading-relaxed">
-    A collection of <span class="text-primary font-semibold">systems, tools, and interfaces</span> I designed and built.
-    Some shipped to real users.
-    Some still evolving behind the scenes.
-  </p>
+  <p class="text-muted max-w-xl leading-relaxed" data-i18n="project.hero.description"></p>
 
-  <div class="flex gap-6 text-xs uppercase tracking-widest">
-    <span class="text-primary font-medium">2019 – Present</span>
-    <span class="text-primary font-medium">Web / Systems</span>
-    <span class="text-primary font-medium">Shipped & In Progress</span>
-  </div>
+    <div class="text-xs uppercase tracking-widest text-muted" data-i18n="project.hero.note"></div>
 </section>
-
-@php
-$projects = [
-    [
-        'type' => 'Web App',
-        'title' => 'Inventory System',
-        'desc' => 'Structured backend, clean UI, real usage.'
-    ],
-    [
-        'type' => 'Website',
-        'title' => 'Portfolio V2',
-        'desc' => 'Website portofolio interaktif dengan Laravel, TailwindCSS, GSAP, dan JavaScript untuk menampilkan karya.'
-    ],
-    [
-        'type' => 'Dashboard',
-        'title' => 'Analytics Panel',
-        'desc' => 'Data-focused interface with clarity.'
-    ],
-];
-@endphp
 
 <section id="projects-index" class="relative max-w-6xl mx-auto px-6 py-32 space-y-24 overflow-hidden">
     <header class="space-y-6 max-w-xl">
@@ -54,19 +23,46 @@ $projects = [
             index / selected
         </p>
 
-        <h2 class="text-[clamp(2.5rem,6vw,4rem)] font-semibold leading-tight">
-            Selected Works
-        </h2>
+        <h2 class="text-[clamp(2.5rem,6vw,4rem)] font-semibold leading-tight" data-i18n="project.index.title"></h2>
 
-        <p class="text-muted leading-relaxed">
-            A focused selection of projects that represent
-            how I approach structure, systems, and clarity.
-        </p>
+        <p class="text-muted leading-relaxed" data-i18n="project.index.description"></p>
 
-        <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted pt-2">
-            <span>{{ count($projects) }} Projects</span>
-            <span>3 Categories</span>
-            <span>2019 – Present</span>
+        <div class="summary-row">
+
+            <span class="summary-badge">
+                {{ $summary['totalProjects'] }}
+                <span data-i18n="project.index.summary.projects"></span>
+            </span>
+
+            <span class="summary-badge">
+                {{ $summary['totalCategories'] }}
+                <span data-i18n="project.index.summary.categories"></span>
+            </span>
+
+            <span class="summary-badge">
+                {{ $summary['activeCount'] }}
+                <span data-i18n="project.index.summary.active"></span>
+            </span>
+
+            @if ($summary['inactiveCount'] > 0)
+                <span class="summary-more">
+                    +{{ $summary['inactiveCount'] }}
+
+                    <span class="summary-tooltip">
+                        <span data-i18n="project.index.summary.status.shipped"></span>:
+                        {{ $summary['statusBreakdown']['Shipped'] }}<br>
+
+                        <span data-i18n="project.index.summary.status.in_progress"></span>:
+                        {{ $summary['statusBreakdown']['In Progress'] }}<br>
+
+                        <span data-i18n="project.index.summary.status.prototype"></span>:
+                        {{ $summary['statusBreakdown']['Prototype'] }}<br>
+
+                        <span data-i18n="project.index.summary.status.archived"></span>:
+                        {{ $summary['statusBreakdown']['Archived'] }}
+                    </span>
+                </span>
+            @endif
         </div>
     </header>
 
@@ -78,8 +74,8 @@ $projects = [
                     {{ $project['type'] }}
                 </span>
 
-                <span class="px-3 py-1 text-[10px] uppercase tracking-wide border border-border text-muted bg-bg">
-                    Shipped
+                <span class="px-3 py-1 text-[10px] uppercase tracking-wide border {{ $project->statusClass }}">
+                    {{ $project->status }}
                 </span>
             </div>
 
@@ -87,7 +83,7 @@ $projects = [
                 <span class="file"></span>
                 <span class="file"></span>
 
-                <div class="file file-front pointer-events-auto p-5 flex flex-col gap-3">
+                <a href="{{ $project['repo'] }}" target="blank" class="file file-front pointer-events-auto p-5 flex flex-col gap-3">
                     <div>
                         <h3 class="text-xl font-semibold leading-tight">
                             {{ $project['title'] }}
@@ -99,46 +95,72 @@ $projects = [
                         </p>
                     </div>
 
-                    <div class="file-divider"></div>
-
                     <div class="tech-row">
-                        <span>LARAVEL</span>
-                        <span>HTMX</span>
-                        <span>TAILWIND</span>
+                        @foreach ($project->visibleTechs as $tech)
+                            <span>{{ strtoupper($tech) }}</span>
+                        @endforeach
 
-                        <span class="tech-more">
-                            +3
-                            <span class="tech-tooltip">
-                            Alpine.js<br>
-                            Redis<br>
-                            MySQL
+                        @if (count($project->extraTechs) > 0)
+                            <span class="tech-more">
+                                +{{ count($project->extraTechs) }}
+                                <span class="tech-tooltip">
+                                    @foreach ($project->extraTechs as $extra)
+                                        {{ $extra }}<br>
+                                    @endforeach
+                                </span>
                             </span>
-                        </span>
+                        @endif
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         @endforeach
     </div>
+
+    @if ($projects->hasPages())
+    <div class="flex justify-center">
+        <nav class="flex items-center gap-2 text-sm">
+
+            @if ($projects->onFirstPage())
+                <span class="px-3 py-2 text-muted border border-border">Prev</span>
+            @else
+                <a href="{{ $projects->previousPageUrl() }}"
+                class="px-3 py-2 border border-border hover:border-primary">
+                Prev
+                </a>
+            @endif
+
+            <span class="px-4 py-2 border border-border">
+                {{ $projects->currentPage() }} / {{ $projects->lastPage() }}
+            </span>
+
+            @if ($projects->hasMorePages())
+                <a href="{{ $projects->nextPageUrl() }}"
+                class="px-3 py-2 border border-border hover:border-primary">
+                Next
+                </a>
+            @else
+                <span class="px-3 py-2 text-muted border border-border">Next</span>
+            @endif
+
+        </nav>
+    </div>
+    @endif
 </section>
 
 <section id="projects-end" class="py-32 border-t border-border overflow-hidden">
   <div class="max-w-6xl mx-auto px-6 space-y-10">
 
     <p class="text-xs uppercase tracking-widest text-muted">
-      end of index
+    index / end
     </p>
 
     <h3 id="projects-end-title"
-        data-text="Each project is a response to a real constraint, not a design exercise."
+        data-i18n="project.end.title"
         class="text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight max-w-2xl">
     </h3>
 
-    <p class="text-muted max-w-xl leading-relaxed">
-      Some were built under pressure.
-      Some evolved over time.
-      All of them shaped how I think about systems and responsibility.
-    </p>
+    <p class="text-muted max-w-xl leading-relaxed" data-i18n="project.end.description"></p>
 
   </div>
 </section>

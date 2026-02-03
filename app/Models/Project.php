@@ -1,0 +1,70 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Project extends Model
+{
+    // protected $table = 'projects';
+
+    protected $fillable = [
+        'title',
+        'type',
+        'desc',
+        'status',
+        'tech',
+        'repo',
+    ];
+
+    protected $casts = [
+        'tech' => 'array',
+    ];
+
+    public function getVisibleTechsAttribute(): array
+    {
+        return array_slice($this->tech ?? [], 0, 3);
+    }
+
+    public function getExtraTechsAttribute(): array
+    {
+        return array_slice($this->tech ?? [], 3);
+    }
+
+    public function getStatusClassAttribute(): string
+    {
+        return match ($this->status) {
+            'In Progress'         => 'bg-warning/10 text-yellow-500 border-warning/30',
+            'Archived', 'Shipped' => 'bg-success/10 text-green-500 border-success/30',
+            'Prototype'           => 'bg-muted/10 text-muted border-border',
+            default               => 'bg-muted/10 text-muted border-border',
+        };
+    }
+
+    public static function summary(): array
+    {
+        $projects = self::all();
+
+        $statusCount = $projects->groupBy('status')->map->count();
+
+        return [
+            'totalProjects'   => $projects->count(),
+            'totalCategories' => $projects->pluck('type')->filter()->unique()->count(),
+
+            'activeCount' =>
+                ($statusCount['Shipped'] ?? 0) +
+                ($statusCount['In Progress'] ?? 0),
+
+            'inactiveCount' =>
+                ($statusCount['Prototype'] ?? 0) +
+                ($statusCount['Archived'] ?? 0),
+
+            'statusBreakdown' => [
+                'Shipped'     => $statusCount['Shipped'] ?? 0,
+                'In Progress' => $statusCount['In Progress'] ?? 0,
+                'Prototype'   => $statusCount['Prototype'] ?? 0,
+                'Archived'    => $statusCount['Archived'] ?? 0,
+            ],
+        ];
+    }
+}

@@ -1,11 +1,4 @@
 {
-    "title": {
-        "portfolio": "Portofolio",
-        "about": "Tentang",
-        "contact": "Kontak",
-        "project": "Proyek"
-    },
-
     "nav": {
         "home": "Beranda",
         "about": "Tentang",
@@ -55,6 +48,38 @@
             "GERAKAN HARUS MENJELASKAN TUJUAN",
             "STRUKTUR LEBIH DULU ,GAYA MENYUSUL"
         ]
+    },
+
+    "project": {
+        "hero": {
+        "title": "Proyek",
+        "subtitle": "Dibangun dengan tujuan.",
+        "description": "Pilihan <span class='text-primary font-semibold'>sistem, alat, dan antarmuka</span> yang dirancang dengan tujuan dan dibuat untuk penggunaan nyata.",
+        "note": "Pilihan proyek lintas sistem dan antarmuka"
+        },
+
+        "index": {
+        "title": "Karya Terpilih",
+        "description": "Indeks terfokus dari proyek-proyek terpilih, yang disusun untuk mencerminkan struktur, cakupan, dan tujuan.",
+
+        "summary": {
+            "projects": "Proyek",
+            "categories": "Kategori",
+            "active": "Aktif",
+
+            "status": {
+            "shipped": "Rilis",
+            "in_progress": "Dalam Proses",
+            "prototype": "Prototipe",
+            "archived": "Diarsipkan"
+            }
+        }
+        },
+
+        "end": {
+        "title": "Proyek yang baik dibentuk oleh batasan.",
+        "description": "Batasan yang jelas memaksa keputusan yang tepat. Melalui cakupan, keterbatasan, dan iterasi, struktur terbentuk dan solusi menjadi lebih bermakna."
+        }
     },
 
     "footer": {

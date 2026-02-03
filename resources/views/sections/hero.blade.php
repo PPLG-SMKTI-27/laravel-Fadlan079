@@ -148,7 +148,7 @@
             <div class="flex gap-4 flex-wrap justify-center text-md">
                 <div class="flex justify-center">
                     <a
-                        href="pages.project"
+                        href="{{route('Project')}}"
                         class="cta-btn relative overflow-hidden px-8 py-3
                             bg-primary text-text font-semibold border-2 border-border"
                             style="--cta-bubble-color: var(--color-bg);">

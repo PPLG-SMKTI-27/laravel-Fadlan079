@@ -1,11 +1,4 @@
 {
-    "title": {
-        "portfolio": "Portfolio",
-        "about": "About",
-        "contact": "Contact",
-        "project": "Project"
-    },
-
     "nav": {
         "home": "Home",
         "about": "About",
@@ -59,56 +52,33 @@
 
     "project": {
         "hero": {
-        "label": "archive / selected work",
         "title": "Projects",
-        "subtitle": "I had to think through.",
-        "description": "A collection of systems, tools, and interfaces I designed and built. Some shipped to real users. Some still evolving behind the scenes.",
-        "meta": {
-            "year": "2019 – Present",
-            "category": "Web / Systems",
-            "status": "Shipped & In Progress"
+        "subtitle": "Built with intention.",
+        "description": "    A selection of <span class='text-primary font-semibold'>systems, tools, and interfaces</span> designed with intention and built for real use.",
+        "note": "Selected projects across systems and interfaces"
+        },
+
+        "index": {
+        "title": "Selected Works",
+        "description": "A focused index of selected projects, organized to reflect structure, scope, and intent.",
+
+        "summary": {
+            "projects": "Projects",
+            "categories": "Categories",
+            "active": "Active",
+
+            "status": {
+            "shipped": "Shipped",
+            "in_progress": "In Progress",
+            "prototype": "Prototype",
+            "archived": "Archived"
+            }
         }
         },
-        "index": {
-        "label": "index / selected",
-        "title": "Selected Works",
-        "description": "A focused selection of projects that represent how I approach structure, systems, and clarity.",
-        "meta": {
-            "projects_count": "3 Projects",
-            "categories": "3 Categories",
-            "year": "2019 – Present"
-        },
-        "projects": [
-            {
-            "type": "Web App",
-            "title": "Inventory System",
-            "description": "Structured backend, clean UI, real usage.",
-            "status": "Shipped",
-            "tech": ["LARAVEL", "HTMX", "TAILWIND", "+3"],
-            "tech_details": ["Alpine.js", "Redis", "MySQL"]
-            },
-            {
-            "type": "Website",
-            "title": "Portfolio V2",
-            "description": "An internal tool built to reduce friction, streamline workflows, and support daily operational needs.",
-            "status": "Shipped",
-            "tech": ["LARAVEL", "HTMX", "TAILWIND", "+3"],
-            "tech_details": ["Alpine.js", "Redis", "MySQL"]
-            },
-            {
-            "type": "Dashboard",
-            "title": "Analytics Panel",
-            "description": "Data-focused interface with clarity.",
-            "status": "Shipped",
-            "tech": ["LARAVEL", "HTMX", "TAILWIND", "+3"],
-            "tech_details": ["Alpine.js", "Redis", "MySQL"]
-            }
-        ]
-        },
+
         "end": {
-        "label": "end of index",
-        "title": "Each project is a response to a real constraint, not a design exercise.",
-        "description": "Some were built under pressure. Some evolved over time. All of them shaped how I think about systems and responsibility."
+        "title": "Good projects are shaped by constraints.",
+        "description": "Clear constraints force clear decisions. Through scope, limitations, and iteration, structure emerges and solutions become intentional."
         }
     },
 
