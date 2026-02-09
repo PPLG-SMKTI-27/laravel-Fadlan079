@@ -2,7 +2,7 @@
     <div class="max-w-6xl mx-auto px-6 space-y-8">
 
         <div class="text-center md:text-left space-y-2">
-            <h2 class="text-[2rem] md:text-[2.2rem] font-semibold text-outline mb-1">
+            <h2 class="text-[2rem] md:text-[2.2rem] font-semibold mb-1">
                 {{ strtoupper($brand) }}
             </h2>
             <div class="w-16 h-0.5 bg-primary mx-auto md:mx-0"></div>

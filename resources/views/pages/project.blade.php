@@ -66,55 +66,84 @@
         </div>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @foreach ($projects as $project)
-        <div class="project-folder group relative border border-border bg-surface p-6 pt-12 ">
-            <div class="absolute top-0 left-6 -translate-y-1/2 flex gap-2 z-20">
-                <span class="px-4 py-1 text-xs uppercase tracking-widest badge-primary font-semibold">
-                    {{ $project['type'] }}
-                </span>
-
-                <span class="px-3 py-1 text-[10px] uppercase tracking-wide border {{ $project->statusClass }}">
-                    {{ $project->status }}
-                </span>
-            </div>
-
-            <div class="folder-files absolute inset-0 pointer-events-none z-0">
-                <span class="file"></span>
-                <span class="file"></span>
-
-                <a href="{{ $project['repo'] }}" target="blank" class="file file-front pointer-events-auto p-5 flex flex-col gap-3">
-                    <div>
-                        <h3 class="text-xl font-semibold leading-tight">
-                            {{ $project['title'] }}
-                        </h3>
-
-
-                        <p class="text-sm text-muted leading-snug mt-1">
-                            {{ $project['desc'] }}
-                        </p>
-                    </div>
-
-                    <div class="tech-row">
-                        @foreach ($project->visibleTechs as $tech)
-                            <span>{{ strtoupper($tech) }}</span>
-                        @endforeach
-
-                        @if (count($project->extraTechs) > 0)
-                            <span class="tech-more">
-                                +{{ count($project->extraTechs) }}
-                                <span class="tech-tooltip">
-                                    @foreach ($project->extraTechs as $extra)
-                                        {{ $extra }}<br>
-                                    @endforeach
-                                </span>
-                            </span>
-                        @endif
-                    </div>
-                </a>
-            </div>
+    <div class="flex flex-wrap justify-between items-center gap-4">
+        <div class="relative w-full md:w-1/3">
+            <input
+                type="text"
+                id="project-search"
+                placeholder="Search projects..."
+                class="w-full border border-border px-4 py-2 pl-10 text-sm placeholder:text-muted focus:outline-none focus:ring-1 focus:ring-primary"/>
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-muted">
+                <i class="fas fa-search"></i>
+            </span>
         </div>
-        @endforeach
+
+        <div class="flex flex-wrap gap-2">
+            <button class="filter-btn px-4 py-2 border border-border text-sm" data-filter="all">All</button>
+            <button class="filter-btn px-4 py-2 border border-border text-sm" data-filter="Website">Website</button>
+            <button class="filter-btn px-4 py-2 border border-border text-sm" data-filter="Application">Application</button>
+            <button class="filter-btn px-4 py-2 border border-border text-sm" data-filter="Design">Design</button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @forelse ($projects as $project)
+            <div class="project-folder group relative border border-border bg-surface p-6 pt-12 ">
+                <div class="absolute top-0 left-6 -translate-y-1/2 flex gap-2 z-20">
+                    <span class="px-4 py-1 text-xs uppercase tracking-widest badge-primary font-semibold">
+                        {{ $project->type}}
+                    </span>
+                    <span class="px-3 py-1 text-[10px] uppercase tracking-wide border {{ $project->statusClass }}">
+                        {{ $project->status }}
+                    </span>
+                </div>
+
+                <div class="folder-files absolute inset-0 pointer-events-none z-0">
+                    <span class="file"></span>
+                    <span class="file"></span>
+
+                    <a href="{{ $project['repo'] }}" target="blank" class="file file-front pointer-events-auto p-5 flex flex-col gap-3">
+                        <div>
+                            <h3 class="text-xl font-semibold leading-tight">
+                                {{ $project->title}}
+                            </h3>
+
+
+                            <p class="text-sm text-muted leading-snug mt-1">
+                                {{ $project->desc}}
+                            </p>
+                        </div>
+
+                        <div class="tech-row">
+                            @foreach ($project->visibleTechs as $tech)
+                                <span>{{ strtoupper($tech) }}</span>
+                            @endforeach
+
+                            @if (count($project->extraTechs) > 0)
+                                <span class="tech-more">
+                                    +{{ count($project->extraTechs) }}
+                                    <span class="tech-tooltip">
+                                        @foreach ($project->extraTechs as $extra)
+                                            {{ $extra }}<br>
+                                        @endforeach
+                                    </span>
+                                </span>
+                            @endif
+                        </div>
+                    </a>
+                </div>
+            </div>
+        @empty
+            <div class="col-span-full">
+                <p class="text-xs uppercase tracking-widest text-muted">
+                    index / empty
+                </p>
+
+                <h3 class="mt-6 text-[clamp(1.5rem,4vw,2rem)] font-semibold max-w-xl" data-i18n="project.empty.title"></h3>
+
+                <p class="mt-2 text-muted max-w-md leading-relaxed" data-i18n="project.empty.desc"></p>
+            </div>
+        @endforelse
     </div>
 
     @if ($projects->hasPages())
@@ -165,3 +194,46 @@
   </div>
 </section>
 @endsection
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('project-search');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    // ambil query sekarang
+    const params = new URLSearchParams(window.location.search);
+
+    // set initial state
+    searchInput.value = params.get('search') ?? '';
+
+    filterButtons.forEach(btn => {
+        if (btn.dataset.filter === (params.get('type') ?? 'all')) {
+            btn.classList.add('border-primary');
+        }
+    });
+
+    // SEARCH (enter)
+    searchInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+            params.set('search', searchInput.value);
+            params.delete('page'); // reset pagination
+            window.location.search = params.toString();
+        }
+    });
+
+    // FILTER
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.dataset.filter;
+
+            if (filter === 'all') {
+                params.delete('type');
+            } else {
+                params.set('type', filter);
+            }
+
+            params.delete('page'); // reset pagination
+            window.location.search = params.toString();
+        });
+    });
+});
+</script>

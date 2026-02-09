@@ -76,6 +76,11 @@
         }
         },
 
+        "empty":{
+            "title": "Nothing here yet.",
+            "desc": "No projects match the current search or filter."
+        },
+
         "end": {
         "title": "Good projects are shaped by constraints.",
         "description": "Clear constraints force clear decisions. Through scope, limitations, and iteration, structure emerges and solutions become intentional."

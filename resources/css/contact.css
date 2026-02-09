@@ -1,0 +1,107 @@
+/* CONTACT CARD / FOLDER */
+.contact-folder {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    border: 1px solid #555;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    height: 500px;
+    transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
+}
+
+.contact-folder:hover {
+    transform: translateY(-6px);
+}
+
+/* FILE STACK */
+.folder-files {
+    position: absolute;
+    top: 0;
+    left: 12px;
+    right: 12px;
+    height: 80px;
+    pointer-events: none;
+}
+
+.folder-files .file {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 60px;
+    top: 0;
+    background: #2a2a2a;
+    border: 1px solid #555;
+    opacity: 0.9;
+    transform-origin: bottom left;
+    transition: transform 0.45s cubic-bezier(.2,.8,.2,1), opacity 0.3s;
+}
+
+.folder-files .file:nth-child(1) { transform: translate(0,0) rotate(0deg); }
+.folder-files .file:nth-child(2) { transform: translate(4px,4px) rotate(0deg); }
+.folder-files .file:nth-child(3) { transform: translate(8px,8px) rotate(0deg); }
+
+.contact-folder:hover .folder-files .file:nth-child(1) { transform: translate(-6px,-8px) rotate(-1deg); }
+.contact-folder:hover .folder-files .file:nth-child(2) { transform: translate(2px,-4px) rotate(1deg); }
+.contact-folder:hover .folder-files .file:nth-child(3) { transform: translate(10px,-2px) rotate(-0.5deg); }
+
+@keyframes file-jitter {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-1px); }
+    100% { transform: translateY(0); }
+}
+
+.contact-folder:hover .folder-files {
+    animation: file-jitter 0.25s ease-in-out;
+}
+
+/* BADGE */
+.folder-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 10px;
+    text-transform: uppercase;
+    padding: 3px 6px;
+    border: 1px solid #555;
+    color: #aaa;
+    background-color: #2a2a2a;
+}
+
+/* INPUT & TEXTAREA */
+.contact-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #555;
+    background-color: #2a2a2a;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 14px;
+}
+.contact-input::placeholder {
+    color: #888;
+}
+
+/* BUTTON */
+.contact-button {
+    padding: 0.75rem 1.5rem;
+    text-transform: uppercase;
+    font-size: 11px;
+    border: 1px solid #555;
+    background-color: #1e1e1e;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: border 0.2s ease, background 0.2s ease;
+}
+.contact-button:hover {
+    border-color: #4f46e5;
+    background-color: #2a2a2a;
+}
+
+/* TEXT STYLING */
+.text-muted {
+    color: #888;
+}

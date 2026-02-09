@@ -9,18 +9,30 @@ class HomeController extends Controller
 {
 public function index()
     {
-        return view('pages.home');
+        $featuredProject = Project::oldest()->first();
+        return view('pages.home',compact('featuredProject'));
     }
 
     public function Showabout(){
         return view('pages.about');
     }
 
-    public function Showproject()
+    public function Showproject(Request $request)
     {
-        $projects = Project::latest()->paginate(3);
+        $query = Project::query();
+
+        if ($request->filled('search')) {
+            $query->search($request->search);
+        }
+
+        if ($request->filled('type') && $request->type !== 'all') {
+            $query->filterType($request->type);
+        }
+
+        $projects = $query->latest()->paginate(3)->withQueryString();
         $summary  = Project::summary();
-        return view('pages.project', compact('projects','summary'));
+
+        return view('pages.project', compact('projects', 'summary'));
     }
 
     public function Showcontact(){

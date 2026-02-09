@@ -85,8 +85,8 @@ gsap.fromTo(
    * ENDING STATEMENT
    * ========================= */
 const title = document.querySelector("#projects-end-title");
-const fullText = title.dataset.text;
-const chars = fullText.split("");
+const fullText = title.textContent.trim() || "";
+const chars = fullText.split(""); 
 
 gsap.to(
   { count: 0 },

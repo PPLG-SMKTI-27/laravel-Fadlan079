@@ -76,6 +76,11 @@
         }
         },
 
+        "empty":{
+            "title": "Belum ada apa pun di sini.",
+            "desc": "Tidak ada proyek yang sesuai dengan pencarian atau filter saat ini."
+        },
+
         "end": {
         "title": "Proyek yang baik dibentuk oleh batasan.",
         "description": "Batasan yang jelas memaksa keputusan yang tepat. Melalui cakupan, keterbatasan, dan iterasi, struktur terbentuk dan solusi menjadi lebih bermakna."

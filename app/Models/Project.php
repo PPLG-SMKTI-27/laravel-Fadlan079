@@ -21,6 +21,34 @@ class Project extends Model
         'tech' => 'array',
     ];
 
+    public function scopeSearch($query, $keyword)
+    {
+        $keyword = strtolower($keyword);
+
+        return $query->where(function ($q) use ($keyword) {
+            $q->whereRaw('LOWER(title) LIKE ?', ["%{$keyword}%"])
+            ->orWhereRaw('LOWER(`type`) LIKE ?', ["%{$keyword}%"])
+            ->orWhereRaw('LOWER(`desc`) LIKE ?', ["%{$keyword}%"])
+            ->orWhereRaw('LOWER(status) LIKE ?', ["%{$keyword}%"])
+            ->orWhereRaw('LOWER(tech) LIKE ?', ["%{$keyword}%"]);
+        });
+    }
+
+    public function scopeFilterType($query, string $type)
+    {
+        $map = [
+            'website' => ['Website', 'Web App'],
+            'application' => ['Application'],
+            'design' => ['Design'],
+        ];
+
+        if (isset($map[strtolower($type)])) {
+            return $query->whereIn('type', $map[strtolower($type)]);
+        }
+
+        return $query->where('type', $type);
+    }
+
     public function getVisibleTechsAttribute(): array
     {
         return array_slice($this->tech ?? [], 0, 3);
