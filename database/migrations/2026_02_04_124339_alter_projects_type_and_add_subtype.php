@@ -13,7 +13,7 @@ public function up(): void
 {
     Schema::table('projects', function (Blueprint $table) {
         // ubah type jadi enum
-        $table->enum('type', ['Website', 'Application','Design'])->change();
+        $table->enum('type', ['Website','Web App','Application','Design'])->change();
 
         // tambah subtype
         $table->string('subtype')->nullable()->after('type');

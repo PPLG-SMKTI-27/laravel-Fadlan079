@@ -13,7 +13,16 @@
         "subtitle": "Please sign in to your account",
         "password": "Password",
         "demo_account": "Demo Account: <span class='font-medium text-text'>admin@example.com</span> / <span class='font-medium text-text'>1234567</span>",
-        "enter": "Enter"
+        "enter": "Enter",
+        "Remember" : "Remember Me",
+        "Forgot" : "Forgot your password?",
+        "Back" : "Back to login",
+        "Reset" : "Send Reset Link",
+        "regis" : {
+            "title" : "Create Account",
+            "subtitle" : "Create your account to get started.",
+            "have_account" : "Already registered? Login"
+        }
     },
 
     "email_required": "Email is required.",

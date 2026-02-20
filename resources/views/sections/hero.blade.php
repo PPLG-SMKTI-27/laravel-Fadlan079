@@ -101,7 +101,7 @@
                     @csrf
                     <button
                         type="submit"
-                        class="cta-btn relative overflow-hidden px-8 py-3
+                        class="cta-btn relative overflow-hidden px-4 py-2
                             border-2 border-border text-text font-semibold"
                         style="--cta-bubble-color: #ef4444;">
 

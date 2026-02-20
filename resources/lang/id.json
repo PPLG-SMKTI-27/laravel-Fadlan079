@@ -13,7 +13,17 @@
         "subtitle": "Silakan masuk ke akun Anda",
         "password": "Kata Sandi",
         "demo_account": "Akun Demo: <span class='font-medium text-text'>admin@example.com</span> / <span class='font-medium text-text'>1234567</span>",
-        "enter": "Masuk"
+        "enter": "Masuk",
+        "Remember" : "Ingat Aku",
+        "Forgot" : "Lupa password anda?",
+        "Back" : "kembali ke login",
+        "Reset" : "Kirim Tautan Reset",
+        "regis" : {
+            "title" : "Buat Akun",
+            "subtitle" : "Buat akun Anda untuk memulai.",
+            "have_account" : "Sudah terdaftar? Login"
+        }
+
     },
 
     "email_required": "Email wajib diisi.",

@@ -1,4 +1,4 @@
-<footer class="relative py-10 bg-white/70 dark:bg-black/40 z-50">
+<footer class="relative py-10 bg-surface/50 z-30">
     <div class="max-w-6xl mx-auto px-6 space-y-8">
 
         <div class="text-center md:text-left space-y-2">

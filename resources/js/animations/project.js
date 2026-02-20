@@ -60,25 +60,6 @@ export function projectAnimation() {
   /* =========================
    * TECH ROW — subtle system detail
    * ========================= */
-gsap.fromTo(
-  ".tech-row > span:not(.tech-more)",
-  {
-    opacity: 0,
-    y: 6
-  },
-  {
-    opacity: 1,
-    y: 0,
-    stagger: 0.04,
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: ".project-folder",
-      start: "top 55%",
-      end: "top 25%",
-      scrub: true
-    }
-  }
-);
 
 
   /* =========================
@@ -86,7 +67,7 @@ gsap.fromTo(
    * ========================= */
 const title = document.querySelector("#projects-end-title");
 const fullText = title.textContent.trim() || "";
-const chars = fullText.split(""); 
+const chars = fullText.split("");
 
 gsap.to(
   { count: 0 },

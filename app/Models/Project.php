@@ -12,13 +12,19 @@ class Project extends Model
         'title',
         'type',
         'desc',
+        'role',
+        'team_size',
+        'responsibilities',
         'status',
         'tech',
         'repo',
+        'live_url',
+        'screenshot',
     ];
 
     protected $casts = [
         'tech' => 'array',
+        'screenshot' => 'array',    
     ];
 
     public function scopeSearch($query, $keyword)
@@ -32,6 +38,11 @@ class Project extends Model
             ->orWhereRaw('LOWER(status) LIKE ?', ["%{$keyword}%"])
             ->orWhereRaw('LOWER(tech) LIKE ?', ["%{$keyword}%"]);
         });
+    }
+
+    public function scopeRecent($query, int $limit = 3)
+    {
+        return $query->latest()->limit($limit);
     }
 
     public function scopeFilterType($query, string $type)

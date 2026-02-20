@@ -270,3 +270,11 @@ html, body {
   opacity: 1;
   transform: translateX(-50%) translateY(-12px);
 }
+
+.search-highlight {
+    background: color-mix(in srgb, var(--color-primary) 18%, transparent);
+    color: var(--color-primary);
+    padding: 0 4px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}

@@ -7,10 +7,10 @@ use App\Models\Project;
 
 class HomeController extends Controller
 {
-public function index()
+    public function index()
     {
-        $featuredProject = Project::oldest()->first();
-        return view('pages.home',compact('featuredProject'));
+        $recentProjects = Project::recent(3)->get();
+        return view('pages.home',compact('recentProjects'));
     }
 
     public function Showabout(){

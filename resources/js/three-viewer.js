@@ -4,13 +4,13 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 // ===== HTML CANVAS → TEXTURE =====
-const canvas = document.createElement('canvas');
-canvas.width = 1024;
-canvas.height = 600;
-const ctx = canvas.getContext('2d');
+// const canvas = document.createElement('canvas');
+// canvas.width = 1024;
+// canvas.height = 600;
+// const ctx = canvas.getContext('2d');
 
-const texture = new THREE.CanvasTexture(canvas);
-const screenMaterial = new THREE.MeshBasicMaterial({ map: texture });
+// const texture = new THREE.CanvasTexture(canvas);
+// const screenMaterial = new THREE.MeshBasicMaterial({ map: texture });
 
 // update canvas dari HTML
 async function updateScreen() {
@@ -29,8 +29,8 @@ async function updateScreen() {
 }
 
 // initial + live update
-updateScreen();
-setInterval(updateScreen, 1000);
+// updateScreen();
+// setInterval(updateScreen, 1000);
 
 // ===== SETUP THREE.JS =====
 const container = document.getElementById('three-canvas');
@@ -150,11 +150,11 @@ function loadDevice(name, path) {
     devices[name] = model;
 
     // attach screen mesh
-    const screenMesh = createScreenMesh(cfg.screenSize[0], cfg.screenSize[1]);
-    screenMesh.position.set(0, 0.3, 0.5); // adjust sesuai model
-    screenMesh.rotation.set(0, 1.6, 0);     // pastikan menghadap kamera
+    // const screenMesh = createScreenMesh(cfg.screenSize[0], cfg.screenSize[1]);
+    // screenMesh.position.set(0, 0.3, 0.5);
+    // screenMesh.rotation.set(0, 1.6, 0);
 
-    model.add(screenMesh);
+    // model.add(screenMesh);
 
     if (name === 'desktop') showDevice('desktop');
   });

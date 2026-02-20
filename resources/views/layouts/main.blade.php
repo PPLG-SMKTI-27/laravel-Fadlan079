@@ -114,7 +114,7 @@
         ['key' => 'nav.contact', 'href' => route('Contact')],
     ]"
     />
-    <x-global-modal />
+
 
     <main id="content" class="relative z-10">
         @yield('content')
@@ -136,5 +136,8 @@
         ['icon' => 'fa-brands fa-whatsapp', 'href' => 'https://wa.me/6282210732928'],
     ]"
     />
+    <x-global-modal />
+
+    @yield('script')
 </body>
 </html>

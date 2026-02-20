@@ -7,14 +7,15 @@
         <h1 class="text-2xl font-bold mb-2">Login</h1>
         <p class="text-muted mb-6" data-i18n="login.subtitle"></p>
 
-        <form action="/login" method="post" class="space-y-4">
+        <form method="POST" action="{{ route('login') }}" class="space-y-4">
             @csrf
 
+            {{-- EMAIL --}}
             <div>
                 <label class="block text-sm mb-1 text-muted">Email</label>
 
                 <input
-                    type="text"
+                    type="email"
                     name="email"
                     value="{{ old('email') }}"
                     class="w-full px-4 py-2
@@ -28,6 +29,7 @@
                         @enderror"
                     placeholder="email@example.com"
                     required
+                    autofocus
                 >
 
                 @error('email')
@@ -37,8 +39,10 @@
                 @enderror
             </div>
 
+            {{-- PASSWORD --}}
             <div>
-                <label class="block text-sm mb-1 text-muted" data-i18n="login.password"></label>
+                <label class="block text-sm mb-1 text-muted">Password</label>
+
                 <input
                     type="password"
                     name="password"
@@ -49,24 +53,39 @@
                     placeholder="••••••••"
                     required
                 >
+
+                @error('password')
+                    <p class="mt-1 text-sm text-red-500">
+                        {{ $message }}
+                    </p>
+                @enderror
             </div>
-            <p class="text-xs text-muted mb-6" data-i18n="login.demo_account">
 
-            </p>
-
-            <div class="flex flex-col gap-4 flex-wrap text-center justify-center text-md">
-                <div class="flex justify-center">
-                    <button
-                        type="submit"
-                        class="cta-btn relative overflow-hidden px-8 py-3 w-full
-                            bg-primary text-text font-semibold"
-                            style="--cta-bubble-color: var(--color-bg);">
-                        <span class="cta-bubble"></span>
-
-                        <span class="cta-text relative z-10" data-i18n="login.enter"></span>
-                    </button>
-                </div>
+            {{-- REMEMBER ME --}}
+            <div class="flex items-center gap-2 text-sm text-muted">
+                <input type="checkbox" name="remember" class="rounded border-border">
+                <span data-i18n="login.Remember"></span>
             </div>
+
+            {{-- SUBMIT --}}
+            <button
+                type="submit"
+                class="cta-btn relative overflow-hidden px-8 py-3 w-full
+                       bg-primary text-text font-semibold"
+                style="--cta-bubble-color: var(--color-bg);">
+                <span class="cta-bubble"></span>
+                <span class="cta-text relative z-10">
+                    Login
+                </span>
+            </button>
+
+            {{-- FORGOT PASSWORD --}}
+            @if (Route::has('password.request'))
+                <a href="{{ route('password.request') }}"
+                   class="block text-sm text-muted text-center hover:underline mt-4"
+                   data-i18n="login.Forgot">
+                </a>
+            @endif
         </form>
     </div>
 </div>

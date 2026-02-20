@@ -102,7 +102,28 @@
                     <span class="file"></span>
                     <span class="file"></span>
 
-                    <a href="{{ $project['repo'] }}" target="blank" class="file file-front pointer-events-auto p-5 flex flex-col gap-3">
+                       <a href="javascript:void(0)"
+                        class="file file-front pointer-events-auto p-5 flex flex-col gap-3 project-open"
+                            data-id="{{ $project->id }}"
+                            data-title="{{ $project->title }}"
+                            data-desc="{{ $project->desc }}"
+                            data-type="{{ $project->type }}"
+                            data-status="{{ $project->status }}"
+                            data-created="{{ $project->created_at->format('d M Y') }}"
+                            data-updated="{{ $project->updated_at->format('d M Y') }}"
+                            data-repo="{{ $project->repo }}"
+                            data-role="{{ $project->role }}"
+                            data-team="{{ $project->team_size }}"
+                            data-responsibilities="{{ $project->responsibilities }}"
+                            data-live="{{ $project->live_url }}"
+                            data-screenshot='@json(
+                                $project->screenshot
+                                    ? collect($project->screenshot)
+                                        ->map(fn($img) => asset("storage/".$img))
+                                        ->values()
+                                    : []
+                            )'
+                            data-tech='@json($project->tech)'>
                         <div>
                             <h3 class="text-xl font-semibold leading-tight">
                                 {{ $project->title}}
@@ -193,47 +214,11 @@
 
   </div>
 </section>
+
+<x-project.detail-modal />
+
 @endsection
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('project-search');
-    const filterButtons = document.querySelectorAll('.filter-btn');
 
-    // ambil query sekarang
-    const params = new URLSearchParams(window.location.search);
-
-    // set initial state
-    searchInput.value = params.get('search') ?? '';
-
-    filterButtons.forEach(btn => {
-        if (btn.dataset.filter === (params.get('type') ?? 'all')) {
-            btn.classList.add('border-primary');
-        }
-    });
-
-    // SEARCH (enter)
-    searchInput.addEventListener('keydown', e => {
-        if (e.key === 'Enter') {
-            params.set('search', searchInput.value);
-            params.delete('page'); // reset pagination
-            window.location.search = params.toString();
-        }
-    });
-
-    // FILTER
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const filter = btn.dataset.filter;
-
-            if (filter === 'all') {
-                params.delete('type');
-            } else {
-                params.set('type', filter);
-            }
-
-            params.delete('page'); // reset pagination
-            window.location.search = params.toString();
-        });
-    });
-});
-</script>
+@section('script')
+@vite(['resources/js/project/filters.js','resources/js/project/detail-modal.js',])
+@endsection

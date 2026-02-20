@@ -57,8 +57,8 @@
 }
 </style>
 
-<nav class="nav-float fixed top-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-5xl
-    md:w-[90%] md:max-w-3xl bg-white/70 dark:bg-black/40 z-50">
+<nav  id="mainNavbar"  class="nav-float fixed top-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-5xl
+    md:w-[90%] md:max-w-3xl bg-surface/50 z-50">
 
   <div class="px-4 py-2 flex justify-between items-center">
     <h1 class="nav-brand">
@@ -91,9 +91,9 @@
   </div>
 </nav>
 
-<div id="mobileOverlay" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition"></div>
+<div id="mobileOverlay" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-70 opacity-0 pointer-events-none transition"></div>
 
-<aside id="mobileSidebar" class="fixed top-0 left-0 h-full w-72 bg-white/10 dark:bg-black/25 backdrop-blur-2xl border-r border-white/20 z-50 -translate-x-full pointer-events-none transition-transform duration-300 rounded-r-3xl">
+<aside id="mobileSidebar" class="fixed top-0 left-0 h-full w-72 bg-surface/50 backdrop-blur-2xl border-r border-white/20 z-100 -translate-x-full pointer-events-none transition-transform duration-300 rounded-r-3xl">
   <div class="p-6 flex justify-between items-center border-b border-white/20">
     <span class="nav-brand">{{ $brand ?? 'App' }}</span>
     <button id="mobileCloseBtn" class="text-xl"><i class="fa-solid fa-xmark"></i></button>
@@ -108,18 +108,28 @@
 
     <div class="flex justify-center mt-4">
       @if (!session('is_login'))
-      <a href="/login" class="cta-btn w-full relative overflow-hidden px-4 py-2 border-2 text-text font-semibold" style="--cta-bubble-color: var(--color-primary);">
-        <span class="cta-bubble"></span>
-        <span class="cta-text relative z-10">Login</span>
-      </a>
+        <a
+            href="/login"
+            class="cta-btn w-full relative overflow-hidden px-4 py-2
+                border-2 border-border text-text font-semibold"
+            style="--cta-bubble-color: var(--color-primary);">
+
+            <span class="cta-bubble"></span>
+            <span class="cta-text relative z-10">Login</span>
+        </a>
       @else
-      <form action="{{ route('logout') }}" method="POST" class="w-full">
-        @csrf
-        <button type="submit" class="cta-btn w-full relative overflow-hidden px-4 py-2 border-2 text-text font-semibold" style="--cta-bubble-color: #ef4444;">
-          <span class="cta-bubble"></span>
-          <span class="cta-text relative z-10">Logout</span>
-        </button>
-      </form>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button
+                type="submit"
+                class="cta-btn w-full relative overflow-hidden px-8 py-3
+                    border-2 border-border text-text font-semibold"
+                style="--cta-bubble-color: #ef4444;">
+
+                <span class="cta-bubble"></span>
+                <span class="cta-text relative z-10">Logout</span>
+            </button>
+        </form>
       @endif
     </div>
   </nav>

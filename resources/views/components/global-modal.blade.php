@@ -1,7 +1,7 @@
 @if (session()->has('success') || session()->has('error'))
 <div
     id="global-alert"
-    class="fixed top-6 right-6 z-50
+    class="fixed top-6 left-6 z-50
         flex items-center gap-3
         px-4 py-3
         max-w-sm

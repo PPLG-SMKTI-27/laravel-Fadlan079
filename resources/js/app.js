@@ -1,4 +1,7 @@
 import './bootstrap';
+import Alpine from 'alpinejs';
+window.Alpine = Alpine;
+Alpine.start();
 import htmx from 'htmx.org';
 window.htmx = htmx;
 import { heroAnimation } from './animations/hero';
