@@ -276,13 +276,13 @@
         </span>
 
         <button type="button"
-            data-bulk-action="publish"
+            onclick="bulkAction('publish')"
             class="px-4 py-2 border border-border text-sm hover:border-primary">
             Publish Selected
         </button>
 
         <button type="button"
-            data-bulk-action="delete"
+            onclick="bulkAction('delete')"
             class="px-4 py-2 border border-red-500 text-red-400 text-sm hover:bg-red-500/10">
             Delete Selected
         </button>
@@ -374,34 +374,6 @@
         });
     });
 });
-
-function bulkAction(type) {
-    const form = document.getElementById('bulkForm');
-    const selected = document.querySelectorAll('.bulk-checkbox:checked');
-    if (selected.length === 0) {
-        alert('Please select at least one project.');
-        return;
-    }
-
-    if (type === 'delete') {
-        if (!confirm('Delete selected projects?')) return;
-        form.action = "{{ route('dashboard.bulkDeleteProjects') }}";
-    }
-
-    if (type === 'restore') {
-        form.action = "{{ route('dashboard.bulkPublishProjects') }}";
-    }
-
-    selected.forEach(cb => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'projects[]';
-        input.value = cb.value;
-        form.appendChild(input);
-    });
-
-    form.submit();
-}
 </script>
 @vite([
 'resources/js/project/detail-modal.js',

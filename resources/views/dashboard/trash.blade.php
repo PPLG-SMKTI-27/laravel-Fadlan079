@@ -386,32 +386,4 @@ toggleBtn.addEventListener('click', () => {
 
 })
 </script>
-<script>
-function bulkAction(type) {
-
-    const form = document.getElementById('bulkForm')
-    const selected = document.querySelectorAll('.bulk-checkbox:checked')
-
-    if (selected.length === 0) {
-        alert('Please select at least one project.')
-        return
-    }
-
-    if (type === 'restore') {
-        form.action = "{{ route('dashboard.bulkRestore') }}"
-    }
-
-    if (type === 'delete') {
-
-        showConfirm('This action is permanent. Continue?', function() {
-            form.action = "{{ route('dashboard.bulkForceDelete') }}"
-            form.submit()
-        })
-
-        form.action = "{{ route('dashboard.bulkForceDelete') }}"
-    }
-
-    form.submit()
-}
-</script>
 @endpush

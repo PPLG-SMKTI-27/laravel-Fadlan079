@@ -19,90 +19,66 @@ import { initmodal } from "./animations/modal";
 const THEME_KEY = 'theme';
 const html = document.documentElement;
 
-window.showConfirm = function(message, callback) {
+window.showConfirm = function(message) {
 
-    const modal = document.getElementById('confirm-modal')
-    const backdrop = document.getElementById('confirm-backdrop')
-    const box = document.getElementById('confirm-box')
-    const msg = document.getElementById('confirm-message')
-    const yesBtn = document.getElementById('confirm-yes')
-    const cancelBtn = document.getElementById('confirm-cancel')
+    return new Promise((resolve) => {
 
-    msg.innerText = message
+        const modal = document.getElementById('confirm-modal')
+        const backdrop = document.getElementById('confirm-backdrop')
+        const box = document.getElementById('confirm-box')
+        const msg = document.getElementById('confirm-message')
+        const yesBtn = document.getElementById('confirm-yes')
+        const cancelBtn = document.getElementById('confirm-cancel')
 
-    modal.classList.remove('pointer-events-none')
+        msg.innerText = message
 
-    // Initial state
-    gsap.set(modal, { opacity: 0 })
-    gsap.set(backdrop, { opacity: 0 })
-    gsap.set(box, { scale: 0.7, opacity: 0, y: 40 })
+        modal.classList.remove('pointer-events-none')
 
-    const tl = gsap.timeline()
+        gsap.set(modal, { opacity: 0 })
+        gsap.set(backdrop, { opacity: 0 })
+        gsap.set(box, { scale: 0.7, opacity: 0, y: 40 })
 
-    tl.to(modal, { opacity: 1, duration: 0.2 })
-      .to(backdrop, { opacity: 1, duration: 0.3 }, "<")
-      .to(box, {
-          scale: 1,
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: "back.out(1.7)"
-      }, "-=0.1")
+        gsap.timeline()
+            .to(modal, { opacity: 1, duration: 0.2 })
+            .to(backdrop, { opacity: 1, duration: 0.3 }, "<")
+            .to(box, {
+                scale: 1,
+                opacity: 1,
+                y: 0,
+                duration: 0.5,
+                ease: "back.out(1.7)"
+            }, "-=0.1")
 
-    function closeModal() {
+        function close(result = false) {
 
-        gsap.timeline({
-            onComplete: () => {
-                modal.classList.add('pointer-events-none')
-            }
-        })
-        .to(box, {
-            scale: 0.8,
-            opacity: 0,
-            y: 20,
-            duration: 0.3,
-            ease: "power2.in"
-        })
-        .to(backdrop, {
-            opacity: 0,
-            duration: 0.2
-        }, "<")
-        .to(modal, {
-            opacity: 0,
-            duration: 0.2
-        }, "<")
+            gsap.timeline({
+                onComplete: () => {
+                    modal.classList.add('pointer-events-none')
+                    resolve(result)
+                }
+            })
+            .to(box, { scale: 0.8, opacity: 0, y: 20, duration: 0.3 })
+            .to(backdrop, { opacity: 0, duration: 0.2 }, "<")
+            .to(modal, { opacity: 0, duration: 0.2 }, "<")
 
-        yesBtn.removeEventListener('click', confirmAction)
-        cancelBtn.removeEventListener('click', closeModal)
-        backdrop.removeEventListener('click', closeModal)
-        document.removeEventListener('keydown', escHandler)
-    }
+            yesBtn.removeEventListener('click', yesHandler)
+            cancelBtn.removeEventListener('click', cancelHandler)
+            backdrop.removeEventListener('click', cancelHandler)
+            document.removeEventListener('keydown', escHandler)
+        }
 
-    function confirmAction() {
-        callback()
-        closeModal()
-    }
+        function yesHandler() { close(true) }
+        function cancelHandler() { close(false) }
+        function escHandler(e) { if (e.key === 'Escape') close(false) }
 
-    function escHandler(e) {
-        if (e.key === "Escape") closeModal()
-    }
-
-    yesBtn.addEventListener('click', confirmAction)
-    cancelBtn.addEventListener('click', closeModal)
-    backdrop.addEventListener('click', closeModal)
-    document.addEventListener('keydown', escHandler)
-}
-
-window.confirmDelete = function (form, message = null) {
-
-    const text = message ?? 'This action is permanent. Continue?'
-
-    showConfirm(text, function () {
-        form.submit()
+        yesBtn.addEventListener('click', yesHandler)
+        cancelBtn.addEventListener('click', cancelHandler)
+        backdrop.addEventListener('click', cancelHandler)
+        document.addEventListener('keydown', escHandler)
     })
 }
 
-document.addEventListener('click', function (e) {
+document.addEventListener('click', async function (e) {
 
     const btn = e.target.closest('[data-confirm-delete]')
     if (!btn) return
@@ -113,92 +89,68 @@ document.addEventListener('click', function (e) {
     if (!form) return
 
     const message = btn.dataset.confirmMessage
+        ?? 'This action is permanent. Continue?'
 
-    window.confirmDelete(form, message)
+    const confirmed = await showConfirm(message)
+
+    if (confirmed) form.submit()
 })
 
-document.addEventListener('click', function (e) {
+window.bulkAction = async function(type) {
 
-    const btn = e.target.closest('[data-bulk]')
-    if (!btn) return
-
-    const type = btn.dataset.bulk
     const form = document.getElementById('bulkForm')
-
-    if (!form) return
-
     const selected = document.querySelectorAll('.bulk-checkbox:checked')
 
     if (selected.length === 0) {
-        showNotify('warning', 'Please select at least one project.')
+        await showConfirm('Please select at least one project.')
         return
+    }
+
+    form.querySelectorAll('input[name="projects[]"]').forEach(el => el.remove())
+
+    selected.forEach(cb => {
+        const input = document.createElement('input')
+        input.type = 'hidden'
+        input.name = 'projects[]'
+        input.value = cb.value
+        form.appendChild(input)
+    })
+
+    const isTrashPage = window.location.pathname.includes('trash')
+
+    if (type === 'delete') {
+
+        const confirmed = await showConfirm(
+            'Delete selected projects permanently?'
+        )
+        if (!confirmed) return
+
+        form.action = isTrashPage
+            ? '/dashboard/projects/bulk-force-delete'
+            : '/dashboard/projects/bulk-delete'
     }
 
     if (type === 'restore') {
 
-        showConfirm('Restore selected projects?', function () {
-            form.action = "/dashboard/bulk-restore"
-            form.submit()
-        })
+        const confirmed = await showConfirm(
+            'Restore selected projects?'
+        )
+        if (!confirmed) return
 
-        return
-    }
-
-    if (type === 'delete') {
-
-        showConfirm('This action is permanent. Continue?', function () {
-            form.action = "/dashboard/bulk-force-delete"
-            form.submit()
-        })
-
-        return
-    }
-})
-
-document.addEventListener('click', function (e) {
-
-    const btn = e.target.closest('[data-bulk-action]')
-    if (!btn) return
-
-    const type = btn.dataset.bulkAction
-    handleBulkAction(type)
-})
-
-window.handleBulkAction = function (type) {
-
-    const form = document.getElementById('bulkForm')
-    const selected = document.querySelectorAll('.bulk-checkbox:checked')
-
-    if (selected.length === 0) {
-        showConfirm('Please select at least one project.')
-        return
+        form.action = '/dashboard/projects/bulk-restore'
     }
 
     if (type === 'publish') {
 
-        showConfirm('Publish selected projects?', function () {
-            form.action = window.routes.bulkPublish
-            form.submit()
-        })
+        const confirmed = await showConfirm(
+            'Publish selected projects?'
+        )
+        if (!confirmed) return
 
-        return
+        form.action = '/dashboard/projects/bulk-publish'
     }
 
-    if (type === 'delete') {
-
-        showConfirm('Delete selected projects?', function () {
-            form.action = window.routes.bulkDelete
-            form.submit()
-        })
-
-        return
-    }
-}
-
-function confirmAction() {
-    yesBtn.disabled = true
-    callback()
-    closeModal()
+    form.submit()
 }
 
 function getSystemTheme() {

@@ -116,17 +116,18 @@ const deleteBtn = document.getElementById('detailDeleteBtn');
 const deleteForm = document.getElementById('deleteProjectForm');
 
 if (deleteBtn) {
-    deleteBtn.addEventListener('click', () => {
+    deleteBtn.addEventListener('click', async () => {
 
         const projectId = detailModal.dataset.id;
-
         if (!projectId) return;
 
-        showConfirm('Yakin mau hapus project ini?', function () {
+        const confirmed = await showConfirm(
+            'Yakin mau hapus project ini?'
+        );
 
-            deleteForm.action = `/dashboard/projects/${projectId}`;
-            deleteForm.submit();
+        if (!confirmed) return;
 
-        })
+        deleteForm.action = `/dashboard/projects/${projectId}`;
+        deleteForm.submit();
     });
 }
