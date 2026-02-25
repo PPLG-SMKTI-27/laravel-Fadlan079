@@ -145,7 +145,7 @@
                                     +{{ count($project->extraTechs) }}
                                     <span class="tech-tooltip">
                                         @foreach ($project->extraTechs as $extra)
-                                            {{ $extra }}<br>
+                                    {{ $extra }}<br>
                                         @endforeach
                                     </span>
                                 </span>

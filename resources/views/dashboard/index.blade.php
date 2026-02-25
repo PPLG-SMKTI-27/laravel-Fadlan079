@@ -5,176 +5,260 @@
 
 @section('content')
 
-<div class="relative">
+<section class="py-20 max-w-6xl mx-auto px-6 space-y-20">
 
-    {{-- HERO --}}
-    <section id="dashboard-hero"
-        class="py-32 max-w-6xl mx-auto px-8 space-y-10 overflow-hidden">
-
+    {{-- ================= HEADER ================= --}}
+    <header class="space-y-6">
         <p class="text-xs uppercase tracking-widest text-muted">
             dashboard / overview
         </p>
 
-        <h1 class="text-[clamp(3rem,7vw,6rem)] font-semibold leading-[1.1]">
-            <span class="text-text">
-                Portfolio Dashboard
-            </span>
-            <span class="block text-muted font-normal">
-                Build & Publish
+        <h1 class="text-[clamp(2.5rem,6vw,4rem)] font-semibold leading-tight">
+            Portfolio Overview
+            <span class="block text-muted font-normal text-lg mt-2">
+                System Summary & Activity
             </span>
         </h1>
 
-        <p class="text-muted max-w-xl leading-relaxed">
-            Manage your work in one place.
-        </p>
-
-        <div class="flex flex-wrap gap-6">
-            <a href="/dashboard/projects/create"
-                class="cta-btn relative overflow-hidden px-4 py-2
-                    bg-primary text-text font-semibold border-2 border-border"
-                style="--cta-bubble-color: var(--color-bg);">
-                <span class="cta-bubble"></span>
-                <span class="cta-text relative z-10">+ New Project</span>
+        <div class="flex flex-wrap gap-3">
+            <a href="{{ route('dashboard.projects.create') }}"
+                class="px-4 py-2 border border-border text-sm hover:border-primary transition">
+                + New Project
             </a>
 
-            <a href="/dashboard/settings"
-                class="cta-btn relative overflow-hidden px-4 py-2
-                    border-2 border-border text-text font-semibold"
-                style="--cta-bubble-color: #ef4444;">
+            <a href="{{ route('dashboard.projects.index') }}"
+                class="px-4 py-2 border border-border text-sm hover:border-primary transition">
+                Manage Projects
+            </a>
 
-                <span class="cta-bubble"></span>
-                <span class="cta-text relative z-10">Settings</span>
+            <a href="{{ route('dashboard.account.edit') }}"
+                class="px-4 py-2 border border-border text-sm hover:border-red-400 text-red-400">
+                Settings
             </a>
         </div>
-    </section>
+    </header>
 
-    {{-- SUMMARY --}}
-    <section class="py-28 max-w-6xl mx-auto px-8 space-y-16">
 
-        <p class="text-xs uppercase tracking-widest text-muted">
-            index / summary
-        </p>
+    {{-- ================= MAIN SUMMARY CARDS ================= --}}
+    <div class="grid md:grid-cols-4 gap-6">
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-y-16 gap-x-12">
-            <div class="space-y-2">
-                <p class="text-xs uppercase text-muted">Projects</p>
-                <p class="text-3xl font-semibold">12</p>
-            </div>
-
-            <div class="space-y-2">
-                <p class="text-xs uppercase text-muted">Active</p>
-                <p class="text-3xl font-semibold">5</p>
-            </div>
-
-            <div class="space-y-2">
-                <p class="text-xs uppercase text-muted">Archived</p>
-                <p class="text-3xl font-semibold">3</p>
-            </div>
-
-            <div class="space-y-2">
-                <p class="text-xs uppercase text-muted">Tech</p>
-                <p class="text-3xl font-semibold">14</p>
-            </div>
+        <div class="border border-border bg-surface p-6">
+            <p class="text-xs uppercase tracking-widest text-muted mb-2">
+                Total Projects
+            </p>
+            <h3 class="text-3xl font-semibold">
+                {{ $totalProjects ?? 12 }}
+            </h3>
         </div>
-    </section>
 
-    {{-- RECENT PROJECTS --}}
-    <section id="projects-index"
-        class="relative max-w-6xl mx-auto px-4 py-28 space-y-20 overflow-hidden">
+        <div class="border border-border bg-surface p-6">
+            <p class="text-xs uppercase tracking-widest text-muted mb-2">
+                Active
+            </p>
+            <h3 class="text-3xl font-semibold text-green-400">
+                {{ $activeProjects ?? 5 }}
+            </h3>
+        </div>
 
-        <header class="space-y-6 max-w-xl">
+        <div class="border border-border bg-surface p-6">
+            <p class="text-xs uppercase tracking-widest text-muted mb-2">
+                Archived
+            </p>
+            <h3 class="text-3xl font-semibold text-yellow-400">
+                {{ $archivedProjects ?? 3 }}
+            </h3>
+        </div>
+
+        <div class="border border-border bg-surface p-6">
+            <p class="text-xs uppercase tracking-widest text-muted mb-2">
+                Technologies Used
+            </p>
+            <h3 class="text-3xl font-semibold">
+                {{ $totalTech ?? 14 }}
+            </h3>
+        </div>
+
+    </div>
+
+
+    {{-- ================= SECONDARY DASHBOARD GRID ================= --}}
+    <div class="grid lg:grid-cols-3 gap-6">
+
+        {{-- Activity Feed --}}
+        <div class="border border-border bg-surface p-6 space-y-6">
             <p class="text-xs uppercase tracking-widest text-muted">
-                Index / recent
+                Activity
             </p>
 
-            <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-semibold leading-tight">
+            <div class="space-y-4 text-sm">
+                <div class="flex justify-between">
+                    <span>Project Updated</span>
+                    <span class="text-muted">2h ago</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>New Project Created</span>
+                    <span class="text-muted">1d ago</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Project Archived</span>
+                    <span class="text-muted">3d ago</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>System Backup</span>
+                    <span class="text-muted">1w ago</span>
+                </div>
+            </div>
+        </div>
+
+
+        {{-- Project Status Breakdown --}}
+        <div class="border border-border bg-surface p-6 space-y-6">
+            <p class="text-xs uppercase tracking-widest text-muted">
+                Status Breakdown
+            </p>
+
+            <div class="space-y-3 text-sm">
+
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span>Shipped</span>
+                        <span>4</span>
+                    </div>
+                    <div class="h-2 bg-border">
+                        <div class="h-2 bg-green-400 w-2/3"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span>In Progress</span>
+                        <span>3</span>
+                    </div>
+                    <div class="h-2 bg-border">
+                        <div class="h-2 bg-yellow-400 w-1/2"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span>Prototype</span>
+                        <span>2</span>
+                    </div>
+                    <div class="h-2 bg-border">
+                        <div class="h-2 bg-blue-400 w-1/3"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        {{-- System Info --}}
+        <div class="border border-border bg-surface p-6 space-y-6">
+            <p class="text-xs uppercase tracking-widest text-muted">
+                System Info
+            </p>
+
+            <div class="space-y-3 text-sm">
+                <div class="flex justify-between">
+                    <span>Storage Usage</span>
+                    <span>320MB</span>
+                </div>
+
+                <div class="flex justify-between">
+                    <span>Last Backup</span>
+                    <span>2 days ago</span>
+                </div>
+
+                <div class="flex justify-between">
+                    <span>Environment</span>
+                    <span class="text-green-400">Production</span>
+                </div>
+
+                <div class="flex justify-between">
+                    <span>App Version</span>
+                    <span>v1.0.0</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    {{-- ================= RECENT PROJECTS ================= --}}
+    <div class="space-y-10">
+
+        <header class="space-y-4">
+            <p class="text-xs uppercase tracking-widest text-muted">
+                index / recent
+            </p>
+
+            <h2 class="text-2xl font-semibold">
                 Recent Projects
             </h2>
 
-            <p class="text-muted leading-relaxed">
-                Some recent projects that are currently or have been worked on.
-            </p>
-
-            <p class="text-muted max-w-xl">
+            <p class="text-muted text-sm">
                 @if ($latestProject)
-                    Latest project updated · {{ $latestProject->updated_at->diffForHumans() }}
+                    Latest update · {{ $latestProject->updated_at->diffForHumans() }}
                 @else
-                    No project activity yet
+                    No recent activity
                 @endif
             </p>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             @forelse ($recentProjects as $project)
 
-                <div class="project-folder group relative border border-border bg-surface p-4 pt-8">
+                <div class="project-folder group relative border border-border bg-surface p-6 pt-12 hover:border-primary transition">
 
                     <div class="absolute top-0 left-6 -translate-y-1/2 flex gap-2 z-20">
                         <span class="px-4 py-1 text-xs uppercase tracking-widest badge-primary font-semibold">
                             {{ $project->type }}
                         </span>
+
                         <span class="px-3 py-1 text-[10px] uppercase tracking-wide border {{ $project->statusClass }}">
                             {{ $project->status }}
                         </span>
                     </div>
 
-                    <div class="folder-files absolute inset-0 pointer-events-none z-0">
-                        <span class="file"></span>
-                        <span class="file"></span>
+                    <div class="cursor-pointer">
 
-                        <a href="{{ $project['repo'] }}" target="_blank"
-                           class="file file-front pointer-events-auto p-4 flex flex-col gap-2">
-                            <div class="flex flex-col h-full">
-                                <div>
-                                    <h3 class="text-lg font-semibold leading-tight">
-                                        {{ $project->title }}
-                                    </h3>
+                        <h3 class="text-lg font-semibold">
+                            {{ $project->title }}
+                        </h3>
 
-                                    <p class="text-xs text-muted leading-snug mt-2">
-                                        {{ $project->desc }}
-                                    </p>
-                                </div>
+                        <p class="text-sm text-muted mt-2">
+                            {{ $project->desc }}
+                        </p>
 
-                                <div class="mt-auto tech-row">
-                                    @foreach ($project->visibleTechs as $tech)
-                                        <span>{{ strtoupper($tech) }}</span>
-                                    @endforeach
+                        <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                            @foreach ($project->visibleTechs as $tech)
+                                <span class="px-2 py-1 border border-border">
+                                    {{ strtoupper($tech) }}
+                                </span>
+                            @endforeach
+                        </div>
 
-                                    @if (count($project->extraTechs) > 0)
-                                        <span class="tech-more">
-                                            +{{ count($project->extraTechs) }}
-                                            <span class="tech-tooltip">
-                                                @foreach ($project->extraTechs as $extra)
-                                                    {{ $extra }}<br>
-                                                @endforeach
-                                            </span>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </a>
                     </div>
-
                 </div>
 
             @empty
-                <div class="col-span-full">
-                    <p class="text-xs uppercase tracking-widest text-muted">
-                        index / empty
-                    </p>
-
-                    <h3 class="mt-6 text-[clamp(1.5rem,4vw,2rem)] font-semibold max-w-xl">
+                <div class="col-span-full border border-border bg-surface py-20 px-6 text-center">
+                    <h3 class="text-xl font-semibold">
                         No Projects Yet
                     </h3>
-
-                    <p class="mt-2 text-muted max-w-md leading-relaxed">
+                    <p class="text-muted mt-2">
                         Start by creating your first project.
                     </p>
                 </div>
             @endforelse
+
         </div>
-    </section>
-</div>
+
+    </div>
+
+</section>
 
 @endsection

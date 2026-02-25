@@ -120,6 +120,7 @@
 />
 
     <x-global-modal />
+    <x-confirm-modal />
 
     <main class="relative z-10 flex-1 md:ml-54 min-h-screen">
         @yield('content')

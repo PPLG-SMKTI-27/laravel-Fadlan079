@@ -39,6 +39,25 @@ export function projectModalAnimation() {
             }, "-=0.1");
     };
 
+    const detailEditBtn = document.getElementById('detailEditBtn');
+
+detailEditBtn?.addEventListener('click', () => {
+    // Ambil data project dari modal
+    const project = {
+        id: document.getElementById('detailTitle').dataset.id,
+        title: document.getElementById('detailTitle').innerText,
+        desc: document.getElementById('detailDesc').innerText,
+        repo: document.getElementById('detailRepo')?.href || '',
+        live: document.getElementById('detailLive')?.href || ''
+    };
+
+    window.openEditModal(project);
+
+    // Optional: tutup detail modal setelah klik edit
+    window.closeProjectModal();
+});
+
+
     window.closeProjectModal = function () {
 
         gsap.timeline({
@@ -79,7 +98,7 @@ export function projectModalAnimation() {
     ===================================================== */
 
     const createModal = document.getElementById('createProjectModal');
-    const openCreateBtn = document.getElementById('openCreateModal');
+    const openCreateBtns = document.querySelectorAll('.open-create-modal');
     const closeCreateBtn = document.getElementById('closeCreateModal');
     const cancelCreateBtn = document.getElementById('cancelCreateModal');
 
@@ -135,7 +154,9 @@ export function projectModalAnimation() {
         };
 
         // BUTTON EVENTS
-        openCreateBtn?.addEventListener('click', window.openCreateModal);
+        openCreateBtns.forEach(btn => {
+            btn.addEventListener('click', window.openCreateModal);
+        });
         closeCreateBtn?.addEventListener('click', window.closeCreateModal);
         cancelCreateBtn?.addEventListener('click', window.closeCreateModal);
 

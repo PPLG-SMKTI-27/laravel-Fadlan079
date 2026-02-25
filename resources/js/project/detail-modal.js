@@ -122,10 +122,11 @@ if (deleteBtn) {
 
         if (!projectId) return;
 
-        if (confirm('Yakin mau hapus project ini?')) {
+        showConfirm('Yakin mau hapus project ini?', function () {
 
             deleteForm.action = `/dashboard/projects/${projectId}`;
             deleteForm.submit();
-        }
+
+        })
     });
 }

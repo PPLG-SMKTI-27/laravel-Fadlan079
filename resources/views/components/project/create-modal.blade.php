@@ -74,6 +74,26 @@
                 </div>
 
             </div>
+            <div class="space-y-4 mt-6">
+
+                <label class="text-sm uppercase tracking-wide text-muted">
+                    Visibility
+                </label>
+
+                <select name="visibility"
+                        class="w-full border border-border bg-surface p-3 text-sm">
+
+                    <option value="draft">Save as Draft</option>
+                    <option value="published">Publish Now</option>
+                    <option value="scheduled">Schedule Publish</option>
+
+                </select>
+
+                <input type="datetime-local"
+                    name="published_at"
+                    class="w-full border border-border bg-surface p-3 text-sm">
+
+            </div>
 
             <div class="h-px bg-border opacity-40"></div>
 
@@ -172,65 +192,65 @@
                 <input type="hidden" name="tech" :value="JSON.stringify(tags)">
             </div>
 
-<div x-data="imageUpload()" class="space-y-3">
+            <div x-data="imageUpload()" class="space-y-3">
 
-    <p class="text-muted uppercase tracking-wide text-xs">
-        Screenshots (Max 8)
-    </p>
+                <p class="text-muted uppercase tracking-wide text-xs">
+                    Screenshots (Max 8)
+                </p>
 
-    <!-- Upload Area -->
-    <label
-        class="flex flex-col items-center justify-center
-               w-full h-40
-               border border-dashed border-border
-               bg-surface
-               cursor-pointer
-               hover:border-primary
-               transition">
+                <!-- Upload Area -->
+                <label
+                    class="flex flex-col items-center justify-center
+                        w-full h-40
+                        border border-dashed border-border
+                        bg-surface
+                        cursor-pointer
+                        hover:border-primary
+                        transition">
 
-        <div class="text-center space-y-2">
-            <div class="text-primary text-lg">＋</div>
-            <p class="text-sm text-muted">
-                Click to upload (max 8 images)
-            </p>
-        </div>
+                    <div class="text-center space-y-2">
+                        <div class="text-primary text-lg">＋</div>
+                        <p class="text-sm text-muted">
+                            Click to upload (max 8 images)
+                        </p>
+                    </div>
 
-        <input type="file"
-               multiple
-               accept="image/*"
-               name="screenshot[]"
-               class="hidden"
-               @change="handleFiles($event)">
-    </label>
+                    <input type="file"
+                        multiple
+                        accept="image/*"
+                        name="screenshot[]"
+                        class="hidden"
+                        @change="handleFiles($event)">
+                </label>
 
-    <!-- Preview -->
-    <div class="grid grid-cols-4 gap-3" x-show="images.length">
-        <template x-for="(img, index) in images" :key="index">
-            <div class="relative border border-border bg-surface group">
+                <!-- Preview -->
+                <div class="grid grid-cols-4 gap-3" x-show="images.length">
+                    <template x-for="(img, index) in images" :key="index">
+                        <div class="relative border border-border bg-surface group">
 
-                <img :src="img.url"
-                     class="w-full h-24 object-cover">
+                            <img :src="img.url"
+                                class="w-full h-24 object-cover">
 
-                <button type="button"
-                        @click="removeImage(index)"
-                        class="absolute top-1 right-1
-                               bg-black/60 text-white
-                               text-xs px-2 py-0.5
-                               opacity-0 group-hover:opacity-100
-                               transition">
-                    ✕
-                </button>
+                            <button type="button"
+                                    @click="removeImage(index)"
+                                    class="absolute top-1 right-1
+                                        bg-black/60 text-white
+                                        text-xs px-2 py-0.5
+                                        opacity-0 group-hover:opacity-100
+                                        transition">
+                                ✕
+                            </button>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Limit Warning -->
+                <p x-show="images.length >= 8"
+                class="text-xs text-red-400">
+                Maximum 8 images allowed.
+                </p>
+
             </div>
-        </template>
-    </div>
-
-    <!-- Limit Warning -->
-    <p x-show="images.length >= 8"
-       class="text-xs text-red-400">
-       Maximum 8 images allowed.
-    </p>
-
-</div>
 
             <div class="flex justify-end gap-3 pt-4">
 

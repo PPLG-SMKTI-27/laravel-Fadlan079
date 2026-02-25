@@ -21,8 +21,15 @@ Route::middleware(['auth', 'verified'])
         Route::post('projects/restore/{id}', [ProjectController::class, 'restore'])
             ->name('projects.restore');
 
+        Route::post('projects/bulk-delete', [ProjectController::class, 'bulkDelete'])
+            ->name('bulkDeleteProjects');
+
+        Route::post('projects/bulk-publish', [ProjectController::class, 'bulkPublish'])
+            ->name('bulkPublishProjects');
+
         Route::delete('projects/force-delete/{id}', [ProjectController::class, 'forceDelete'])
             ->name('projects.forceDelete');
+
         Route::post('projects/bulk-restore',
             [ProjectController::class, 'bulkRestore'])
             ->name('bulkRestore');
@@ -32,7 +39,7 @@ Route::middleware(['auth', 'verified'])
             ->name('bulkForceDelete');
 
         Route::get('account', [ProfileController::class, 'edit'])
-        ->name('account.edit');
+            ->name('account.edit');
 
         Route::patch('account', [ProfileController::class, 'update'])
             ->name('account.update');

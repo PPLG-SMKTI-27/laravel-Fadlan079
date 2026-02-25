@@ -20,15 +20,12 @@ class ProjectController extends Controller
             $query->filterType($request->type);
         }
 
-        $isFirstPage = ($request->get('page', 1) == 1);
+        $sort = $request->get('sort', 'desc');
+        $query->orderBy('created_at', $sort);
 
-        $projects = $query
-            ->latest()
-            ->paginate($isFirstPage ? 2 : 3)
-            ->withQueryString();
+        $projects = $query->paginate(3)->withQueryString();
 
         $summary = Project::summary();
-
         $technologies = Technology::pluck('name');
 
         return view('dashboard.project', compact(
@@ -48,17 +45,31 @@ class ProjectController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'type' => 'required',
-            'desc' => 'required',
-            'status' => 'required',
+            'type' => 'required|string',
+            'desc' => 'required|string',
+            'status' => 'required|string',
+
+            'visibility' => 'required|in:draft,scheduled,published',
+
+            'published_at' => 'nullable|date|required_if:visibility,scheduled',
+
             'role' => 'nullable|string',
             'team_size' => 'nullable|integer',
             'responsibilities' => 'nullable|string',
             'tech' => 'nullable|string',
             'repo' => 'nullable|url',
             'live_url' => 'nullable|url',
-            'screenshot.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'screenshot' => 'array|max:8',
+            'screenshot.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
+
+        if ($validated['visibility'] === 'published') {
+            $validated['published_at'] = now();
+        }
+
+        if ($validated['visibility'] === 'draft') {
+            $validated['published_at'] = null;
+        }
 
         $validated['tech'] = $request->tech
             ? json_decode($request->tech, true)
@@ -88,6 +99,19 @@ class ProjectController extends Controller
         return back()->with('success', 'Project created successfully.');
     }
 
+    public function bulkDelete(Request $request)
+    {
+        Project::whereIn('id', $request->projects)->delete();
+        return back()->with('success', 'Selected projects deleted.');
+    }
+
+    public function bulkPublish(Request $request)
+    {
+        Project::whereIn('id', $request->projects)
+            ->update(['visibility' => 'published', 'published_at' => now()]);
+        return back()->with('success', 'Selected projects published.');
+    }
+
     public function edit(Project $project)
     {
         return view('projects.edit', compact('project'));
@@ -99,7 +123,7 @@ class ProjectController extends Controller
             'title' => 'required|string|max:255',
             'type' => 'required|string|max:255',
             'status' => 'required|string|max:255',
-            'description' => 'nullable|string'
+            'desc' => 'nullable|string'
         ]);
 
         $project->update($validated);
@@ -113,7 +137,7 @@ class ProjectController extends Controller
         $project->delete();
 
         return redirect()->route('dashboard.projects.index')
-            ->with('success', 'Project deleted!');
+            ->with('success', 'Project permanently deleted!');
     }
 
     public function trash(Request $request)
@@ -181,7 +205,7 @@ class ProjectController extends Controller
             ->whereIn('id', $request->projects)
             ->restore();
 
-        return back()->with('success', 'Projects restored.');
+        return back()->with('success', 'Projects successfully restored.');
     }
 
     public function bulkForceDelete(Request $request)
@@ -198,7 +222,7 @@ class ProjectController extends Controller
         $project = Project::onlyTrashed()->findOrFail($id);
         $project->restore();
 
-        return redirect()->back()->with('success', 'Project berhasil direstore!');
+        return redirect()->back()->with('success', 'Project successfully restored!');
     }
 
     public function forceDelete($id)
@@ -206,6 +230,6 @@ class ProjectController extends Controller
         $project = Project::onlyTrashed()->findOrFail($id);
         $project->forceDelete();
 
-        return redirect()->back()->with('success', 'Project dihapus permanen!');
+        return redirect()->back()->with('success', 'Project permanently deleted!');
     }
 }

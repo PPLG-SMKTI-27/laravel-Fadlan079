@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     filterButtons.forEach(btn => {
 
         if (btn.dataset.filter === (params.get('type') ?? 'all')) {
-            btn.classList.add('border-primary');
+            btn.classList.add('border-primary','bg-primary/10','text-primary');
         }
 
         btn.addEventListener('click', () => {

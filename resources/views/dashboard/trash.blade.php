@@ -168,7 +168,9 @@
                                     @csrf
                                     @method('DELETE')
                                     <button
-                                        onclick="return confirm('Delete permanently?')"
+                                        type="button"
+                                        data-confirm-delete
+                                        data-confirm-message="Delete this project permanently?"
                                         class="text-xs px-3 py-1 border border-red-500 text-red-400 hover:bg-red-500/10">
                                         Delete
                                     </button>
@@ -401,7 +403,10 @@ function bulkAction(type) {
 
     if (type === 'delete') {
 
-        if (!confirm('This action is permanent. Continue?')) return
+        showConfirm('This action is permanent. Continue?', function() {
+            form.action = "{{ route('dashboard.bulkForceDelete') }}"
+            form.submit()
+        })
 
         form.action = "{{ route('dashboard.bulkForceDelete') }}"
     }

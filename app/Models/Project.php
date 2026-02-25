@@ -19,6 +19,8 @@ class Project extends Model
         'team_size',
         'responsibilities',
         'status',
+        'visibility',
+        'published_at',
         'tech',
         'repo',
         'live_url',
@@ -28,7 +30,33 @@ class Project extends Model
     protected $casts = [
         'tech' => 'array',
         'screenshot' => 'array',
+        'published_at' => 'datetime',
     ];
+
+    public function isPublished(): bool
+    {
+        if ($this->visibility === 'published') {
+            return true;
+        }
+
+        if ($this->visibility === 'scheduled' && $this->published_at) {
+            return $this->published_at->lte(now());
+        }
+
+        return false;
+    }
+
+    public function scopePublic($query)
+    {
+        return $query->where(function ($q) {
+            $q->where('visibility', 'published')
+            ->orWhere(function ($q2) {
+                $q2->where('visibility', 'scheduled')
+                    ->whereNotNull('published_at')
+                    ->where('published_at', '<=', now());
+            });
+        });
+    }
 
     public function scopeSearch($query, $keyword)
     {

@@ -2,6 +2,7 @@ import './bootstrap';
 import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 import htmx from 'htmx.org';
+import { gsap } from "gsap";
 window.htmx = htmx;
 
 import { heroAnimation } from './animations/hero';
@@ -13,9 +14,192 @@ import { navbarScrollEffect } from "./animations/navbar";
 import { aboutAnimation } from "./animations/about";
 import { projectAnimation } from "./animations/project";
 import { projectModalAnimation } from "./animations/project-modal";
+import { initmodal } from "./animations/modal";
 
 const THEME_KEY = 'theme';
 const html = document.documentElement;
+
+window.showConfirm = function(message, callback) {
+
+    const modal = document.getElementById('confirm-modal')
+    const backdrop = document.getElementById('confirm-backdrop')
+    const box = document.getElementById('confirm-box')
+    const msg = document.getElementById('confirm-message')
+    const yesBtn = document.getElementById('confirm-yes')
+    const cancelBtn = document.getElementById('confirm-cancel')
+
+    msg.innerText = message
+
+    modal.classList.remove('pointer-events-none')
+
+    // Initial state
+    gsap.set(modal, { opacity: 0 })
+    gsap.set(backdrop, { opacity: 0 })
+    gsap.set(box, { scale: 0.7, opacity: 0, y: 40 })
+
+    const tl = gsap.timeline()
+
+    tl.to(modal, { opacity: 1, duration: 0.2 })
+      .to(backdrop, { opacity: 1, duration: 0.3 }, "<")
+      .to(box, {
+          scale: 1,
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "back.out(1.7)"
+      }, "-=0.1")
+
+    function closeModal() {
+
+        gsap.timeline({
+            onComplete: () => {
+                modal.classList.add('pointer-events-none')
+            }
+        })
+        .to(box, {
+            scale: 0.8,
+            opacity: 0,
+            y: 20,
+            duration: 0.3,
+            ease: "power2.in"
+        })
+        .to(backdrop, {
+            opacity: 0,
+            duration: 0.2
+        }, "<")
+        .to(modal, {
+            opacity: 0,
+            duration: 0.2
+        }, "<")
+
+        yesBtn.removeEventListener('click', confirmAction)
+        cancelBtn.removeEventListener('click', closeModal)
+        backdrop.removeEventListener('click', closeModal)
+        document.removeEventListener('keydown', escHandler)
+    }
+
+    function confirmAction() {
+        callback()
+        closeModal()
+    }
+
+    function escHandler(e) {
+        if (e.key === "Escape") closeModal()
+    }
+
+    yesBtn.addEventListener('click', confirmAction)
+    cancelBtn.addEventListener('click', closeModal)
+    backdrop.addEventListener('click', closeModal)
+    document.addEventListener('keydown', escHandler)
+}
+
+window.confirmDelete = function (form, message = null) {
+
+    const text = message ?? 'This action is permanent. Continue?'
+
+    showConfirm(text, function () {
+        form.submit()
+    })
+}
+
+document.addEventListener('click', function (e) {
+
+    const btn = e.target.closest('[data-confirm-delete]')
+    if (!btn) return
+
+    e.preventDefault()
+
+    const form = btn.closest('form')
+    if (!form) return
+
+    const message = btn.dataset.confirmMessage
+
+    window.confirmDelete(form, message)
+})
+
+document.addEventListener('click', function (e) {
+
+    const btn = e.target.closest('[data-bulk]')
+    if (!btn) return
+
+    const type = btn.dataset.bulk
+    const form = document.getElementById('bulkForm')
+
+    if (!form) return
+
+    const selected = document.querySelectorAll('.bulk-checkbox:checked')
+
+    if (selected.length === 0) {
+        showNotify('warning', 'Please select at least one project.')
+        return
+    }
+
+    if (type === 'restore') {
+
+        showConfirm('Restore selected projects?', function () {
+            form.action = "/dashboard/bulk-restore"
+            form.submit()
+        })
+
+        return
+    }
+
+    if (type === 'delete') {
+
+        showConfirm('This action is permanent. Continue?', function () {
+            form.action = "/dashboard/bulk-force-delete"
+            form.submit()
+        })
+
+        return
+    }
+})
+
+document.addEventListener('click', function (e) {
+
+    const btn = e.target.closest('[data-bulk-action]')
+    if (!btn) return
+
+    const type = btn.dataset.bulkAction
+    handleBulkAction(type)
+})
+
+window.handleBulkAction = function (type) {
+
+    const form = document.getElementById('bulkForm')
+    const selected = document.querySelectorAll('.bulk-checkbox:checked')
+
+    if (selected.length === 0) {
+        showConfirm('Please select at least one project.')
+        return
+    }
+
+    if (type === 'publish') {
+
+        showConfirm('Publish selected projects?', function () {
+            form.action = window.routes.bulkPublish
+            form.submit()
+        })
+
+        return
+    }
+
+    if (type === 'delete') {
+
+        showConfirm('Delete selected projects?', function () {
+            form.action = window.routes.bulkDelete
+            form.submit()
+        })
+
+        return
+    }
+}
+
+function confirmAction() {
+    yesBtn.disabled = true
+    callback()
+    closeModal()
+}
 
 function getSystemTheme() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -176,19 +360,31 @@ window.imageUpload = function () {
     return {
         images: [],
 
-        handleFiles(event) {
-            const files = Array.from(event.target.files);
+    handleFiles(event) {
+        const input = event.target;
+        const newFiles = Array.from(input.files);
 
-            for (let file of files) {
-                if (this.images.length >= 8) break;
+        const dt = new DataTransfer();
 
-                this.images.push({
-                    file: file,
-                    url: URL.createObjectURL(file)
-                });
+        if (input.files.length && this.images.length) {
+            this.images.forEach(img => {
+                dt.items.add(img.file);
+            });
+        }
+
+        newFiles.forEach(file => {
+            if (dt.files.length < 8) {
+                dt.items.add(file);
             }
+        });
 
-        },
+        input.files = dt.files;
+
+        this.images = Array.from(dt.files).map(file => ({
+            file: file,
+            url: URL.createObjectURL(file)
+        }));
+    },
 
         removeImage(index) {
             this.images.splice(index, 1);
@@ -197,8 +393,6 @@ window.imageUpload = function () {
 }
 
 Alpine.start()
-
-
 
 document.addEventListener('DOMContentLoaded', async () => {
     const sections = document.querySelectorAll('section[id]');
@@ -238,4 +432,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     try { aboutAnimation(); } catch(e){ console.warn(e) }
     try { projectAnimation(); } catch(e){ console.warn(e) }
     try { projectModalAnimation(); } catch(e){ console.warn(e) }
+    try { initmodal(); } catch(e){ console.warn(e) }
 });
