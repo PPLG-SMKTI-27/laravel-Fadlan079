@@ -140,7 +140,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
     @if($projects->currentPage() == 1 && $projects->count())
             <div class="project-folder group relative border border-dashed border-border bg-surface p-6 pt-12">
                     <div class="absolute top-0 left-6 -translate-y-1/2 flex gap-2 z-20">
@@ -248,6 +248,22 @@
                                     class="text-xs font-medium text-primary mt-1 hover:underline">
                                     Selengkapnya
                                 </button>
+                            @endif
+                        </div>
+                        <div class="tech-row">
+                            @foreach ($project->visibleTechs as $tech)
+                                <span>{{ strtoupper($tech) }}</span>
+                            @endforeach
+
+                            @if (count($project->extraTechs) > 0)
+                                <span class="tech-more">
+                                    +{{ count($project->extraTechs) }}
+                                    <span class="tech-tooltip">
+                                        @foreach ($project->extraTechs as $extra)
+                                    {{ $extra }}<br>
+                                        @endforeach
+                                    </span>
+                                </span>
                             @endif
                         </div>
                     </a>

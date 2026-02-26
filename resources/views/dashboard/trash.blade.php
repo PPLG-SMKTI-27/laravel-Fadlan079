@@ -89,7 +89,7 @@
 
     </div>
 
-    <div class="space-y-16">
+    <div id="projects-container" class="space-y-16">
         @forelse ($groupedProjects as $month => $projects)
 
         <div class="space-y-6">
@@ -272,19 +272,14 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-    const monthButtons = document.querySelectorAll('.month-select')
-    const normalActions = document.querySelectorAll('.normal-actions')
     const toggleBtn = document.getElementById('toggleSelectMode')
     const bulkBar = document.getElementById('bulkBar')
-    const checkboxes = document.querySelectorAll('.bulk-checkbox')
-    const cards = document.querySelectorAll('.project-card')
     const selectedCountText = document.getElementById('selectedCount')
 
-    let selectMode = false
+    let selectMode = new URL(window.location.href).searchParams.has('multiple_select');
 
     function updateBulkBar() {
-
-        if (!selectMode) return
+        if (!selectMode || !bulkBar) return
 
         const selected = document.querySelectorAll('.bulk-checkbox:checked').length
 
@@ -296,93 +291,134 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-toggleBtn.addEventListener('click', () => {
-    selectMode = !selectMode;
+    function attachProjectEvents() {
+        const monthButtons = document.querySelectorAll('.month-select')
+        const normalActions = document.querySelectorAll('.normal-actions')
+        const checkboxes = document.querySelectorAll('.bulk-checkbox')
+        const cards = document.querySelectorAll('.project-card')
 
-    // Ambil URL sekarang
-    const url = new URL(window.location.href);
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateBulkBar)
+        })
+
+        monthButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const month = button.dataset.month
+                const monthCheckboxes = document.querySelectorAll(
+                    `[data-month="${month}"] .bulk-checkbox`
+                )
+                const allChecked = [...monthCheckboxes].every(cb => cb.checked)
+
+                monthCheckboxes.forEach(cb => {
+                    cb.checked = !allChecked
+                    const card = cb.closest('.project-card')
+                    card.classList.toggle('border-primary', !allChecked)
+                    card.classList.toggle('bg-primary/5', !allChecked)
+                })
+
+                button.innerText = allChecked ? 'Select All' : 'Unselect All'
+                updateBulkBar()
+            })
+        })
+
+        cards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!selectMode) return
+                if (e.target.closest('form') || e.target.tagName === 'BUTTON') return
+
+                const checkbox = card.querySelector('.bulk-checkbox')
+                checkbox.checked = !checkbox.checked
+
+                card.classList.toggle('border-primary', checkbox.checked)
+                card.classList.toggle('bg-primary/5', checkbox.checked)
+
+                updateBulkBar()
+            })
+        })
+
+        if (selectMode) {
+            monthButtons.forEach(btn => btn.classList.remove('hidden'))
+            checkboxes.forEach(cb => cb.classList.remove('opacity-0', 'pointer-events-none'))
+            normalActions.forEach(el => el.classList.add('hidden'))
+        } else {
+            monthButtons.forEach(btn => btn.classList.add('hidden'))
+            checkboxes.forEach(cb => {
+                cb.checked = false
+                cb.classList.add('opacity-0', 'pointer-events-none')
+            })
+            cards.forEach(card => card.classList.remove('border-primary', 'bg-primary/5'))
+            normalActions.forEach(el => el.classList.remove('hidden'))
+        }
+    }
+
+    // Initial attach
+    attachProjectEvents();
 
     if (selectMode) {
-        // Jika mode multiple select belum di URL, tambahkan query param
-        if (!url.searchParams.has('multiple_select')) {
+        toggleBtn.innerText = 'Cancel Selection'
+        toggleBtn.classList.add('border-red-500', 'text-red-400')
+    }
+
+    toggleBtn.addEventListener('click', async () => {
+        const wasSelectMode = selectMode;
+        selectMode = !selectMode;
+
+        const url = new URL(window.location.href);
+
+        const originalText = toggleBtn.innerText;
+        toggleBtn.innerText = 'Loading...';
+        toggleBtn.disabled = true;
+
+        if (selectMode) {
             url.searchParams.set('multiple_select', '1');
-            window.location.href = url.toString();
-            return; // reload page dulu, checkbox akan aktif setelah load
+            toggleBtn.classList.add('border-red-500', 'text-red-400');
+        } else {
+            url.searchParams.delete('multiple_select');
+            toggleBtn.classList.remove('border-red-500', 'text-red-400');
+            if (bulkBar) bulkBar.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
         }
 
-        // Setelah page reload, aktifkan mode multiple select di frontend
-        monthButtons.forEach(btn => btn.classList.remove('hidden'));
-        checkboxes.forEach(cb => cb.classList.remove('opacity-0', 'pointer-events-none'));
-        normalActions.forEach(el => el.classList.add('hidden'));
-        toggleBtn.innerText = 'Cancel Selection';
-        toggleBtn.classList.add('border-red-500', 'text-red-400');
+        try {
+            const response = await fetch(url.toString(), {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            });
+            
+            if (!response.ok) throw new Error('Network response was not ok');
+            
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            const newContainer = doc.querySelector('#projects-container');
+            if (newContainer) {
+                document.querySelector('#projects-container').innerHTML = newContainer.innerHTML;
+            }
 
-    } else {
-        // Nonaktifkan mode multiple select
-        monthButtons.forEach(btn => btn.classList.add('hidden'));
-        checkboxes.forEach(cb => {
-            cb.checked = false;
-            cb.classList.add('opacity-0', 'pointer-events-none');
-        });
-        cards.forEach(card => card.classList.remove('border-primary', 'bg-primary/5'));
-        normalActions.forEach(el => el.classList.remove('hidden'));
-        bulkBar.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
-        toggleBtn.innerText = 'Select Multiple';
-        toggleBtn.classList.remove('border-red-500', 'text-red-400');
+            window.history.pushState({}, '', url.toString());
 
-        // Hapus query param multiple_select dan reload page
-        url.searchParams.delete('multiple_select');
-        window.location.href = url.toString();
-    }
-});
+            if (selectMode) {
+                toggleBtn.innerText = 'Cancel Selection';
+            } else {
+                toggleBtn.innerText = 'Select Multiple';
+            }
 
-    checkboxes.forEach(cb => {
-        cb.addEventListener('change', updateBulkBar)
-    })
+            attachProjectEvents();
+            updateBulkBar();
 
-    monthButtons.forEach(button => {
-
-        button.addEventListener('click', () => {
-
-            const month = button.dataset.month
-
-            const monthCheckboxes = document.querySelectorAll(
-                `[data-month="${month}"] .bulk-checkbox`
-            )
-
-            const allChecked = [...monthCheckboxes].every(cb => cb.checked)
-
-            monthCheckboxes.forEach(cb => {
-                cb.checked = !allChecked
-
-                const card = cb.closest('.project-card')
-                card.classList.toggle('border-primary', !allChecked)
-                card.classList.toggle('bg-primary/5', !allChecked)
-            })
-
-            button.innerText = allChecked ? 'Select All' : 'Unselect All'
-
-            updateBulkBar()
-        })
-    })
-
-    cards.forEach(card => {
-
-        card.addEventListener('click', function(e) {
-
-            if (!selectMode) return
-
-            if (e.target.closest('form') || e.target.tagName === 'BUTTON') return
-
-            const checkbox = card.querySelector('.bulk-checkbox')
-            checkbox.checked = !checkbox.checked
-
-            card.classList.toggle('border-primary', checkbox.checked)
-            card.classList.toggle('bg-primary/5', checkbox.checked)
-
-            updateBulkBar()
-        })
-    })
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            selectMode = wasSelectMode;
+            if (!selectMode) {
+                toggleBtn.classList.remove('border-red-500', 'text-red-400');
+            } else {
+                toggleBtn.classList.add('border-red-500', 'text-red-400');
+            }
+            toggleBtn.innerText = originalText;
+            alert('Something went wrong. Please try again.');
+        } finally {
+            toggleBtn.disabled = false;
+        }
+    });
 
 })
 </script>
