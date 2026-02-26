@@ -308,38 +308,115 @@ window.tagInput = function (suggestions) {
     }
 }
 
-window.imageUpload = function () {
+window.tagInputEdit = function (allTech) {
     return {
-        images: [],
+        input: '',
+        tags: [],
+        filtered: [],
+        allTech: allTech,
 
-    handleFiles(event) {
-        const input = event.target;
-        const newFiles = Array.from(input.files);
-
-        const dt = new DataTransfer();
-
-        if (input.files.length && this.images.length) {
-            this.images.forEach(img => {
-                dt.items.add(img.file);
-            });
-        }
-
-        newFiles.forEach(file => {
-            if (dt.files.length < 8) {
-                dt.items.add(file);
+        setInitialTech() {
+            if (window.currentEditTech) {
+                try {
+                    this.tags = JSON.parse(window.currentEditTech);
+                } catch(e) {
+                    this.tags = [];
+                }
             }
-        });
+        },
 
-        input.files = dt.files;
+        search() {
+            const query = this.input.replace('#','').toLowerCase();
 
-        this.images = Array.from(dt.files).map(file => ({
-            file: file,
-            url: URL.createObjectURL(file)
-        }));
-    },
+            this.filtered = this.allTech.filter(t =>
+                t.toLowerCase().includes(query) &&
+                !this.tags.includes(t)
+            ).slice(0,5);
+        },
 
-        removeImage(index) {
-            this.images.splice(index, 1);
+        addTag(tag) {
+            tag = tag.replace('#','').toLowerCase();
+
+            if (!this.tags.includes(tag) && tag.trim() !== '') {
+                this.tags.push(tag);
+            }
+
+            this.input = '';
+            this.filtered = [];
+        },
+
+        removeTag(index) {
+            this.tags.splice(index, 1);
+        }
+    }
+}
+window.imageUpload = function (config = {}) {
+    return {
+
+        max: 8,
+
+        // untuk edit
+        existingImages: config.existing ?? [],
+
+        // untuk upload baru
+        newImages: [],
+
+        // untuk kirim ke backend (hapus lama)
+        deletedImages: [],
+
+        /*
+        |--------------------------------------------------------------------------
+        | TOTAL IMAGE COUNT
+        |--------------------------------------------------------------------------
+        */
+        get totalImages() {
+            return this.existingImages.length + this.newImages.length
+        },
+
+        /*
+        |--------------------------------------------------------------------------
+        | HANDLE FILE UPLOAD
+        |--------------------------------------------------------------------------
+        */
+        handleFiles(event) {
+
+            const files = Array.from(event.target.files)
+
+            files.forEach(file => {
+
+                if (this.totalImages >= this.max) return
+
+                this.newImages.push({
+                    file: file,
+                    url: URL.createObjectURL(file)
+                })
+
+            })
+
+            event.target.value = ''
+        },
+
+        /*
+        |--------------------------------------------------------------------------
+        | REMOVE EXISTING IMAGE (EDIT MODE)
+        |--------------------------------------------------------------------------
+        */
+        removeExisting(index) {
+
+            const removed = this.existingImages.splice(index, 1)[0]
+
+            if (removed?.path) {
+                this.deletedImages.push(removed)
+            }
+        },
+
+        /*
+        |--------------------------------------------------------------------------
+        | REMOVE NEW IMAGE
+        |--------------------------------------------------------------------------
+        */
+        removeNew(index) {
+            this.newImages.splice(index, 1)
         }
     }
 }

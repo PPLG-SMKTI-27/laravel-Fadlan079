@@ -36,6 +36,8 @@
             </div>
 
             <h2 id="detailTitle"
+                data-id=""
+                data-tech=""
                 class="text-2xl font-semibold leading-tight"></h2>
 
             <p id="detailDesc"
@@ -108,7 +110,7 @@
                         Edit Project
                     </button>
 
-                    <button id="detailDeleteBtn" 
+                    <button id="detailDeleteBtn"
                             class="px-4 py-2 border border-danger text-danger text-sm hover:bg-danger/50 hover:text-text transition">
                         Delete Project
                     </button>

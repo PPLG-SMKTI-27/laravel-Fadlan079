@@ -121,17 +121,75 @@ class ProjectController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'status' => 'required|string|max:255',
-            'desc' => 'nullable|string'
+            'type' => 'required|in:Website,Web App,Application,Design',
+            'status' => 'required|in:Shipped,In Progress,Prototype,Archived',
+            'desc' => 'required|string',
+            'role' => 'nullable|string|max:255',
+            'team_size' => 'nullable|integer',
+            'responsibilities' => 'nullable|string',
+            'visibility' => 'required|string',
+            'repo' => 'nullable|string|max:255',
+            'live_url' => 'nullable|string|max:255',
+            'tech' => 'nullable|array'
         ]);
 
         $project->update($validated);
 
-        return redirect()->route('dashboard.projects.index')
-            ->with('success', 'Project updated successfully!');
-    }
+        /*
+        |--------------------------------------------------------------------------
+        | HANDLE SCREENSHOT JSON
+        |--------------------------------------------------------------------------
+        */
 
+        $existingScreenshots = $project->screenshot ?? [];
+        $existingScreenshots = is_array($existingScreenshots)
+            ? $existingScreenshots
+            : json_decode($existingScreenshots, true) ?? [];
+
+        /*
+        | Hapus screenshot lama
+        */
+        if ($request->deleted_screenshots) {
+            foreach ($request->deleted_screenshots as $deletedPath) {
+
+                // hapus file dari storage
+                Storage::disk('public')->delete($deletedPath);
+
+                // hapus dari array
+                $existingScreenshots = array_filter(
+                    $existingScreenshots,
+                    fn($path) => $path !== $deletedPath
+                );
+            }
+        }
+
+        /*
+        | Upload screenshot baru
+        */
+        if ($request->hasFile('new_screenshot')) {
+
+            foreach ($request->file('new_screenshot') as $file) {
+
+                $path = $file->store('projects', 'public');
+                $existingScreenshots[] = $path;
+            }
+        }
+
+        /*
+        | Batasi max 8 gambar
+        */
+        $existingScreenshots = array_slice($existingScreenshots, 0, 8);
+
+        /*
+        | Save kembali ke JSON column
+        */
+        $project->update([
+            'screenshot' => array_values($existingScreenshots)
+        ]);
+
+            return redirect()->route('dashboard.projects.index')
+                ->with('success', 'Project updated successfully!');
+    }
     public function destroy(Project $project)
     {
         $project->delete();

@@ -212,6 +212,7 @@
                             data-desc="{{ $project->desc }}"
                             data-type="{{ $project->type }}"
                             data-status="{{ $project->status }}"
+                            data-visibility="{{ $project->visibility }}"
                             data-created="{{ $project->created_at->format('d M Y') }}"
                             data-updated="{{ $project->updated_at->format('d M Y') }}"
                             data-repo="{{ $project->repo }}"
@@ -222,7 +223,7 @@
                             data-screenshot='@json(
                                 $project->screenshot
                                     ? collect($project->screenshot)
-                                        ->map(fn($img) => asset("storage/".$img))
+                                        ->map(fn($img) => ["path" => $img, "url" => asset("storage/".$img)])
                                         ->values()
                                     : []
                             )'
@@ -235,8 +236,19 @@
 
 
                             <p class="text-sm text-muted leading-snug mt-1">
-                                {{ $project->desc}}
+                                {{ \Illuminate\Support\Str::limit($project->desc, 100) }}
                             </p>
+
+                            @if(strlen($project->desc) > 100)
+                                <button
+                                    @click="$dispatch('open-desc-modal', {
+                                        title: '{{ addslashes($project->title) }}',
+                                        desc: `{!! addslashes($project->desc) !!}`
+                                    })"
+                                    class="text-xs font-medium text-primary mt-1 hover:underline">
+                                    Selengkapnya
+                                </button>
+                            @endif
                         </div>
                     </a>
                 </div>
@@ -327,7 +339,7 @@
 @endsection
 <x-project.detail-modal />
 
-<x-project.edit-modal />
+<x-project.edit-modal :technologies="$technologies" />
 
 <x-project.create-modal :technologies="$technologies" />
 

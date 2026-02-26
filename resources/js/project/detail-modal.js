@@ -15,6 +15,19 @@ document.querySelectorAll('.project-open').forEach(card => {
 
     card.addEventListener('click', () => {
         detailModal.dataset.id = card.dataset.id;
+        detailModal.dataset.tech = card.dataset.tech;
+        detailModal.dataset.type = card.dataset.type;
+        detailModal.dataset.status = card.dataset.status;
+        detailModal.dataset.visibility = card.dataset.visibility;
+        detailModal.dataset.title = card.dataset.title;
+        detailModal.dataset.desc = card.dataset.desc;
+        detailModal.dataset.role = card.dataset.role;
+        detailModal.dataset.team = card.dataset.team;
+        detailModal.dataset.responsibilities = card.dataset.responsibilities;
+        detailModal.dataset.repo = card.dataset.repo;
+        detailModal.dataset.live = card.dataset.live;
+        detailModal.dataset.screenshot = card.dataset.screenshot;
+
         // ===== Basic Info =====
         document.getElementById('detailType').textContent = card.dataset.type;
         document.getElementById('detailStatus').textContent = card.dataset.status;
@@ -59,7 +72,7 @@ document.querySelectorAll('.project-open').forEach(card => {
                     images.forEach(img => {
                         screenshotContainer.innerHTML += `
                         <div class="aspect-video overflow-hidden border border-border/50 bg-surface/40 group">
-                            <img src="${img}"
+                            <img src="${img.url}"
                                 class="w-full h-full object-cover transition duration-500 group-hover:scale-105 cursor-pointer">
                         </div>
                         `;

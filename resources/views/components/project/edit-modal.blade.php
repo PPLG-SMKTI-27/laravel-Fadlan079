@@ -45,6 +45,13 @@
                     <option value="Prototype">Prototype</option>
                     <option value="Archived">Archived</option>
                 </select>
+
+                <select id="editVisibility" name="visibility"
+                        class="px-3 py-1 text-[10px] uppercase tracking-wide border border-border text-muted focus:ring-1 focus:ring-primary focus:outline-none">
+                    <option value="draft">Draft</option>
+                    <option value="published">Published</option>
+                    <option value="scheduled">Scheduled</option>
+                </select>
             </div>
 
             <!-- Title -->
@@ -62,11 +69,69 @@
             </div>
 
             <!-- Tech Stack -->
-            <div class="space-y-2">
-                <label for="editTech" class="text-sm font-medium text-muted">Tech Stack (comma separated)</label>
-                <input type="text" name="tech" id="editTech"
-                       class="w-full border border-border  px-4 py-2 focus:ring-1 focus:ring-primary focus:outline-none">
+<div x-data="tagInputEdit({{ Js::from($technologies) }})"
+x-ref="techComponent"
+
+     class="w-full relative space-y-2">
+
+    <p class="text-muted uppercase tracking-wide text-xs mb-2">
+        Tech Stack
+    </p>
+
+    <!-- Tags -->
+    <div class="flex flex-wrap gap-2 mb-3">
+        <template x-for="(tag, index) in tags" :key="index">
+            <div class="bg-primary/15 text-primary border border-primary/30
+                        px-3 py-1 flex items-center gap-2
+                        text-xs tracking-wide">
+
+                <span x-text="'#' + tag"></span>
+
+                <button type="button"
+                        @click="removeTag(index)"
+                        class="text-primary/60 hover:text-primary transition">
+                    ✕
+                </button>
             </div>
+        </template>
+    </div>
+
+    <!-- Input -->
+    <input type="text"
+        x-model="input"
+        @input="search"
+        @keydown.enter.prevent="addTag(input)"
+        placeholder="#Technology..."
+        class="w-full px-4 py-2
+               bg-surface border border-border
+               text-sm
+               focus:outline-none focus:border-primary
+               transition">
+
+    <!-- Dropdown -->
+    <div x-show="filtered.length"
+         x-transition
+         class="absolute left-0 right-0 mt-2
+                bg-surface border border-border shadow-xl
+                max-h-48 overflow-y-auto
+                z-50">
+
+        <template x-for="item in filtered" :key="item">
+            <div
+                @click="addTag(item)"
+                class="px-4 py-2 text-sm
+                       cursor-pointer
+                       text-muted
+                       hover:bg-primary/10
+                       hover:text-primary
+                       transition">
+                <span x-text="'#' + item"></span>
+            </div>
+        </template>
+    </div>
+
+    <input type="hidden" name="tech" :value="JSON.stringify(tags)">
+</div>
 
             <!-- Role & Team Size -->
             <div class="grid grid-cols-2 gap-6 text-sm">
@@ -99,12 +164,108 @@
                        class="flex-1 border border-border px-4 py-2 focus:ring-1 focus:ring-primary focus:outline-none">
             </div>
 
-            <!-- Screenshots -->
-            <div class="space-y-2">
-                <label class="text-muted uppercase tracking-wide text-xs">Project Screenshots</label>
-                <input type="file" name="screenshot[]" multiple
-                       class="w-full border border-border px-4 py-2">
+<div
+x-data="imageUpload({
+    existing: @json(
+        collect($project->screenshot ?? [])
+        ->map(fn($path) => [
+            'path' => $path,
+            'url' => asset('storage/' . $path)
+        ])
+    )
+})"
+    class="space-y-4"
+>
+
+    <p class="text-muted uppercase tracking-wide text-xs">
+        Screenshots (Max 8)
+    </p>
+
+    <!-- Upload Area -->
+    <label
+        x-show="totalImages < max"
+        class="flex flex-col items-center justify-center
+               w-full h-40
+               border border-dashed border-border
+               bg-surface
+               cursor-pointer
+               hover:border-primary
+               transition">
+
+        <div class="text-center space-y-2">
+            <div class="text-primary text-lg">＋</div>
+            <p class="text-sm text-muted">
+                Click to upload
+            </p>
+        </div>
+
+        <input type="file"
+               multiple
+               accept="image/*"
+               name="new_screenshot[]"
+               class="hidden"
+               @change="handleFiles($event)">
+    </label>
+
+    <!-- Preview Grid -->
+    <div class="grid grid-cols-4 gap-3" x-show="totalImages">
+
+        <!-- Existing Images -->
+        <template x-for="(img, index) in existingImages" :key="'existing-' + index">
+            <div class="relative border border-border bg-surface group rounded overflow-hidden">
+
+                <img :src="img.url"
+                     class="w-full h-24 object-cover">
+
+                <button type="button"
+                        @click="removeExisting(index)"
+                        class="absolute top-1 right-1
+                               bg-black/60 text-white
+                               text-xs px-2 py-0.5
+                               rounded
+                               opacity-0 group-hover:opacity-100
+                               transition">
+                    ✕
+                </button>
+
             </div>
+        </template>
+
+        <!-- New Images -->
+        <template x-for="(img, index) in newImages" :key="'new-' + index">
+            <div class="relative border border-border bg-surface group rounded overflow-hidden">
+
+                <img :src="img.url"
+                     class="w-full h-24 object-cover">
+
+                <button type="button"
+                        @click="removeNew(index)"
+                        class="absolute top-1 right-1
+                               bg-black/60 text-white
+                               text-xs px-2 py-0.5
+                               rounded
+                               opacity-0 group-hover:opacity-100
+                               transition">
+                    ✕
+                </button>
+
+            </div>
+        </template>
+
+    </div>
+
+    <!-- Hidden Input Deleted IDs -->
+    <template x-for="img in deletedImages">
+         <input type="hidden" name="deleted_screenshots[]" :value="img.path">
+    </template>
+
+    <!-- Limit Warning -->
+    <p x-show="totalImages >= max"
+       class="text-xs text-red-400">
+        Maximum 8 images allowed.
+    </p>
+
+</div>
 
             <!-- Buttons -->
             <div class="flex flex-wrap gap-3 pt-4">
