@@ -24,7 +24,13 @@ class ProjectController extends Controller
         $sort = $request->get('sort', 'desc');
         $query->orderBy('created_at', $sort);
 
-        $projects = $query->paginate(3)->withQueryString();
+        $multipleSelect = $request->get('multiple_select', 0);
+
+        if ($multipleSelect) {
+            $projects = $query->get();
+        } else {
+            $projects = $query->paginate(3)->withQueryString();
+        }
 
         $summary = Project::summary();
         $technologies = Technology::pluck('name');
@@ -32,7 +38,8 @@ class ProjectController extends Controller
         return view('dashboard.project', compact(
             'projects',
             'summary',
-            'technologies'
+            'technologies',
+            'multipleSelect'
         ));
     }
 

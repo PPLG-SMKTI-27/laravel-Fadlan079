@@ -140,8 +140,9 @@
         </div>
     </div>
 
+    <div id="projects-container">
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-    @if($projects->currentPage() == 1 && $projects->count())
+    @if($projects instanceof \Illuminate\Pagination\LengthAwarePaginator && $projects->currentPage() == 1 && $projects->count())
             <div class="project-folder group relative border border-dashed border-border bg-surface p-6 pt-12">
                     <div class="absolute top-0 left-6 -translate-y-1/2 flex gap-2 z-20">
                         <span class="px-4 py-1 text-xs uppercase tracking-widest badge-primary font-semibold">
@@ -291,36 +292,7 @@
 
     </div>
 
-    <div id="bulkBar"
-        class="fixed bottom-6 left-1/2 -translate-x-1/2
-            bg-surface border border-border px-6 py-4
-            flex gap-4 shadow-lg
-            opacity-0 pointer-events-none translate-y-4
-            transition-all duration-200">
-
-        <span id="selectedCount"
-            class="text-xs uppercase tracking-widest text-muted flex items-center">
-            0 Selected
-        </span>
-
-        <button type="button"
-            onclick="bulkAction('publish')"
-            class="px-4 py-2 border border-border text-sm hover:border-primary">
-            Publish Selected
-        </button>
-
-        <button type="button"
-            onclick="bulkAction('delete')"
-            class="px-4 py-2 border border-red-500 text-red-400 text-sm hover:bg-red-500/10">
-            Delete Selected
-        </button>
-
-    </div>
-
-    <form id="bulkForm" method="POST" class="hidden">
-        @csrf
-    </form>
-    @if ($projects->hasPages())
+    @if($projects instanceof \Illuminate\Pagination\LengthAwarePaginator && $projects->hasPages())
     <div class="flex justify-center pt-10">
         <nav class="flex items-center gap-2 text-sm">
 
@@ -350,6 +322,38 @@
     </div>
     @endif
 
+    </div>{{-- end #projects-container --}}
+
+    <div id="bulkBar"
+        class="fixed bottom-6 left-1/2 -translate-x-1/2
+            bg-surface border border-border px-6 py-4
+            flex gap-4 shadow-lg
+            opacity-0 pointer-events-none translate-y-4
+            transition-all duration-200">
+
+        <span id="selectedCount"
+            class="text-xs uppercase tracking-widest text-muted flex items-center">
+            0 Selected
+        </span>
+
+        <button type="button"
+            onclick="bulkAction('publish')"
+            class="px-4 py-2 border border-border text-sm hover:border-primary">
+            Publish Selected
+        </button>
+
+        <button type="button"
+            onclick="bulkAction('delete')"
+            class="px-4 py-2 border border-red-500 text-red-400 text-sm hover:bg-red-500/10">
+            Delete Selected
+        </button>
+
+    </div>
+
+    <form id="bulkForm" method="POST" class="hidden">
+        @csrf
+    </form>
+
 </section>
 
 @endsection
@@ -361,17 +365,19 @@
 
 @push('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
+
     const toggleBtn = document.getElementById('toggleSelectMode');
-    const bulkBar = document.getElementById('bulkBar');
-    const checkboxes = document.querySelectorAll('.bulk-checkbox');
-    const cards = document.querySelectorAll('.project-folder');
+    const bulkBar   = document.getElementById('bulkBar');
     const selectedCountText = document.getElementById('selectedCount');
 
-    let selectMode = false;
+    // Initialise from URL — same pattern as trash
+    let selectMode = new URL(window.location.href).searchParams.has('multiple_select');
+
+    // ── helpers ──────────────────────────────────────────────────────────────
 
     function updateBulkBar() {
-        if (!selectMode) return;
+        if (!selectMode || !bulkBar) return;
         const selected = document.querySelectorAll('.bulk-checkbox:checked').length;
         if (selected > 0) {
             bulkBar.classList.remove('opacity-0','pointer-events-none','translate-y-4');
@@ -381,26 +387,113 @@
         }
     }
 
-    toggleBtn.addEventListener('click', () => {
-        selectMode = !selectMode;
-        checkboxes.forEach(cb => cb.classList.toggle('opacity-0'));
-        cards.forEach(card => card.classList.toggle('border-primary', false));
-        cards.forEach(card => card.classList.toggle('bg-primary/5', false));
-        bulkBar.classList.add('opacity-0','pointer-events-none','translate-y-4');
-    });
+    function attachCardEvents() {
+        const cards      = document.querySelectorAll('.project-folder');
+        const checkboxes = document.querySelectorAll('.bulk-checkbox');
 
-    cards.forEach(card => {
-        card.addEventListener('click', function(e) {
-            if (!selectMode) return;
-            if (e.target.closest('form') || e.target.tagName === 'BUTTON') return;
+        // Show / hide checkboxes based on current mode
+        if (selectMode) {
+            checkboxes.forEach(cb => cb.classList.remove('opacity-0', 'pointer-events-none'));
+        } else {
+            checkboxes.forEach(cb => {
+                cb.checked = false;
+                cb.classList.add('opacity-0', 'pointer-events-none');
+            });
+            cards.forEach(card => card.classList.remove('border-primary', 'bg-primary/5'));
+        }
 
-            const checkbox = card.querySelector('.bulk-checkbox');
-            checkbox.checked = !checkbox.checked;
-            card.classList.toggle('border-primary', checkbox.checked);
-            card.classList.toggle('bg-primary/5', checkbox.checked);
-            updateBulkBar();
+        cards.forEach(card => {
+            card.addEventListener('click', function (e) {
+                if (!selectMode) return;
+
+                // Block the detail-modal anchor click
+                const anchor = e.target.closest('.project-open');
+                if (anchor) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                }
+
+                // Don't toggle if clicking create-card elements or buttons
+                if (e.target.closest('.open-create-modal') || e.target.tagName === 'BUTTON') return;
+
+                const checkbox = card.querySelector('.bulk-checkbox');
+                if (!checkbox) return;
+
+                checkbox.checked = !checkbox.checked;
+                card.classList.toggle('border-primary', checkbox.checked);
+                card.classList.toggle('bg-primary/5', checkbox.checked);
+                updateBulkBar();
+            }, true); // capture phase — fires before detail-modal listener
         });
+    }
+
+    // ── initial attach ───────────────────────────────────────────────────────
+
+    attachCardEvents();
+
+    if (selectMode) {
+        toggleBtn.innerText = 'Cancel Selection';
+        toggleBtn.classList.add('border-red-500', 'text-red-400');
+    }
+
+    // ── toggle button (AJAX, no full reload) ─────────────────────────────────
+
+    toggleBtn.addEventListener('click', async () => {
+        const wasSelectMode = selectMode;
+        selectMode = !selectMode;
+
+        const url = new URL(window.location.href);
+        const originalText = toggleBtn.innerText;
+        toggleBtn.innerText = 'Loading...';
+        toggleBtn.disabled  = true;
+
+        if (selectMode) {
+            url.searchParams.set('multiple_select', '1');
+            toggleBtn.classList.add('border-red-500', 'text-red-400');
+        } else {
+            url.searchParams.delete('multiple_select');
+            toggleBtn.classList.remove('border-red-500', 'text-red-400');
+            if (bulkBar) bulkBar.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        }
+
+        try {
+            const response = await fetch(url.toString(), {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            const html   = await response.text();
+            const parser = new DOMParser();
+            const doc    = parser.parseFromString(html, 'text/html');
+
+            const newContainer = doc.querySelector('#projects-container');
+            if (newContainer) {
+                document.querySelector('#projects-container').innerHTML = newContainer.innerHTML;
+            }
+
+            window.history.pushState({}, '', url.toString());
+
+            toggleBtn.innerText = selectMode ? 'Cancel Selection' : 'Select Multiple';
+
+            attachCardEvents();
+            updateBulkBar();
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            selectMode = wasSelectMode;
+            if (!selectMode) {
+                toggleBtn.classList.remove('border-red-500', 'text-red-400');
+            } else {
+                toggleBtn.classList.add('border-red-500', 'text-red-400');
+            }
+            toggleBtn.innerText = originalText;
+            alert('Something went wrong. Please try again.');
+        } finally {
+            toggleBtn.disabled = false;
+        }
     });
+
 });
 </script>
 @vite([
