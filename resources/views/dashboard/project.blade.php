@@ -371,10 +371,286 @@ document.addEventListener('DOMContentLoaded', function () {
     const bulkBar   = document.getElementById('bulkBar');
     const selectedCountText = document.getElementById('selectedCount');
 
-    // Initialise from URL — same pattern as trash
     let selectMode = new URL(window.location.href).searchParams.has('multiple_select');
 
-    // ── helpers ──────────────────────────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════════════════════
+    // AJAX FETCH + SWAP HELPER
+    // ══════════════════════════════════════════════════════════════════════════
+
+    async function ajaxNavigate(url) {
+        const container = document.querySelector('#projects-container');
+        if (!container) return;
+
+        container.style.opacity = '0.5';
+        container.style.pointerEvents = 'none';
+
+        try {
+            const response = await fetch(url.toString(), {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            const newContainer = doc.querySelector('#projects-container');
+            if (newContainer) {
+                container.innerHTML = newContainer.innerHTML;
+            }
+
+            window.history.pushState({}, '', url.toString());
+            afterSwap();
+
+        } catch (err) {
+            console.error('[ajax-nav] Navigation failed:', err);
+        } finally {
+            container.style.opacity = '';
+            container.style.pointerEvents = '';
+        }
+    }
+
+    function buildUrl(params) {
+        const url = new URL(window.location.href);
+        for (const [key, value] of Object.entries(params)) {
+            if (value === null || value === '') {
+                url.searchParams.delete(key);
+            } else {
+                url.searchParams.set(key, value);
+            }
+        }
+        if (!('page' in params)) url.searchParams.delete('page');
+        return url;
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // AFTER-SWAP: re-init all listeners after #projects-container replaced
+    // ══════════════════════════════════════════════════════════════════════════
+
+    function afterSwap() {
+        initDetailModalListeners();
+        initPaginationLinks();
+        attachCardEvents();
+        updateBulkBar();
+        highlightSearch();
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // DETAIL MODAL RE-INIT (for cards created by AJAX swap)
+    // ══════════════════════════════════════════════════════════════════════════
+
+    function initDetailModalListeners() {
+        const detailModal = document.getElementById('projectDetailModal');
+        if (!detailModal) return;
+
+        document.querySelectorAll('.project-open').forEach(card => {
+            if (card._detailBound) return;
+            card._detailBound = true;
+
+            card.addEventListener('click', () => {
+                detailModal.dataset.id = card.dataset.id;
+                detailModal.dataset.tech = card.dataset.tech;
+                detailModal.dataset.type = card.dataset.type;
+                detailModal.dataset.status = card.dataset.status;
+                detailModal.dataset.visibility = card.dataset.visibility;
+                detailModal.dataset.title = card.dataset.title;
+                detailModal.dataset.desc = card.dataset.desc;
+                detailModal.dataset.role = card.dataset.role;
+                detailModal.dataset.team = card.dataset.team;
+                detailModal.dataset.responsibilities = card.dataset.responsibilities;
+                detailModal.dataset.repo = card.dataset.repo;
+                detailModal.dataset.live = card.dataset.live;
+                detailModal.dataset.screenshot = card.dataset.screenshot;
+
+                document.getElementById('detailType').textContent = card.dataset.type;
+                document.getElementById('detailStatus').textContent = card.dataset.status;
+                document.getElementById('detailTitle').textContent = card.dataset.title;
+                document.getElementById('detailDesc').textContent = card.dataset.desc;
+                document.getElementById('detailRole').textContent = card.dataset.role || '-';
+                document.getElementById('detailTeamSize').textContent = card.dataset.team || '-';
+                document.getElementById('detailResponsibilities').textContent = card.dataset.responsibilities || '-';
+                document.getElementById('detailCreated').textContent = card.dataset.created;
+                document.getElementById('detailUpdated').textContent = card.dataset.updated;
+
+                const techContainer = document.getElementById('detailTech');
+                techContainer.innerHTML = '';
+                if (card.dataset.tech) {
+                    try {
+                        JSON.parse(card.dataset.tech).forEach(t => {
+                            techContainer.innerHTML += `<span class="px-2 py-1 text-xs border border-border">${t}</span>`;
+                        });
+                    } catch { techContainer.innerHTML = '-'; }
+                }
+
+                const wrapper = document.getElementById('detailScreenshotsWrapper');
+                const sc = document.getElementById('detailScreenshots');
+                sc.innerHTML = '';
+                if (card.dataset.screenshot) {
+                    try {
+                        const images = JSON.parse(card.dataset.screenshot);
+                        if (images.length > 0) {
+                            images.forEach(img => {
+                                sc.innerHTML += `<div class="aspect-video overflow-hidden border border-border/50 bg-surface/40 group"><img src="${img.url}" class="w-full h-full object-cover transition duration-500 group-hover:scale-105 cursor-pointer"></div>`;
+                            });
+                            wrapper.classList.remove('hidden');
+                        } else { wrapper.classList.add('hidden'); }
+                    } catch { wrapper.classList.add('hidden'); }
+                } else { wrapper.classList.add('hidden'); }
+
+                const live = document.getElementById('detailLive');
+                const repo = document.getElementById('detailRepo');
+                card.dataset.live ? (live.href = card.dataset.live, live.classList.remove('hidden')) : live.classList.add('hidden');
+                card.dataset.repo ? (repo.href = card.dataset.repo, repo.classList.remove('hidden')) : repo.classList.add('hidden');
+
+                window.openProjectModal();
+                document.body.classList.add('overflow-hidden');
+            });
+        });
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // PAGINATION LINK INTERCEPTION
+    // ══════════════════════════════════════════════════════════════════════════
+
+    function initPaginationLinks() {
+        const container = document.querySelector('#projects-container');
+        if (!container) return;
+
+        // Remove old handler
+        if (container._paginationHandler) {
+            container.removeEventListener('click', container._paginationHandler);
+        }
+
+        container._paginationHandler = function(e) {
+            const anchor = e.target.closest('a[href]');
+            if (!anchor) return;
+
+            const href = anchor.getAttribute('href');
+            if (!href || href === '#' || href.startsWith('javascript')) return;
+
+            try {
+                const target = new URL(href, window.location.origin);
+                if (target.origin !== window.location.origin) return;
+                e.preventDefault();
+                ajaxNavigate(target);
+            } catch { /* let native navigation handle */ }
+        };
+
+        container.addEventListener('click', container._paginationHandler);
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // SEARCH (intercept form submit + debounced input)
+    // ══════════════════════════════════════════════════════════════════════════
+
+    const searchForm = document.querySelector('header form');
+    const searchInput = searchForm ? searchForm.querySelector('input[name="search"]') : null;
+
+    if (searchForm && searchInput) {
+        searchForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const url = buildUrl({ search: searchInput.value || null });
+            ajaxNavigate(url);
+        });
+
+        let searchTimer;
+        searchInput.addEventListener('input', () => {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => {
+                const url = buildUrl({ search: searchInput.value || null });
+                ajaxNavigate(url);
+            }, 500);
+        });
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // FILTER BUTTONS (AJAX)
+    // ══════════════════════════════════════════════════════════════════════════
+
+    function initFilterButtons() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const currentType = new URLSearchParams(window.location.search).get('type') ?? 'all';
+
+        filterButtons.forEach(btn => {
+            // Highlight active
+            const isActive = btn.dataset.filter === currentType;
+            btn.classList.toggle('border-primary', isActive);
+            btn.classList.toggle('bg-primary/10', isActive);
+            btn.classList.toggle('text-primary', isActive);
+
+            if (btn._ajaxBound) return;
+            btn._ajaxBound = true;
+
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                const url = buildUrl({ type: filter === 'all' ? null : filter });
+                ajaxNavigate(url).then(() => initFilterButtons());
+            });
+        });
+    }
+
+    initFilterButtons();
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // SORT DROPDOWN (AJAX, intercept form submit)
+    // ══════════════════════════════════════════════════════════════════════════
+
+    const sortSelect = document.querySelector('select[name="sort"]');
+    if (sortSelect) {
+        const sortForm = sortSelect.closest('form');
+
+        // Remove the onchange="this.form.submit()" by overriding
+        sortSelect.onchange = null;
+        sortSelect.removeAttribute('onchange');
+
+        sortSelect.addEventListener('change', (e) => {
+            e.preventDefault();
+            const url = buildUrl({ sort: sortSelect.value });
+            ajaxNavigate(url);
+        });
+
+        // Prevent form submit fallback
+        if (sortForm) {
+            sortForm.addEventListener('submit', e => e.preventDefault());
+        }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // HIGHLIGHT SEARCH RESULTS
+    // ══════════════════════════════════════════════════════════════════════════
+
+    function highlightSearch() {
+        const keyword = new URLSearchParams(window.location.search).get('search');
+        if (!keyword) return;
+
+        const safe = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${safe})`, 'gi');
+
+        document.querySelectorAll('.project-folder h3, .project-folder p, .tech-row span').forEach(el => {
+            if (el.children.length > 0) return;
+            const text = el.textContent;
+            if (regex.test(text)) {
+                el.innerHTML = text.replace(regex, '<span class="search-highlight">$1</span>');
+            }
+        });
+
+        document.querySelectorAll('.tech-tooltip').forEach(tooltip => {
+            const original = tooltip.innerHTML;
+            if (regex.test(tooltip.textContent)) {
+                tooltip.innerHTML = original.replace(regex, '<span class="search-highlight">$1</span>');
+                tooltip.style.opacity = '1';
+                tooltip.style.visibility = 'visible';
+                const parent = tooltip.closest('.tech-more');
+                if (parent) parent.classList.add('tech-match');
+            }
+        });
+    }
+
+    highlightSearch();
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // BULK BAR + CARD SELECT
+    // ══════════════════════════════════════════════════════════════════════════
 
     function updateBulkBar() {
         if (!selectMode || !bulkBar) return;
@@ -391,7 +667,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const cards      = document.querySelectorAll('.project-folder');
         const checkboxes = document.querySelectorAll('.bulk-checkbox');
 
-        // Show / hide checkboxes based on current mode
         if (selectMode) {
             checkboxes.forEach(cb => cb.classList.remove('opacity-0', 'pointer-events-none'));
         } else {
@@ -406,14 +681,12 @@ document.addEventListener('DOMContentLoaded', function () {
             card.addEventListener('click', function (e) {
                 if (!selectMode) return;
 
-                // Block the detail-modal anchor click
                 const anchor = e.target.closest('.project-open');
                 if (anchor) {
                     e.preventDefault();
                     e.stopImmediatePropagation();
                 }
 
-                // Don't toggle if clicking create-card elements or buttons
                 if (e.target.closest('.open-create-modal') || e.target.tagName === 'BUTTON') return;
 
                 const checkbox = card.querySelector('.bulk-checkbox');
@@ -423,20 +696,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 card.classList.toggle('border-primary', checkbox.checked);
                 card.classList.toggle('bg-primary/5', checkbox.checked);
                 updateBulkBar();
-            }, true); // capture phase — fires before detail-modal listener
+            }, true);
         });
     }
 
     // ── initial attach ───────────────────────────────────────────────────────
 
     attachCardEvents();
+    initPaginationLinks();
 
     if (selectMode) {
         toggleBtn.innerText = 'Cancel Selection';
         toggleBtn.classList.add('border-red-500', 'text-red-400');
     }
 
-    // ── toggle button (AJAX, no full reload) ─────────────────────────────────
+    // ══════════════════════════════════════════════════════════════════════════
+    // TOGGLE SELECT MODE (AJAX)
+    // ══════════════════════════════════════════════════════════════════════════
 
     toggleBtn.addEventListener('click', async () => {
         const wasSelectMode = selectMode;
@@ -473,11 +749,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             window.history.pushState({}, '', url.toString());
-
             toggleBtn.innerText = selectMode ? 'Cancel Selection' : 'Select Multiple';
 
-            attachCardEvents();
-            updateBulkBar();
+            afterSwap();
 
         } catch (error) {
             console.error('Error fetching data:', error);
