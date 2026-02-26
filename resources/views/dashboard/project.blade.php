@@ -389,8 +389,6 @@
 </script>
 @vite([
 'resources/js/project/detail-modal.js',
-'resources/js/project/edit-modal.js',
-'resources/js/project/create-modal.js',
 'resources/js/project/filters.js'
 ])
 @endpush

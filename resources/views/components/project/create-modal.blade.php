@@ -220,19 +220,20 @@
                         accept="image/*"
                         name="screenshot[]"
                         class="hidden"
+                        x-ref="fileInput"
                         @change="handleFiles($event)">
                 </label>
 
                 <!-- Preview -->
-                <div class="grid grid-cols-4 gap-3" x-show="images.length">
-                    <template x-for="(img, index) in images" :key="index">
+                <div class="grid grid-cols-4 gap-3" x-show="newImages.length">
+                    <template x-for="(img, index) in newImages" :key="index">
                         <div class="relative border border-border bg-surface group">
 
                             <img :src="img.url"
                                 class="w-full h-24 object-cover">
 
                             <button type="button"
-                                    @click="removeImage(index)"
+                                    @click="removeNew(index)"
                                     class="absolute top-1 right-1
                                         bg-black/60 text-white
                                         text-xs px-2 py-0.5
@@ -245,7 +246,7 @@
                 </div>
 
                 <!-- Limit Warning -->
-                <p x-show="images.length >= 8"
+                <p x-show="newImages.length >= 8"
                 class="text-xs text-red-400">
                 Maximum 8 images allowed.
                 </p>

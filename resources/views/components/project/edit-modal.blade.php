@@ -204,6 +204,7 @@ x-data="imageUpload({
                accept="image/*"
                name="new_screenshot[]"
                class="hidden"
+               x-ref="fileInput"
                @change="handleFiles($event)">
     </label>
 

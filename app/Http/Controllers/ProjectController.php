@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Models\Technology;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -130,8 +131,20 @@ class ProjectController extends Controller
             'visibility' => 'required|string',
             'repo' => 'nullable|string|max:255',
             'live_url' => 'nullable|string|max:255',
-            'tech' => 'nullable|array'
+            'tech' => 'nullable|string'
         ]);
+
+        $validated['tech'] = $request->tech
+            ? json_decode($request->tech, true)
+            : [];
+
+        $techs = $validated['tech'] ?? [];
+
+        foreach ($techs as $tech) {
+            Technology::firstOrCreate([
+                'name' => strtolower($tech)
+            ]);
+        }
 
         $project->update($validated);
 

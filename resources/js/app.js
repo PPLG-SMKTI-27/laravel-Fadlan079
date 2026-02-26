@@ -19,7 +19,7 @@ import { initmodal } from "./animations/modal";
 const THEME_KEY = 'theme';
 const html = document.documentElement;
 
-window.showConfirm = function(message) {
+window.showConfirm = function (message) {
 
     return new Promise((resolve) => {
 
@@ -57,9 +57,9 @@ window.showConfirm = function(message) {
                     resolve(result)
                 }
             })
-            .to(box, { scale: 0.8, opacity: 0, y: 20, duration: 0.3 })
-            .to(backdrop, { opacity: 0, duration: 0.2 }, "<")
-            .to(modal, { opacity: 0, duration: 0.2 }, "<")
+                .to(box, { scale: 0.8, opacity: 0, y: 20, duration: 0.3 })
+                .to(backdrop, { opacity: 0, duration: 0.2 }, "<")
+                .to(modal, { opacity: 0, duration: 0.2 }, "<")
 
             yesBtn.removeEventListener('click', yesHandler)
             cancelBtn.removeEventListener('click', cancelHandler)
@@ -96,7 +96,7 @@ document.addEventListener('click', async function (e) {
     if (confirmed) form.submit()
 })
 
-window.bulkAction = async function(type) {
+window.bulkAction = async function (type) {
 
     const form = document.getElementById('bulkForm')
     const selected = document.querySelectorAll('.bulk-checkbox:checked')
@@ -188,7 +188,7 @@ function updateIcon(theme) {
 }
 
 function initTheme() {
-    const savedTheme = localStorage .getItem(THEME_KEY);
+    const savedTheme = localStorage.getItem(THEME_KEY);
 
     if (savedTheme === 'light' || savedTheme === 'dark') {
         applyTheme(savedTheme);
@@ -284,15 +284,15 @@ window.tagInput = function (suggestions) {
         filtered: [],
 
         search() {
-            const query = this.input.replace('#','').toLowerCase()
+            const query = this.input.replace('#', '').toLowerCase()
 
             this.filtered = suggestions.filter(item =>
                 item.toLowerCase().includes(query)
-            ).slice(0,5)
+            ).slice(0, 5)
         },
 
         addTag(tag) {
-            tag = tag.replace('#','').toLowerCase()
+            tag = tag.replace('#', '').toLowerCase()
 
             if (!this.tags.includes(tag) && tag.trim() !== '') {
                 this.tags.push(tag)
@@ -303,7 +303,7 @@ window.tagInput = function (suggestions) {
         },
 
         removeTag(index) {
-            this.tags.splice(index,1)
+            this.tags.splice(index, 1)
         }
     }
 }
@@ -319,23 +319,23 @@ window.tagInputEdit = function (allTech) {
             if (window.currentEditTech) {
                 try {
                     this.tags = JSON.parse(window.currentEditTech);
-                } catch(e) {
+                } catch (e) {
                     this.tags = [];
                 }
             }
         },
 
         search() {
-            const query = this.input.replace('#','').toLowerCase();
+            const query = this.input.replace('#', '').toLowerCase();
 
             this.filtered = this.allTech.filter(t =>
                 t.toLowerCase().includes(query) &&
                 !this.tags.includes(t)
-            ).slice(0,5);
+            ).slice(0, 5);
         },
 
         addTag(tag) {
-            tag = tag.replace('#','').toLowerCase();
+            tag = tag.replace('#', '').toLowerCase();
 
             if (!this.tags.includes(tag) && tag.trim() !== '') {
                 this.tags.push(tag);
@@ -378,6 +378,11 @@ window.imageUpload = function (config = {}) {
         | HANDLE FILE UPLOAD
         |--------------------------------------------------------------------------
         */
+        /*
+        |--------------------------------------------------------------------------
+        | HANDLE FILE UPLOAD
+        |--------------------------------------------------------------------------
+        */
         handleFiles(event) {
 
             const files = Array.from(event.target.files)
@@ -393,7 +398,15 @@ window.imageUpload = function (config = {}) {
 
             })
 
-            event.target.value = ''
+            this.syncInput()
+        },
+
+        syncInput() {
+            if (this.$refs.fileInput) {
+                const dt = new DataTransfer()
+                this.newImages.forEach(img => dt.items.add(img.file))
+                this.$refs.fileInput.files = dt.files
+            }
         },
 
         /*
@@ -417,6 +430,7 @@ window.imageUpload = function (config = {}) {
         */
         removeNew(index) {
             this.newImages.splice(index, 1)
+            this.syncInput()
         }
     }
 }
@@ -452,14 +466,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     currentLocale = saved;
     await loadLanguage(saved);
     updateLangIcon(saved);
-    try { heroAnimation(); } catch(e){ console.warn(e) }
-    try { heroRibbonAnimation(); } catch(e){ console.warn(e) }
-    try { heroFloatingCards(); } catch(e){ console.warn(e) }
-    try { heroIconParallax(); } catch(e){ console.warn(e) }
-    try { navbarFloatAnimation(); } catch(e){ console.warn(e) }
-    try { navbarScrollEffect(); } catch(e){ console.warn(e) }
-    try { aboutAnimation(); } catch(e){ console.warn(e) }
-    try { projectAnimation(); } catch(e){ console.warn(e) }
-    try { projectModalAnimation(); } catch(e){ console.warn(e) }
-    try { initmodal(); } catch(e){ console.warn(e) }
+    try { heroAnimation(); } catch (e) { console.warn(e) }
+    try { heroRibbonAnimation(); } catch (e) { console.warn(e) }
+    try { heroFloatingCards(); } catch (e) { console.warn(e) }
+    try { heroIconParallax(); } catch (e) { console.warn(e) }
+    try { navbarFloatAnimation(); } catch (e) { console.warn(e) }
+    try { navbarScrollEffect(); } catch (e) { console.warn(e) }
+    try { aboutAnimation(); } catch (e) { console.warn(e) }
+    try { projectAnimation(); } catch (e) { console.warn(e) }
+    try { projectModalAnimation(); } catch (e) { console.warn(e) }
+    try { initmodal(); } catch (e) { console.warn(e) }
 });
