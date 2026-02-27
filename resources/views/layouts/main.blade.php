@@ -101,9 +101,104 @@
         background-size: 20px 20px; /* jarak antar titik */
         } */
 
-   </style>
+</style>
 </head>
-<body class="bg-bg text-text overflow-x-hidden">
+<body class="bg-bg text-text overflow-x-hidden" style="cursor: none;">
+    <!-- Invert Cursor (mix-blend-mode: difference) -->
+    <div id="cursor-blob" style="
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        top: 0; left: 0;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #ffffff;
+        transform: translate(-50%, -50%);
+        mix-blend-mode: difference;
+        transition: opacity 0.3s ease, width 0.18s ease, height 0.18s ease;
+        opacity: 0;
+        will-change: left, top;
+    "></div>
+    <div id="cursor-trail" style="
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        top: 0; left: 0;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ffffff;
+        transform: translate(-50%, -50%);
+        mix-blend-mode: difference;
+        transition: opacity 0.3s ease;
+        opacity: 0;
+        will-change: left, top;
+    "></div>
+    <style>
+        *, a, button, [role="button"], input, select, textarea, label, .device-btn {
+            cursor: none !important;
+        }
+    </style>
+    <script>
+        (function() {
+            const blob  = document.getElementById('cursor-blob');
+            const trail = document.getElementById('cursor-trail');
+            let mouseX = 0, mouseY = 0;
+            let trailX = 0, trailY = 0;
+            let visible = false;
+
+            document.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                blob.style.left = mouseX + 'px';
+                blob.style.top  = mouseY + 'px';
+                if (!visible) {
+                    blob.style.opacity  = '1';
+                    trail.style.opacity = '1';
+                    visible = true;
+                }
+            });
+
+            document.addEventListener('mouseleave', function() {
+                blob.style.opacity  = '0';
+                trail.style.opacity = '0';
+                visible = false;
+            });
+
+            // Small trailing dot
+            function animate() {
+                trailX += (mouseX - trailX) * 0.18;
+                trailY += (mouseY - trailY) * 0.18;
+                trail.style.left = trailX + 'px';
+                trail.style.top  = trailY + 'px';
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+            // Expand on hover over clickable elements
+            document.addEventListener('mouseover', function(e) {
+                const el = e.target.closest('a, button, [role="button"], .device-btn, input, select, textarea, label');
+                if (el) {
+                    blob.style.width  = '56px';
+                    blob.style.height = '56px';
+                } else {
+                    blob.style.width  = '28px';
+                    blob.style.height = '28px';
+                }
+            });
+
+            // Shrink on click
+            document.addEventListener('mousedown', function() {
+                blob.style.width  = '18px';
+                blob.style.height = '18px';
+            });
+            document.addEventListener('mouseup', function() {
+                blob.style.width  = '28px';
+                blob.style.height = '28px';
+            });
+        })();
+    </script>
     <div class="page-texture"></div>
     <x-navbar
     brand="Fadlan"
