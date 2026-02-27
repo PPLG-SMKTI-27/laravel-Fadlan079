@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title', 'Portofolio')
-@vite(['resources/css/hero.css'])
+@vite(['resources/css/hero.css', 'resources/css/dashboard_project.css'])
 @section('content')
     <section id="home" class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden z-10">
         <div class="hero-ribbons pointer-events-none absolute inset-0 overflow-hidden z-0 font-bold">
@@ -212,55 +212,90 @@
                 </div>
             </div>
 
-            <div class="pt-4">
-                <p class="text-sm uppercase tracking-widest text-muted mb-4">
-                Selected Work
-                </p>
-
-                <h3 class="text-3xl font-semibold leading-tight mb-6">
-                Dashboard Management System
-                </h3>
-
-                <p class="text-muted leading-loose mb-8 max-w-xl">
-                A web-based dashboard built with Laravel,
-                focusing on clarity, performance,
-                and maintainable backend structure.
-                </p>
-
-                <div class="flex flex-wrap gap-2 mb-10">
-                <span class="px-3 py-1 text-xs rounded-full border border-border">
-                    Laravel
-                </span>
-                <span class="px-3 py-1 text-xs rounded-full border border-border">
-                    Tailwind CSS
-                </span>
-                <span class="px-3 py-1 text-xs rounded-full border border-border">
-                    HTMX
-                </span>
+            <div class="pt-4" x-data="{ currentProject: 0, totalProjects: {{ count($recentProjects) }} }">
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <p class="text-sm uppercase tracking-widest text-muted mb-2">
+                        Selected Work
+                        </p>
+                        <h3 class="text-3xl font-semibold leading-tight">
+                        Featured Projects
+                        </h3>
+                    </div>
+                    <div class="flex gap-2">
+                        <button @click="currentProject = currentProject > 0 ? currentProject - 1 : totalProjects - 1" class="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-surface hover:text-primary transition focus:outline-none">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button @click="currentProject = currentProject < totalProjects - 1 ? currentProject + 1 : 0" class="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-surface hover:text-primary transition focus:outline-none">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="space-y-4">
+                <div class="relative w-full h-[clamp(320px,45vw,380px)] perspective-1000">
+                    @forelse($recentProjects as $index => $project)
+                        <div x-show="currentProject === {{ $index }}"
+                             x-transition:enter="transition ease-out duration-500 transform"
+                             x-transition:enter-start="opacity-0 translate-x-8 z-10"
+                             x-transition:enter-end="opacity-100 translate-x-0 z-10"
+                             x-transition:leave="transition ease-in duration-300 transform"
+                             x-transition:leave-start="opacity-100 translate-x-0 z-0"
+                             x-transition:leave-end="opacity-0 -translate-x-8 z-0"
+                             class="project-folder group absolute inset-0 border border-border bg-surface p-6 pt-12 w-full h-full"
+                             {{ $index === 0 ? '' : 'style="display: none;"' }}
+                             >
 
-                <button class="w-full text-left p-4 rounded-xl border border-border
-                                hover:bg-surface transition">
-                    <p class="font-medium">Dashboard System</p>
-                    <p class="text-sm text-muted">Admin & analytics interface</p>
-                </button>
+                            <div class="absolute top-0 left-6 -translate-y-1/2 flex gap-2 z-20">
+                                <span class="px-4 py-1 text-xs uppercase tracking-widest badge-primary font-semibold">
+                                    {{ $project->type }}
+                                </span>
+                                <span class="px-3 py-1 text-[10px] uppercase tracking-wide border {{ $project->statusClass }}">
+                                    {{ $project->status }}
+                                </span>
+                            </div>
 
-                <button class="w-full text-left p-4 rounded-xl border border-border
-                                hover:bg-surface transition">
-                    <p class="font-medium">Portfolio Website</p>
-                    <p class="text-sm text-muted">Personal branding site</p>
-                </button>
+                            <div class="folder-files absolute inset-0 z-0">
+                                <span class="file border-border bg-bg"></span>
+                                <span class="file border-border bg-bg"></span>
 
-                <button class="w-full text-left p-4 rounded-xl border border-border
-                                hover:bg-surface transition">
-                    <p class="font-medium">Landing Page</p>
-                    <p class="text-sm text-muted">Marketing focused layout</p>
-                </button>
-
+                               <a href="{{ route('portofolio.project', ['search' => $project->title]) }}"
+                                    class="file file-front pointer-events-auto p-5 flex flex-col gap-3 justify-between bg-surface border-border">
+                                    <div>
+                                        <h3 class="text-2xl font-semibold leading-tight group-hover:text-primary transition-colors">
+                                            {{ $project->title}}
+                                        </h3>
+                                        <p class="text-sm text-muted leading-relaxed mt-3">
+                                            {{ \Illuminate\Support\Str::limit($project->desc, 150) }}
+                                        </p>
+                                    </div>
+                                    <div class="tech-row mt-auto pt-4 flex gap-2 flex-wrap text-[11px] tracking-widest uppercase text-muted">
+                                        @foreach ($project->visibleTechs as $tech)
+                                            <span class="px-2 py-1 border border-border bg-bg">{{ strtoupper($tech) }}</span>
+                                        @endforeach
+                                        @if (count($project->extraTechs) > 0)
+                                            <span class="px-2 py-1 border border-border bg-bg">
+                                                +{{ count($project->extraTechs) }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="flex items-center justify-center w-full h-full border border-dashed border-border text-muted">
+                            <p>No projects found.</p>
+                        </div>
+                    @endforelse
                 </div>
 
+                <div class="flex justify-center mt-8 gap-3">
+                    @foreach($recentProjects as $index => $project)
+                        <button @click="currentProject = {{ $index }}"
+                            class="w-2.5 h-2.5 rounded-full transition-all duration-300"
+                            :class="currentProject === {{ $index }} ? 'bg-primary w-6' : 'bg-border hover:bg-muted'">
+                        </button>
+                    @endforeach
+                </div>
             </div>
 
             </div>

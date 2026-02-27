@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $recentProjects = Project::recent(3)->get();
+        $recentProjects = Project::recent(5)->get();
         return view('pages.home',compact('recentProjects'));
     }
 
