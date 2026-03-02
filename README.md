@@ -1,59 +1,195 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<h1>🗂️ Fadlan — Personal Portfolio</h1>
+
+<p>Full-stack portfolio website built with Laravel, GSAP, and Three.js.<br>Menampilkan proyek, skill tree interaktif, halaman kontak, dan dashboard admin lengkap.</p>
+
+<p>
+  <img src="https://img.shields.io/badge/Laravel-12-FF2D20?style=flat-square&logo=laravel&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TailwindCSS-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Vite-7-646CFF?style=flat-square&logo=vite&logoColor=white"/>
+  <img src="https://img.shields.io/badge/GSAP-3-88CE02?style=flat-square&logo=greensock&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Three.js-0.182-black?style=flat-square&logo=three.js&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Alpine.js-3-77C1D2?style=flat-square&logo=alpine.js&logoColor=white"/>
 </p>
 
-## About Laravel
+<p>
+  <a href="https://github.com/Fadlan079/Personal-Portfolio">
+    <img src="https://img.shields.io/github/last-commit/Fadlan079/Personal-Portfolio?style=flat-square"/>
+  </a>
+  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square"/>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+</div>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✨ Fitur Utama
 
-## Learning Laravel
+### 🌐 Public Portfolio
+| Halaman | Deskripsi |
+|---|---|
+| **Home** | Hero section dengan animasi GSAP ribbon & parallax, featured projects carousel 3D (Three.js viewer), skill tree interaktif berbasis SVG |
+| **About** | Halaman narasi dengan pin scroll GSAP, nilai & prinsip, constraints text animation |
+| **Projects** | Daftar proyek dengan AJAX search, filter tipe, dan paginate tanpa reload; detail modal dengan screenshot lightbox |
+| **Contact** | Form kontak dengan pengiriman email via Laravel Mail, social links |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 🔒 Dashboard Admin
+- CRUD project lengkap (judul, deskripsi, tech stack, screenshot, repo, live URL)
+- CRUD skill dengan relasi many-to-many ke projects
+- Bulk action: publish, delete, restore
+- Trash dengan tab Projects & Skills (AJAX), soft delete, bulk restore & force delete
+- Upload screenshot ke `storage/`
+- Manajemen visibility project: `published` / `scheduled` / `draft`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 🎨 UI / UX
+- Dark/Light mode dengan auto-detect sistem
+- Multi-bahasa: Bahasa Indonesia & English (toggle runtime, tanpa reload)
+- Custom invertible cursor (mix-blend-mode: difference)
+- GSAP ScrollTrigger animations: pin, scrub, parallax di semua halaman
+- 3D keyboard / Three.js viewer untuk featured projects
+- Responsive & mobile-friendly
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🛠️ Tech Stack
 
-### Premium Partners
+### Backend
+- **Laravel 12** — routing, Eloquent ORM, mail, auth, soft deletes
+- **SQLite** (dev) / MySQL-compatible — migrations & seeders
+- **Laravel Breeze** — autentikasi (login, register, email verification)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Frontend
+- **Tailwind CSS v4** — utility-first styling
+- **Alpine.js** — reactive UI tanpa full framework
+- **GSAP 3 + ScrollTrigger** — animasi scroll, pin, parallax
+- **Three.js** — 3D viewer interaktif
+- **HTMX** — progressive AJAX requests
+- **Vite 7** — bundler & HMR
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 📁 Struktur Project
 
-## Code of Conduct
+```
+Portfolio/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── HomeController.php         # public pages (home, about, project, contact)
+│   │   ├── ProjectController.php      # dashboard CRUD project
+│   │   ├── ContactController.php      # kirim email
+│   │   └── Dashboard/
+│   │       ├── SkillController.php    # CRUD skill
+│   │       └── TrashController.php   # trash (project + skill)
+│   ├── Models/
+│   │   ├── Project.php  (soft delete, scopes: search, filterType, public, recent)
+│   │   └── Skill.php    (soft delete, belongsToMany Project)
+│   └── Mail/ContactMail.php
+├── resources/
+│   ├── js/
+│   │   ├── app.js                    # entry point, i18n, GSAP init, skeleton removal
+│   │   ├── animations/               # hero, about, project, navbar, modal animations
+│   │   ├── project/                  # filters.js (AJAX), detail-modal.js, edit-modal.js
+│   │   ├── skill-tree.js             # SVG skill tree interaktif
+│   │   └── three-viewer.js           # Three.js 3D project viewer
+│   ├── css/
+│   │   ├── app.css                   # base + custom tokens
+│   │   ├── hero.css, project.css     # page-specific styles
+│   │   └── contact.css, keyboard.css
+│   └── views/
+│       ├── layouts/main.blade.php    # layout utama
+│       ├── pages/                    # home, about, project, contact
+│       ├── components/               # navbar, footer, modals
+│       └── dashboard/                # admin views
+├── routes/web.php
+└── database/migrations/
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🚀 Cara Menjalankan
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Requirement
+- PHP >= 8.2
+- Composer
+- Node.js >= 18
+- SQLite atau MySQL
 
-## License
+### Install
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+# Clone repo
+git clone https://github.com/Fadlan079/Personal-Portfolio.git
+cd Personal-Portfolio
+
+# Install dependencies
+composer install
+npm install
+
+# Setup environment
+cp .env.example .env
+php artisan key:generate
+
+# Database
+php artisan migrate --seed
+
+# Storage link (untuk screenshot upload)
+php artisan storage:link
+```
+
+### Jalankan Development Server
+
+```bash
+# Terminal 1 — Laravel
+php artisan serve
+
+# Terminal 2 — Vite (HMR)
+npm run dev
+```
+
+Buka `http://localhost:8000`
+
+### Build Production
+
+```bash
+npm run build
+```
+
+---
+
+## 🔑 Konfigurasi `.env`
+
+```env
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=sqlite
+# atau MySQL:
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_DATABASE=portfolio
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=your_username
+MAIL_PASSWORD=your_password
+MAIL_FROM_ADDRESS=fadlanfirdaus220@gmail.com
+MAIL_FROM_NAME="Fadlan Firdaus"
+```
+
+---
+
+## 📸 Halaman Utama
+
+| | |
+|---|---|
+| Home — Hero & Skill Tree | Projects — AJAX Filter |
+| About — Scroll Animation | Contact — Form |
+
+---
+
+## 📄 License
+
+MIT © [Fadlan Firdaus](https://github.com/Fadlan079)
