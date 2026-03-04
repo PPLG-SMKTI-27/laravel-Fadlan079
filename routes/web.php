@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ContactController;
 
 Route::middleware(['auth', 'verified'])
     ->prefix('dashboard')
@@ -71,6 +72,7 @@ Route::name('portofolio.')->group(function () {
     Route::get('/about', [HomeController::class, 'Showabout'])->name('about');
     Route::get('/projects', [HomeController::class, 'Showproject'])->name('projects');
     Route::get('/contact', [HomeController::class, 'Showcontact'])->name('contact');
+    Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
     Route::view('/test', 'pages.tes')->name('test');
 });
 

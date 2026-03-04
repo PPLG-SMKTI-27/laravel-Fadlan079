@@ -73,6 +73,8 @@
                     </div>
 
                     {{-- Doc fields --}}
+                    <form action="{{ route('portofolio.contact.send') }}" method="POST">
+                    @csrf
                     <div class="folder-doc-body">
 
                         {{-- Metadata: type --}}
@@ -80,15 +82,15 @@
                             <span class="folder-field-key" data-i18n="contact.folder.field_type">Type</span>
                             <div class="folder-field-val">
                                 <label class="folder-chip-label">
-                                    <input type="radio" name="req_type" value="project" class="sr-only" checked>
+                                    <input type="radio" name="type" value="project" class="sr-only" {{ old('type', 'project') === 'project' ? 'checked' : '' }}>
                                     <span data-i18n="contact.folder.chip_project">New project</span>
                                 </label>
                                 <label class="folder-chip-label">
-                                    <input type="radio" name="req_type" value="collab" class="sr-only">
+                                    <input type="radio" name="type" value="collab" class="sr-only" {{ old('type') === 'collab' ? 'checked' : '' }}>
                                     <span data-i18n="contact.folder.chip_collab">Collaboration</span>
                                 </label>
                                 <label class="folder-chip-label">
-                                    <input type="radio" name="req_type" value="inquiry" class="sr-only">
+                                    <input type="radio" name="type" value="inquiry" class="sr-only" {{ old('type') === 'inquiry' ? 'checked' : '' }}>
                                     <span data-i18n="contact.folder.chip_inquiry">Inquiry</span>
                                 </label>
                             </div>
@@ -98,9 +100,11 @@
                         <div class="folder-doc-field">
                             <span class="folder-field-key" data-i18n="contact.folder.field_from">From</span>
                             <div class="folder-field-val">
-                                <input type="email" class="folder-field-input"
+                                <input type="email" name="email" class="folder-field-input {{ $errors->has('email') ? 'border-red-500' : '' }}"
                                        placeholder="your@email.com"
+                                       value="{{ old('email') }}"
                                        data-i18n-placeholder="contact.folder.field_from_placeholder">
+                                @error('email')<span class="text-[10px] text-red-400 mt-1 block">{{ $message }}</span>@enderror
                             </div>
                         </div>
 
@@ -108,9 +112,11 @@
                         <div class="folder-doc-field">
                             <span class="folder-field-key" data-i18n="contact.folder.field_subject">Subject</span>
                             <div class="folder-field-val">
-                                <input type="text" class="folder-field-input"
+                                <input type="text" name="subject" class="folder-field-input {{ $errors->has('subject') ? 'border-red-500' : '' }}"
                                        placeholder="Brief title of your request"
+                                       value="{{ old('subject') }}"
                                        data-i18n-placeholder="contact.folder.field_subject_placeholder">
+                                @error('subject')<span class="text-[10px] text-red-400 mt-1 block">{{ $message }}</span>@enderror
                             </div>
                         </div>
 
@@ -119,9 +125,10 @@
 
                         {{-- Body --}}
                         <div class="folder-doc-body-field">
-                            <textarea rows="5" class="folder-field-area"
+                            <textarea rows="5" name="message" class="folder-field-area"
                                       placeholder="Write your message here…"
-                                      data-i18n-placeholder="contact.folder.field_message_placeholder"></textarea>
+                                      data-i18n-placeholder="contact.folder.field_message_placeholder">{{ old('message') }}</textarea>
+                            @error('message')<span class="text-[10px] text-red-400 mt-1 block">{{ $message }}</span>@enderror
                         </div>
 
                         {{-- Footer --}}
@@ -133,7 +140,7 @@
                                 </svg>
                                 {{ now()->format('d M Y') }}
                             </span>
-                            <button class="folder-send-btn">
+                            <button type="submit" class="folder-send-btn">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                           d="M3 10l9-7 9 7v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z"/>
@@ -145,6 +152,7 @@
                         </div>
 
                     </div>
+                    </form>
                 </div>
                 {{-- end open doc --}}
 
