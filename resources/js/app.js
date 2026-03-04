@@ -255,6 +255,13 @@ window.applyI18n = function (root) {
             el.style.visibility = 'visible';
         }
     });
+
+    // Translate placeholder attributes (inputs, textareas)
+    root.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        const text = getNestedValue(dict, key);
+        if (text) el.placeholder = text;
+    });
 };
 
 const langToggle = document.getElementById('langToggle');

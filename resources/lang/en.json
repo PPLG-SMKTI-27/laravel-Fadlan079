@@ -8,27 +8,24 @@
         "education": "Education",
         "contact": "Contact"
     },
-
     "login": {
         "subtitle": "Please sign in to your account",
         "password": "Password",
         "demo_account": "Demo Account: <span class='font-medium text-text'>admin@example.com</span> / <span class='font-medium text-text'>1234567</span>",
         "enter": "Enter",
-        "Remember" : "Remember Me",
-        "Forgot" : "Forgot your password?",
-        "Back" : "Back to login",
-        "Reset" : "Send Reset Link",
-        "regis" : {
-            "title" : "Create Account",
-            "subtitle" : "Create your account to get started.",
-            "have_account" : "Already registered? Login"
+        "Remember": "Remember Me",
+        "Forgot": "Forgot your password?",
+        "Back": "Back to login",
+        "Reset": "Send Reset Link",
+        "regis": {
+            "title": "Create Account",
+            "subtitle": "Create your account to get started.",
+            "have_account": "Already registered? Login"
         }
     },
-
     "email_required": "Email is required.",
     "email_email": "The email must be a valid email address.",
     "password_required": "Password is required.",
-
     "hero": {
         "collaboration": "<i class='fa-solid fa-code text-primary'></i> Available for Collaboration",
         "hi": "Hi, I'm",
@@ -36,7 +33,6 @@
         "view_projects": "View Projects",
         "contact_me": "Contact Me"
     },
-
     "about": {
         "title": "ABOUT",
         "hero_outline": "STRUCTURE<br>AND BEHAVIOR",
@@ -45,54 +41,101 @@
         "values_title": "PRINCIPLES",
         "values_subtitle": "How I think and make decisions",
         "principles": [
-        { "title": "CLARITY", "desc": "Information comes first, visuals follow." },
-        { "title": "STRUCTURE", "desc": "Layouts behave predictably." },
-        { "title": "SYSTEMS", "desc": "Components are designed to scale." },
-        { "title": "DETAILS", "desc": "Motion, spacing, and timing matter." }
+            {
+                "title": "CLARITY",
+                "desc": "Information comes first, visuals follow."
+            },
+            {
+                "title": "STRUCTURE",
+                "desc": "Layouts behave predictably."
+            },
+            {
+                "title": "SYSTEMS",
+                "desc": "Components are designed to scale."
+            },
+            {
+                "title": "DETAILS",
+                "desc": "Motion, spacing, and timing matter."
+            }
         ],
         "constraints_title": "CONSTRAINTS",
         "constraints_lines": [
-        "LESS, BUT INTENTIONAL",
-        "NO DECORATION WITHOUT FUNCTION",
-        "MOTION MUST EXPLAIN",
-        "STRUCTURE BEFORE STYLE"
+            "LESS, BUT INTENTIONAL",
+            "NO DECORATION WITHOUT FUNCTION",
+            "MOTION MUST EXPLAIN",
+            "STRUCTURE BEFORE STYLE"
         ]
     },
-
     "project": {
         "hero": {
-        "title": "Projects",
-        "subtitle": "Built with intention.",
-        "description": "    A selection of <span class='text-primary font-semibold'>systems, tools, and interfaces</span> designed with intention and built for real use.",
-        "note": "Selected projects across systems and interfaces"
+            "title": "Projects",
+            "subtitle": "Built with intention.",
+            "description": "    A selection of <span class='text-primary font-semibold'>systems, tools, and interfaces</span> designed with intention and built for real use.",
+            "note": "Selected projects across systems and interfaces"
         },
-
         "index": {
-        "title": "Selected Works",
-        "description": "A focused index of selected projects, organized to reflect structure, scope, and intent.",
-
-        "summary": {
-            "projects": "Projects",
-            "categories": "Categories",
-            "active": "Active",
-
-            "status": {
-            "shipped": "Shipped",
-            "in_progress": "In Progress",
-            "prototype": "Prototype",
-            "archived": "Archived"
+            "title": "Selected Works",
+            "description": "A focused index of selected projects, organized to reflect structure, scope, and intent.",
+            "summary": {
+                "projects": "Projects",
+                "categories": "Categories",
+                "active": "Active",
+                "status": {
+                    "shipped": "Shipped",
+                    "in_progress": "In Progress",
+                    "prototype": "Prototype",
+                    "archived": "Archived"
+                }
             }
-        }
         },
-
-        "empty":{
+        "empty": {
             "title": "Nothing here yet.",
             "desc": "No projects match the current search or filter."
         },
-
         "end": {
-        "title": "Good projects are shaped by constraints.",
-        "description": "Clear constraints force clear decisions. Through scope, limitations, and iteration, structure emerges and solutions become intentional."
+            "title": "Good projects are shaped by constraints.",
+            "description": "Clear constraints force clear decisions. Through scope, limitations, and iteration, structure emerges and solutions become intentional."
+        }
+    },
+    "contact": {
+        "hero": {
+            "breadcrumb": "index / contact",
+            "title": "Contact",
+            "subtitle": "Drop a line.",
+            "description": "Whether you have a project in mind, a question, or just want to say hi, feel free to reach out. I'm always open to new conversations."
+        },
+        "folder": {
+            "breadcrumb": "index / request",
+            "title": "Request folder",
+            "description": "Each message is stored as a request file and reviewed individually.",
+            "tab": "Requests",
+            "badge": "New",
+            "doc_status": "● Draft",
+            "field_type": "Type",
+            "field_from": "From",
+            "field_from_placeholder": "your@email.com",
+            "field_subject": "Subject",
+            "field_subject_placeholder": "Brief title of your request",
+            "field_message_placeholder": "Write your message here…",
+            "chip_project": "New project",
+            "chip_collab": "Collaboration",
+            "chip_inquiry": "Inquiry",
+            "submit": "Drop in folder",
+            "filed": "Filed",
+            "sidebar_note": "This folder accepts limited requests. Responses may take 2–5 days.",
+            "req_01_status": "Reviewed · Jan 2025",
+            "req_02_status": "Pending · Feb 2025",
+            "req_new_status": "Draft · now"
+        },
+        "social": {
+            "breadcrumb": "index / social",
+            "title": "Find me elsewhere",
+            "description": "Other places where I share work, thoughts, and ongoing experiments.",
+            "platform": "Platform"
+        },
+        "end": {
+            "title": "Good conversations start with a simple message.",
+            "description": "Clear intent, honest communication, and mutual respect are the foundation of any meaningful collaboration."
         }
     },
 

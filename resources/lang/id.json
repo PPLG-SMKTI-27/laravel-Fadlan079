@@ -8,28 +8,24 @@
         "education": "Pendidikan",
         "contact": "Kontak"
     },
-
     "login": {
         "subtitle": "Silakan masuk ke akun Anda",
         "password": "Kata Sandi",
         "demo_account": "Akun Demo: <span class='font-medium text-text'>admin@example.com</span> / <span class='font-medium text-text'>1234567</span>",
         "enter": "Masuk",
-        "Remember" : "Ingat Aku",
-        "Forgot" : "Lupa password anda?",
-        "Back" : "kembali ke login",
-        "Reset" : "Kirim Tautan Reset",
-        "regis" : {
-            "title" : "Buat Akun",
-            "subtitle" : "Buat akun Anda untuk memulai.",
-            "have_account" : "Sudah terdaftar? Login"
+        "Remember": "Ingat Aku",
+        "Forgot": "Lupa password anda?",
+        "Back": "kembali ke login",
+        "Reset": "Kirim Tautan Reset",
+        "regis": {
+            "title": "Buat Akun",
+            "subtitle": "Buat akun Anda untuk memulai.",
+            "have_account": "Sudah terdaftar? Login"
         }
-
     },
-
     "email_required": "Email wajib diisi.",
     "email_email": "Email harus berupa alamat email yang valid.",
     "password_required": "Kata sandi wajib diisi.",
-
     "hero": {
         "collaboration": "<i class='fa-solid fa-code text-primary'></i> Tersedia untuk Kolaborasi",
         "hi": "Hai, saya",
@@ -37,7 +33,6 @@
         "view_projects": "Lihat Proyek",
         "contact_me": "Hubungi Saya"
     },
-
     "about": {
         "title": "TENTANG",
         "hero_outline": "STRUKTUR<br>DAN PERILAKU",
@@ -46,10 +41,22 @@
         "values_title": "PRINSIP",
         "values_subtitle": "Cara saya berpikir dan mengambil keputusan",
         "principles": [
-            { "title": "KEJELASAN", "desc": "Informasi yang jelas selalu diutamakan, visual mendukung cerita." },
-            { "title": "STRUKTUR", "desc": "Tata letak bekerja konsisten dan dapat diprediksi." },
-            { "title": "SISTEM", "desc": "Komponen dirancang agar mudah berkembang dan beradaptasi." },
-            { "title": "DETAIL", "desc": "Gerakan, jarak, dan timing membentuk pengalaman yang hidup." }
+            {
+                "title": "KEJELASAN",
+                "desc": "Informasi yang jelas selalu diutamakan, visual mendukung cerita."
+            },
+            {
+                "title": "STRUKTUR",
+                "desc": "Tata letak bekerja konsisten dan dapat diprediksi."
+            },
+            {
+                "title": "SISTEM",
+                "desc": "Komponen dirancang agar mudah berkembang dan beradaptasi."
+            },
+            {
+                "title": "DETAIL",
+                "desc": "Gerakan, jarak, dan timing membentuk pengalaman yang hidup."
+            }
         ],
         "constraints_title": "BATASAN",
         "constraints_lines": [
@@ -59,44 +66,78 @@
             "STRUKTUR LEBIH DULU ,GAYA MENYUSUL"
         ]
     },
-
     "project": {
         "hero": {
-        "title": "Proyek",
-        "subtitle": "Dibangun dengan tujuan.",
-        "description": "Pilihan <span class='text-primary font-semibold'>sistem, alat, dan antarmuka</span> yang dirancang dengan tujuan dan dibuat untuk penggunaan nyata.",
-        "note": "Pilihan proyek lintas sistem dan antarmuka"
+            "title": "Proyek",
+            "subtitle": "Dibangun dengan tujuan.",
+            "description": "Pilihan <span class='text-primary font-semibold'>sistem, alat, dan antarmuka</span> yang dirancang dengan tujuan dan dibuat untuk penggunaan nyata.",
+            "note": "Pilihan proyek lintas sistem dan antarmuka"
         },
-
         "index": {
-        "title": "Karya Terpilih",
-        "description": "Indeks terfokus dari proyek-proyek terpilih, yang disusun untuk mencerminkan struktur, cakupan, dan tujuan.",
-
-        "summary": {
-            "projects": "Proyek",
-            "categories": "Kategori",
-            "active": "Aktif",
-
-            "status": {
-            "shipped": "Rilis",
-            "in_progress": "Dalam Proses",
-            "prototype": "Prototipe",
-            "archived": "Diarsipkan"
+            "title": "Karya Terpilih",
+            "description": "Indeks terfokus dari proyek-proyek terpilih, yang disusun untuk mencerminkan struktur, cakupan, dan tujuan.",
+            "summary": {
+                "projects": "Proyek",
+                "categories": "Kategori",
+                "active": "Aktif",
+                "status": {
+                    "shipped": "Rilis",
+                    "in_progress": "Dalam Proses",
+                    "prototype": "Prototipe",
+                    "archived": "Diarsipkan"
+                }
             }
-        }
         },
-
-        "empty":{
+        "empty": {
             "title": "Belum ada apa pun di sini.",
             "desc": "Tidak ada proyek yang sesuai dengan pencarian atau filter saat ini."
         },
-
         "end": {
-        "title": "Proyek yang baik dibentuk oleh batasan.",
-        "description": "Batasan yang jelas memaksa keputusan yang tepat. Melalui cakupan, keterbatasan, dan iterasi, struktur terbentuk dan solusi menjadi lebih bermakna."
+            "title": "Proyek yang baik dibentuk oleh batasan.",
+            "description": "Batasan yang jelas memaksa keputusan yang tepat. Melalui cakupan, keterbatasan, dan iterasi, struktur terbentuk dan solusi menjadi lebih bermakna."
         }
     },
-
+    "contact": {
+        "hero": {
+            "breadcrumb": "index / kontak",
+            "title": "Kontak",
+            "subtitle": "Mulai percakapan.",
+            "description": "Apakah kamu punya proyek, pertanyaan, atau sekadar ingin menyapa, jangan ragu untuk menghubungi. Saya selalu terbuka untuk percakapan baru."
+        },
+        "folder": {
+            "breadcrumb": "index / permintaan",
+            "title": "Folder permintaan",
+            "description": "Setiap pesan disimpan sebagai file permintaan dan ditinjau satu per satu.",
+            "tab": "Permintaan",
+            "badge": "Baru",
+            "doc_status": "● Draft",
+            "field_type": "Tipe",
+            "field_from": "Dari",
+            "field_from_placeholder": "kamu@email.com",
+            "field_subject": "Subjek",
+            "field_subject_placeholder": "Judul singkat permintaanmu",
+            "field_message_placeholder": "Tulis pesanmu di sini…",
+            "chip_project": "Proyek baru",
+            "chip_collab": "Kolaborasi",
+            "chip_inquiry": "Pertanyaan",
+            "submit": "Masukkan ke folder",
+            "filed": "Tersimpan",
+            "sidebar_note": "Folder ini menerima permintaan terbatas. Respons mungkin membutuhkan waktu 2–5 hari.",
+            "req_01_status": "Ditinjau · Jan 2025",
+            "req_02_status": "Menunggu · Feb 2025",
+            "req_new_status": "Draft · sekarang"
+        },
+        "social": {
+            "breadcrumb": "index / sosial",
+            "title": "Temukan saya di tempat lain",
+            "description": "Tempat lain di mana saya berbagi karya, pemikiran, dan eksperimen yang sedang berjalan.",
+            "platform": "Platform"
+        },
+        "end": {
+            "title": "Percakapan yang baik dimulai dari pesan sederhana.",
+            "description": "Niat yang jelas, komunikasi yang jujur, dan saling menghormati adalah fondasi dari setiap kolaborasi yang bermakna."
+        }
+    },
     "footer": {
         "description": "Dibangun dengan struktur, kejelasan, dan tujuan.",
         "quick_links": "Tautan Cepat",

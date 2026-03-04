@@ -7,28 +7,28 @@
 
 {{-- HERO --}}
 <section id="contact-hero" class="py-34 max-w-7xl mx-auto px-6 space-y-10 overflow-hidden">
-    <p class="contact-breadcrumb text-xs uppercase tracking-widest text-muted">
+    <p class="contact-breadcrumb text-xs uppercase tracking-widest text-muted" data-i18n="contact.hero.breadcrumb">
         index / contact
     </p>
 
     <h1 class="contact-title text-[clamp(3.5rem,9vw,7rem)] font-semibold leading-[1.1]">
-        <span>Contact</span>
-        <span class="block text-muted font-normal">Let's talk.</span>
+        <span data-i18n="contact.hero.title">Contact</span>
+        <span class="block text-muted font-normal" data-i18n="contact.hero.subtitle">Drop a line.</span>
     </h1>
 
-    <p class="contact-desc text-muted max-w-xl leading-relaxed">
+    <p class="contact-desc text-muted max-w-xl leading-relaxed" data-i18n="contact.hero.description">
         Whether you have a project in mind, a question, or just want to say hi,
         feel free to reach out. I'm always open to new conversations.
     </p>
 </section>
 
 {{-- REQUEST FOLDER --}}
-<section id="request-section" class="max-w-6xl mx-auto px-6 py-32 space-y-16">
+<section id="request-section" class="max-w-6xl mx-auto px-6 py-32 space-y-16 overflow-hidden">
 
     <header id="request-header" class="space-y-4 max-w-xl">
-        <p class="text-xs uppercase tracking-widest text-muted">index / request</p>
-        <h2 class="text-[clamp(2rem,4vw,3rem)] font-semibold leading-tight">Request folder</h2>
-        <p class="text-muted leading-relaxed">Each message is stored as a request file and reviewed individually.</p>
+        <p class="text-xs uppercase tracking-widest text-muted" data-i18n="contact.folder.breadcrumb">index / request</p>
+        <h2 class="text-[clamp(2rem,4vw,3rem)] font-semibold leading-tight" data-i18n="contact.folder.title">Request folder</h2>
+        <p class="text-muted leading-relaxed" data-i18n="contact.folder.description">Each message is stored as a request file and reviewed individually.</p>
     </header>
 
     <div class="grid md:grid-cols-[1fr_260px] gap-8 items-start">
@@ -45,9 +45,9 @@
                         <svg class="w-3 h-3 opacity-60" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M2 6a2 2 0 012-2h4l2 2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
                         </svg>
-                        Requests
+                        <span data-i18n="contact.folder.tab">Requests</span>
                     </span>
-                    <span class="folder-tab-badge">New</span>
+                    <span class="folder-tab-badge" data-i18n="contact.folder.badge">New</span>
                 </div>
 
                 {{-- Stacked file sheets (decorative) --}}
@@ -69,7 +69,7 @@
                             </svg>
                         </div>
                         <span class="folder-doc-title">request_new.txt</span>
-                        <span class="folder-doc-status">● Draft</span>
+                        <span class="folder-doc-status" data-i18n="contact.folder.doc_status">● Draft</span>
                     </div>
 
                     {{-- Doc fields --}}
@@ -77,38 +77,40 @@
 
                         {{-- Metadata: type --}}
                         <div class="folder-doc-field">
-                            <span class="folder-field-key">Type</span>
+                            <span class="folder-field-key" data-i18n="contact.folder.field_type">Type</span>
                             <div class="folder-field-val">
                                 <label class="folder-chip-label">
                                     <input type="radio" name="req_type" value="project" class="sr-only" checked>
-                                    <span>New project</span>
+                                    <span data-i18n="contact.folder.chip_project">New project</span>
                                 </label>
                                 <label class="folder-chip-label">
                                     <input type="radio" name="req_type" value="collab" class="sr-only">
-                                    <span>Collaboration</span>
+                                    <span data-i18n="contact.folder.chip_collab">Collaboration</span>
                                 </label>
                                 <label class="folder-chip-label">
                                     <input type="radio" name="req_type" value="inquiry" class="sr-only">
-                                    <span>Inquiry</span>
+                                    <span data-i18n="contact.folder.chip_inquiry">Inquiry</span>
                                 </label>
                             </div>
                         </div>
 
                         {{-- Metadata: sender --}}
                         <div class="folder-doc-field">
-                            <span class="folder-field-key">From</span>
+                            <span class="folder-field-key" data-i18n="contact.folder.field_from">From</span>
                             <div class="folder-field-val">
                                 <input type="email" class="folder-field-input"
-                                       placeholder="your@email.com">
+                                       placeholder="your@email.com"
+                                       data-i18n-placeholder="contact.folder.field_from_placeholder">
                             </div>
                         </div>
 
                         {{-- Metadata: subject --}}
                         <div class="folder-doc-field">
-                            <span class="folder-field-key">Subject</span>
+                            <span class="folder-field-key" data-i18n="contact.folder.field_subject">Subject</span>
                             <div class="folder-field-val">
                                 <input type="text" class="folder-field-input"
-                                       placeholder="Brief title of your request">
+                                       placeholder="Brief title of your request"
+                                       data-i18n-placeholder="contact.folder.field_subject_placeholder">
                             </div>
                         </div>
 
@@ -118,7 +120,8 @@
                         {{-- Body --}}
                         <div class="folder-doc-body-field">
                             <textarea rows="5" class="folder-field-area"
-                                      placeholder="Write your message here…"></textarea>
+                                      placeholder="Write your message here…"
+                                      data-i18n-placeholder="contact.folder.field_message_placeholder"></textarea>
                         </div>
 
                         {{-- Footer --}}
@@ -137,7 +140,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                           d="M9 21V12h6v9"/>
                                 </svg>
-                                Drop in folder
+                                <span data-i18n="contact.folder.submit">Drop in folder</span>
                             </button>
                         </div>
 
@@ -151,14 +154,14 @@
         {{-- ══ SIDEBAR: filed items ══ --}}
         <div id="system-note" class="hidden md:flex flex-col gap-4 pt-14">
 
-            <p class="text-[10px] uppercase tracking-widest text-muted">Filed</p>
+            <p class="text-[10px] uppercase tracking-widest text-muted" data-i18n="contact.folder.filed">Filed</p>
 
             {{-- mini file card --}}
             <div class="folder-mini-card">
                 <div class="folder-mini-dot bg-[var(--color-success)]"></div>
                 <div>
                     <p class="text-xs font-medium">request_01.txt</p>
-                    <p class="text-[10px] text-muted mt-0.5">Reviewed · Jan 2025</p>
+                    <p class="text-[10px] text-muted mt-0.5" data-i18n="contact.folder.req_01_status">Reviewed · Jan 2025</p>
                 </div>
             </div>
 
@@ -166,7 +169,7 @@
                 <div class="folder-mini-dot bg-[var(--color-warning)]"></div>
                 <div>
                     <p class="text-xs font-medium">request_02.txt</p>
-                    <p class="text-[10px] text-muted mt-0.5">Pending · Feb 2025</p>
+                    <p class="text-[10px] text-muted mt-0.5" data-i18n="contact.folder.req_02_status">Pending · Feb 2025</p>
                 </div>
             </div>
 
@@ -174,11 +177,11 @@
                 <div class="folder-mini-dot bg-[var(--color-border)]"></div>
                 <div>
                     <p class="text-xs font-medium">request_new.txt</p>
-                    <p class="text-[10px] text-muted mt-0.5">Draft · now</p>
+                    <p class="text-[10px] text-muted mt-0.5" data-i18n="contact.folder.req_new_status">Draft · now</p>
                 </div>
             </div>
 
-            <p class="text-xs text-muted leading-relaxed border-t border-border pt-5 mt-2">
+            <p class="text-xs text-muted leading-relaxed border-t border-border pt-5 mt-2" data-i18n="contact.folder.sidebar_note">
                 This folder accepts limited requests. Responses may take 2–5 days.
             </p>
         </div>
@@ -191,13 +194,13 @@
 <section id="social-section" class="max-w-6xl mx-auto px-6 pb-40 space-y-14">
 
     <header id="social-header" class="space-y-4 max-w-xl">
-        <p class="text-xs uppercase tracking-widest text-muted">
+        <p class="text-xs uppercase tracking-widest text-muted" data-i18n="contact.social.breadcrumb">
             index / social
         </p>
-        <h2 class="text-[clamp(2rem,4vw,3rem)] font-semibold leading-tight">
+        <h2 class="text-[clamp(2rem,4vw,3rem)] font-semibold leading-tight" data-i18n="contact.social.title">
             Find me elsewhere
         </h2>
-        <p class="text-muted leading-relaxed">
+        <p class="text-muted leading-relaxed" data-i18n="contact.social.description">
             Other places where I share work, thoughts, and ongoing experiments.
         </p>
     </header>
@@ -215,7 +218,7 @@
 
             <div class="space-y-3">
                 <div class="flex items-center justify-between">
-                    <span class="text-[10px] uppercase tracking-widest text-muted">Platform</span>
+                <span class="text-[10px] uppercase tracking-widest text-muted" data-i18n="contact.social.platform">Platform</span>
                     <span class="social-arrow text-muted group-hover:text-primary transition-colors duration-300">
                         <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 17L17 7M17 7H7M17 7v10"/>
@@ -243,7 +246,7 @@
 
             <div class="space-y-3">
                 <div class="flex items-center justify-between">
-                    <span class="text-[10px] uppercase tracking-widest text-muted">Platform</span>
+                <span class="text-[10px] uppercase tracking-widest text-muted" data-i18n="contact.social.platform">Platform</span>
                     <span class="social-arrow text-muted group-hover:text-primary transition-colors duration-300">
                         <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 17L17 7M17 7H7M17 7v10"/>
@@ -262,7 +265,7 @@
         </a>
 
         {{-- LinkedIn --}}
-        <a href="https://linkedin.com/in/fadlanfirdaus"
+        <a href="https://www.linkedin.com/in/fadlan-firdaus-148344386 "
            target="_blank"
            rel="noopener"
            class="social-card group relative bg-surface p-8 flex flex-col justify-between min-h-[260px] overflow-hidden">
@@ -271,7 +274,7 @@
 
             <div class="space-y-3">
                 <div class="flex items-center justify-between">
-                    <span class="text-[10px] uppercase tracking-widest text-muted">Platform</span>
+                <span class="text-[10px] uppercase tracking-widest text-muted" data-i18n="contact.social.platform">Platform</span>
                     <span class="social-arrow text-muted group-hover:text-primary transition-colors duration-300">
                         <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 17L17 7M17 7H7M17 7v10"/>
@@ -295,18 +298,17 @@
 
 {{-- END --}}
 <section id="contact-end" class="py-32 border-t border-border overflow-hidden">
-    <div class="end-line h-0 border-t border-border origin-left"></div>
     <div class="max-w-6xl mx-auto px-6 space-y-10">
 
         <p class="end-breadcrumb text-xs uppercase tracking-widest text-muted">
             index / end
         </p>
 
-        <h3 class="end-title text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight max-w-2xl">
+        <h3 class="end-title text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight max-w-2xl" data-i18n="contact.end.title">
             Good conversations start with a simple message.
         </h3>
 
-        <p class="end-desc text-muted max-w-xl leading-relaxed">
+        <p class="end-desc text-muted max-w-xl leading-relaxed" data-i18n="contact.end.description">
             Clear intent, honest communication, and mutual respect are the
             foundation of any meaningful collaboration.
         </p>

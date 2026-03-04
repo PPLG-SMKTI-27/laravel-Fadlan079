@@ -130,7 +130,7 @@
                 <i class="fa-brands fa-github"></i>
             </a>
 
-            <a href="https://www.linkedin.com/in/fadlan-firdaus-148344386/"
+            <a href="https://www.linkedin.com/in/fadlan-firdaus-148344386 "
             target="_blank"
             class="float-icon icon-linkedin" data-depth="0.9">
                 <i class="fa-brands fa-linkedin"></i>
