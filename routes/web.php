@@ -82,6 +82,7 @@ Route::name('portofolio.')->group(function () {
     Route::get('/about', [HomeController::class, 'Showabout'])->name('about');
     Route::get('/projects', [HomeController::class, 'Showproject'])->name('projects');
     Route::get('/contact', [HomeController::class, 'Showcontact'])->name('contact');
+    Route::get('/settings', [HomeController::class, 'Showsettings'])->name('settings');
     Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
     Route::view('/test', 'pages.tes')->name('test');
 });

@@ -78,4 +78,9 @@ class HomeController extends Controller
     {
         return view('pages.contact');
     }
+
+    public function Showsettings()
+    {
+        return view('pages.settings');
+    }
 }

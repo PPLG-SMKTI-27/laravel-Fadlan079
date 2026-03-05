@@ -332,19 +332,53 @@
                     </div>
                 </div>
 
-                <div class="flex items-center gap-2 mt-6 p-1.5 bg-surface border border-border rounded-lg font-mono text-[10px] uppercase tracking-widest">
-                    <button @click="setDevice('desktop')" class="px-4 py-2 rounded transition-colors"
-                        :class="deviceView === 'desktop' ? 'bg-text text-background font-bold' : 'text-muted hover:text-text'">
-                        <i class="fa-solid fa-display mr-1"></i> Desk
+                <div class="flex items-center mt-6 border border-border/70 bg-background/80 backdrop-blur font-mono text-[10px] uppercase tracking-widest divide-x divide-border/70 shadow-lg">
+                    
+                    <button @click="setDevice('desktop')" 
+                            class="relative px-5 md:px-6 py-3 flex items-center gap-2.5 transition-all duration-300 group overflow-hidden"
+                            :class="deviceView === 'desktop' ? 'text-primary bg-primary/5' : 'text-muted hover:text-text hover:bg-surface/50'">
+                        
+                        <span class="w-1.5 h-1.5 rounded-full transition-colors duration-300"
+                              :class="deviceView === 'desktop' ? 'bg-primary shadow-[0_0_8px_var(--color-primary)]' : 'bg-border group-hover:bg-muted'"></span>
+                        
+                        <i class="fa-solid fa-display text-xs"></i>
+                        <span class="hidden sm:inline">Desktop</span>
+                        <span class="sm:hidden">Desk</span>
+
+                        <span class="absolute bottom-0 left-0 w-full h-[2px] bg-primary transform origin-left transition-transform duration-300"
+                              :class="deviceView === 'desktop' ? 'scale-x-100' : 'scale-x-0'"></span>
                     </button>
-                    <button @click="setDevice('tablet')" class="px-4 py-2 rounded transition-colors"
-                        :class="deviceView === 'tablet' ? 'bg-text text-background font-bold' : 'text-muted hover:text-text'">
-                        <i class="fa-solid fa-tablet-screen-button mr-1"></i> Tab
+
+                    <button @click="setDevice('tablet')" 
+                            class="relative px-5 md:px-6 py-3 flex items-center gap-2.5 transition-all duration-300 group overflow-hidden"
+                            :class="deviceView === 'tablet' ? 'text-primary bg-primary/5' : 'text-muted hover:text-text hover:bg-surface/50'">
+                        
+                        <span class="w-1.5 h-1.5 rounded-full transition-colors duration-300"
+                              :class="deviceView === 'tablet' ? 'bg-primary shadow-[0_0_8px_var(--color-primary)]' : 'bg-border group-hover:bg-muted'"></span>
+                        
+                        <i class="fa-solid fa-tablet-screen-button text-xs"></i>
+                        <span class="hidden sm:inline">Tablet</span>
+                        <span class="sm:hidden">Tab</span>
+
+                        <span class="absolute bottom-0 left-0 w-full h-[2px] bg-primary transform origin-left transition-transform duration-300"
+                              :class="deviceView === 'tablet' ? 'scale-x-100' : 'scale-x-0'"></span>
                     </button>
-                    <button @click="setDevice('mobile')" class="px-4 py-2 rounded transition-colors"
-                        :class="deviceView === 'mobile' ? 'bg-text text-background font-bold' : 'text-muted hover:text-text'">
-                        <i class="fa-solid fa-mobile-screen mr-1"></i> Mob
+
+                    <button @click="setDevice('mobile')" 
+                            class="relative px-5 md:px-6 py-3 flex items-center gap-2.5 transition-all duration-300 group overflow-hidden"
+                            :class="deviceView === 'mobile' ? 'text-primary bg-primary/5' : 'text-muted hover:text-text hover:bg-surface/50'">
+                        
+                        <span class="w-1.5 h-1.5 rounded-full transition-colors duration-300"
+                              :class="deviceView === 'mobile' ? 'bg-primary shadow-[0_0_8px_var(--color-primary)]' : 'bg-border group-hover:bg-muted'"></span>
+                        
+                        <i class="fa-solid fa-mobile-screen text-xs"></i>
+                        <span class="hidden sm:inline">Mobile</span>
+                        <span class="sm:hidden">Mob</span>
+
+                        <span class="absolute bottom-0 left-0 w-full h-[2px] bg-primary transform origin-left transition-transform duration-300"
+                              :class="deviceView === 'mobile' ? 'scale-x-100' : 'scale-x-0'"></span>
                     </button>
+
                 </div>
             </div>
 
@@ -399,28 +433,8 @@
                                     <span class="file border-border bg-bg"></span>
                                     <span class="file border-border bg-bg"></span>
 
-                                    <a href="javascript:void(0)"
-                                       class="file file-front pointer-events-auto p-6 flex flex-col justify-between bg-surface border-border project-open"
-                                       data-id="{{ $project->id }}"
-                                       data-title="{{ $project->title }}"
-                                       data-desc="{{ $project->desc }}"
-                                       data-type="{{ $project->type }}"
-                                       data-status="{{ $project->status }}"
-                                       data-created="{{ $project->created_at->format('d M Y') }}"
-                                       data-updated="{{ $project->updated_at->format('d M Y') }}"
-                                       data-repo="{{ $project->repo }}"
-                                       data-role="{{ $project->role }}"
-                                       data-team="{{ $project->team_size }}"
-                                       data-responsibilities="{{ $project->responsibilities }}"
-                                       data-live="{{ $project->live_url }}"
-                                       data-screenshot='@json(
-                                           $project->screenshot
-                                               ? collect($project->screenshot)
-                                                   ->map(fn($img) => asset("storage/".$img))
-                                                   ->values()
-                                               : []
-                                       )'
-                                       data-tech='@json($project->tech)'>
+                                    <a href="{{ route('portofolio.projects', ['search' => $project->title]) }}"
+                                       class="file file-front pointer-events-auto p-6 flex flex-col justify-between bg-surface border-border hover:border-primary transition-colors duration-300">
                                        
                                         <div>
                                             <h3 class="text-2xl font-semibold leading-tight group-hover:text-primary transition-colors">
@@ -450,7 +464,7 @@
                                     </a>
                                 </div>
                             </div>
-                            </div>
+                        </div>
                     @empty
                         <div class="flex items-center justify-center w-full h-full border border-dashed border-border text-muted font-mono text-xs uppercase tracking-widest">
                             [ Null_Data: No Projects Found ]

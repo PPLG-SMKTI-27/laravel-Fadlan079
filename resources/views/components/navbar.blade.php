@@ -62,7 +62,7 @@
     bg-surface/50 z-50">
 
   <div class="px-4 xl:px-6 py-2 flex justify-between items-center">
-    <h1 class="nav-brand text-base lg:text-sm xl:text-lg">
+    <h1 id="secret-brand-trigger-desktop" class="nav-brand text-base lg:text-sm xl:text-lg cursor-pointer select-none" data-target="{{ route('portofolio.settings') }}">
       {{ $brand ?? 'App' }}
     </h1>
 
@@ -96,8 +96,8 @@
 
 <aside id="mobileSidebar" class="fixed top-0 left-0 h-full w-[80%] max-w-[300px] bg-background/95 backdrop-blur-2xl border-r border-border z-100 -translate-x-full pointer-events-none transition-transform duration-300 flex flex-col shadow-2xl">
   
-  <div class="h-16 px-6 flex justify-between items-center border-b border-border/50">
-    <div class="flex items-center gap-3">
+<div class="h-16 px-6 flex justify-between items-center border-b border-border/50">
+    <div id="secret-brand-trigger-mobile" class="flex items-center gap-3 cursor-pointer select-none" data-target="{{ route('portofolio.settings') }}">
         <div class="w-6 h-6 rounded bg-primary text-background flex items-center justify-center font-bold text-xs">
             <i class="fa-solid fa-terminal"></i>
         </div>
@@ -227,4 +227,43 @@ document.addEventListener('DOMContentLoaded', () => {
       setInterval(updateMobileClock, 1000);
   }
 });
+
+function setupEasterEgg(elementId) {
+      const trigger = document.getElementById(elementId);
+      if (!trigger) return;
+
+      let clickCount = 0;
+      let clickTimer = null;
+
+      trigger.addEventListener('click', () => {
+          clickCount++;
+
+          // Reset hitungan jika jeda antar klik lebih dari 1.5 detik
+          clearTimeout(clickTimer);
+          clickTimer = setTimeout(() => {
+              clickCount = 0;
+          }, 1500);
+
+          // Jika sudah 7 kali
+          if (clickCount === 7) {
+              const targetUrl = trigger.getAttribute('data-target');
+              
+              // Animasi layar berkedip sebentar sebagai feedback
+              document.body.style.transition = 'filter 0.2s';
+              document.body.style.filter = 'invert(1)';
+              
+              setTimeout(() => {
+                  document.body.style.filter = 'invert(0)';
+                  // Redirect ke halaman settings
+                  if(targetUrl) window.location.href = targetUrl;
+              }, 200);
+
+              clickCount = 0; // Reset
+          }
+      });
+  }
+
+  // Aktifkan untuk Desktop dan Mobile
+  setupEasterEgg('secret-brand-trigger-desktop');
+  setupEasterEgg('secret-brand-trigger-mobile');
 </script>
