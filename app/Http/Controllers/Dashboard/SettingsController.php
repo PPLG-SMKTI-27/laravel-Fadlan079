@@ -40,4 +40,23 @@ class SettingsController extends Controller
 
         return back()->with('success', 'Preferences saved successfully.');
     }
+
+    public function reset(Request $request)
+    {
+        $user = $request->user();
+        $user->setting()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'theme' => 'system',
+                'locale' => 'en',
+                'show_clock' => true,
+                'clock_format' => '24',
+                'show_seconds' => true,
+                'show_date' => true,
+                'cursor_theme' => 'viewfinder',
+            ]
+        );
+
+        return back()->with('success', 'Preferences reset to factory defaults.');
+    }
 }

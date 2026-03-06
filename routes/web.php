@@ -13,9 +13,6 @@ Route::middleware(['auth', 'verified'])
     ->prefix('dashboard')
     ->as('dashboard.')
     ->group(function () {
-        Route::get('/test', function () {
-            return view('pages.test');
-        })->name('test');
 
         Route::get('/', [DashboardController::class, 'index'])
             ->name('home');
@@ -70,6 +67,7 @@ Route::middleware(['auth', 'verified'])
 
         Route::get('/settings', [\App\Http\Controllers\Dashboard\SettingsController::class, 'index'])->name('settings');
         Route::put('/settings', [\App\Http\Controllers\Dashboard\SettingsController::class, 'update'])->name('settings.update');
+        Route::post('/settings/reset', [\App\Http\Controllers\Dashboard\SettingsController::class, 'reset'])->name('settings.reset');
 
         Route::resource('projects', ProjectController::class)->except(['show']);
         Route::resource('skills', \App\Http\Controllers\Dashboard\SkillController::class)->except(['show']);
@@ -84,8 +82,9 @@ Route::name('portofolio.')->group(function () {
     Route::get('/contact', [HomeController::class, 'Showcontact'])->name('contact');
     Route::get('/settings', [HomeController::class, 'Showsettings'])->name('settings');
     Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
-    Route::view('/test', 'pages.tes')->name('test');
 });
+
+Route::view('/test', 'pages.tes')->name('test');
 
 Route::get('/api/lang/{locale}', function ($locale) {
     if (! in_array($locale, ['id', 'en'])) {

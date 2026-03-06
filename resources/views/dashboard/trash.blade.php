@@ -1,167 +1,199 @@
 @extends('layouts.dashboard')
-@section('title', 'Trash Items')
+@section('title', 'System Archive // Trash')
 
 @section('content')
-<section class="py-20 max-w-6xl mx-auto px-6 space-y-16">
+<div class="min-h-screen bg-background pt-12 pb-32 px-4 md:px-6 relative overflow-hidden">
 
-    <header class="space-y-6 max-w-6xl">
-        <p class="text-xs uppercase tracking-widest text-muted">
-            dashboard / trash
-        </p>
+    {{-- Global Faint Grid --}}
+    <div class="absolute inset-0 pointer-events-none opacity-[0.02]"
+         style="background-image: linear-gradient(var(--color-text) 1px, transparent 1px), linear-gradient(90deg, var(--color-text) 1px, transparent 1px); background-size: 64px 64px;">
+    </div>
 
-        <h1 class="text-[clamp(2.5rem,6vw,4rem)] font-semibold leading-tight">
-            Trash Bin
-            <span class="block text-muted font-normal text-lg mt-2">
-                Archived & soft deleted items
-            </span>
-        </h1>
+    <section class="max-w-7xl mx-auto relative z-10 space-y-12">
 
-        <div class="flex items-center justify-between w-full gap-4">
-            <div class="relative w-full md:w-1/3">
-                <input
-                    type="text"
-                    id="search-input"
-                    placeholder="Search Trash..."
-                    value="{{ request('search') }}"
-                    class="w-full border border-border px-4 py-2 pl-10 text-sm placeholder:text-muted bg-surface focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
-                />
-                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-muted">
-                    <i class="fas fa-search"></i>
+        {{-- HEADER MODULE --}}
+        <header class="relative space-y-6 border-b border-border/50 pb-8 mt-4 md:mt-8">
+            <div class="absolute top-0 right-0 w-1/3 h-[1px] bg-gradient-to-r from-transparent to-primary/50 pointer-events-none"></div>
+
+            <div class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-primary">
+                <i class="fa-solid fa-recycle"></i>
+                >> SYS_DIR / DASHBOARD / ARCHIVE_STORAGE
+            </div>
+
+            <div class="flex items-end gap-3 pt-2">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold font-mono tracking-tighter uppercase text-text leading-none">
+                    Data_Recycle_Bin
+                </h1>
+                <div class="w-3 md:w-4 h-8 md:h-12 bg-primary animate-pulse mb-1 shadow-[0_0_10px_var(--color-primary)]"></div>
+            </div>
+            
+            <p class="text-sm font-mono text-muted tracking-wide max-w-2xl leading-relaxed">
+                <span class="text-primary">></span> Storage array for archived and soft-deleted node entities. Data pending permanent eradication or restoration.
+            </p>
+        </header>
+
+        {{-- SUCCESS LOG --}}
+        @if(session('success'))
+            <div x-data="{ show: true }" x-show="show" x-transition.opacity.duration.500ms x-init="setTimeout(() => show = false, 4000)"
+                class="border-l-2 border-green-500 bg-green-500/10 p-4 flex items-center gap-3">
+                <i class="fa-solid fa-check text-green-500"></i>
+                <p class="text-[10px] font-mono uppercase tracking-widest text-green-500">> {{ session('success') }}</p>
+            </div>
+        @endif
+
+        {{-- METRICS DASHBOARD --}}
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {{-- Stat 1 --}}
+            <div class="relative border border-border/50 bg-surface/20 p-5 group hover:border-primary/50 transition-colors">
+                <div class="absolute top-0 right-0 w-3 h-3 border-t border-r border-primary/50"></div>
+                <p class="text-[10px] font-mono uppercase tracking-widest text-muted mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-database text-primary"></i> Total_Archived
+                </p>
+                <h3 class="text-3xl font-mono font-bold text-text">{{ $totalTrashed }}</h3>
+            </div>
+
+            {{-- Stat 2 --}}
+            <div class="relative border border-border/50 bg-surface/20 p-5 group hover:border-sky-400/50 transition-colors">
+                <div class="absolute top-0 right-0 w-3 h-3 border-t border-r border-sky-400/50"></div>
+                <p class="text-[10px] font-mono uppercase tracking-widest text-muted mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-folder-open text-sky-400"></i> Projects_Node
+                </p>
+                <h3 class="text-3xl font-mono font-bold text-sky-400">{{ $totalTrashedProjects }}</h3>
+            </div>
+
+            {{-- Stat 3 --}}
+            <div class="relative border border-border/50 bg-surface/20 p-5 group hover:border-red-400/50 transition-colors">
+                <div class="absolute top-0 right-0 w-3 h-3 border-t border-r border-red-400/50"></div>
+                <p class="text-[10px] font-mono uppercase tracking-widest text-muted mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-code text-red-400"></i> Skills_Node
+                </p>
+                <h3 class="text-3xl font-mono font-bold text-red-400">{{ $totalTrashedSkills }}</h3>
+            </div>
+
+            {{-- Stat 4 --}}
+            <div class="relative border border-border/50 bg-surface/20 p-5 group hover:border-yellow-400/50 transition-colors overflow-hidden">
+                <div class="absolute top-0 right-0 w-3 h-3 border-t border-r border-yellow-400/50 z-10"></div>
+                <div class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(250,204,21,0.03)_4px,rgba(250,204,21,0.03)_8px)] pointer-events-none"></div>
+                <p class="text-[10px] font-mono uppercase tracking-widest text-muted mb-2 flex items-center gap-2 relative z-10">
+                    <i class="fa-solid fa-hourglass-half text-yellow-400 animate-pulse"></i> Expiring_5D
+                </p>
+                <h3 class="text-3xl font-mono font-bold text-yellow-400 relative z-10">{{ $expiringSoon ?? 0 }}</h3>
+            </div>
+        </div>
+
+        {{-- CONTROL PANEL & GRID --}}
+        <div class="relative border border-border/50 bg-surface/10 p-4 md:p-6 mt-8 space-y-6">
+            
+            {{-- Command Bar (Search & Sort) --}}
+            <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 border-b border-border/50 pb-6">
+                
+                {{-- Terminal Search Input --}}
+                <div class="relative w-full md:w-1/2 group">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 font-mono text-primary text-sm">></div>
+                    <input
+                        type="text"
+                        id="search-input"
+                        placeholder="SEARCH_QUERY_"
+                        value="{{ request('search') }}"
+                        class="w-full border border-border/70 bg-surface/30 px-4 py-3 pl-8 font-mono text-xs uppercase tracking-widest text-text placeholder:text-muted/50 focus:outline-none focus:border-primary focus:bg-primary/5 transition-colors"
+                    />
+                    <div class="absolute right-4 top-1/2 -translate-y-1/2 w-1.5 h-3 bg-primary/30 group-focus-within:bg-primary group-focus-within:animate-pulse pointer-events-none"></div>
+                </div>
+
+                {{-- Action Toggles --}}
+                <div class="flex flex-wrap sm:flex-nowrap items-center gap-3">
+                    <div class="relative">
+                        <select
+                            id="sort-select"
+                            class="appearance-none border border-border/70 bg-surface/30 px-8 py-3 pr-12 font-mono text-xs uppercase tracking-widest text-muted hover:text-text focus:outline-none focus:border-primary transition-colors cursor-pointer"
+                        >
+                            <option value="desc" {{ $sort == 'desc' ? 'selected' : '' }}>SORT: NEWEST</option>
+                            <option value="asc" {{ $sort == 'asc' ? 'selected' : '' }}>SORT: OLDEST</option>
+                        </select>
+                        <i class="fa-solid fa-sort absolute right-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none"></i>
+                    </div>
+
+                    <button
+                        id="toggleSelectMode"
+                        type="button"
+                        class="px-6 py-3 border border-border/70 bg-surface/30 font-mono text-xs font-bold uppercase tracking-widest text-muted hover:border-primary hover:text-primary transition-colors focus:outline-none focus:border-primary"
+                    >
+                        [ SELECT_MULTI ]
+                    </button>
+                </div>
+            </div>
+
+            {{-- Filter Tabs (Sangat bergantung pada class JS kamu, jadi base classnya dipertahankan) --}}
+            <div class="flex flex-wrap gap-2 border-b border-border/30 pb-4">
+                <button type="button" class="filter-btn px-5 py-2 border border-primary bg-primary/10 text-primary font-mono text-[10px] font-bold uppercase tracking-widest transition-colors focus:outline-none" data-tab="all">
+                    ALL_TRASH
+                </button>
+                <button type="button" class="filter-btn px-5 py-2 border border-border font-mono text-[10px] font-bold uppercase tracking-widest text-muted hover:border-primary transition-colors focus:outline-none" data-tab="projects">
+                    PROJECTS
+                </button>
+                <button type="button" class="filter-btn px-5 py-2 border border-border font-mono text-[10px] font-bold uppercase tracking-widest text-muted hover:border-primary transition-colors focus:outline-none" data-tab="skills">
+                    SKILLS
+                </button>
+            </div>
+
+            {{-- Dynamic Content Container --}}
+            <div id="trash-grid" class="space-y-16 min-h-[400px] transition-opacity duration-300">
+                @include('dashboard.trash.partials.content')
+            </div>
+
+        </div>
+
+        {{-- BULK ACTION BAR (Sticky HUD) --}}
+        <div id="bulkBar"
+            class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[90]
+                   bg-[#0a0a0a]/90 backdrop-blur-md border border-primary/50 p-4 md:px-6 md:py-4
+                   flex flex-col sm:flex-row items-center gap-4 shadow-[0_0_30px_rgba(var(--color-primary-rgb),0.15)]
+                   opacity-0 pointer-events-none translate-y-4
+                   transition-all duration-300 w-[90%] md:w-auto min-w-[320px]">
+            
+            {{-- Decorative HUD lines --}}
+            <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary"></div>
+            <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary"></div>
+
+            <div class="flex items-center gap-3 border-r border-border/50 pr-4 mr-2 w-full sm:w-auto justify-center sm:justify-start">
+                <i class="fa-solid fa-crosshairs text-primary animate-spin-slow"></i>
+                <span id="selectedCount" class="text-[10px] font-mono font-bold uppercase tracking-widest text-primary">
+                    0 SELECTED
                 </span>
             </div>
 
-            <div class="flex items-center gap-2 ml-auto">
-                <select
-                    id="sort-select"
-                    class="border border-border px-4 py-2 text-sm bg-surface focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
-                >
-                    <option value="desc" {{ $sort == 'desc' ? 'selected' : '' }}>Newest Deleted</option>
-                    <option value="asc" {{ $sort == 'asc' ? 'selected' : '' }}>Oldest Deleted</option>
-                </select>
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+                <button type="button" onclick="bulkAction('restore')"
+                    class="flex-1 sm:flex-none px-4 py-2 border border-border text-[10px] font-mono font-bold uppercase tracking-widest text-muted hover:border-primary hover:text-primary transition-colors">
+                    [ RESTORE ]
+                </button>
 
-                <button
-                    id="toggleSelectMode"
-                    type="button"
-                    class="px-4 py-2 border border-border text-sm hover:border-primary transition focus:outline-none focus:ring-1 focus:ring-primary"
-                >
-                    Select Multiple
+                <button type="button" onclick="bulkAction('delete')"
+                    class="flex-1 sm:flex-none px-4 py-2 border border-red-500/50 bg-red-500/10 text-[10px] font-mono font-bold uppercase tracking-widest text-red-500 hover:bg-red-500 hover:text-white transition-colors group">
+                    <i class="fa-solid fa-skull mr-1 opacity-50 group-hover:opacity-100 group-hover:animate-ping"></i> [ PURGE ]
                 </button>
             </div>
         </div>
-    </header>
 
-    <!-- Summary Statistics -->
-    <div class="grid md:grid-cols-4 gap-6">
-        <div class="border border-border bg-surface p-6">
-            <p class="text-xs uppercase tracking-widest text-muted mb-2">
-                Total Soft Deleted
-            </p>
-            <h3 class="text-3xl font-semibold">
-                {{ $totalTrashed }}
-            </h3>
-        </div>
-
-        <div class="border border-border bg-surface p-6">
-            <p class="text-xs uppercase tracking-widest text-muted mb-2">
-                Deleted Projects
-            </p>
-            <h3 class="text-3xl font-semibold text-sky-400">
-                {{ $totalTrashedProjects }}
-            </h3>
-        </div>
-
-        <div class="border border-border bg-surface p-6">
-            <p class="text-xs uppercase tracking-widest text-muted mb-2">
-                Deleted Skills
-            </p>
-            <h3 class="text-3xl font-semibold text-red-400">
-                {{ $totalTrashedSkills }}
-            </h3>
-        </div>
-
-        <div class="border border-border bg-surface p-6">
-            <p class="text-xs uppercase tracking-widest text-muted mb-2">
-                Expiring Soon (5 Days)
-            </p>
-            <h3 class="text-3xl font-semibold text-yellow-400">
-                {{ $expiringSoon ?? 0 }}
-            </h3>
-        </div>
-    </div>
-
-    @if(session('success'))
-        <div class="p-4 bg-green-500/10 border border-green-500/20 text-green-500 flex items-center gap-3 mb-6">
-            <i class="fa-solid fa-circle-check"></i>
-            <p class="text-sm font-medium">{{ session('success') }}</p>
-        </div>
-    @endif
-
-    <!-- Toolbar & Grid -->
-    <div class="bg-surface border border-border p-6 space-y-6">
+        {{-- Hidden Forms --}}
+        <form id="bulkForm" method="POST" class="hidden">
+            @csrf
+            <input type="hidden" name="action_type" id="bulkActionType">
+        </form>
         
-        <!-- Filter Tabs -->
-        <div class="flex flex-wrap gap-2 border-b border-border pb-4">
-            <button type="button" class="filter-btn px-4 py-2 border border-primary bg-primary/10 text-primary text-sm transition focus:outline-none" data-tab="all">
-                All Trash
-            </button>
-            <button type="button" class="filter-btn px-4 py-2 border border-border text-sm hover:border-primary transition focus:outline-none" data-tab="projects">
-                Projects Only
-            </button>
-            <button type="button" class="filter-btn px-4 py-2 border border-border text-sm hover:border-primary transition focus:outline-none" data-tab="skills">
-                Skills Only
-            </button>
-        </div>
+        <form id="singleDeleteForm" method="POST" class="hidden">
+            @csrf
+            @method('DELETE')
+        </form>
 
-        <!-- Dynamic Content Container -->
-        <div id="trash-grid" class="space-y-16 min-h-[400px]">
-            @include('dashboard.trash.partials.content')
-        </div>
-
-    </div>
-
-    <!-- Bulk Action Bar -->
-    <div id="bulkBar"
-        class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50
-                bg-surface border border-border px-6 py-4
-                flex gap-4 shadow-lg
-                opacity-0 pointer-events-none translate-y-4
-                transition-all duration-200">
-
-        <span id="selectedCount"
-            class="text-xs uppercase tracking-widest text-muted flex items-center">
-            0 Selected
-        </span>
-
-        <button type="button"
-            onclick="bulkAction('restore')"
-            class="px-4 py-2 border border-border text-sm hover:border-primary hover:text-primary transition-colors">
-            Restore Selected
-        </button>
-
-        <button type="button"
-            onclick="bulkAction('delete')"
-            class="px-4 py-2 border border-red-500 text-red-500 text-sm hover:bg-red-500/10 transition-colors">
-            Delete Permanently
-        </button>
-    </div>
-
-    <form id="bulkForm" method="POST" class="hidden">
-        @csrf
-        <input type="hidden" name="action_type" id="bulkActionType">
-    </form>
-    
-    <form id="singleDeleteForm" method="POST" class="hidden">
-        @csrf
-        @method('DELETE')
-    </form>
-</section>
-
-<!-- Confirm Modal (Uses layout's built-in global confirm modal) -->
+    </section>
+</div>
 @endsection
 
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    // JS Murni milikmu tetap dipertahankan, karena logikanya sudah sangat baik!
     const tabs = document.querySelectorAll('.filter-btn');
     const searchInput = document.getElementById('search-input');
     const sortSelect = document.getElementById('sort-select');
@@ -218,9 +250,9 @@ document.addEventListener('DOMContentLoaded', () => {
         tab.addEventListener('click', (e) => {
             tabs.forEach(t => {
                 t.classList.remove('border-primary', 'bg-primary/10', 'text-primary');
-                t.classList.add('border-border');
+                t.classList.add('border-border', 'text-muted');
             });
-            e.target.classList.remove('border-border');
+            e.target.classList.remove('border-border', 'text-muted');
             e.target.classList.add('border-primary', 'bg-primary/10', 'text-primary');
 
             currentTab = e.target.dataset.tab;
@@ -248,11 +280,11 @@ document.addEventListener('DOMContentLoaded', () => {
         selectMode = !selectMode;
         
         if (selectMode) {
-            toggleBtn.innerText = 'Cancel Selection';
-            toggleBtn.classList.add('border-red-500', 'text-red-400');
+            toggleBtn.innerText = '[ CANCEL_MULTI ]';
+            toggleBtn.classList.add('border-red-500', 'text-red-500');
         } else {
-            toggleBtn.innerText = 'Select Multiple';
-            toggleBtn.classList.remove('border-red-500', 'text-red-400');
+            toggleBtn.innerText = '[ SELECT_MULTI ]';
+            toggleBtn.classList.remove('border-red-500', 'text-red-500');
             if (bulkBar) bulkBar.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
         }
         
@@ -268,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (totalSelected > 0) {
             bulkBar.classList.remove('opacity-0','pointer-events-none','translate-y-4');
-            selectedCountText.innerText = totalSelected + ' Selected';
+            selectedCountText.innerText = totalSelected + ' SELECTED';
         } else {
             bulkBar.classList.add('opacity-0','pointer-events-none','translate-y-4');
         }
@@ -283,15 +315,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(selectedProjects.length === 0 && selectedSkills.length === 0) return;
 
-        // Since we can't easily cross-post arrays to two controllers in one HTTP request natively without a unified bulk endpoint,
-        // we'll append the inputs and post to a unified bulk endpoint, OR intercept it.
-        // For simplicity, we assume they select ONLY projects OR ONLY skills. If mixed, we submit to JS fetch.
-
         if(action === 'delete') {
-            if(!confirm('Are you absolutely sure you want to permanently delete the selected items? This cannot be undone.')) return;
+            if(!confirm('CRITICAL: Are you absolutely sure you want to permanently delete the selected items? This cannot be undone.')) return;
         }
 
-        // We will execute fetch promises for both arrays if they exist to keep things clean instead of unified routing hacks
         let promises = [];
 
         if(selectedProjects.length > 0) {
@@ -327,15 +354,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         Promise.all(promises).then(() => {
             selectMode = false;
-            toggleBtn.innerText = 'Select Multiple';
-            toggleBtn.classList.remove('border-red-500', 'text-red-400');
+            toggleBtn.innerText = '[ SELECT_MULTI ]';
+            toggleBtn.classList.remove('border-red-500', 'text-red-500');
             bulkBar.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
             fetchTrash();
             
-            // Show global modal natively over AJAX
-            const msg = action === 'restore' ? 'Items restored successfully!' : 'Items permanently deleted!';
-            alert(msg); // fallback or inject global modal logic if desired
-        }).catch(err => alert("Error processing bulk action."));
+            const msg = action === 'restore' ? 'System: Items restored successfully.' : 'System: Items permanently purged.';
+            alert(msg); 
+        }).catch(err => alert("System Error: Failed to process bulk execution."));
     };
 
     function attachGridEvents() {
@@ -343,11 +369,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const projectCards = document.querySelectorAll('.project-card');
         const skillCards = document.querySelectorAll('.skill-card');
         
-        // Month group buttons for projects
         const monthButtons = document.querySelectorAll('.month-select');
-        // Select all skills button
         const skillsButtons = document.querySelectorAll('.skills-select');
-        
         const normalActions = document.querySelectorAll('.normal-actions, .normal-skill-actions');
 
         checkboxes.forEach(cb => {
@@ -363,11 +386,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 monthCheckboxes.forEach(cb => {
                     cb.checked = !allChecked;
                     const card = cb.closest('.project-card');
-                    card.classList.toggle('border-primary', !allChecked);
-                    card.classList.toggle('bg-primary/5', !allChecked);
+                    if(card) {
+                        card.classList.toggle('border-primary', !allChecked);
+                        card.classList.toggle('bg-primary/5', !allChecked);
+                    }
                 });
 
-                button.innerText = allChecked ? 'Select All' : 'Unselect All';
+                button.innerText = allChecked ? '[ SELECT_ALL ]' : '[ UNSELECT_ALL ]';
                 updateBulkBar();
             });
         });
@@ -380,19 +405,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 skillCheckboxes.forEach(cb => {
                     cb.checked = !allChecked;
                     const card = cb.closest('.skill-card');
-                    card.classList.toggle('border-primary', !allChecked);
-                    card.classList.toggle('bg-primary/5', !allChecked);
+                    if(card) {
+                        card.classList.toggle('border-primary', !allChecked);
+                        card.classList.toggle('bg-primary/5', !allChecked);
+                    }
                 });
 
-                button.innerText = allChecked ? 'Select All Skills' : 'Unselect All Skills';
+                button.innerText = allChecked ? '[ SELECT_ALL_SKILLS ]' : '[ UNSELECT_ALL ]';
                 updateBulkBar();
             });
         });
 
-        // Click on Cards
         const handleCardClick = function(e) {
             if (!selectMode) return;
-            if (e.target.closest('form') || e.target.tagName === 'BUTTON' || e.target.closest('.delete-trash-btn')) return;
+            if (e.target.closest('form') || e.target.tagName === 'BUTTON' || e.target.closest('.delete-trash-btn') || e.target.closest('a')) return;
 
             const checkbox = this.querySelector('.bulk-checkbox, .bulk-skill-checkbox');
             if(checkbox) {
@@ -406,7 +432,6 @@ document.addEventListener('DOMContentLoaded', () => {
         projectCards.forEach(card => card.addEventListener('click', handleCardClick));
         skillCards.forEach(card => card.addEventListener('click', handleCardClick));
 
-        // Delete Confirm Logic
         const deleteButtons = document.querySelectorAll('.delete-trash-btn');
         deleteButtons.forEach(btn => {
             btn.addEventListener('click', function(e) {
@@ -420,9 +445,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const confirmMessage = document.getElementById('confirm-message');
                 
                 if (confirmModal && confirmYes && confirmCancel) {
-                    confirmMessage.textContent = 'Are you sure you want to permanently delete this? Data cannot be recovered.';
+                    confirmMessage.textContent = 'CRITICAL: Are you sure you want to permanently purge this node? Data cannot be recovered.';
                     
+                    // Trigger modal tampil (tergantung implementasi modalmu)
                     confirmModal.classList.remove('opacity-0', 'pointer-events-none');
+                    confirmModal.style.opacity = '1';
                     
                     const handleYes = () => {
                         const form = document.getElementById('singleDeleteForm');
@@ -437,6 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const cleanup = () => {
                         confirmModal.classList.add('opacity-0', 'pointer-events-none');
+                        confirmModal.style.opacity = '0';
                         confirmYes.removeEventListener('click', handleYes);
                         confirmCancel.removeEventListener('click', handleCancel);
                     };
@@ -447,24 +475,21 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Pagination Ajax Interception
         const paginationLinks = document.querySelectorAll('.pagination-wrapper a, .pagination-wrapper-skills a');
         paginationLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const url = e.target.href;
                 fetchTrash(url);
-                // scroll to top of grid
                 grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
 
-        // Apply visual states based on SelectMode
         if (selectMode) {
             monthButtons.forEach(btn => btn.classList.remove('hidden'));
             skillsButtons.forEach(btn => btn.classList.remove('hidden'));
             checkboxes.forEach(cb => cb.classList.remove('opacity-0', 'pointer-events-none'));
-            normalActions.forEach(el => el.classList.add('opacity-0', 'pointer-events-none')); // hide forms and buttons
+            normalActions.forEach(el => el.classList.add('opacity-0', 'pointer-events-none')); 
         } else {
             monthButtons.forEach(btn => btn.classList.add('hidden'));
             skillsButtons.forEach(btn => btn.classList.add('hidden'));
@@ -478,8 +503,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Initial Event Bind
     attachGridEvents();
 });
 </script>
+<style>
+    /* CSS Utility untuk Putaran Lambat pada Target HUD */
+    .animate-spin-slow {
+        animation: spin 4s linear infinite;
+    }
+</style>
 @endpush

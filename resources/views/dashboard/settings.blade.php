@@ -98,7 +98,7 @@
                     </label>
 
                 </div>
-                
+
                 <div class="space-y-4 pt-6 border-t border-border/50">
                     <div class="flex items-center justify-between">
                         <label
@@ -161,7 +161,6 @@
 
                     </div>
                 </div>
-
 
                 <div class="space-y-6 pt-6 border-t border-border/50">
                     <div class="flex items-center justify-between">
@@ -297,15 +296,69 @@
                     </div>
                 </div>
 
-                <div class="pt-10 flex justify-end">
+                <div class="pt-10 flex justify-between items-center">
+                    <button type="button" id="reset-btn"
+                        class="group relative overflow-hidden px-8 py-3 bg-red-500/10 text-red-500 font-bold uppercase tracking-widest text-[10px] sm:text-xs rounded hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center gap-2 sm:gap-3 border border-red-500/20 shadow-sm hover:shadow-[0_0_15px_rgba(239,68,68,0.3)]">
+                        <i class="fa-solid fa-rotate-left group-hover:-rotate-180 transition-transform duration-500"></i>
+                        <span>Factory Reset</span>
+                    </button>
+
                     <button type="submit"
-                        class="group relative overflow-hidden px-8 py-3 bg-primary text-text font-bold uppercase tracking-widest text-xs rounded hover:bg-text hover:text-background transition-colors duration-300 flex items-center gap-3 shadow-[0_0_20px_rgba(var(--color-primary-rgb),0.2)]">
+                        class="group relative overflow-hidden px-8 py-3 bg-primary text-text font-bold uppercase tracking-widest text-[10px] sm:text-xs rounded hover:bg-text hover:text-background transition-colors duration-300 flex items-center gap-2 sm:gap-3 shadow-[0_0_20px_rgba(var(--color-primary-rgb),0.2)]">
                         <span>Save Preferences</span>
                         <i class="fa-solid fa-floppy-disk group-hover:scale-110 transition-transform"></i>
                     </button>
                 </div>
 
         </form>
-    </div>
+
+        <form id="reset-form" action="{{ route('dashboard.settings.reset') }}" method="POST" class="hidden">
+            @csrf
+        </form>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const resetBtn = document.getElementById('reset-btn');
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const confirmModal = document.getElementById('confirm-modal');
+                    const confirmYes = document.getElementById('confirm-yes');
+                    const confirmCancel = document.getElementById('confirm-cancel');
+                    const confirmMessage = document.getElementById('confirm-message');
+
+                    if (confirmModal && confirmYes && confirmCancel) {
+                        confirmMessage.textContent =
+                            'Are you sure you want to reset all preferences to factory defaults?';
+
+                        confirmModal.classList.remove('opacity-0', 'pointer-events-none');
+
+                        const handleYes = () => {
+                            const form = document.getElementById('reset-form');
+                            if (form) form.submit();
+                            cleanup();
+                        };
+
+                        const handleCancel = () => {
+                            cleanup();
+                        };
+
+                        const cleanup = () => {
+                            confirmModal.classList.add('opacity-0', 'pointer-events-none');
+                            confirmYes.removeEventListener('click', handleYes);
+                            confirmCancel.removeEventListener('click', handleCancel);
+                        };
+
+                        confirmYes.addEventListener('click', handleYes);
+                        confirmCancel.addEventListener('click', handleCancel);
+                    }
+                });
+            }
+        });
+    </script>
+@endpush

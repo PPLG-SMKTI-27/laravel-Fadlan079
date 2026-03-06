@@ -1,130 +1,176 @@
 @php use Illuminate\Support\Facades\Storage; @endphp
-<section class="space-y-12">
+
+<section class="relative border border-border/50 bg-surface/20 p-6 md:p-10 overflow-hidden">
+    
+    {{-- Background Tech Grid --}}
+    <div class="absolute inset-0 pointer-events-none opacity-[0.03]" 
+         style="background-image: linear-gradient(var(--color-text) 1px, transparent 1px), linear-gradient(90deg, var(--color-text) 1px, transparent 1px); background-size: 24px 24px;">
+    </div>
+
+    {{-- Corner Accents --}}
+    <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary/50"></div>
+    <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary/50"></div>
+    <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary/50"></div>
+    <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary/50"></div>
 
     {{-- Header --}}
-    <header class="space-y-4">
-        <h2 class="text-xl font-semibold tracking-tight">
-            Profile Information
+    <header class="relative z-10 space-y-2 border-b border-border/50 pb-6 mb-8">
+        <div class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-primary">
+            <span class="w-1.5 h-1.5 bg-primary animate-pulse shadow-[0_0_8px_var(--color-primary)]"></span>
+            >> IDENTITY_MODULE
+        </div>
+        <h2 class="text-2xl md:text-3xl font-bold font-mono tracking-tighter uppercase text-text">
+            Profile Registry
         </h2>
-        <p class="text-sm text-muted max-w-md">
-            Update your personal details, email address, and profile photo.
+        <p class="text-xs font-mono text-muted tracking-wide">
+            Update your core user parameters and visual identification matrix.
         </p>
     </header>
 
-    {{-- Email Verification --}}
+    {{-- Email Verification Hidden Form --}}
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
 
-    {{-- Form --}}
+    {{-- Main Form --}}
     <form method="post" action="{{ route('dashboard.account.update') }}" enctype="multipart/form-data"
-        class="space-y-10 max-w-xl">
+        class="relative z-10 space-y-10 max-w-2xl">
         @csrf
         @method('patch')
 
-        {{-- Profile Photo --}}
+        {{-- Profile Photo Upload --}}
         <div class="space-y-4">
-            <label class="text-xs uppercase tracking-widest text-muted">Photo Profile</label>
+            <label class="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-muted">
+                <span class="text-primary">></span> PARAM_00: VISUAL_ID
+            </label>
 
-            {{-- Styled Preview (sama desainnya dengan home page) --}}
-            <div class="relative group w-48 cursor-pointer"
-                onclick="document.getElementById('profile_photo_input').click()">
-
-                {{-- Corner decorations --}}
-                <div class="absolute -top-3 -left-3 w-3 h-3 border-t-2 border-l-2 border-primary z-20"></div>
-                <div class="absolute -bottom-3 -right-3 w-3 h-3 border-b-2 border-r-2 border-primary z-20"></div>
-                <div
-                    class="absolute -inset-3 border border-border/50 z-0 transition-transform duration-500 group-hover:scale-[1.02]">
-                </div>
-
-                {{-- Fig label --}}
-                <div
-                    class="absolute top-3 -left-7 text-[9px] font-mono text-muted rotate-90 tracking-widest uppercase origin-bottom-left z-20">
-                    Fig. 01 — Lead Dev
-                </div>
-
-                {{-- Photo box --}}
-                <div
-                    class="relative z-10 aspect-[4/5] bg-surface border border-border overflow-hidden
-                            flex items-center justify-center
-                            filter grayscale group-hover:grayscale-0
-                            transition-all duration-700">
-
-                    <img id="profile_preview"
-                        src="{{ $user->profile_photo ? Storage::disk('public')->url($user->profile_photo) : asset('profile.jpg') }}"
-                        alt="Profile Photo"
-                        class="w-4/5 h-4/5 object-contain mx-auto my-auto
-                                opacity-80 group-hover:opacity-100
-                                transition-all duration-500">
-
-                    {{-- Scanline overlay --}}
-                    <div
-                        class="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_4px] pointer-events-none">
+            <div class="flex flex-col sm:flex-row items-start gap-6">
+                {{-- Styled Preview Container --}}
+                <div class="relative group w-40 cursor-pointer" onclick="document.getElementById('profile_photo_input').click()">
+                    
+                    {{-- HUD Target Corners --}}
+                    <div class="absolute -top-2 -left-2 w-3 h-3 border-t border-l border-primary z-20 transition-all duration-300 group-hover:-top-3 group-hover:-left-3"></div>
+                    <div class="absolute -bottom-2 -right-2 w-3 h-3 border-b border-r border-primary z-20 transition-all duration-300 group-hover:-bottom-3 group-hover:-right-3"></div>
+                    
+                    {{-- ID Label --}}
+                    <div class="absolute top-2 -left-6 text-[8px] font-mono text-primary rotate-90 tracking-[0.2em] uppercase origin-bottom-left z-20">
+                        FIG.01_USER
                     </div>
 
-                    {{-- Hover hint --}}
-                    <div
-                        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30 z-10">
-                        <span class="text-[10px] font-mono uppercase tracking-widest text-white">Click to change</span>
+                    {{-- Image Box --}}
+                    <div class="relative z-10 aspect-[4/5] bg-background border border-border/70 overflow-hidden flex items-center justify-center filter grayscale group-hover:grayscale-0 transition-all duration-500">
+                        
+                        <img id="profile_preview"
+                            src="{{ $user->profile_photo ? Storage::disk('public')->url($user->profile_photo) : asset('profile.jpg') }}"
+                            alt="Profile Photo"
+                            class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+
+                        {{-- CRT Scanline Overlay --}}
+                        <div class="absolute inset-0 z-20 pointer-events-none opacity-20" 
+                             style="background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 4px, 6px 100%;">
+                        </div>
+
+                        {{-- Hover Upload State --}}
+                        <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#0a0a0a]/70 z-30 backdrop-blur-[2px]">
+                            <i class="fa-solid fa-cloud-arrow-up text-primary text-xl mb-2"></i>
+                            <span class="text-[9px] font-mono uppercase tracking-widest text-white border border-primary/50 px-2 py-1 bg-primary/20">Init_Upload</span>
+                        </div>
                     </div>
+                </div>
+
+                {{-- Image Meta Info --}}
+                <div class="space-y-2 mt-2">
+                    <p class="text-[10px] font-mono text-muted uppercase tracking-widest">
+                        Allowed_Formats: <span class="text-text">JPG, PNG, WEBP</span>
+                    </p>
+                    <p class="text-[10px] font-mono text-muted uppercase tracking-widest">
+                        Max_Size: <span class="text-text">2.048 MB</span>
+                    </p>
+                    <p class="text-[10px] font-mono text-muted uppercase tracking-widest">
+                        Aspect_Ratio: <span class="text-text">4:5 (Portrait)</span>
+                    </p>
+
+                    @error('profile_photo')
+                        <div class="mt-4 text-[10px] font-mono text-red-500 flex items-center gap-2 bg-red-500/10 px-3 py-2 border border-red-500/30 w-max">
+                            <i class="fa-solid fa-xmark"></i> {{ $message }}
+                        </div>
+                    @enderror
                 </div>
             </div>
 
-            {{-- Hidden file input --}}
-            <input type="file" id="profile_photo_input" name="profile_photo"
-                accept="image/jpg,image/jpeg,image/png,image/webp" class="hidden" onchange="previewPhoto(event)">
-
-            <p class="text-[10px] text-muted tracking-wide">JPG, PNG, or WEBP · Max 2MB</p>
-
-            @error('profile_photo')
-                <p class="text-sm text-red-500">{{ $message }}</p>
-            @enderror
+            <input type="file" id="profile_photo_input" name="profile_photo" accept="image/jpg,image/jpeg,image/png,image/webp" class="hidden" onchange="previewPhoto(event)">
         </div>
 
-        {{-- Name --}}
-        <div class="space-y-3">
-            <label for="name" class="text-xs uppercase tracking-widest text-muted">Name</label>
-            <input id="name" name="name" type="text" value="{{ old('name', $user->name) }}" required
-                autofocus autocomplete="name"
-                class="w-full border border-border bg-surface px-4 py-2 focus:outline-none focus:ring-1 focus:ring-primary" />
-            @error('name')
-                <p class="text-sm text-red-500">{{ $message }}</p>
-            @enderror
-        </div>
-
-        {{-- Email --}}
-        <div class="space-y-3">
-            <label for="email" class="text-xs uppercase tracking-widest text-muted">Email</label>
-            <input id="email" name="email" type="email" value="{{ old('email', $user->email) }}" required
-                autocomplete="username"
-                class="w-full border border-border bg-surface px-4 py-2 focus:outline-none focus:ring-1 focus:ring-primary" />
-            @error('email')
-                <p class="text-sm text-red-500">{{ $message }}</p>
-            @enderror
-
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
-                <div class="border border-yellow-500/30 bg-yellow-500/5 p-5 text-sm space-y-3">
-                    <p class="text-yellow-600">Your email address is not verified.</p>
-                    <button type="submit" form="send-verification"
-                        class="text-primary text-sm tracking-wide hover:underline">
-                        Resend verification email →
-                    </button>
-                    @if (session('status') === 'verification-link-sent')
-                        <p class="text-green-500 font-medium">Verification link sent successfully.</p>
-                    @endif
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {{-- Name Field --}}
+            <div class="space-y-3 relative group">
+                <label for="name" class="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-muted group-focus-within:text-primary transition-colors">
+                    <span class="text-primary">></span> PARAM_01: ALIAS
+                </label>
+                <div class="relative">
+                    <input id="name" name="name" type="text" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name"
+                        class="w-full bg-surface/30 border border-border/70 px-4 py-3 font-mono text-sm text-text focus:outline-none focus:border-primary focus:bg-primary/5 transition-colors placeholder:text-muted/50" />
+                    {{-- Decorative Blinking Block inside input --}}
+                    <div class="absolute right-3 top-1/2 -translate-y-1/2 w-1.5 h-4 bg-primary/30 group-focus-within:bg-primary group-focus-within:animate-pulse pointer-events-none"></div>
                 </div>
-            @endif
+                @error('name')
+                    <p class="text-[10px] font-mono text-red-500 uppercase tracking-wider"><i class="fa-solid fa-triangle-exclamation mr-1"></i> {{ $message }}</p>
+                @enderror
+            </div>
+
+            {{-- Email Field --}}
+            <div class="space-y-3 relative group">
+                <label for="email" class="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-muted group-focus-within:text-primary transition-colors">
+                    <span class="text-primary">></span> PARAM_02: COM_NODE
+                </label>
+                <div class="relative">
+                    <input id="email" name="email" type="email" value="{{ old('email', $user->email) }}" required autocomplete="username"
+                        class="w-full bg-surface/30 border border-border/70 px-4 py-3 font-mono text-sm text-text focus:outline-none focus:border-primary focus:bg-primary/5 transition-colors placeholder:text-muted/50" />
+                    <div class="absolute right-3 top-1/2 -translate-y-1/2 w-1.5 h-4 bg-primary/30 group-focus-within:bg-primary group-focus-within:animate-pulse pointer-events-none"></div>
+                </div>
+                @error('email')
+                    <p class="text-[10px] font-mono text-red-500 uppercase tracking-wider"><i class="fa-solid fa-triangle-exclamation mr-1"></i> {{ $message }}</p>
+                @enderror
+            </div>
         </div>
 
-        {{-- Actions --}}
-        <div class="flex items-center gap-6 pt-4">
-            <button type="submit" class="px-6 py-2 border border-border text-sm hover:border-primary transition">
-                Save Changes
+        {{-- Email Verification Alert --}}
+        @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
+            <div class="border-l-2 border-yellow-500 bg-yellow-500/10 p-5 space-y-3 relative overflow-hidden">
+                {{-- Glitch background --}}
+                <div class="absolute top-0 right-0 w-16 h-full bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(234,179,8,0.1)_2px,rgba(234,179,8,0.1)_4px)]"></div>
+                
+                <div class="flex items-center gap-2 text-[11px] font-mono font-bold text-yellow-500 uppercase tracking-widest">
+                    <i class="fa-solid fa-triangle-exclamation animate-pulse"></i> SYS_WARNING: UNVERIFIED_NODE
+                </div>
+                
+                <p class="text-xs font-mono text-muted/90">
+                    Your communication node (Email) lacks secure verification. Features may be restricted.
+                </p>
+                
+                <button type="submit" form="send-verification" class="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-yellow-500 hover:text-yellow-400 transition-colors border border-yellow-500/30 hover:border-yellow-500 px-3 py-1.5 bg-yellow-500/5">
+                    [ RESEND_AUTH_PACKET ] <i class="fa-solid fa-arrow-right-long"></i>
+                </button>
+
+                @if (session('status') === 'verification-link-sent')
+                    <p class="text-[10px] font-mono text-green-500 uppercase tracking-widest mt-2">
+                        > PACKET_SENT_SUCCESSFULLY. AWAITING_CONFIRMATION.
+                    </p>
+                @endif
+            </div>
+        @endif
+
+        {{-- Submit Actions --}}
+        <div class="flex items-center gap-6 pt-6 border-t border-border/50">
+            <button type="submit" class="group relative px-6 py-3 bg-primary/5 border border-primary text-primary font-mono text-xs font-bold uppercase tracking-widest hover:bg-primary hover:text-background transition-colors flex items-center gap-3">
+                <span>[ OVERRIDE_DATA ]</span>
+                <i class="fa-solid fa-terminal group-hover:animate-pulse"></i>
             </button>
+
             @if (session('status') === 'profile-updated')
-                <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-green-500">
-                    Saved successfully ✓
+                <p x-data="{ show: true }" x-show="show" x-transition.opacity.duration.500ms x-init="setTimeout(() => show = false, 3000)"
+                    class="text-[10px] font-mono text-primary uppercase tracking-widest flex items-center gap-2 bg-primary/10 px-3 py-1.5 border border-primary/30">
+                    <i class="fa-solid fa-check"></i> SYNC_COMPLETE
                 </p>
             @endif
         </div>

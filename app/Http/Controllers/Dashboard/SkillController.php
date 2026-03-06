@@ -38,7 +38,7 @@ class SkillController extends Controller
             $query->latest();
         }
 
-        $skills = $query->get(); // Using get() instead of paginate() for a Tag Cloud feel
+        $skills = $query->paginate(12); // Paginating for better performance and a Tag Cloud feel
 
         if ($request->ajax()) {
             return view('dashboard.skills.partials.tags', compact('skills'));
@@ -79,7 +79,7 @@ class SkillController extends Controller
     public function update(Request $request, string $id)
     {
         $skill = \App\Models\Skill::findOrFail($id);
-        
+
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:skills,name,' . $skill->id,
             'category' => 'required|in:frontend,backend,tools,core',
