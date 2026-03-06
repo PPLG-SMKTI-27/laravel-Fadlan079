@@ -5,347 +5,354 @@
 @endpush
 @section('content')
 
-{{-- HERO --}}
-<section id="contact-hero" class="py-34 max-w-7xl mx-auto px-6 space-y-10 overflow-hidden">
-    <p class="contact-breadcrumb text-xs uppercase tracking-widest text-muted" data-i18n="contact.hero.breadcrumb">
-        index / contact
-    </p>
+<div class="relative min-h-screen bg-background overflow-hidden font-sans">
+    {{-- Global Faint HUD Grid --}}
+    <div class="absolute inset-0 pointer-events-none opacity-[0.02] z-0"
+         style="background-image: linear-gradient(var(--color-text) 1px, transparent 1px), linear-gradient(90deg, var(--color-text) 1px, transparent 1px); background-size: 64px 64px;">
+    </div>
 
-    <h1 class="contact-title text-[clamp(3.5rem,9vw,7rem)] font-semibold leading-[1.1]">
-        <span data-i18n="contact.hero.title">Contact</span>
-        <span class="block text-muted font-normal" data-i18n="contact.hero.subtitle">Drop a line.</span>
-    </h1>
+    {{-- ========================================== --}}
+    {{-- 1. HERO SECTION                            --}}
+    {{-- ========================================== --}}
+    <section id="contact-hero" class="relative z-10 pt-32 pb-16 max-w-7xl mx-auto px-6 space-y-8">
+        
+        <div class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-primary mb-4">
+            <span class="w-2 h-2 bg-primary animate-pulse shadow-[0_0_8px_var(--color-primary)]"></span>
+            >> SYS_DIR / PUBLIC / SECURE_COMMS
+        </div>
 
-    <p class="contact-desc text-muted max-w-xl leading-relaxed" data-i18n="contact.hero.description">
-        Whether you have a project in mind, a question, or just want to say hi,
-        feel free to reach out. I'm always open to new conversations.
-    </p>
-</section>
+        <h1 class="text-[clamp(3.5rem,9vw,7rem)] font-bold font-mono tracking-tighter leading-[1] uppercase flex flex-col md:flex-row md:items-end gap-2 md:gap-6">
+            <div>
+                <span class="text-text block" data-i18n="contact.hero.title">INIT_COMMS</span>
+                <span class="block text-muted/50 text-[clamp(2rem,5vw,4rem)]" data-i18n="contact.hero.subtitle">ESTABLISH_UPLINK</span>
+            </div>
+            {{-- Blinking Master Cursor --}}
+            <div class="hidden md:block w-6 h-16 bg-primary animate-pulse mb-3 shadow-[0_0_15px_var(--color-primary)]"></div>
+        </h1>
 
-{{-- REQUEST FOLDER --}}
-<section id="request-section" class="max-w-6xl mx-auto px-6 py-32 space-y-16 overflow-hidden">
+        <p class="text-sm md:text-base font-mono text-muted max-w-2xl leading-relaxed border-l-2 border-primary/50 pl-4" data-i18n="contact.hero.description">
+            Awaiting transmission protocol. Transmit your project parameters, system inquiries, or collaboration requests. Channel is encrypted and open.
+        </p>
+    </section>
 
-    <header id="request-header" class="space-y-4 max-w-xl">
-        <p class="text-xs uppercase tracking-widest text-muted" data-i18n="contact.folder.breadcrumb">index / request</p>
-        <h2 class="text-[clamp(2rem,4vw,3rem)] font-semibold leading-tight" data-i18n="contact.folder.title">Request folder</h2>
-        <p class="text-muted leading-relaxed" data-i18n="contact.folder.description">Each message is stored as a request file and reviewed individually.</p>
-    </header>
+    {{-- ========================================== --}}
+    {{-- 2. TRANSMISSION MODULE (FORM)              --}}
+    {{-- ========================================== --}}
+    <section id="request-section" class="relative z-10 max-w-6xl mx-auto px-6 py-20 space-y-12">
 
-    <div class="grid md:grid-cols-[1fr_260px] gap-8 items-start">
+        <header id="request-header" class="space-y-4 max-w-xl border-b border-border/50 pb-6">
+            <p class="text-[10px] font-mono uppercase tracking-widest text-primary" data-i18n="contact.folder.breadcrumb">> DATA_PACKET_CONSTRUCTION</p>
+            <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold font-mono tracking-tighter uppercase text-text" data-i18n="contact.folder.title">TRANSMISSION_TERMINAL</h2>
+            <p class="text-xs font-mono text-muted leading-relaxed" data-i18n="contact.folder.description">All data strings are stored in secure memory blocks and evaluated individually.</p>
+        </header>
 
-        {{-- ══ FOLDER ══ --}}
-        <div id="contact-folder" class="folder-wrap">
+        <div class="grid md:grid-cols-[1fr_300px] gap-8 items-start">
 
-            {{-- Folder body --}}
-            <div class="folder-body">
+            {{-- ══ THE TERMINAL FORM ══ --}}
+            <div class="relative border border-border/50 bg-surface/10 p-1 group hover:border-primary/50 transition-colors">
+                
+                {{-- HUD Corners --}}
+                <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary/50"></div>
+                <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-primary/50"></div>
 
-                {{-- Folder tab --}}
-                <div class="folder-tab">
-                    <span class="folder-tab-label">
-                        <svg class="w-3 h-3 opacity-60" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M2 6a2 2 0 012-2h4l2 2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
-                        </svg>
-                        <span data-i18n="contact.folder.tab">Requests</span>
-                    </span>
-                    <span class="folder-tab-badge" data-i18n="contact.folder.badge">New</span>
-                </div>
-
-                {{-- Stacked file sheets (decorative) --}}
-                <div class="folder-stack" aria-hidden="true">
-                    <div class="folder-sheet folder-sheet-3"></div>
-                    <div class="folder-sheet folder-sheet-2"></div>
-                    <div class="folder-sheet folder-sheet-1"></div>
-                </div>
-
-                {{-- ── OPEN DOCUMENT (the form) ── --}}
-                <div class="folder-doc">
-
-                    <div class="folder-doc-header flex justify-between items-center bg-bg/50 px-4 py-3 border-b border-border">
-                        <div class="flex items-center gap-2">
-                            <div class="folder-doc-icon text-muted">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-4 h-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5l5 5v12a2 2 0 01-2 2z"/>
-                                </svg>
-                            </div>
-                            <span class="folder-doc-title text-sm font-medium">request_new.txt</span>
+                <div class="bg-[#050505] p-6 md:p-8 flex flex-col h-full">
+                    
+                    {{-- Terminal Header --}}
+                    <div class="flex items-center justify-between border-b border-border/30 pb-4 mb-6">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-terminal text-primary"></i>
+                            <span class="text-sm font-mono font-bold uppercase tracking-widest text-text">COMMS_INTERFACE</span>
                         </div>
                         
                         {{-- Method Tabs --}}
-                        <div class="flex items-center gap-1 bg-muted/5 p-1 rounded-full border border-border/40" id="contact-method-tabs">
-                            <button type="button" data-method="email" class="method-tab active px-4 py-1.5 text-[10px] uppercase tracking-[0.15em] font-medium rounded-full transition-all duration-300 bg-surface text-text shadow-sm border border-border/50">
-                                Email
+                        <div class="flex items-center gap-2 border border-border/50 p-1 bg-surface/30" id="contact-method-tabs">
+                            <button type="button" data-method="email" class="method-tab active px-3 py-1 text-[10px] font-mono uppercase tracking-widest transition-colors bg-primary/20 text-primary border border-primary/50">
+                                [ SMTP ]
                             </button>
-                            <button type="button" data-method="wa" class="method-tab px-4 py-1.5 text-[10px] uppercase tracking-[0.15em] font-medium rounded-full transition-all duration-300 text-muted hover:text-text border border-transparent">
-                                WhatsApp
+                            <button type="button" data-method="wa" class="method-tab px-3 py-1 text-[10px] font-mono uppercase tracking-widest transition-colors text-muted hover:text-text border border-transparent">
+                                [ WHATSAPP ]
                             </button>
                         </div>
                     </div>
 
-                    {{-- Doc fields --}}
-                    <form action="{{ route('portofolio.contact.send') }}" method="POST">
-                    @csrf
-                    <div class="folder-doc-body">
-
+                    {{-- Form Fields --}}
+                    <form action="{{ route('portofolio.contact.send') }}" method="POST" class="space-y-6">
+                        @csrf
                         <input type="hidden" name="method" id="input-method" value="{{ old('method', 'email') }}">
 
-                        {{-- Metadata: type --}}
-                        <div class="folder-doc-field">
-                            <span class="folder-field-key" data-i18n="contact.folder.field_type">Type</span>
-                            <div class="folder-field-val">
-                                <label class="folder-chip-label">
-                                    <input type="radio" name="type" value="project" class="sr-only" {{ old('type', 'project') === 'project' ? 'checked' : '' }}>
-                                    <span data-i18n="contact.folder.chip_project">New project</span>
+                        {{-- Metadata: Type --}}
+                        <div class="space-y-3">
+                            <span class="text-[10px] font-mono uppercase tracking-widest text-primary flex items-center gap-2" data-i18n="contact.folder.field_type">
+                                > PARAM_01: PAYLOAD_TYPE
+                            </span>
+                            <div class="flex flex-wrap gap-3">
+                                <label class="cursor-pointer relative">
+                                    <input type="radio" name="type" value="project" class="peer sr-only" {{ old('type', 'project') === 'project' ? 'checked' : '' }}>
+                                    <div class="px-4 py-2 border border-border/50 bg-surface/20 text-[10px] font-mono uppercase tracking-widest text-muted peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary transition-colors">
+                                        [ INIT_PROJECT ]
+                                    </div>
                                 </label>
-                                <label class="folder-chip-label">
-                                    <input type="radio" name="type" value="collab" class="sr-only" {{ old('type') === 'collab' ? 'checked' : '' }}>
-                                    <span data-i18n="contact.folder.chip_collab">Collaboration</span>
+                                <label class="cursor-pointer relative">
+                                    <input type="radio" name="type" value="collab" class="peer sr-only" {{ old('type') === 'collab' ? 'checked' : '' }}>
+                                    <div class="px-4 py-2 border border-border/50 bg-surface/20 text-[10px] font-mono uppercase tracking-widest text-muted peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary transition-colors">
+                                        [ COLLAB_SYNC ]
+                                    </div>
                                 </label>
-                                <label class="folder-chip-label">
-                                    <input type="radio" name="type" value="inquiry" class="sr-only" {{ old('type') === 'inquiry' ? 'checked' : '' }}>
-                                    <span data-i18n="contact.folder.chip_inquiry">Inquiry</span>
+                                <label class="cursor-pointer relative">
+                                    <input type="radio" name="type" value="inquiry" class="peer sr-only" {{ old('type') === 'inquiry' ? 'checked' : '' }}>
+                                    <div class="px-4 py-2 border border-border/50 bg-surface/20 text-[10px] font-mono uppercase tracking-widest text-muted peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary transition-colors">
+                                        [ GEN_INQUIRY ]
+                                    </div>
                                 </label>
                             </div>
                         </div>
 
-                        {{-- Metadata: sender --}}
-                        <div class="folder-doc-field">
-                            <span class="folder-field-key" id="label-sender" data-i18n="contact.folder.field_from">From</span>
-                            <div class="folder-field-val">
-                                <input type="text" name="sender" id="input-sender" class="folder-field-input {{ $errors->has('sender') ? 'border-red-500' : '' }}"
-                                       placeholder="your@email.com"
+                        {{-- Metadata: Sender --}}
+                        <div class="space-y-3 relative group">
+                            <label for="input-sender" id="label-sender" class="text-[10px] font-mono uppercase tracking-widest text-primary flex items-center gap-2 group-focus-within:text-sky-400 transition-colors" data-i18n="contact.folder.field_from">
+                                > PARAM_02: ORIGIN_NODE (EMAIL)
+                            </label>
+                            <div class="relative">
+                                <input type="text" name="sender" id="input-sender" 
+                                       class="w-full bg-surface/30 border border-border/70 px-4 py-3 font-mono text-sm text-text focus:outline-none focus:border-sky-400 focus:bg-sky-400/5 transition-colors placeholder:text-muted/30 {{ $errors->has('sender') ? 'border-red-500' : '' }}"
+                                       placeholder="guest_node@domain.com"
                                        value="{{ old('sender') }}"
                                        data-i18n-placeholder="contact.folder.field_from_placeholder">
-                                @error('sender')<span class="text-[10px] text-red-400 mt-1 block">{{ $message }}</span>@enderror
-                                <p id="helper-sender" class="text-[10px] text-muted mt-1 hidden">Enter your WhatsApp number (e.g., 0812... or +62812...)</p>
+                                <div class="absolute right-3 top-1/2 -translate-y-1/2 w-1.5 h-4 bg-sky-400/30 group-focus-within:bg-sky-400 group-focus-within:animate-pulse pointer-events-none"></div>
                             </div>
+                            @error('sender')<span class="text-[10px] font-mono text-red-500 bg-red-500/10 px-2 py-1 border border-red-500/30 inline-block mt-1">> SYS_ERR: {{ $message }}</span>@enderror
+                            <p id="helper-sender" class="text-[10px] font-mono text-amber-400 mt-1 hidden">> FORMAT REQ: 0812... or +62812...</p>
                         </div>
 
-                        {{-- Metadata: subject --}}
-                        <div class="folder-doc-field">
-                            <span class="folder-field-key" data-i18n="contact.folder.field_subject">Subject</span>
-                            <div class="folder-field-val">
-                                <input type="text" name="subject" class="folder-field-input {{ $errors->has('subject') ? 'border-red-500' : '' }}"
-                                       placeholder="Brief title of your request"
+                        {{-- Metadata: Subject --}}
+                        <div class="space-y-3 relative group">
+                            <label for="input-subject" class="text-[10px] font-mono uppercase tracking-widest text-primary flex items-center gap-2 group-focus-within:text-sky-400 transition-colors" data-i18n="contact.folder.field_subject">
+                                > PARAM_03: SUBJECT_IDENTIFIER
+                            </label>
+                            <div class="relative">
+                                <input type="text" name="subject" id="input-subject" 
+                                       class="w-full bg-surface/30 border border-border/70 px-4 py-3 font-mono text-sm text-text focus:outline-none focus:border-sky-400 focus:bg-sky-400/5 transition-colors placeholder:text-muted/30 {{ $errors->has('subject') ? 'border-red-500' : '' }}"
+                                       placeholder="Input transmission subject..."
                                        value="{{ old('subject') }}"
                                        data-i18n-placeholder="contact.folder.field_subject_placeholder">
-                                @error('subject')<span class="text-[10px] text-red-400 mt-1 block">{{ $message }}</span>@enderror
+                                <div class="absolute right-3 top-1/2 -translate-y-1/2 w-1.5 h-4 bg-sky-400/30 group-focus-within:bg-sky-400 group-focus-within:animate-pulse pointer-events-none"></div>
                             </div>
+                            @error('subject')<span class="text-[10px] font-mono text-red-500 bg-red-500/10 px-2 py-1 border border-red-500/30 inline-block mt-1">> SYS_ERR: {{ $message }}</span>@enderror
                         </div>
 
-                        {{-- Divider --}}
-                        <div class="folder-doc-divider"></div>
-
-                        {{-- Body --}}
-                        <div class="folder-doc-body-field">
-                            <textarea rows="5" name="message" class="folder-field-area"
-                                      placeholder="Write your message here…"
-                                      data-i18n-placeholder="contact.folder.field_message_placeholder">{{ old('message') }}</textarea>
-                            @error('message')<span class="text-[10px] text-red-400 mt-1 block">{{ $message }}</span>@enderror
+                        {{-- Body: Message --}}
+                        <div class="space-y-3 relative group pt-4 border-t border-border/30">
+                            <label for="input-message" class="text-[10px] font-mono uppercase tracking-widest text-primary flex items-center gap-2 group-focus-within:text-sky-400 transition-colors">
+                                > PARAM_04: DATA_PAYLOAD
+                            </label>
+                            <div class="relative">
+                                <textarea rows="5" name="message" id="input-message" 
+                                          class="w-full bg-surface/30 border border-border/70 px-4 py-3 font-mono text-sm text-text focus:outline-none focus:border-sky-400 focus:bg-sky-400/5 transition-colors placeholder:text-muted/30 custom-scrollbar {{ $errors->has('message') ? 'border-red-500' : '' }}"
+                                          placeholder="Awaiting input stream..."
+                                          data-i18n-placeholder="contact.folder.field_message_placeholder">{{ old('message') }}</textarea>
+                            </div>
+                            @error('message')<span class="text-[10px] font-mono text-red-500 bg-red-500/10 px-2 py-1 border border-red-500/30 inline-block mt-1">> SYS_ERR: {{ $message }}</span>@enderror
                         </div>
 
-                        {{-- Footer --}}
-                        <div class="folder-doc-footer">
-                            <span class="folder-footer-meta">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                                {{ now()->format('d M Y') }}
-                            </span>
-                            <button type="submit" class="folder-send-btn">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                          d="M3 10l9-7 9 7v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                          d="M9 21V12h6v9"/>
-                                </svg>
-                                <span data-i18n="contact.folder.submit">Drop in folder</span>
+                        {{-- Submit Action --}}
+                        <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="text-[10px] font-mono text-muted uppercase tracking-widest flex items-center gap-2">
+                                <i class="fa-solid fa-clock text-primary"></i> LOG_TIME: {{ now()->format('d M Y') }}
+                            </div>
+                            
+                            <button type="submit" class="w-full sm:w-auto relative group px-8 py-3 bg-primary/10 border border-primary text-primary font-mono text-xs font-bold uppercase tracking-widest hover:bg-primary hover:text-background transition-colors flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.15)]">
+                                <span>[ TRANSMIT_DATA ]</span>
+                                <i class="fa-solid fa-paper-plane group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
                             </button>
                         </div>
 
-                    </div>
                     </form>
                 </div>
-                {{-- end open doc --}}
-
             </div>
+
+            {{-- ══ SIDEBAR: LOG HISTORY ══ --}}
+            <div id="system-note" class="hidden md:flex flex-col gap-4">
+                <div class="border border-border/50 bg-surface/10 p-5 space-y-5">
+                    <p class="text-[10px] font-mono uppercase tracking-widest text-primary border-b border-border/50 pb-2 flex items-center gap-2" data-i18n="contact.folder.filed">
+                        <i class="fa-solid fa-server"></i> RECENT_LOGS
+                    </p>
+
+                    {{-- Log 1 --}}
+                    <div class="flex items-start gap-3 group">
+                        <div class="w-1.5 h-1.5 bg-green-500 mt-1.5 shadow-[0_0_5px_#22c55e]"></div>
+                        <div>
+                            <p class="text-xs font-mono font-bold text-text group-hover:text-primary transition-colors">TX_REQ_091.DAT</p>
+                            <p class="text-[9px] font-mono text-muted mt-1 uppercase" data-i18n="contact.folder.req_01_status">STATUS: DECRYPTED // JAN_2025</p>
+                        </div>
+                    </div>
+
+                    {{-- Log 2 --}}
+                    <div class="flex items-start gap-3 group">
+                        <div class="w-1.5 h-1.5 bg-amber-400 mt-1.5 shadow-[0_0_5px_#fbbf24] animate-pulse"></div>
+                        <div>
+                            <p class="text-xs font-mono font-bold text-text group-hover:text-primary transition-colors">TX_REQ_092.DAT</p>
+                            <p class="text-[9px] font-mono text-muted mt-1 uppercase" data-i18n="contact.folder.req_02_status">STATUS: PROCESSING // FEB_2025</p>
+                        </div>
+                    </div>
+
+                    {{-- Current Draft --}}
+                    <div class="flex items-start gap-3 opacity-50">
+                        <div class="w-1.5 h-1.5 bg-border mt-1.5 border border-muted"></div>
+                        <div>
+                            <p class="text-xs font-mono font-bold text-text">TX_REQ_CURRENT.TMP</p>
+                            <p class="text-[9px] font-mono text-muted mt-1 uppercase" data-i18n="contact.folder.req_new_status">STATUS: AWAITING_INPUT</p>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-border/50 pt-4 mt-2">
+                        <p class="text-[9px] font-mono text-muted leading-relaxed" data-i18n="contact.folder.sidebar_note">
+                            > INFO: Terminal accepts limited packet drops to prevent buffer overflow. Avg latency: 48-120 hrs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </section>
 
-        {{-- ══ SIDEBAR: filed items ══ --}}
-        <div id="system-note" class="hidden md:flex flex-col gap-4 pt-14">
+    {{-- ========================================== --}}
+    {{-- 3. EXTERNAL SIGNAL NODES (SOCIAL)          --}}
+    {{-- ========================================== --}}
+    <section id="social-section" class="max-w-6xl mx-auto px-6 pb-32 space-y-12">
 
-            <p class="text-[10px] uppercase tracking-widest text-muted" data-i18n="contact.folder.filed">Filed</p>
-
-            {{-- mini file card --}}
-            <div class="folder-mini-card">
-                <div class="folder-mini-dot bg-[var(--color-success)]"></div>
-                <div>
-                    <p class="text-xs font-medium">request_01.txt</p>
-                    <p class="text-[10px] text-muted mt-0.5" data-i18n="contact.folder.req_01_status">Reviewed · Jan 2025</p>
-                </div>
-            </div>
-
-            <div class="folder-mini-card">
-                <div class="folder-mini-dot bg-[var(--color-warning)]"></div>
-                <div>
-                    <p class="text-xs font-medium">request_02.txt</p>
-                    <p class="text-[10px] text-muted mt-0.5" data-i18n="contact.folder.req_02_status">Pending · Feb 2025</p>
-                </div>
-            </div>
-
-            <div class="folder-mini-card opacity-40">
-                <div class="folder-mini-dot bg-[var(--color-border)]"></div>
-                <div>
-                    <p class="text-xs font-medium">request_new.txt</p>
-                    <p class="text-[10px] text-muted mt-0.5" data-i18n="contact.folder.req_new_status">Draft · now</p>
-                </div>
-            </div>
-
-            <p class="text-xs text-muted leading-relaxed border-t border-border pt-5 mt-2" data-i18n="contact.folder.sidebar_note">
-                This folder accepts limited requests. Responses may take 2–5 days.
+        <header id="social-header" class="space-y-4 max-w-xl">
+            <p class="text-[10px] font-mono uppercase tracking-widest text-primary" data-i18n="contact.social.breadcrumb">
+                > SYS_DIR / PUBLIC / EXT_NODES
             </p>
-        </div>
+            <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold font-mono tracking-tighter uppercase text-text" data-i18n="contact.social.title">
+                EXTERNAL_SIGNALS
+            </h2>
+            <p class="text-xs font-mono text-muted leading-relaxed" data-i18n="contact.social.description">
+                Alternative endpoints for continuous data streams and experimental branches.
+            </p>
+        </header>
 
-    </div>
-</section>
+        <div id="social-cards-grid" class="grid md:grid-cols-3 gap-4">
 
-
-{{-- SOCIAL LINKS --}}
-<section id="social-section" class="max-w-6xl mx-auto px-6 pb-40 space-y-14">
-
-    <header id="social-header" class="space-y-4 max-w-xl">
-        <p class="text-xs uppercase tracking-widest text-muted" data-i18n="contact.social.breadcrumb">
-            index / social
-        </p>
-        <h2 class="text-[clamp(2rem,4vw,3rem)] font-semibold leading-tight" data-i18n="contact.social.title">
-            Find me elsewhere
-        </h2>
-        <p class="text-muted leading-relaxed" data-i18n="contact.social.description">
-            Other places where I share work, thoughts, and ongoing experiments.
-        </p>
-    </header>
-
-    <div id="social-cards-grid" class="grid md:grid-cols-3 gap-px bg-border">
-
-        {{-- Instagram --}}
-        <a href="https://instagram.com/fdln007"
-           target="_blank"
-           rel="noopener"
-           class="social-card group relative bg-surface p-8 flex flex-col justify-between min-h-[260px] overflow-hidden">
-
-            {{-- Glyph watermark --}}
-            <span class="social-glyph absolute bottom-4 right-4 text-[7rem] font-black leading-none text-muted/[0.05] select-none pointer-events-none transition-transform duration-700 group-hover:scale-110 group-hover:text-muted/[0.09]">IG</span>
-
-            <div class="space-y-3">
-                <div class="flex items-center justify-between">
-                <span class="text-[10px] uppercase tracking-widest text-muted" data-i18n="contact.social.platform">Platform</span>
-                    <span class="social-arrow text-muted group-hover:text-primary transition-colors duration-300">
-                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 17L17 7M17 7H7M17 7v10"/>
-                        </svg>
-                    </span>
+            {{-- Instagram Node --}}
+            <a href="https://instagram.com/fdln007" target="_blank" rel="noopener"
+               class="group relative border border-border/50 bg-surface/10 p-6 flex flex-col justify-between min-h-[220px] hover:border-primary/50 transition-all duration-300 hover:bg-primary/5">
+                <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                
+                <div class="space-y-2 relative z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-[9px] font-mono uppercase tracking-widest text-muted border border-border/50 px-2 py-1 bg-surface/30 group-hover:border-primary/30 group-hover:text-primary transition-colors" data-i18n="contact.social.platform">NETWORK_NODE</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-muted group-hover:text-primary transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                    </div>
+                    <i class="fa-brands fa-instagram text-3xl text-muted group-hover:text-primary transition-colors"></i>
+                    <p class="text-[10px] font-mono uppercase tracking-widest font-bold text-text pt-2">Instagram_Protocol</p>
                 </div>
-                <p class="text-xs uppercase tracking-widest font-semibold">Instagram</p>
-            </div>
+                <div class="mt-auto pt-6 border-t border-border/30 relative z-10">
+                    <p class="text-lg font-mono font-bold tracking-tight text-muted group-hover:text-text transition-colors duration-300">
+                        @fdln007
+                    </p>
+                </div>
+                {{-- HUD Background Glitch --}}
+                <div class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(var(--color-primary-rgb),0.02)_4px,rgba(var(--color-primary-rgb),0.02)_8px)] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            </a>
 
-            <div class="mt-auto pt-8 space-y-2">
-                <div class="social-card-line h-px bg-border w-full origin-left"></div>
-                <p class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors duration-300">
-                    @fdln007
+            {{-- GitHub Node --}}
+            <a href="https://github.com/Fadlan079" target="_blank" rel="noopener"
+               class="group relative border border-border/50 bg-surface/10 p-6 flex flex-col justify-between min-h-[220px] hover:border-primary/50 transition-all duration-300 hover:bg-primary/5">
+                <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                
+                <div class="space-y-2 relative z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-[9px] font-mono uppercase tracking-widest text-muted border border-border/50 px-2 py-1 bg-surface/30 group-hover:border-primary/30 group-hover:text-primary transition-colors" data-i18n="contact.social.platform">CODE_REPO</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-muted group-hover:text-primary transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                    </div>
+                    <i class="fa-brands fa-github text-3xl text-muted group-hover:text-primary transition-colors"></i>
+                    <p class="text-[10px] font-mono uppercase tracking-widest font-bold text-text pt-2">GitHub_Matrix</p>
+                </div>
+                <div class="mt-auto pt-6 border-t border-border/30 relative z-10">
+                    <p class="text-lg font-mono font-bold tracking-tight text-muted group-hover:text-text transition-colors duration-300">
+                        Fadlan079
+                    </p>
+                </div>
+                <div class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(var(--color-primary-rgb),0.02)_4px,rgba(var(--color-primary-rgb),0.02)_8px)] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            </a>
+
+            {{-- LinkedIn Node --}}
+            <a href="https://www.linkedin.com/in/fadlan-firdaus-148344386" target="_blank" rel="noopener"
+               class="group relative border border-border/50 bg-surface/10 p-6 flex flex-col justify-between min-h-[220px] hover:border-primary/50 transition-all duration-300 hover:bg-primary/5">
+                <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                
+                <div class="space-y-2 relative z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-[9px] font-mono uppercase tracking-widest text-muted border border-border/50 px-2 py-1 bg-surface/30 group-hover:border-primary/30 group-hover:text-primary transition-colors" data-i18n="contact.social.platform">PROF_NETWORK</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-muted group-hover:text-primary transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                    </div>
+                    <i class="fa-brands fa-linkedin text-3xl text-muted group-hover:text-primary transition-colors"></i>
+                    <p class="text-[10px] font-mono uppercase tracking-widest font-bold text-text pt-2">LinkedIn_Link</p>
+                </div>
+                <div class="mt-auto pt-6 border-t border-border/30 relative z-10">
+                    <p class="text-lg font-mono font-bold tracking-tight text-muted group-hover:text-text transition-colors duration-300">
+                        fadlanfirdaus
+                    </p>
+                </div>
+                <div class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(var(--color-primary-rgb),0.02)_4px,rgba(var(--color-primary-rgb),0.02)_8px)] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            </a>
+
+        </div>
+    </section>
+
+    {{-- ========================================== --}}
+    {{-- 4. OUTRO / END SECTION                     --}}
+    {{-- ========================================== --}}
+    <section id="contact-end" class="relative py-24 border-t border-border/50 overflow-hidden bg-surface/5">
+        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-[1fr_auto] gap-10 items-end relative z-10">
+            
+            <div class="space-y-6">
+                <div class="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-primary mb-4">
+                    <span class="w-1.5 h-1.5 bg-primary"></span>
+                    SYS_EOF // CONNECTION_CLOSED
+                </div>
+                
+                <h3 class="text-[clamp(2rem,4vw,3rem)] font-bold font-mono tracking-tighter uppercase text-text max-w-2xl leading-tight" data-i18n="contact.end.title">
+                    SYSTEM_READY_FOR_NEW_INPUT.
+                </h3>
+                
+                <p class="text-xs font-mono text-muted max-w-xl leading-relaxed border-l border-primary/30 pl-4" data-i18n="contact.end.description">
+                    Clear intent, valid parameters, and secure handshake protocols are the foundation of any successful node collaboration.
                 </p>
             </div>
-        </a>
 
-        {{-- GitHub --}}
-        <a href="https://github.com/Fadlan079"
-           target="_blank"
-           rel="noopener"
-           class="social-card group relative bg-surface p-8 flex flex-col justify-between min-h-[260px] overflow-hidden">
-
-            <span class="social-glyph absolute bottom-4 right-4 text-[7rem] font-black leading-none text-muted/[0.05] select-none pointer-events-none transition-transform duration-700 group-hover:scale-110 group-hover:text-muted/[0.09]">GH</span>
-
-            <div class="space-y-3">
-                <div class="flex items-center justify-between">
-                <span class="text-[10px] uppercase tracking-widest text-muted" data-i18n="contact.social.platform">Platform</span>
-                    <span class="social-arrow text-muted group-hover:text-primary transition-colors duration-300">
-                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 17L17 7M17 7H7M17 7v10"/>
-                        </svg>
-                    </span>
+            {{-- Decorative Radar Radar --}}
+            <div class="hidden md:flex items-center justify-center w-32 h-32 border border-primary/30 rounded-full relative group">
+                <div class="absolute inset-0 rounded-full border border-primary/10 animate-[ping_3s_ease-out_infinite]"></div>
+                <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div class="w-full h-[1px] bg-primary/20 rotate-45"></div>
+                    <div class="h-full w-[1px] bg-primary/20 rotate-45 absolute"></div>
                 </div>
-                <p class="text-xs uppercase tracking-widest font-semibold">GitHub</p>
-            </div>
-
-            <div class="mt-auto pt-8 space-y-2">
-                <div class="social-card-line h-px bg-border w-full origin-left"></div>
-                <p class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors duration-300">
-                    Fadlan079
-                </p>
-            </div>
-        </a>
-
-        {{-- LinkedIn --}}
-        <a href="https://www.linkedin.com/in/fadlan-firdaus-148344386 "
-           target="_blank"
-           rel="noopener"
-           class="social-card group relative bg-surface p-8 flex flex-col justify-between min-h-[260px] overflow-hidden">
-
-            <span class="social-glyph absolute bottom-4 right-4 text-[7rem] font-black leading-none text-muted/[0.05] select-none pointer-events-none transition-transform duration-700 group-hover:scale-110 group-hover:text-muted/[0.09]">LI</span>
-
-            <div class="space-y-3">
-                <div class="flex items-center justify-between">
-                <span class="text-[10px] uppercase tracking-widest text-muted" data-i18n="contact.social.platform">Platform</span>
-                    <span class="social-arrow text-muted group-hover:text-primary transition-colors duration-300">
-                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 17L17 7M17 7H7M17 7v10"/>
-                        </svg>
-                    </span>
+                <div class="absolute -bottom-6 text-[8px] font-mono text-primary uppercase tracking-widest text-center w-full">
+                    SCANNING...
                 </div>
-                <p class="text-xs uppercase tracking-widest font-semibold">LinkedIn</p>
             </div>
 
-            <div class="mt-auto pt-8 space-y-2">
-                <div class="social-card-line h-px bg-border w-full origin-left"></div>
-                <p class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors duration-300">
-                    fadlanfirdaus
-                </p>
-            </div>
-        </a>
-
-    </div>
-</section>
-
-
-<section id="contact-end" class="relative py-32 border-t border-border overflow-hidden">
-    <div class="relative z-10 max-w-6xl mx-auto px-6 grid md:grid-cols-[1fr_auto] gap-10 items-end">
-        
-        <div class="space-y-8">
-            <p class="end-breadcrumb text-xs uppercase tracking-widest text-muted">
-                index / end
-            </p>
-            <h3 class="end-title text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight max-w-2xl" data-i18n="contact.end.title">
-                Good conversations start with a simple message.
-            </h3>
-            <p class="end-desc text-muted max-w-xl leading-relaxed" data-i18n="contact.end.description">
-                Clear intent, honest communication, and mutual respect are the
-                foundation of any meaningful collaboration.
-            </p>
         </div>
+    </section>
 
-        <div class="hidden md:flex items-center justify-center w-32 h-32 border border-muted/30 rounded-full rotate-12 opacity-60 pointer-events-none select-none">
-            <div class="text-[10px] uppercase tracking-[0.2em] text-muted text-center leading-relaxed">
-                <span class="block border-b border-muted/30 pb-1 mb-1">Status</span>
-                Open for<br>Collabs
-            </div>
-        </div>
-
-    </div>
-</section>
+</div>
 
 @endsection
 
 @push('head')
+<style>
+    /* Custom Scrollbar for Textarea */
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--color-primary) 50%, transparent); }
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const tabs = document.querySelectorAll('.method-tab');
@@ -354,16 +361,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const labelSender = document.getElementById('label-sender');
     const helperSender = document.getElementById('helper-sender');
     
-    // Translations logic if available via i18n
-    const transFromEmail = "From"; // default fallback
-    const transFromWa = "WhatsApp"; // default fallback
+    const transFromEmail = "> PARAM_02: ORIGIN_NODE (EMAIL)"; 
+    const transFromWa = "> PARAM_02: ORIGIN_NODE (WHATSAPP)"; 
     
-    // Check session for wa url
     @if(session('wa_url'))
         window.open('{{ session('wa_url') }}', '_blank');
     @endif
 
-    // Initialization using old input if validation failed
     setMethod(inputMethod.value || 'email');
 
     tabs.forEach(tab => {
@@ -373,35 +377,30 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function setMethod(method) {
-        // Update styling
         tabs.forEach(t => {
             if (t.dataset.method === method) {
-                // Active styles
                 t.classList.remove('text-muted', 'hover:text-text', 'border-transparent');
-                t.classList.add('bg-surface', 'text-text', 'shadow-sm', 'border-border/50');
+                t.classList.add('bg-primary/20', 'text-primary', 'border-primary/50');
             } else {
-                // Inactive styles
                 t.classList.add('text-muted', 'hover:text-text', 'border-transparent');
-                t.classList.remove('bg-surface', 'text-text', 'shadow-sm', 'border-border/50');
+                t.classList.remove('bg-primary/20', 'text-primary', 'border-primary/50');
             }
         });
 
-        // Update hidden input
         inputMethod.value = method;
 
-        // Update fields based on method
         if (method === 'wa') {
             labelSender.textContent = transFromWa;
-            labelSender.removeAttribute('data-i18n'); // disable generic translation for this
+            labelSender.removeAttribute('data-i18n'); 
             inputSender.type = 'tel';
-            inputSender.placeholder = '0812...';
+            inputSender.placeholder = 'INPUT_PHONE_NUMBER_';
             inputSender.removeAttribute('data-i18n-placeholder');
             helperSender.classList.remove('hidden');
         } else {
             labelSender.textContent = transFromEmail;
             labelSender.setAttribute('data-i18n', 'contact.folder.field_from');
             inputSender.type = 'email';
-            inputSender.placeholder = 'your@email.com';
+            inputSender.placeholder = 'guest_node@domain.com';
             inputSender.setAttribute('data-i18n-placeholder', 'contact.folder.field_from_placeholder');
             helperSender.classList.add('hidden');
         }

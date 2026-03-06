@@ -106,38 +106,42 @@
     if (sortToggle && sortMenu) {
         // Set initial label
         if (currentSort === 'oldest') {
-            sortLabel.textContent = 'Oldest';
+            if (sortLabel) sortLabel.textContent = 'SORT: OLDEST';
             sortToggle.classList.add('border-primary', 'text-primary');
+        } else {
+            if (sortLabel) sortLabel.textContent = 'SORT: NEWEST';
+            sortToggle.classList.remove('border-primary', 'text-primary');
         }
 
         // Toggle open/close
         sortToggle.addEventListener('click', (e) => {
             e.stopPropagation();
-            const isOpen = !sortMenu.classList.contains('hidden');
-            sortMenu.classList.toggle('hidden', isOpen);
-            sortChevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+            sortMenu.classList.toggle('hidden');
+            if (sortChevron) sortChevron.classList.toggle('rotate-180');
         });
 
         // Close when clicking outside
         document.addEventListener('click', () => {
             sortMenu.classList.add('hidden');
-            sortChevron.style.transform = '';
+            if (sortChevron) sortChevron.classList.remove('rotate-180');
         });
 
         // Option click
         document.querySelectorAll('.sort-option').forEach(opt => {
-            opt.addEventListener('click', () => {
+            opt.addEventListener('click', (e) => {
+                e.stopPropagation();
                 currentSort = opt.dataset.sort;
-                sortLabel.textContent = opt.textContent.trim();
-                sortMenu.classList.add('hidden');
-                sortChevron.style.transform = '';
-
-                // Active style on toggle button
+                
                 if (currentSort === 'oldest') {
+                    if (sortLabel) sortLabel.textContent = 'SORT: OLDEST';
                     sortToggle.classList.add('border-primary', 'text-primary');
                 } else {
+                    if (sortLabel) sortLabel.textContent = 'SORT: NEWEST';
                     sortToggle.classList.remove('border-primary', 'text-primary');
                 }
+
+                sortMenu.classList.add('hidden');
+                if (sortChevron) sortChevron.classList.remove('rotate-180');
 
                 currentPage = 1;
                 fetchProjects();
