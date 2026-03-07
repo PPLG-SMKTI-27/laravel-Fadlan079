@@ -50,7 +50,8 @@
                     <button type="button"
                         class="edit-skill-btn w-6 h-6 flex items-center justify-center text-muted hover:text-primary hover:bg-primary/10 transition-colors"
                         data-id="{{ $skill->id }}" data-name="{{ $skill->name }}"
-                        data-category="{{ $skill->category }}" data-icon="{{ $skill->icon }}">
+                        data-category="{{ $skill->category }}" data-icon="{{ $skill->icon }}"
+                        data-description="{{ $skill->description }}">
                         <i class="fa-solid fa-pen text-[10px]"></i>
                     </button>
                     <button type="button"

@@ -49,7 +49,7 @@ class SkillController extends Controller
         // ==========================================
         // DATA VISUALIZATION MATRIX (CHART.JS)
         // ==========================================
-        
+
         // 1. Skills by Category
         $categoryChart = \App\Models\Skill::selectRaw('category, count(*) as count')
             ->groupBy('category')
@@ -92,7 +92,8 @@ class SkillController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:skills',
             'category' => 'required|in:frontend,backend,tools,core',
-            'icon' => 'nullable|string'
+            'icon' => 'nullable|string',
+            'description' => 'nullable|string'
         ]);
 
         \App\Models\Skill::create($validated);
@@ -117,7 +118,8 @@ class SkillController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:skills,name,' . $skill->id,
             'category' => 'required|in:frontend,backend,tools,core',
-            'icon' => 'nullable|string'
+            'icon' => 'nullable|string',
+            'description' => 'nullable|string'
         ]);
 
         $skill->update($validated);

@@ -125,6 +125,67 @@
             </div>
 
             {{-- ========================================== --}}
+            {{-- 2.5 ANALYTICS MATRIX (CHART.JS)            --}}
+            {{-- ========================================== --}}
+            <div x-data="{ expanded: localStorage.getItem('contact_matrix_expanded') !== 'false' }"
+                class="relative border border-border/50 bg-surface/10 p-4 md:p-6 space-y-6 mt-6 transition-all duration-300">
+                <div class="flex items-center justify-between border-b border-border/50 pb-4">
+                    <h3 class="text-[10px] font-mono uppercase tracking-widest text-primary flex items-center gap-2 cursor-pointer"
+                        @click="expanded = !expanded; localStorage.setItem('contact_matrix_expanded', expanded)">
+                        <i class="fa-solid fa-chart-line"></i> > INBOX_TRAFFIC_ANALYSIS
+                    </h3>
+                    <div class="flex items-center gap-4">
+                        <span x-show="expanded"
+                            class="text-[9px] font-mono text-green-400 animate-pulse hidden sm:inline-block">[ LIVE_RENDER
+                            ]</span>
+                        <button @click="expanded = !expanded; localStorage.setItem('contact_matrix_expanded', expanded)"
+                            type="button"
+                            class="text-[10px] font-mono text-muted hover:text-primary transition-colors focus:outline-none">
+                            <span x-text="expanded ? '[_COLLAPSE_]' : '[_EXPAND_]'"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div x-show="expanded" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform -translate-y-2"
+                    x-transition:enter-end="opacity-100 transform translate-y-0"
+                    class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    {{-- 1. Contacts per Month (Line Chart) --}}
+                    <div class="relative border border-border/30 bg-[#050505] p-4 lg:col-span-2 group">
+                        <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/50"></div>
+                        <p class="text-[9px] font-mono uppercase tracking-widest text-muted mb-4">> INBOUND_TRAFFIC (6
+                            MONTHS)</p>
+                        <div class="relative h-48 w-full">
+                            <canvas id="contactTimelineChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+                        {{-- 2. Contact Method (Doughnut) --}}
+                        <div class="relative border border-border/30 bg-[#050505] p-4 group">
+                            <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary/50"></div>
+                            <p class="text-[9px] font-mono uppercase tracking-widest text-muted mb-4">> PROTOCOL_USAGE</p>
+                            <div class="relative h-32 w-full flex justify-center">
+                                <canvas id="methodChart"></canvas>
+                            </div>
+                        </div>
+
+                        {{-- 3. Contact Type (Doughnut) --}}
+                        <div class="relative border border-border/30 bg-[#050505] p-4 group">
+                            <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary/50"></div>
+                            <p class="text-[9px] font-mono uppercase tracking-widest text-muted mb-4">> PAYLOAD_CATEGORIES
+                            </p>
+                            <div class="relative h-32 w-full flex justify-center">
+                                <canvas id="typeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            {{-- ========================================== --}}
             {{-- 3. COMMAND FILTER PANEL                    --}}
             {{-- ========================================== --}}
             <div class="relative border border-border/50 bg-surface/10 p-4 space-y-4">
@@ -152,7 +213,8 @@
                                 <option value="ALL" {{ $filter == 'ALL' ? 'selected' : '' }}>FILTER: ALL_MSGS</option>
                                 <option value="UNREAD" {{ $filter == 'UNREAD' ? 'selected' : '' }}>FILTER: UNREAD_ONLY
                                 </option>
-                                <option value="PROJECT" {{ $filter == 'PROJECT' ? 'selected' : '' }}>TYPE: PROJECT</option>
+                                <option value="PROJECT" {{ $filter == 'PROJECT' ? 'selected' : '' }}>TYPE: PROJECT
+                                </option>
                                 <option value="COLLAB" {{ $filter == 'COLLAB' ? 'selected' : '' }}>TYPE: COLLAB</option>
                             </select>
                             <i
@@ -169,7 +231,8 @@
                     </div>
                 </form>
 
-                <form id="readAllForm" method="POST" action="{{ route('dashboard.contacts.readAll') }}" class="hidden">
+                <form id="readAllForm" method="POST" action="{{ route('dashboard.contacts.readAll') }}"
+                    class="hidden">
                     @csrf
                 </form>
             </div>
@@ -220,27 +283,7 @@
                                     @endif
 
                                     {{-- Closed View (Click to expand) --}}
-                                    <div @click="
-                                        if(!expanded && {{ $isUnread ? 'true' : 'false' }}) { 
-                                            // Handle AJAX Mark as read
-                                            fetch('{{ route('dashboard.contacts.read', $msg->id) }}', {
-                                                method: 'PATCH',
-                                                headers: {
-                                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                                    'Accept': 'application/json'
-                                                }
-                                            }).then(res => {
-                                                if(res.ok) {
-                                                    $el.closest('.group').classList.remove('border-primary/50', 'bg-primary/5');
-                                                    $el.closest('.group').classList.add('border-border/50', 'bg-[#050505]');
-                                                    $el.querySelector('.unread-badge')?.remove();
-                                                    $el.parentElement.querySelector('.unread-line')?.remove();
-                                                    $el.querySelector('.title-text')?.classList.add('opacity-80');
-                                                }
-                                            });
-                                        }
-                                        expanded = !expanded;
-                                     "
+                                    <div @click="expanded = !expanded"
                                         class="p-4 md:p-6 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6 hover:bg-surface/30 transition-colors">
 
                                         {{-- Meta Info (Left) --}}
@@ -344,17 +387,24 @@
                                                     </a>
                                                 @endif
 
-                                                <form method="POST"
-                                                    action="{{ route('dashboard.contacts.destroy', $msg->id) }}"
-                                                    onsubmit="return confirm('CRITICAL: Are you sure you want to permanently delete this log?');">
-                                                    @csrf @method('DELETE')
-                                                    <button type="submit"
-                                                        class="px-5 py-2.5 border border-red-500/30 text-[10px] font-mono font-bold uppercase tracking-widest text-red-500 hover:bg-red-500 hover:text-white transition-colors group flex items-center gap-2">
-                                                        <i
-                                                            class="fa-solid fa-trash-can opacity-50 group-hover:opacity-100"></i>
-                                                        [ PURGE_NODE ]
-                                                    </button>
-                                                </form>
+                                                @if ($isUnread)
+                                                    <form method="POST"
+                                                        action="{{ route('dashboard.contacts.read', $msg->id) }}">
+                                                        @csrf @method('PATCH')
+                                                        <button type="submit"
+                                                            class="px-5 py-2.5 border border-primary/30 text-[10px] font-mono font-bold uppercase tracking-widest text-primary hover:bg-primary hover:text-background transition-colors group flex items-center gap-2">
+                                                            <i
+                                                                class="fa-solid fa-check-double opacity-50 group-hover:opacity-100"></i>
+                                                            [ MARK_AS_READ ]
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <div
+                                                        class="px-5 py-2.5 border border-border/50 text-[10px] font-mono font-bold uppercase tracking-widest text-muted/50 flex items-center gap-2">
+                                                        <i class="fa-solid fa-check"></i>
+                                                        [ READ_ACKNOWLEDGED ]
+                                                    </div>
+                                                @endif
                                             </div>
 
                                         </div>
@@ -363,6 +413,36 @@
                                 </div>
                             @endforeach
                         </div>
+
+                        @if ($contacts instanceof \Illuminate\Pagination\LengthAwarePaginator && $contacts->hasPages())
+                            <div class="flex justify-center pt-4">
+                                <nav class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest">
+                                    @if ($contacts->onFirstPage())
+                                        <span
+                                            class="px-4 py-2 text-muted border border-border/50 bg-surface/30 opacity-50 cursor-not-allowed">[
+                                            PREV ]</span>
+                                    @else
+                                        <a href="{{ $contacts->previousPageUrl() }}"
+                                            class="px-4 py-2 border border-border hover:border-primary text-muted hover:text-primary transition-colors">[
+                                            PREV ]</a>
+                                    @endif
+
+                                    <span
+                                        class="px-4 py-2 border border-primary bg-primary/5 text-primary font-bold">PG_{{ str_pad($contacts->currentPage(), 2, '0', STR_PAD_LEFT) }}
+                                        / {{ str_pad($contacts->lastPage(), 2, '0', STR_PAD_LEFT) }}</span>
+
+                                    @if ($contacts->hasMorePages())
+                                        <a href="{{ $contacts->nextPageUrl() }}"
+                                            class="px-4 py-2 border border-border hover:border-primary text-muted hover:text-primary transition-colors">[
+                                            NEXT ]</a>
+                                    @else
+                                        <span
+                                            class="px-4 py-2 text-muted border border-border/50 bg-surface/30 opacity-50 cursor-not-allowed">[
+                                            NEXT ]</span>
+                                    @endif
+                                </nav>
+                            </div>
+                        @endif
                     </div>
                 @empty
                     {{-- Empty State --}}
@@ -382,38 +462,169 @@
 
             </div>
 
-            {{-- HUD PAGINATION --}}
-            @if ($contactsPaginator->hasPages())
-                <div class="flex justify-center pt-8">
-                    <nav class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest">
-                        @if ($contactsPaginator->onFirstPage())
-                            <span
-                                class="px-4 py-2 text-muted border border-border/50 bg-surface/30 opacity-50 cursor-not-allowed">[
-                                PREV ]</span>
-                        @else
-                            <a href="{{ $contactsPaginator->previousPageUrl() }}"
-                                class="px-4 py-2 border border-border hover:border-primary text-muted hover:text-primary transition-colors">[
-                                PREV ]</a>
-                        @endif
 
-                        <span
-                            class="px-4 py-2 border border-primary bg-primary/5 text-primary font-bold">PG_{{ str_pad($contactsPaginator->currentPage(), 2, '0', STR_PAD_LEFT) }}
-                            / {{ str_pad($contactsPaginator->lastPage(), 2, '0', STR_PAD_LEFT) }}</span>
-
-                        @if ($contactsPaginator->hasMorePages())
-                            <a href="{{ $contactsPaginator->nextPageUrl() }}"
-                                class="px-4 py-2 border border-border hover:border-primary text-muted hover:text-primary transition-colors">[
-                                NEXT ]</a>
-                        @else
-                            <span
-                                class="px-4 py-2 text-muted border border-border/50 bg-surface/30 opacity-50 cursor-not-allowed">[
-                                NEXT ]</span>
-                        @endif
-                    </nav>
-                </div>
-            @endif
 
         </section>
     </div>
 
 @endsection
+
+@push('scripts')
+    {{-- Load Chart.js CDN --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // === KONFIGURASI GLOBAL HUD ===
+            Chart.defaults.color = '#71717a';
+            Chart.defaults.font.family = 'monospace';
+            Chart.defaults.font.size = 10;
+
+            const gridConfig = {
+                color: 'rgba(255, 255, 255, 0.05)',
+                tickColor: 'transparent'
+            };
+            const tooltipConfig = {
+                backgroundColor: 'rgba(5, 5, 5, 0.95)',
+                titleFont: {
+                    family: 'monospace',
+                    size: 11
+                },
+                bodyFont: {
+                    family: 'monospace',
+                    size: 10
+                },
+                borderColor: 'rgba(168, 85, 247, 0.5)',
+                borderWidth: 1,
+                cornerRadius: 0,
+                padding: 10
+            };
+
+            // Parse Data dari Controller
+            const rawData = {!! json_encode($chartData ?? []) !!};
+
+            const timelineData = rawData.timeline || {
+                'Jan': 0,
+                'Feb': 0
+            };
+            const methodData = rawData.method || {
+                'Email (SMTP)': 0,
+                'WhatsApp': 0
+            };
+            const typeData = rawData.type || {
+                'project': 0,
+                'collab': 0,
+                'inquiry': 0
+            };
+
+            // Warna Neons HUD
+            const colors = {
+                primary: '#a855f7',
+                sky: '#38bdf8',
+                green: '#4ade80',
+                amber: '#fbbf24',
+                bgSky: 'rgba(56, 189, 248, 0.1)',
+                borderGreen: 'rgba(74, 222, 128, 0.5)'
+            };
+
+            // 1. INBOUND TRAFFIC TIMELINE (Line)
+            new Chart(document.getElementById('contactTimelineChart'), {
+                type: 'line',
+                data: {
+                    labels: Object.keys(timelineData),
+                    datasets: [{
+                        label: 'Packets Received',
+                        data: Object.values(timelineData),
+                        borderColor: colors.primary,
+                        backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: colors.primary,
+                        pointBorderColor: '#050505',
+                        pointRadius: 4,
+                        fill: true,
+                        tension: 0.3,
+                        stepped: true // Stepped line memberikan kesan digital/tech
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            grid: gridConfig,
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                        x: {
+                            grid: gridConfig
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: tooltipConfig
+                    }
+                }
+            });
+
+            // 2. PROTOCOL USAGE (Doughnut)
+            new Chart(document.getElementById('methodChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(methodData),
+                    datasets: [{
+                        data: Object.values(methodData),
+                        backgroundColor: [colors.primary, colors.green],
+                        borderColor: '#050505',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                boxWidth: 8
+                            }
+                        },
+                        tooltip: tooltipConfig
+                    }
+                }
+            });
+
+            // 3. PAYLOAD CATEGORIES (Doughnut)
+            new Chart(document.getElementById('typeChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(typeData).map(t => t.toUpperCase()),
+                    datasets: [{
+                        data: Object.values(typeData),
+                        backgroundColor: [colors.sky, colors.green, colors.amber, '#1f2937'],
+                        borderColor: '#050505',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                boxWidth: 8
+                            }
+                        },
+                        tooltip: tooltipConfig
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

@@ -28,20 +28,25 @@ class ContactController extends Controller
         \App\Models\Contact::create($validatedData);
 
         // 3. Process action based on method
+        $siteUser = \App\Models\User::first();
+
         if ($validatedData['method'] === 'email') {
 
             // Format data backward compatibility for the Mail class
             $mailData = $validatedData;
             $mailData['email'] = $validatedData['sender'];
 
-            Mail::to('fadlanfirdaus220@gmail.com')
+            $destinationEmail = $siteUser?->email ?? 'fadlanfirdaus220@gmail.com';
+
+            Mail::to($destinationEmail)
                 ->send(new ContactMail($mailData));
 
             return back()->with('success', 'Pesan berhasil dikirim via Email! Saya akan membalas sesegera mungkin.');
         } elseif ($validatedData['method'] === 'wa') {
 
             // Format WhatsApp Message
-            $waNumber = '6282210732928';
+            $waRaw = $siteUser?->whatsapp ?? '6282210732928';
+            $waNumber = preg_replace('/[^0-9]/', '', $waRaw);
             $text = "*New Request from Portfolio*\n\n"
                 . "*Type:* " . ucfirst($validatedData['type']) . "\n"
                 . "*Sender:* " . $validatedData['sender'] . "\n"

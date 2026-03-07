@@ -50,6 +50,26 @@ class ProfileController extends Controller
     }
 
     /**
+     * Update the user's social links (Communication Nodes).
+     */
+    public function updateSocials(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'whatsapp' => 'nullable|string|max:255',
+            'instagram' => 'nullable|string|max:255',
+            'github' => 'nullable|string|max:255',
+            'linkedin' => 'nullable|string|max:255',
+        ]);
+
+        $user = $request->user();
+
+        $user->fill($validated);
+        $user->save();
+
+        return Redirect::route('dashboard.account.edit')->with('status', 'socials-updated');
+    }
+
+    /**
      * Delete the user's account.
      */
     public function destroy(Request $request): RedirectResponse

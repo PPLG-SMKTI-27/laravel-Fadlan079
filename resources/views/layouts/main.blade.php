@@ -120,7 +120,7 @@
         body:not([data-cursor-theme="native"]) {
             cursor: none !important;
         }
-        
+
         /* Pastikan elemen yang bisa di-klik juga tidak memunculkan kursor tangan JIKA temanya bukan 'native' */
         body:not([data-cursor-theme="native"]) *,
         body:not([data-cursor-theme="native"]) a,
@@ -140,17 +140,18 @@
         body[data-cursor-theme="native"] button {
             cursor: auto !important;
         }
-        
+
         body[data-cursor-theme="native"] a,
         body[data-cursor-theme="native"] button,
         body[data-cursor-theme="native"] [role="button"] {
-             cursor: pointer !important;
+            cursor: pointer !important;
         }
 
         /* CONTAINER SETUP */
         #custom-cursor-container {
             pointer-events: none;
-            z-index: 999999; /* Pastikan selalu paling atas */
+            z-index: 999999;
+            /* Pastikan selalu paling atas */
         }
 
         .cursor-theme {
@@ -158,139 +159,219 @@
         }
 
         /* Tampilkan tema yang aktif berdasarkan atribut body */
-        body[data-cursor-theme="viewfinder"] #cursor-viewfinder { display: block; }
-        body[data-cursor-theme="blob"] #cursor-blob { display: block; }
-        body[data-cursor-theme="terminal"] #cursor-terminal { display: block; }
+        body[data-cursor-theme="viewfinder"] #cursor-viewfinder {
+            display: block;
+        }
+
+        body[data-cursor-theme="blob"] #cursor-blob {
+            display: block;
+        }
+
+        body[data-cursor-theme="terminal"] #cursor-terminal {
+            display: block;
+        }
 
         /* --- THEME 1: VIEWFINDER --- */
-        .v-dot { position: fixed; width: 4px; height: 4px; background: var(--color-primary); border-radius: 50%; transform: translate(-50%, -50%); transition: transform 0.2s, background 0.2s, border 0.2s; will-change: left, top; }
-        .v-box { position: fixed; width: 32px; height: 32px; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, transform 0.3s; will-change: left, top, width, height, transform; }
-        .v-corner { position: absolute; width: 8px; height: 8px; border-color: color-mix(in srgb, var(--color-primary) 40%, transparent); border-style: solid; border-width: 0; transition: border-width 0.3s, border-color 0.3s; }
-        .v-corner.top-left { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
-        .v-corner.top-right { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
-        .v-corner.bottom-left { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
-        .v-corner.bottom-right { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
-        
-        .v-box.is-hovering { width: 48px; height: 48px; transform: translate(-50%, -50%) rotate(45deg); }
-        .v-box.is-hovering .v-corner { border-color: var(--color-primary); border-width: 2px; }
-        .v-dot.is-hovering { transform: translate(-50%, -50%) scale(2.5); background: transparent; border: 1px solid var(--color-primary); }
-        
-        .v-box.is-clicking { width: 20px; height: 20px; }
-        .v-dot.is-clicking { transform: translate(-50%, -50%) scale(0.5); }
+        .v-dot {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s, background 0.2s, border 0.2s;
+            will-change: left, top;
+        }
+
+        .v-box {
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, transform 0.3s;
+            will-change: left, top, width, height, transform;
+        }
+
+        .v-corner {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+            border-style: solid;
+            border-width: 0;
+            transition: border-width 0.3s, border-color 0.3s;
+        }
+
+        .v-corner.top-left {
+            top: 0;
+            left: 0;
+            border-top-width: 1px;
+            border-left-width: 1px;
+        }
+
+        .v-corner.top-right {
+            top: 0;
+            right: 0;
+            border-top-width: 1px;
+            border-right-width: 1px;
+        }
+
+        .v-corner.bottom-left {
+            bottom: 0;
+            left: 0;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+        }
+
+        .v-corner.bottom-right {
+            bottom: 0;
+            right: 0;
+            border-bottom-width: 1px;
+            border-right-width: 1px;
+        }
+
+        .v-box.is-hovering {
+            width: 48px;
+            height: 48px;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .v-box.is-hovering .v-corner {
+            border-color: var(--color-primary);
+            border-width: 2px;
+        }
+
+        .v-dot.is-hovering {
+            transform: translate(-50%, -50%) scale(2.5);
+            background: transparent;
+            border: 1px solid var(--color-primary);
+        }
+
+        .v-box.is-clicking {
+            width: 20px;
+            height: 20px;
+        }
+
+        .v-dot.is-clicking {
+            transform: translate(-50%, -50%) scale(0.5);
+        }
 
         /* --- THEME 2: TRUE INVERTED LENS --- */
-        .b-circle { 
-            position: fixed; 
-            width: 32px; 
-            height: 32px; 
-            border-radius: 50%; 
-            transform: translate(-50%, -50%); 
-            
+        .b-circle {
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+
             /* THE MAGIC: Membalikkan 100% warna apapun di belakangnya */
             backdrop-filter: invert(100%);
             -webkit-backdrop-filter: invert(100%);
-            
+
             /* Background transparan agar filter bisa bekerja menembus layar */
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.15); 
-            
-            transition: width 0.2s ease-out, height 0.2s ease-out; 
-            will-change: left, top, width, height; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            transition: width 0.2s ease-out, height 0.2s ease-out;
+            will-change: left, top, width, height;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
-        .b-trail { 
-            position: fixed; 
-            width: 8px; 
-            height: 8px; 
-            border-radius: 50%; 
-            transform: translate(-50%, -50%); 
-            
+
+        .b-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+
             backdrop-filter: invert(100%);
             -webkit-backdrop-filter: invert(100%);
-            background: rgba(255, 255, 255, 0.8); /* Agar titik ekor tetap dominan */
-            
-            will-change: left, top; 
+            background: rgba(255, 255, 255, 0.8);
+            /* Agar titik ekor tetap dominan */
+
+            will-change: left, top;
         }
-        
+
         /* Mengganti ikon Plus hitam (yang sering merusak efek invert) dengan titik fokus ringan */
-        .b-plus { 
-            width: 4px; 
-            height: 4px; 
+        .b-plus {
+            width: 4px;
+            height: 4px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.4);
         }
-        
+
         /* Hover & Click States */
-        .b-circle.is-hovering { 
-            width: 64px; 
-            height: 64px; 
+        .b-circle.is-hovering {
+            width: 64px;
+            height: 64px;
             border-color: rgba(255, 255, 255, 0.4);
         }
-        .b-circle.is-clicking { 
-            width: 20px; 
-            height: 20px; 
+
+        .b-circle.is-clicking {
+            width: 20px;
+            height: 20px;
         }
 
         /* --- THEME 3: TERMINAL HUD (Heads-Up Display) --- */
-        .t-block { 
-            position: fixed; 
-            width: 4px; 
-            height: 4px; 
-            background: var(--color-primary); 
-            transform: translate(-50%, -50%); 
-            will-change: left, top; 
-            transition: all 0.2s ease-out; 
-            box-shadow: 0 0 8px var(--color-primary); 
+        .t-block {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--color-primary);
+            transform: translate(-50%, -50%);
+            will-change: left, top;
+            transition: all 0.2s ease-out;
+            box-shadow: 0 0 8px var(--color-primary);
             border-radius: 1px;
         }
 
         /* Floating Command Text */
-        .t-block::after { 
-            content: "> SYS_IDLE"; 
-            position: absolute; 
-            top: 10px; 
-            left: 10px; 
-            font-family: monospace; 
-            font-size: 9px; 
-            font-weight: bold; 
-            color: var(--color-primary); 
-            letter-spacing: 1px; 
-            white-space: nowrap; 
-            opacity: 0.7; 
-            transition: all 0.2s ease-out; 
-            text-shadow: 0 0 4px color-mix(in srgb, var(--color-primary) 50%, transparent); 
+        .t-block::after {
+            content: "> SYS_IDLE";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-family: monospace;
+            font-size: 9px;
+            font-weight: bold;
+            color: var(--color-primary);
+            letter-spacing: 1px;
+            white-space: nowrap;
+            opacity: 0.7;
+            transition: all 0.2s ease-out;
+            text-shadow: 0 0 4px color-mix(in srgb, var(--color-primary) 50%, transparent);
         }
 
         /* Hover State: Titik berubah jadi kotak target, teks berubah */
-        .t-block.is-hovering { 
-            width: 24px; 
-            height: 24px; 
-            background: transparent; 
-            border: 1.5px solid var(--color-text); 
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); 
+        .t-block.is-hovering {
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            border: 1.5px solid var(--color-text);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
-        
-        .t-block.is-hovering::after { 
-            content: "> TARGET_LOCK"; 
-            color: var(--color-text); 
-            opacity: 1; 
-            top: 16px; 
-            left: 16px; 
+
+        .t-block.is-hovering::after {
+            content: "> TARGET_LOCK";
+            color: var(--color-text);
+            opacity: 1;
+            top: 16px;
+            left: 16px;
         }
 
         /* Click State: Kotak mengecil dan berubah merah dengan teks Execute */
-        .t-block.is-clicking { 
-            transform: translate(-50%, -50%) scale(0.7); 
-            border-color: #ef4444; /* Warna merah saat eksekusi */
+        .t-block.is-clicking {
+            transform: translate(-50%, -50%) scale(0.7);
+            border-color: #ef4444;
+            /* Warna merah saat eksekusi */
             border-width: 2px;
         }
-        
-        .t-block.is-clicking::after { 
-            content: "> EXECUTE()"; 
-            color: #ef4444; 
+
+        .t-block.is-clicking::after {
+            content: "> EXECUTE()";
+            color: #ef4444;
         }
     </style>
 
@@ -305,17 +386,19 @@
             if (!container) {
                 // Jika container tidak ada, paksa kembali ke kursor native untuk mencegah error blank
                 body.setAttribute('data-cursor-theme', 'native');
-                return; 
+                return;
             }
 
             // Ambil referensi elemen
             const vDot = document.querySelector('.v-dot');
             const vBox = document.querySelector('.v-box');
-            let vBoxX = mouseX, vBoxY = mouseY;
+            let vBoxX = mouseX,
+                vBoxY = mouseY;
 
             const bCircle = document.querySelector('.b-circle');
             const bTrail = document.querySelector('.b-trail');
-            let bTrailX = mouseX, bTrailY = mouseY;
+            let bTrailX = mouseX,
+                bTrailY = mouseY;
 
             const tBlock = document.querySelector('.t-block');
 
@@ -353,15 +436,16 @@
                     bTrail.style.left = bTrailX + 'px';
                     bTrail.style.top = bTrailY + 'px';
                 }
-                
+
                 requestAnimationFrame(animateCursor);
             }
             animateCursor();
 
             // Efek Hover pada elemen yang interaktif
             document.addEventListener('mouseover', (e) => {
-                const clickable = e.target.closest('a, button, [role="button"], input, select, textarea, label');
-                
+                const clickable = e.target.closest(
+                    'a, button, [role="button"], input, select, textarea, label');
+
                 if (clickable) {
                     if (vDot) vDot.classList.add('is-hovering');
                     if (vBox) vBox.classList.add('is-hovering');
@@ -381,7 +465,7 @@
                 if (vBox) vBox.classList.add('is-clicking');
                 if (bCircle) bCircle.classList.add('is-clicking');
             });
-            
+
             document.addEventListener('mouseup', () => {
                 if (vDot) vDot.classList.remove('is-clicking');
                 if (vBox) vBox.classList.remove('is-clicking');
@@ -402,17 +486,48 @@
         @yield('content')
     </main>
 
+    @php
+        $siteUser = \App\Models\User::first();
+
+        // Helper formatting
+        $waRaw = $siteUser?->whatsapp;
+        $waLink = $waRaw ? 'https://wa.me/' . preg_replace('/[^0-9]/', '', $waRaw) : '#';
+
+        $igRaw = $siteUser?->instagram;
+        $igLink = $igRaw
+            ? (str_starts_with($igRaw, 'http')
+                ? $igRaw
+                : 'https://instagram.com/' . ltrim($igRaw, '@'))
+            : '#';
+
+        $ghRaw = $siteUser?->github;
+        $ghLink = $ghRaw
+            ? (str_starts_with($ghRaw, 'http')
+                ? $ghRaw
+                : 'https://github.com/' . ltrim($ghRaw, '@'))
+            : '#';
+
+        $liRaw = $siteUser?->linkedin;
+        $liLink = $liRaw
+            ? (str_starts_with($liRaw, 'http')
+                ? $liRaw
+                : 'https://linkedin.com/in/' . ltrim($liRaw, '@'))
+            : '#';
+
+        $emailLink = $siteUser?->email ? 'mailto:' . $siteUser->email : '#';
+    @endphp
+
     <x-footer brand="Fadlan" :links="[
         ['key' => 'nav.home', 'href' => route('portofolio.home')],
         ['key' => 'nav.about', 'href' => route('portofolio.about')],
         ['key' => 'nav.projects', 'href' => route('portofolio.projects')],
         ['key' => 'nav.contact', 'href' => route('portofolio.contact')],
     ]" :socials="[
-        ['icon' => 'fa-brands fa-github', 'href' => 'https://github.com/Fadlan079'],
-        ['icon' => 'fa-brands fa-linkedin', 'href' => 'https://www.linkedin.com/in/fadlan-firdaus-148344386/'],
-        ['icon' => 'fa-brands fa-instagram', 'href' => 'https://instagram.com/fdln007'],
-        ['icon' => 'fa-solid fa-envelope', 'href' => 'mailto:fadlanfirdaus220@gmail.com'],
-        ['icon' => 'fa-brands fa-whatsapp', 'href' => 'https://wa.me/6282210732928'],
+        ['icon' => 'fa-brands fa-github', 'href' => $ghLink],
+        ['icon' => 'fa-brands fa-linkedin', 'href' => $liLink],
+        ['icon' => 'fa-brands fa-instagram', 'href' => $igLink],
+        ['icon' => 'fa-solid fa-envelope', 'href' => $emailLink],
+        ['icon' => 'fa-brands fa-whatsapp', 'href' => $waLink],
     ]" />
     <x-global-modal />
     <x-confirm-modal />

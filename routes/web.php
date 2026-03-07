@@ -62,6 +62,9 @@ Route::middleware(['auth', 'verified'])
         Route::patch('account', [ProfileController::class, 'update'])
             ->name('account.update');
 
+        Route::patch('account/socials', [ProfileController::class, 'updateSocials'])
+            ->name('account.socials.update');
+
         Route::delete('account', [ProfileController::class, 'destroy'])
             ->name('account.destroy');
 

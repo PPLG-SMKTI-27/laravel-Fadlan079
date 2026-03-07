@@ -52,13 +52,18 @@
                 @include('profile.partials.update-profile-information-form')
             </div>
 
+            {{-- 1.5 COMMUNICATION NODES (Medsos & WA) --}}
+            <div class="transform origin-top transition-all duration-500 animate-[fadeIn_0.5s_ease-out_0.1s_both]">
+                @include('profile.partials.update-social-form')
+            </div>
+
             {{-- 2. Update Password Module --}}
             <div class="transform origin-top transition-all duration-500 animate-[fadeIn_0.5s_ease-out_0.2s_both]">
                 @include('profile.partials.update-password-form')
             </div>
 
             {{-- 3. Delete Account Module --}}
-            <div class="transform origin-top transition-all duration-500 animate-[fadeIn_0.5s_ease-out_0.4s_both]">
+            <div class="transform origin-top transition-all duration-500 animate-[fadeIn_0.5s_ease-out_0.3s_both]">
                 @include('profile.partials.delete-user-form')
             </div>
 

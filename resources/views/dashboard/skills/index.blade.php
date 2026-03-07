@@ -531,8 +531,8 @@
             // Event Delegation for Edit, Delete buttons inside the Container and Pagination Links
             container.addEventListener('click', (e) => {
                 // Pagination Intercept
-                const anchor = e.target.closest('nav a[href]');
-                if (anchor && anchor.href && anchor.href.indexOf('page=') !== -1) {
+                const anchor = e.target.closest('a');
+                if (anchor && anchor.href && anchor.href.includes('page=')) {
                     e.preventDefault();
                     const url = new URL(anchor.href, window.location.origin);
                     url.searchParams.set('category', currentCategory);
@@ -550,8 +550,9 @@
                     const name = editBtn.dataset.name;
                     const category = editBtn.dataset.category;
                     const icon = editBtn.dataset.icon;
+                    const description = editBtn.dataset.description;
                     if (window.openEditSkillModal) {
-                        window.openEditSkillModal(id, name, category, icon);
+                        window.openEditSkillModal(id, name, category, icon, description);
                     }
                     return;
                 }
