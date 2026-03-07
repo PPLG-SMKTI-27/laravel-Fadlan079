@@ -70,9 +70,10 @@ document.querySelectorAll('.project-open').forEach(card => {
                 if (images.length > 0) {
 
                     images.forEach(img => {
+                        const imgSrc = typeof img === 'object' && img !== null ? img.url : img;
                         screenshotContainer.innerHTML += `
                         <div class="aspect-video overflow-hidden border border-border/50 bg-surface/40 group">
-                            <img src="${img}"
+                            <img src="${imgSrc}"
                                 class="w-full h-full object-cover transition duration-500 group-hover:scale-105 cursor-pointer">
                         </div>
                         `;

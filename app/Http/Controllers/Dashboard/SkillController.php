@@ -38,14 +38,48 @@ class SkillController extends Controller
             $query->latest();
         }
 
-        $skills = $query->paginate(12); // Paginating for better performance and a Tag Cloud feel
+        $skills = $query->paginate(12);
 
         if ($request->ajax()) {
             return view('dashboard.skills.partials.tags', compact('skills'));
         }
 
         $summary = \App\Models\Skill::summary();
-        return view('dashboard.skills.index', compact('skills', 'summary'));
+
+        // ==========================================
+        // DATA VISUALIZATION MATRIX (CHART.JS)
+        // ==========================================
+        
+        // 1. Skills by Category
+        $categoryChart = \App\Models\Skill::selectRaw('category, count(*) as count')
+            ->groupBy('category')
+            ->pluck('count', 'category')
+            ->toArray();
+
+        // 2. Skills Growth per Year
+        $growthChart = \App\Models\Skill::selectRaw('YEAR(created_at) as year, count(*) as count')
+            ->groupBy('year')
+            ->orderBy('year', 'asc')
+            ->pluck('count', 'year')
+            ->toArray();
+
+        // 3. Skills with Icon (Integrity Check)
+        $iconCount = \App\Models\Skill::whereNotNull('icon')->where('icon', '!=', '')->count();
+        $noIconCount = \App\Models\Skill::whereNull('icon')->orWhere('icon', '')->count();
+
+        // 4. Skills with Description (Payload Check)
+        // *Pastikan kamu punya kolom 'description' di tabel skills. Jika namanya berbeda, silakan disesuaikan.*
+        $descCount = \App\Models\Skill::whereNotNull('description')->where('description', '!=', '')->count();
+        $noDescCount = \App\Models\Skill::whereNull('description')->orWhere('description', '')->count();
+
+        $chartData = [
+            'category' => $categoryChart,
+            'growth'   => $growthChart,
+            'icon'     => ['Valid Icon' => $iconCount, 'No Icon' => $noIconCount],
+            'desc'     => ['Valid Desc' => $descCount, 'No Desc' => $noDescCount],
+        ];
+
+        return view('dashboard.skills.index', compact('skills', 'summary', 'chartData'));
     }
 
     public function create()

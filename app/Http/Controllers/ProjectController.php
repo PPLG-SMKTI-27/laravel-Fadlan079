@@ -35,11 +35,59 @@ class ProjectController extends Controller
         $summary = Project::summary();
         $technologies = \App\Models\Skill::pluck('name');
 
+        // ==========================================
+        // DATA VISUALIZATION MATRIX (CHART.JS)
+        // ==========================================
+        
+        // 1. Projects by Type
+        $typesChart = Project::selectRaw('type, count(*) as count')
+            ->groupBy('type')
+            ->pluck('count', 'type')
+            ->toArray();
+
+        // 2. Team Size Distribution (Solo vs Team)
+        // Asumsi value 'Solo' atau '1' dihitung sebagai Solo. Sisanya Team.
+        $soloCount = Project::whereIn('team_size', ['Solo', '1'])->count();
+        $totalWithTeam = Project::whereNotNull('team_size')->where('team_size', '!=', '')->count();
+        $teamChart = [
+            'Solo' => $soloCount,
+            'Team' => $totalWithTeam - $soloCount
+        ];
+
+        // 3. Productivity Timeline (Last 6 Months)
+        $timelineChart = [];
+        // Setup array 6 bulan terakhir dengan nilai awal 0
+        for ($i = 5; $i >= 0; $i--) {
+            $monthName = now()->subMonths($i)->format('M'); // Contoh: Oct, Nov, Dec
+            $timelineChart[$monthName] = 0; 
+        }
+
+        // Ambil data project 6 bulan terakhir
+        $recentProjects = Project::where('created_at', '>=', now()->subMonths(5)->startOfMonth())->get(['created_at']);
+        
+        // Kelompokkan dan hitung berdasarkan bulan (menggunakan collection agar aman di semua DB)
+        $timelineData = $recentProjects->groupBy(function($item) {
+            return $item->created_at->format('M');
+        })->map(function ($row) {
+            return $row->count();
+        })->toArray();
+
+        // Gabungkan data agar bulan yang kosong (0) tetap tampil di chart
+        $timelineChart = array_merge($timelineChart, $timelineData);
+
+        // Gabungkan ke dalam satu array matrix
+        $chartData = [
+            'types'    => $typesChart,
+            'team'     => $teamChart,
+            'timeline' => $timelineChart,
+        ];
+
         return view('dashboard.project', compact(
             'projects',
             'summary',
             'technologies',
-            'multipleSelect'
+            'multipleSelect',
+            'chartData' // <- Passing datanya ke Blade
         ));
     }
 

@@ -102,7 +102,76 @@
                         {{ str_pad($summary['toolsCount'] + $summary['otherCount'], 2, '0', STR_PAD_LEFT) }}</h3>
                 </div>
             </div>
+            {{-- ========================================== --}}
+            {{-- SKILLS VISUALIZATION MATRIX (CHART.JS)     --}}
+            {{-- ========================================== --}}
+            <div x-data="{ expanded: localStorage.getItem('skill_matrix_expanded') !== 'false' }"
+                class="relative border border-border/50 bg-surface/10 p-4 md:p-6 space-y-6 transition-all duration-300">
+                <div class="flex items-center justify-between border-b border-border/50 pb-4">
+                    <h3 class="text-[10px] font-mono uppercase tracking-widest text-primary flex items-center gap-2 cursor-pointer"
+                        @click="expanded = !expanded; localStorage.setItem('skill_matrix_expanded', expanded)">
+                        <i class="fa-solid fa-chart-radar"></i> > SKILL_METRICS_RADAR
+                    </h3>
+                    <div class="flex items-center gap-4">
+                        <span x-show="expanded"
+                            class="text-[9px] font-mono text-green-400 animate-pulse hidden sm:inline-block">[ LIVE_RENDER
+                            ]</span>
+                        <button @click="expanded = !expanded; localStorage.setItem('skill_matrix_expanded', expanded)"
+                            type="button"
+                            class="text-[10px] font-mono text-muted hover:text-primary transition-colors focus:outline-none">
+                            <span x-text="expanded ? '[_COLLAPSE_]' : '[_EXPAND_]'"></span>
+                        </button>
+                    </div>
+                </div>
 
+                <div x-show="expanded" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform -translate-y-2"
+                    x-transition:enter-end="opacity-100 transform translate-y-0"
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                    {{-- 1. Skills by Category --}}
+                    <div
+                        class="relative border border-border/30 bg-[#050505] p-4 lg:col-span-2 group hover:border-primary/30 transition-colors">
+                        <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/50"></div>
+                        <p class="text-[9px] font-mono uppercase tracking-widest text-muted mb-4">> CATEGORY_DISTRIBUTION
+                        </p>
+                        <div class="relative h-56 w-full flex justify-center">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+
+                    {{-- 2. Skills Growth per Year --}}
+                    <div
+                        class="relative border border-border/30 bg-[#050505] p-4 lg:col-span-2 group hover:border-sky-400/30 transition-colors">
+                        <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-sky-400/50"></div>
+                        <p class="text-[9px] font-mono uppercase tracking-widest text-muted mb-4">> ANNUAL_GROWTH_RATE</p>
+                        <div class="relative h-56 w-full">
+                            <canvas id="growthChart"></canvas>
+                        </div>
+                    </div>
+
+                    {{-- 3. Icon Integrity --}}
+                    <div
+                        class="relative border border-border/30 bg-[#050505] p-4 group hover:border-amber-400/30 transition-colors">
+                        <div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-amber-400/50"></div>
+                        <p class="text-[9px] font-mono uppercase tracking-widest text-muted mb-4">> ICON_PAYLOAD_STATUS</p>
+                        <div class="relative h-40 w-full flex justify-center">
+                            <canvas id="iconChart"></canvas>
+                        </div>
+                    </div>
+
+                    {{-- 4. Description Integrity --}}
+                    <div
+                        class="relative border border-border/30 bg-[#050505] p-4 group hover:border-green-400/30 transition-colors">
+                        <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-green-400/50"></div>
+                        <p class="text-[9px] font-mono uppercase tracking-widest text-muted mb-4">> DESC_PAYLOAD_STATUS</p>
+                        <div class="relative h-40 w-full flex justify-center">
+                            <canvas id="descChart"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
             {{-- CONTROL PANEL & TAG CLOUD --}}
             <div class="relative border border-border/50 bg-surface/10 p-4 md:p-6 space-y-6">
 
@@ -180,6 +249,192 @@
 @endsection
 
 @push('scripts')
+    {{-- Load Chart.js --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // === KONFIGURASI GLOBAL HUD TEMA TERMINAL ===
+            Chart.defaults.color = '#71717a'; // text-muted
+            Chart.defaults.font.family = 'monospace';
+            Chart.defaults.font.size = 10;
+
+            const gridConfig = {
+                color: 'rgba(255, 255, 255, 0.05)',
+                tickColor: 'transparent'
+            };
+            const tooltipConfig = {
+                backgroundColor: 'rgba(5, 5, 5, 0.95)',
+                titleFont: {
+                    family: 'monospace',
+                    size: 11
+                },
+                bodyFont: {
+                    family: 'monospace',
+                    size: 10
+                },
+                borderColor: 'rgba(168, 85, 247, 0.5)',
+                borderWidth: 1,
+                cornerRadius: 0,
+                padding: 10
+            };
+
+            // Parse Data dari Controller
+            const rawData = {!! json_encode($chartData ?? []) !!};
+
+            const catData = rawData.category || {
+                'Frontend': 10,
+                'Backend': 8,
+                'Tools': 5
+            };
+            const growData = rawData.growth || {
+                '2022': 5,
+                '2023': 12,
+                '2024': 8
+            };
+            const iconData = rawData.icon || {
+                'Valid Icon': 20,
+                'No Icon': 3
+            };
+            const descData = rawData.desc || {
+                'Valid Desc': 15,
+                'No Desc': 8
+            };
+
+            // Palette Cyberpunk
+            const colors = {
+                primary: '#a855f7',
+                sky: '#38bdf8',
+                green: '#4ade80',
+                amber: '#fbbf24',
+                red: '#f87171',
+                bgPrimary: 'rgba(168, 85, 247, 0.2)',
+                bgSky: 'rgba(56, 189, 248, 0.2)'
+            };
+
+            // 1. CATEGORY DISTRIBUTION (Polar Area / Doughnut)
+            new Chart(document.getElementById('categoryChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(catData),
+                    datasets: [{
+                        data: Object.values(catData),
+                        backgroundColor: [colors.sky, colors.red, colors.amber, colors.primary],
+                        borderColor: '#050505',
+                        borderWidth: 2,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                boxWidth: 10,
+                                borderRadius: 0
+                            }
+                        },
+                        tooltip: tooltipConfig
+                    }
+                }
+            });
+
+            // 2. ANNUAL GROWTH RATE (Bar)
+            new Chart(document.getElementById('growthChart'), {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(growData),
+                    datasets: [{
+                        label: 'Nodes Added',
+                        data: Object.values(growData),
+                        backgroundColor: colors.bgSky,
+                        borderColor: colors.sky,
+                        borderWidth: 1,
+                        borderRadius: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            grid: gridConfig,
+                            beginAtZero: true
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: tooltipConfig
+                    }
+                }
+            });
+
+            // 3. ICON PAYLOAD (Pie)
+            new Chart(document.getElementById('iconChart'), {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(iconData),
+                    datasets: [{
+                        data: Object.values(iconData),
+                        backgroundColor: [colors.amber, '#1f2937'],
+                        borderColor: '#050505',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 8
+                            }
+                        },
+                        tooltip: tooltipConfig
+                    }
+                }
+            });
+
+            // 4. DESC PAYLOAD (Pie)
+            new Chart(document.getElementById('descChart'), {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(descData),
+                    datasets: [{
+                        data: Object.values(descData),
+                        backgroundColor: [colors.green, '#1f2937'],
+                        borderColor: '#050505',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 8
+                            }
+                        },
+                        tooltip: tooltipConfig
+                    }
+                }
+            });
+        });
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const tabs = document.querySelectorAll('.filter-btn');

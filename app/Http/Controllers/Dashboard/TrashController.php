@@ -26,7 +26,7 @@ class TrashController extends Controller
         $groupedProjects = collect();
         if (in_array($tab, ['all', 'projects'])) {
             $projectsQuery = Project::onlyTrashed();
-            
+
             if ($search) {
                 $projectsQuery->where('title', 'like', "%{$search}%");
             }
@@ -57,19 +57,38 @@ class TrashController extends Controller
             }
         }
 
-        // -- Skills Fetching Logic --
-        $skills = collect();
+        // -- Skills Fetching Logic (Grouped by Month) --
+        $groupedSkills = collect();
         if (in_array($tab, ['all', 'skills'])) {
-            $skillsQuery = Skill::onlyTrashed()->orderBy('deleted_at', $sort);
-            
+            $skillsQuery = Skill::onlyTrashed();
+
             if ($search) {
                 $skillsQuery->where('name', 'like', "%{$search}%");
             }
 
-            if ($multipleSelect) {
-                $skills = $skillsQuery->get();
-            } else {
-                $skills = $skillsQuery->paginate(12, ['*'], 'page_skills')->withQueryString();
+            $months = $skillsQuery->clone()
+                ->selectRaw("DATE_FORMAT(deleted_at, '%Y-%m') as month")
+                ->distinct()
+                ->orderBy('month', $sort)
+                ->pluck('month');
+
+            foreach ($months as $month) {
+                $query = Skill::onlyTrashed()
+                    ->whereRaw("DATE_FORMAT(deleted_at, '%Y-%m') = ?", [$month])
+                    ->orderBy('deleted_at', $sort);
+
+                if ($search) {
+                    $query->where('name', 'like', "%{$search}%");
+                }
+
+                if ($multipleSelect) {
+                    $skills = $query->get();
+                } else {
+                    $skills = $query->paginate(6, ['*'], "page_skills_$month")->withQueryString();
+                }
+
+                $formattedMonth = \Carbon\Carbon::createFromFormat('Y-m', $month)->format('F Y');
+                $groupedSkills->put($formattedMonth, $skills);
             }
         }
 
@@ -78,20 +97,20 @@ class TrashController extends Controller
         $totalTrashedSkills = Skill::onlyTrashed()->count();
         $totalTrashed = $totalTrashedProjects + $totalTrashedSkills;
 
-        $expiringSoon = Project::onlyTrashed()->get()->filter(function($p){
+        $expiringSoon = Project::onlyTrashed()->get()->filter(function ($p) {
             $deleteAt = $p->deleted_at->copy()->addDays(config('app.trash_retention_days'));
             return now()->diffInDays($deleteAt, false) <= 5
                 && now()->diffInDays($deleteAt, false) > 0;
         })->count();
 
         $data = compact(
-            'groupedProjects', 
-            'skills', 
-            'tab', 
-            'sort', 
-            'search', 
-            'multipleSelect', 
-            'totalTrashed', 
+            'groupedProjects',
+            'groupedSkills',
+            'tab',
+            'sort',
+            'search',
+            'multipleSelect',
+            'totalTrashed',
             'expiringSoon',
             'totalTrashedProjects',
             'totalTrashedSkills'

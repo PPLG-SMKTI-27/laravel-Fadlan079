@@ -1,18 +1,14 @@
 @extends('layouts.main')
-@section('title', 'Projecs')
+@section('title', 'Projects')
 @vite(['resources/css/project.css'])
 
 @section('content')
 
     <div class="relative min-h-screen bg-background overflow-hidden font-sans">
-        {{-- Global Faint HUD Grid --}}
         <div class="absolute inset-0 pointer-events-none opacity-[0.02] z-0"
             style="background-image: linear-gradient(var(--color-text) 1px, transparent 1px), linear-gradient(90deg, var(--color-text) 1px, transparent 1px); background-size: 64px 64px;">
         </div>
 
-        {{-- ========================================== --}}
-        {{-- 1. HERO SECTION                            --}}
-        {{-- ========================================== --}}
         <section id="projects-hero" class="relative z-10 pt-32 pb-16 max-w-7xl mx-auto px-6 space-y-8">
 
             <div class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-primary mb-4">
@@ -26,7 +22,7 @@
                     <span class="text-text block" data-i18n="project.hero.title"></span>
                     <span class="block text-muted/50 text-[clamp(2rem,5vw,4rem)]" data-i18n="project.hero.subtitle"></span>
                 </div>
-                {{-- Blinking Master Cursor --}}
+
                 <div class="hidden md:block w-6 h-16 bg-primary animate-pulse mb-3 shadow-[0_0_15px_var(--color-primary)]">
                 </div>
             </h1>
@@ -38,14 +34,9 @@
                 data-i18n="project.hero.note"></div>
         </section>
 
-        {{-- ========================================== --}}
-        {{-- 2. INDEX & METRICS SECTION                 --}}
-        {{-- ========================================== --}}
         <section id="projects-index" class="relative z-10 max-w-7xl mx-auto px-6 py-16 space-y-12">
 
-            {{-- HUD Summary Metrics --}}
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
-                {{-- Total Projects --}}
                 <div
                     class="relative border border-border/50 bg-surface/20 p-5 group hover:border-primary/50 transition-colors">
                     <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/50"></div>
@@ -58,7 +49,6 @@
                         {{ str_pad($summary['totalProjects'], 2, '0', STR_PAD_LEFT) }}</h3>
                 </div>
 
-                {{-- Categories --}}
                 <div
                     class="relative border border-border/50 bg-surface/20 p-5 group hover:border-sky-400/50 transition-colors">
                     <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-sky-400/50"></div>
@@ -71,7 +61,6 @@
                         {{ str_pad($summary['totalCategories'], 2, '0', STR_PAD_LEFT) }}</h3>
                 </div>
 
-                {{-- Active --}}
                 <div
                     class="relative border border-border/50 bg-surface/20 p-5 group hover:border-green-400/50 transition-colors">
                     <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-green-400/50"></div>
@@ -84,7 +73,6 @@
                         {{ str_pad($summary['activeCount'], 2, '0', STR_PAD_LEFT) }}</h3>
                 </div>
 
-                {{-- Inactive / Detailed --}}
                 <div
                     class="relative border border-border/50 bg-surface/20 p-5 group hover:border-amber-400/50 transition-colors">
                     <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-amber-400/50"></div>
@@ -93,7 +81,6 @@
                         <p class="text-[9px] font-mono uppercase tracking-widest text-muted flex items-center gap-2">
                             <i class="fa-solid fa-pause-circle text-amber-400"></i> Archive_Queue
                         </p>
-                        {{-- Tooltip Trigger (Hovering shows breakdown) --}}
                         @if ($summary['inactiveCount'] > 0)
                             <div class="relative group/tooltip cursor-help">
                                 <i
@@ -122,12 +109,10 @@
                 </div>
             </div>
 
-            {{-- HUD Control Panel (Search, Filters, Sort) --}}
             <div class="relative border border-border/50 bg-surface/10 p-4 md:p-6 space-y-6">
                 <div
                     class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 border-b border-border/50 pb-6">
 
-                    {{-- Search Terminal --}}
                     <div class="relative w-full md:w-1/2 group">
                         <div class="absolute left-4 top-1/2 -translate-y-1/2 font-mono text-primary text-sm">></div>
                         <input type="text" id="project-search" placeholder="SEARCH_PROJECT_NODES_"
@@ -137,7 +122,6 @@
                         </div>
                     </div>
 
-                    {{-- Sort Dropdown (Custom UI dipertahankan JS-nya) --}}
                     <div class="relative" id="sort-dropdown-wrapper">
                         <button id="sort-toggle"
                             class="w-full md:w-auto flex justify-between items-center gap-4 px-6 py-3 border border-border/70 bg-surface/30 font-mono text-[10px] font-bold uppercase tracking-widest text-muted hover:border-primary hover:text-primary transition-colors focus:outline-none">
@@ -164,7 +148,6 @@
                     </div>
                 </div>
 
-                {{-- HUD Filter Tabs --}}
                 <div class="flex flex-wrap gap-2 pb-2">
                     <button
                         class="filter-btn px-5 py-2 border font-mono text-[10px] font-bold uppercase tracking-widest transition-colors focus:outline-none border-primary bg-primary/10 text-primary"
@@ -181,14 +164,10 @@
                 </div>
             </div>
 
-            {{-- ========================================== --}}
-            {{-- 3. PROJECTS GRID (DIAMKAN 100% SAMA)       --}}
-            {{-- ========================================== --}}
             <div id="projects-grid"
                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-300 min-h-[400px]">
                 @forelse ($projects as $project)
 
-                    {{-- HTML CARD LAMA KAMU DIMULAI DARI SINI --}}
                     <div class="project-folder group relative border border-border bg-surface p-6 pt-12 ">
                         <div class="absolute top-0 left-6 -translate-y-1/2 flex gap-2 z-20">
                             <span class="px-4 py-1 text-xs uppercase tracking-widest badge-primary font-semibold">
@@ -244,10 +223,7 @@
                             </a>
                         </div>
                     </div>
-                    {{-- HTML CARD LAMA KAMU BERAKHIR DI SINI --}}
-
                 @empty
-                    {{-- HUD Empty State --}}
                     <div
                         class="col-span-full border border-border/50 bg-surface/10 py-20 px-6 flex flex-col items-center justify-center text-center relative overflow-hidden group">
                         <div
@@ -279,7 +255,6 @@
                 @endforelse
             </div>
 
-            {{-- HUD PAGINATION --}}
             @if ($projects->hasPages())
                 <div class="flex justify-center pt-8" id="projects-pagination">
                     <nav class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest">
@@ -317,11 +292,7 @@
 
         </section>
 
-        {{-- ========================================== --}}
-        {{-- 4. OUTRO / END SECTION                     --}}
-        {{-- ========================================== --}}
         <section id="projects-end" class="relative py-24 border-t border-border/50 overflow-hidden bg-surface/5">
-            {{-- HUD Decorative Graph --}}
             <div
                 class="absolute left-0 bottom-0 opacity-[0.05] pointer-events-none -translate-x-1/4 translate-y-1/4 text-primary">
                 <svg width="400" height="400" viewBox="0 0 100 100" fill="none" stroke="currentColor">
@@ -349,7 +320,6 @@
                     <div>
                         <h3 id="projects-end-title" data-i18n="project.end.title"
                             class="text-[clamp(2rem,5vw,3.5rem)] font-bold font-mono uppercase tracking-tighter text-text leading-[1.1] mb-4">
-                            {{-- Fallback jika JS i18n mati --}}
                             AWAITING_NEW_INPUT
                         </h3>
                         <p class="text-sm font-mono text-muted max-w-xl leading-relaxed border-l border-primary/30 pl-4"
@@ -358,7 +328,6 @@
                         </p>
                     </div>
 
-                    {{-- Back to Top HUD Button --}}
                     <div class="hidden md:flex flex-col items-center">
                         <a href="#projects-hero"
                             class="group flex items-center justify-center w-14 h-14 border border-border bg-surface/30 hover:bg-primary/10 hover:border-primary transition-all duration-300 relative">

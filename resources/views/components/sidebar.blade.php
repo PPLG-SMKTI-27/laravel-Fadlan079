@@ -30,7 +30,7 @@
             @endphp
 
             <a href="{{ $menu['href'] }}"
-                class="group relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                class="group relative flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200
                       {{ $isActive ? 'bg-primary/10 text-primary' : 'text-muted hover:bg-border/50 hover:text-text' }}">
 
                 @if ($isActive)
@@ -51,20 +51,7 @@
         @endphp
 
         <a href="{{ route('dashboard.settings') }}" 
-           class="group relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
-                  {{ $isSettingsActive ? 'bg-primary/10 text-primary' : 'text-muted hover:bg-border/50 hover:text-text' }}">
-            
-            @if ($isSettingsActive)
-                <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 rounded-r-full bg-primary shadow-[0_0_8px_var(--color-primary)]"></span>
-            @endif
-
-            <i class="w-5 text-center fa-solid fa-gear {{ $isSettingsActive ? 'text-primary' : 'text-muted group-hover:text-text' }} transition-all duration-300 group-hover:animate-[spin_3s_linear_infinite]"></i>
-            
-            <span class="transition-transform duration-300 group-hover:translate-x-1">Settings</span>
-        </a>
-
-        <a href="{{ route('dashboard.settings') }}" 
-           class="group relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+           class="group relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all duration-200
                   {{ $isSettingsActive ? 'bg-primary/10 text-primary' : 'text-muted hover:bg-border/50 hover:text-text' }}">
             
             @if ($isSettingsActive)
