@@ -1,17 +1,19 @@
 {
     "home": {
-        "cta_label": "Tersedia untuk bekerja",
+        "cta_label": "Tersedia untuk kolaborasi",
         "cta_title": "Punya proyek yang ingin diwujudkan?",
         "cta_subtitle": "Mari kita bangun.",
         "cta_desc": "Baik itu struktur aplikasi web, dasbor modern, maupun antarmuka dinamis, saya siap mengubah visi Anda menjadi kenyataan.",
-        "cta_btn_primary": "[ EKSEKUSI: PROYEK_BARU ]",
+        "cta_btn_primary": "[ PROYEK_BARU ]",
+        "cta_btn_secondary": "KIRIM PESAN",
         "cta_marquee": "MARI KITA BANGUN — PUNYA PROYEK? —",
+        "featured": "karya unggulan",
+        "featured_desc": "Proyek pilihan yang menyoroti solusi praktis, arsitektur bersih, dan praktik pengembangan web modern.",
         "skills_cad": {
-            "title_system": "Sistem",
-            "title_arch": "Arsitektur",
-            "desc": "Spesifikasi kemampuan teknis. Pilih salah satu sektor untuk mengisolasi dan memperluas tampilan skema."
+            "desc": "Gambaran umum teknologi dan frameworks inti. Pilih kategori untuk melihat keahlian dan alat yang terperinci."
         }
     },
+
     "nav": {
         "home": "Beranda",
         "about": "Tentang",
@@ -21,6 +23,7 @@
         "education": "Pendidikan",
         "contact": "Kontak"
     },
+
     "login": {
         "subtitle": "Silakan masuk ke akun Anda",
         "password": "Kata Sandi",
@@ -36,6 +39,7 @@
             "have_account": "Sudah terdaftar? Login"
         }
     },
+
     "email_required": "Email wajib diisi.",
     "email_email": "Email harus berupa alamat email yang valid.",
     "password_required": "Kata sandi wajib diisi.",
@@ -44,6 +48,7 @@
         "hi": "Hai, saya",
         "description": "Fokus membangun aplikasi web modern dengan struktur <strong class='text-text'>backend</strong> yang jelas, <strong class='text-text'>frontend</strong> responsif, dan sistem siap produksi."
     },
+
     "about": {
         "title": "TENTANG",
         "hero_outline": "STRUKTUR<br>DAN PERILAKU",
@@ -71,11 +76,24 @@
         ],
         "constraints_title": "BATASAN",
         "constraints_lines": [
-            "SEDIKIT,TAPI BERMAKNA",
-            "TIDAK ADA DEKORASI TANPA TUJUAN",
-            "GERAKAN HARUS MENJELASKAN TUJUAN",
-            "STRUKTUR LEBIH DULU ,GAYA MENYUSUL"
+            "FUNGSIONALITAS DI ATAS KOMPLEKSITAS",
+            "OPTIMASI UNTUK KEMUDAHAN PEMELIHARAAN",
+            "ANTISIPASI DAN TANGANI KEGAGALAN"
         ],
+        "visions": {
+            "label": "Peta_Karier",
+            "title": "Visi <br> Masa Depan",
+            "short_term": {
+                "label": "Jangka_Pendek // 1-2 Tahun",
+                "title": "Menguasai & Merilis",
+                "desc": "Berfokus pada membangun aplikasi web berkualitas tinggi dan dapat diskalakan untuk dunia nyata. Saya ingin memperdalam keahlian saya dalam kerangka kerja modern, mengoptimalkan kinerja, dan memberikan pengalaman pengguna yang mulus."
+            },
+            "long_term": {
+                "label": "Jangka_Panjang // 3-5+ Tahun",
+                "title": "Kepemimpinan Teknis & Open Source",
+                "desc": "Berkembang menjadi Tech Lead atau System Architect. Saya bertujuan untuk memberikan kontribusi signifikan kepada komunitas open-source, membangun alat yang membantu pengembang lain, dan membimbing generasi berikutnya."
+            }
+        },
         "end": {
             "cta_title": "Struktur yang kokoh,",
             "cta_subtitle": "eksekusi yang bersih.",
@@ -83,6 +101,7 @@
             "auth_by": "Diautentikasi oleh"
         }
     },
+
     "project": {
         "hero": {
             "title": "Proyek",
@@ -117,6 +136,7 @@
             "back_to_top": "Kembali ke atas"
         }
     },
+
     "contact": {
         "hero": {
             "breadcrumb": "index / kontak",
@@ -158,6 +178,7 @@
             "description": "Niat yang jelas, komunikasi yang jujur, dan saling menghormati adalah fondasi dari setiap kolaborasi yang bermakna."
         }
     },
+
     "footer": {
         "description": "Dibangun dengan struktur, kejelasan, dan tujuan.",
         "quick_links": "Tautan Cepat",

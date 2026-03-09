@@ -8,9 +8,6 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
-    /**
-     * Resolve the profile photo URL (from storage or default public file).
-     */
     private function profilePhotoUrl(): string
     {
         $user = User::first();
@@ -23,9 +20,11 @@ class HomeController extends Controller
     public function index()
     {
         $recentProjects = Project::recent(5)->get();
-        // Only fetch skills that have at least 1 associated project (unlocked)
+
         $skills = \App\Models\Skill::has('projects')->withCount('projects')->get();
+
         $profilePhoto = $this->profilePhotoUrl();
+
         $user = User::first();
         $setting = $user ? $user->setting : null;
 
@@ -34,7 +33,50 @@ class HomeController extends Controller
         $showSeconds = $setting->show_seconds ?? true;
         $showDate = $setting->show_date ?? true;
 
-        return view('pages.home', compact('recentProjects', 'skills', 'profilePhoto', 'showClock', 'clockFormat', 'showSeconds', 'showDate'));
+        $waRaw = $user?->whatsapp;
+        $waLink = $waRaw
+            ? 'https://wa.me/' . preg_replace('/[^0-9]/', '', $waRaw)
+            : '#';
+
+        $igRaw = $user?->instagram;
+        $igLink = $igRaw
+            ? (str_starts_with($igRaw, 'http')
+                ? $igRaw
+                : 'https://instagram.com/' . ltrim($igRaw, '@'))
+            : '#';
+
+        $ghRaw = $user?->github;
+        $ghLink = $ghRaw
+            ? (str_starts_with($ghRaw, 'http')
+                ? $ghRaw
+                : 'https://github.com/' . ltrim($ghRaw, '@'))
+            : '#';
+
+        $liRaw = $user?->linkedin;
+        $liLink = $liRaw
+            ? (str_starts_with($liRaw, 'http')
+                ? $liRaw
+                : 'https://linkedin.com/in/' . ltrim($liRaw, '@'))
+            : '#';
+
+        $emailLink = $user?->email
+            ? 'mailto:' . $user->email
+            : '#';
+
+        return view('pages.Home.home', compact(
+            'recentProjects',
+            'skills',
+            'profilePhoto',
+            'showClock',
+            'clockFormat',
+            'showSeconds',
+            'showDate',
+            'waLink',
+            'igLink',
+            'ghLink',
+            'liLink',
+            'emailLink'
+        ));
     }
 
     public function Showabout()

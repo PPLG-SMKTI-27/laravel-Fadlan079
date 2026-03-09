@@ -3,7 +3,6 @@
 @vite(['resources/css/project.css'])
 
 @section('content')
-
     <div class="relative min-h-screen bg-background overflow-hidden font-sans">
         <div class="absolute inset-0 pointer-events-none opacity-[0.02] z-0"
             style="background-image: linear-gradient(var(--color-text) 1px, transparent 1px), linear-gradient(90deg, var(--color-text) 1px, transparent 1px); background-size: 64px 64px;">
@@ -236,13 +235,11 @@
                             > SYS_ALERT
                         </p>
 
-                        <h3 class="text-xl font-mono font-bold uppercase tracking-widest text-text max-w-xl"
-                            >
+                        <h3 class="text-xl font-mono font-bold uppercase tracking-widest text-text max-w-xl">
                             NO_RECORDS_FOUND
                         </h3>
 
-                        <p class="mt-3 text-xs font-mono text-muted/70 max-w-md leading-relaxed"
-                            >
+                        <p class="mt-3 text-xs font-mono text-muted/70 max-w-md leading-relaxed">
                             Current query parameters yielded zero results from the database matrix.
                         </p>
 

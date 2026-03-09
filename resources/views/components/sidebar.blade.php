@@ -1,19 +1,29 @@
 <style>
-/* --- MOBILE HUD NAVBAR STYLES (DASHBOARD EDITION) --- */
-.hud-navbar {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    background-color: color-mix(in srgb, var(--color-background) 85%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    /* --- MOBILE HUD NAVBAR STYLES (DASHBOARD EDITION) --- */
+    .hud-navbar {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background-color: color-mix(in srgb, var(--color-background) 85%, transparent);
+        border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    }
+
+    .hud-brand {
+        font-family: monospace;
+        font-weight: 700;
+        color: var(--color-primary);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    /* Hide scrollbar tapi tetap bisa scroll */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
 }
 
-.hud-brand {
-    font-family: monospace;
-    font-weight: 700;
-    color: var(--color-primary);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+.hide-scrollbar {
+    -ms-overflow-style: none;  /* IE & Edge lama */
+    scrollbar-width: none;     /* Firefox */
 }
 </style>
 
@@ -29,10 +39,11 @@
     <div class="absolute bottom-0 left-0 w-8 h-[1px] bg-primary/50 pointer-events-none"></div>
 
     <div class="px-4 py-1.5 flex justify-between items-center">
-        
+
         {{-- Brand / Init Sequence --}}
         <div class="flex items-center gap-2 cursor-default select-none group">
-            <div class="w-1.5 h-4 bg-primary animate-pulse group-hover:scale-y-125 transition-transform duration-300"></div>
+            <div class="w-1.5 h-4 bg-primary animate-pulse group-hover:scale-y-125 transition-transform duration-300">
+            </div>
             <div class="flex flex-col">
                 <h1 class="hud-brand text-xs sm:text-sm leading-none">
                     {{ $brand ?? 'SYS_ADMIN' }}
@@ -43,12 +54,16 @@
         {{-- Control Modules --}}
         <div class="flex items-center gap-4">
             {{-- Theme Toggle --}}
-            <button onclick="toggleTheme()" class="text-muted hover:text-primary transition-colors flex items-center justify-center" title="Toggle UI Theme">
+            <button onclick="toggleTheme()"
+                class="text-muted hover:text-primary transition-colors flex items-center justify-center"
+                title="Toggle UI Theme">
                 <i id="themeIcon" class="fa-solid fa-moon text-sm"></i>
             </button>
 
             {{-- Lang Toggle --}}
-            <button id="langToggle" class="text-muted hover:text-primary transition-colors flex items-center justify-center grayscale hover:grayscale-0" title="Switch Language">
+            <button id="langToggle"
+                class="text-muted hover:text-primary transition-colors flex items-center justify-center grayscale hover:grayscale-0"
+                title="Switch Language">
                 <span id="langFlag" class="fi fi-id w-4 h-3 rounded-sm"></span>
             </button>
 
@@ -89,66 +104,54 @@
         </button>
     </div>
 
-    <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1 custom-scrollbar">
-        <p class="px-2 text-[10px] font-mono uppercase tracking-widest text-muted mb-4">Core Modules</p>
+    <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1 hide-scrollbar">
 
-        @foreach ($menus as $menu)
+        @foreach ($menuGroups ?? [] as $groupName => $items)
             @php
-                $isActive = request()->routeIs($menu['route'] ?? '');
+                // Check if any item in this group is active
+                $isGroupActive = collect($items)->contains(function ($item) {
+                    return request()->routeIs($item['route'] ?? '');
+                });
             @endphp
+            <div class="sidebar-group" data-group="{{ Str::slug($groupName) }}">
+                <button type="button"
+                    class="w-full flex items-center justify-between px-2 py-1 mb-2 text-[10px] font-mono uppercase tracking-widest text-muted hover:text-text transition-colors group-toggle">
+                    <span>{{ $groupName }}</span>
+                    <i
+                        class="fa-solid fa-chevron-down transition-transform duration-300 {{ $isGroupActive ? 'rotate-180' : '' }}"></i>
+                </button>
 
-            <a href="{{ $menu['href'] }}"
-                class="group relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all duration-200
-                      {{ $isActive ? 'bg-primary/10 text-primary border border-primary/30' : 'text-muted border border-transparent hover:bg-surface hover:border-border hover:text-text' }}">
+                <div
+                    class="menu-list space-y-1 overflow-hidden transition-all duration-300 ease-in-out origin-top {{ $isGroupActive ? 'max-h-[500px] opacity-100 mt-2' : 'max-h-0 opacity-0 mt-0 pointer-events-none' }}">
+                    @foreach ($items as $menu)
+                        @php
+                            $isActive = request()->routeIs($menu['route'] ?? '');
+                            $iconClass = $menu['icon'] ?? 'fa-solid fa-layer-group';
+                            // Special animation logic for settings icon if exact match
+                            $iconHoverClass = str_contains($iconClass, 'fa-gear')
+                                ? 'group-hover:animate-[spin_3s_linear_infinite]'
+                                : 'transform group-hover:scale-120 group-hover:-rotate-10';
+                        @endphp
+                        <a href="{{ $menu['href'] }}"
+                            class="group relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all duration-200
+                                  {{ $isActive ? 'bg-primary/10 text-primary border border-primary/30' : 'text-muted border border-transparent hover:bg-surface hover:border-border hover:text-text' }}">
 
-                @if ($isActive)
-                    <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-primary shadow-[0_0_8px_var(--color-primary)]"></span>
-                @endif
+                            @if ($isActive)
+                                <span
+                                    class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-primary shadow-[0_0_8px_var(--color-primary)]"></span>
+                            @endif
 
-                <i class="w-5 text-center {{ $menu['icon'] ?? 'fa-solid fa-layer-group' }} {{ $isActive ? 'text-primary' : 'text-muted group-hover:text-text' }} transition-all duration-300 group-hover:scale-110"></i>
-                
-                <span class="transition-transform duration-300 group-hover:translate-x-1 font-mono uppercase tracking-widest">{{ $menu['label'] }}</span>
-            </a>
+                            <i
+                                class="w-5 text-center {{ $iconClass }} {{ $isActive ? 'text-primary' : 'text-muted group-hover:text-text' }} transition-all duration-300 {{ $iconHoverClass }}"></i>
+
+                            <span
+                                class="transition-transform duration-300 group-hover:translate-x-1 font-mono uppercase tracking-widest">{{ $menu['label'] }}</span>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
         @endforeach
 
-        <div class="pt-6 mt-6 border-t border-border/50"></div>
-        <p class="px-2 text-[10px] font-mono uppercase tracking-widest text-muted mb-4">System Config</p>
-
-        {{-- Settings Menu --}}
-        @php
-            $isSettingsActive = request()->routeIs('dashboard.settings'); 
-        @endphp
-
-        <a href="{{ route('dashboard.settings') }}" 
-           class="group relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all duration-200
-                 {{ $isSettingsActive ? 'bg-primary/10 text-primary border border-primary/30' : 'text-muted border border-transparent hover:bg-surface hover:border-border hover:text-text' }}">
-            
-            @if ($isSettingsActive)
-                <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-primary shadow-[0_0_8px_var(--color-primary)]"></span>
-            @endif
-
-            <i class="w-5 text-center fa-solid fa-gear {{ $isSettingsActive ? 'text-primary' : 'text-muted group-hover:text-text' }} transition-all duration-300 group-hover:animate-[spin_3s_linear_infinite]"></i>
-            
-            <span class="transition-transform duration-300 group-hover:translate-x-1 font-mono uppercase tracking-widest">Settings</span>
-        </a>
-
-        {{-- Account Menu --}}
-        @php
-            $isAccountActive = request()->routeIs('dashboard.account.*');
-        @endphp
-
-        <a href="{{ route('dashboard.account.edit') }}" 
-           class="group relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all duration-200
-                 {{ $isAccountActive ? 'bg-primary/10 text-primary border border-primary/30' : 'text-muted border border-transparent hover:bg-surface hover:border-border hover:text-text' }}">
-            
-            @if ($isAccountActive)
-                <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-primary shadow-[0_0_8px_var(--color-primary)]"></span>
-            @endif
-
-            <i class="w-5 text-center fa-solid fa-user-astronaut {{ $isAccountActive ? 'text-primary' : 'text-muted group-hover:text-text' }} transition-all duration-300 group-hover:-translate-y-1"></i>
-            
-            <span class="transition-transform duration-300 group-hover:translate-x-1 font-mono uppercase tracking-widest">User Registry</span>
-        </a>
     </nav>
 
     {{-- Bottom Action Area --}}
@@ -195,4 +198,24 @@
         const overlay = document.getElementById('sidebarOverlay');
         overlay.classList.add('opacity-0', 'pointer-events-none');
     };
+
+    document.querySelectorAll('.group-toggle').forEach(button => {
+        button.addEventListener('click', () => {
+            const container = button.nextElementSibling;
+            const icon = button.querySelector('.fa-chevron-down');
+
+            // Toggle classes
+            if (container.classList.contains('max-h-0')) {
+                // Open
+                container.classList.remove('max-h-0', 'opacity-0', 'mt-0', 'pointer-events-none');
+                container.classList.add('max-h-[500px]', 'opacity-100', 'mt-2');
+                icon.classList.add('rotate-180');
+            } else {
+                // Close
+                container.classList.add('max-h-0', 'opacity-0', 'mt-0', 'pointer-events-none');
+                container.classList.remove('max-h-[500px]', 'opacity-100', 'mt-2');
+                icon.classList.remove('rotate-180');
+            }
+        });
+    });
 </script>

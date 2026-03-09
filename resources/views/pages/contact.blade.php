@@ -6,14 +6,10 @@
 @section('content')
 
     <div class="relative min-h-screen bg-background overflow-hidden font-sans">
-        {{-- Global Faint HUD Grid --}}
         <div class="absolute inset-0 pointer-events-none opacity-[0.02] z-0"
             style="background-image: linear-gradient(var(--color-text) 1px, transparent 1px), linear-gradient(90deg, var(--color-text) 1px, transparent 1px); background-size: 64px 64px;">
         </div>
 
-        {{-- ========================================== --}}
-        {{-- 1. HERO SECTION                            --}}
-        {{-- ========================================== --}}
         <section id="contact-hero" class="relative z-10 pt-32 pb-16 max-w-7xl mx-auto px-6 space-y-8">
 
             <div class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-primary mb-4">
@@ -28,7 +24,7 @@
                     <span class="block text-muted/50 text-[clamp(2rem,5vw,4rem)]"
                         data-i18n="contact.hero.subtitle">ESTABLISH_UPLINK</span>
                 </div>
-                {{-- Blinking Master Cursor --}}
+
                 <div class="hidden md:block w-6 h-16 bg-primary animate-pulse mb-3 shadow-[0_0_15px_var(--color-primary)]">
                 </div>
             </h1>
@@ -40,9 +36,6 @@
             </p>
         </section>
 
-        {{-- ========================================== --}}
-        {{-- 2. TRANSMISSION MODULE (FORM)              --}}
-        {{-- ========================================== --}}
         <section id="request-section" class="relative z-10 max-w-6xl mx-auto px-6 py-20 space-y-12">
 
             <header id="request-header" class="space-y-4 max-w-xl border-b border-border/50 pb-6">
@@ -56,17 +49,14 @@
 
             <div class="grid md:grid-cols-[1fr_300px] gap-8 items-start">
 
-                {{-- ══ THE TERMINAL FORM ══ --}}
                 <div
                     class="relative border border-border/50 bg-surface/10 p-1 group hover:border-primary/50 transition-colors">
 
-                    {{-- HUD Corners --}}
                     <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary/50"></div>
                     <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-primary/50"></div>
 
                     <div class="bg-[#050505] p-6 md:p-8 flex flex-col h-full">
 
-                        {{-- Terminal Header --}}
                         <div class="flex items-center justify-between border-b border-border/30 pb-4 mb-6">
                             <div class="flex items-center gap-3">
                                 <i class="fa-solid fa-terminal text-primary"></i>
@@ -74,7 +64,6 @@
                                     class="text-sm font-mono font-bold uppercase tracking-widest text-text">COMMS_INTERFACE</span>
                             </div>
 
-                            {{-- Method Tabs --}}
                             <div class="flex items-center gap-2 border border-border/50 p-1 bg-surface/30"
                                 id="contact-method-tabs">
                                 <button type="button" data-method="email"
@@ -88,12 +77,10 @@
                             </div>
                         </div>
 
-                        {{-- Form Fields --}}
                         <form action="{{ route('portofolio.contact.send') }}" method="POST" class="space-y-6">
                             @csrf
                             <input type="hidden" name="method" id="input-method" value="{{ old('method', 'email') }}">
 
-                            {{-- Metadata: Type --}}
                             <div class="space-y-3">
                                 <span
                                     class="text-[10px] font-mono uppercase tracking-widest text-primary flex items-center gap-2"
@@ -128,7 +115,6 @@
                                 </div>
                             </div>
 
-                            {{-- Metadata: Sender --}}
                             <div class="space-y-3 relative group">
                                 <label for="input-sender" id="label-sender"
                                     class="text-[10px] font-mono uppercase tracking-widest text-primary flex items-center gap-2 group-focus-within:text-sky-400 transition-colors"
@@ -153,7 +139,6 @@
                                     0812... or +62812...</p>
                             </div>
 
-                            {{-- Metadata: Subject --}}
                             <div class="space-y-3 relative group">
                                 <label for="input-subject"
                                     class="text-[10px] font-mono uppercase tracking-widest text-primary flex items-center gap-2 group-focus-within:text-sky-400 transition-colors"
@@ -176,7 +161,6 @@
                                 @enderror
                             </div>
 
-                            {{-- Body: Message --}}
                             <div class="space-y-3 relative group pt-4 border-t border-border/30">
                                 <label for="input-message"
                                     class="text-[10px] font-mono uppercase tracking-widest text-primary flex items-center gap-2 group-focus-within:text-sky-400 transition-colors">
@@ -194,7 +178,6 @@
                                 @enderror
                             </div>
 
-                            {{-- Submit Action --}}
                             <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                                 <div
                                     class="text-[10px] font-mono text-muted uppercase tracking-widest flex items-center gap-2">
@@ -213,7 +196,6 @@
                     </div>
                 </div>
 
-                {{-- ══ SIDEBAR: LOG HISTORY ══ --}}
                 <div id="system-note" class="hidden md:flex flex-col gap-4">
                     <div class="border border-border/50 bg-surface/10 p-5 space-y-5">
                         <p class="text-[10px] font-mono uppercase tracking-widest text-primary border-b border-border/50 pb-2 flex items-center gap-2"
@@ -221,7 +203,6 @@
                             <i class="fa-solid fa-server"></i> RECENT_LOGS
                         </p>
 
-                        {{-- Log 1 --}}
                         <div class="flex items-start gap-3 group">
                             <div class="w-1.5 h-1.5 bg-green-500 mt-1.5 shadow-[0_0_5px_#22c55e]"></div>
                             <div>
@@ -233,7 +214,6 @@
                             </div>
                         </div>
 
-                        {{-- Log 2 --}}
                         <div class="flex items-start gap-3 group">
                             <div class="w-1.5 h-1.5 bg-amber-400 mt-1.5 shadow-[0_0_5px_#fbbf24] animate-pulse"></div>
                             <div>
@@ -245,7 +225,6 @@
                             </div>
                         </div>
 
-                        {{-- Current Draft --}}
                         <div class="flex items-start gap-3 opacity-50">
                             <div class="w-1.5 h-1.5 bg-border mt-1.5 border border-muted"></div>
                             <div>
@@ -268,9 +247,6 @@
             </div>
         </section>
 
-        {{-- ========================================== --}}
-        {{-- 3. EXTERNAL SIGNAL NODES (SOCIAL)          --}}
-        {{-- ========================================== --}}
         <section id="social-section" class="max-w-6xl mx-auto px-6 pb-32 space-y-12">
 
             <header id="social-header" class="space-y-4 max-w-xl">
@@ -307,7 +283,6 @@
                     $liLabel = str_starts_with($liRaw, 'http') ? parse_url($liRaw, PHP_URL_PATH) : $liRaw;
                 @endphp
 
-                {{-- Instagram Node --}}
                 <a href="{{ $igLink }}" target="_blank" rel="noopener"
                     class="group relative border border-border/50 bg-surface/10 p-6 flex flex-col justify-between min-h-[220px] hover:border-primary/50 transition-all duration-300 hover:bg-primary/5">
                     <div
@@ -336,13 +311,11 @@
                             {{ trim($igLabel, '/') }}
                         </p>
                     </div>
-                    {{-- HUD Background Glitch --}}
                     <div
                         class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(var(--color-primary-rgb),0.02)_4px,rgba(var(--color-primary-rgb),0.02)_8px)] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                     </div>
                 </a>
 
-                {{-- GitHub Node --}}
                 <a href="{{ $ghLink }}" target="_blank" rel="noopener"
                     class="group relative border border-border/50 bg-surface/10 p-6 flex flex-col justify-between min-h-[220px] hover:border-primary/50 transition-all duration-300 hover:bg-primary/5">
                     <div
@@ -375,7 +348,6 @@
                     </div>
                 </a>
 
-                {{-- LinkedIn Node --}}
                 <a href="{{ $liLink }}" target="_blank" rel="noopener"
                     class="group relative border border-border/50 bg-surface/10 p-6 flex flex-col justify-between min-h-[220px] hover:border-primary/50 transition-all duration-300 hover:bg-primary/5">
                     <div
@@ -412,9 +384,6 @@
             </div>
         </section>
 
-        {{-- ========================================== --}}
-        {{-- 4. OUTRO / END SECTION                     --}}
-        {{-- ========================================== --}}
         <section id="contact-end" class="relative py-24 border-t border-border/50 overflow-hidden bg-surface/5">
             <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-[1fr_auto] gap-10 items-end relative z-10">
 
@@ -436,7 +405,6 @@
                     </p>
                 </div>
 
-                {{-- Decorative Radar Radar --}}
                 <div
                     class="hidden md:flex items-center justify-center w-32 h-32 border border-primary/30 rounded-full relative group">
                     <div
@@ -455,14 +423,11 @@
 
             </div>
         </section>
-
     </div>
-
 @endsection
 
 @push('head')
     <style>
-        /* Custom Scrollbar for Textarea */
         .custom-scrollbar::-webkit-scrollbar {
             width: 4px;
         }
