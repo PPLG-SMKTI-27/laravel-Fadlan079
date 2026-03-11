@@ -1,0 +1,12 @@
+[11-Mar-2026 05:21:07 UTC] PHP Warning:  require(/home/xburvzmu/fadlan.f3bytes.my.id/public/vendor/autoload.php): Failed to open stream: No such file or directory in /home/xburvzmu/fadlan.f3bytes.my.id/public/index.php on line 14
+[11-Mar-2026 05:21:07 UTC] PHP Warning:  require(/home/xburvzmu/fadlan.f3bytes.my.id/public/vendor/autoload.php): Failed to open stream: No such file or directory in /home/xburvzmu/fadlan.f3bytes.my.id/public/index.php on line 14
+[11-Mar-2026 05:21:07 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/xburvzmu/fadlan.f3bytes.my.id/public/vendor/autoload.php' (include_path='.:/opt/alt/php84/usr/share/pear:/opt/alt/php84/usr/share/php:/usr/share/pear:/usr/share/php') in /home/xburvzmu/fadlan.f3bytes.my.id/public/index.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/xburvzmu/fadlan.f3bytes.my.id/public/index.php on line 14
+[11-Mar-2026 05:21:09 UTC] PHP Warning:  require(/home/xburvzmu/fadlan.f3bytes.my.id/public/vendor/autoload.php): Failed to open stream: No such file or directory in /home/xburvzmu/fadlan.f3bytes.my.id/public/index.php on line 14
+[11-Mar-2026 05:21:09 UTC] PHP Warning:  require(/home/xburvzmu/fadlan.f3bytes.my.id/public/vendor/autoload.php): Failed to open stream: No such file or directory in /home/xburvzmu/fadlan.f3bytes.my.id/public/index.php on line 14
+[11-Mar-2026 05:21:09 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/xburvzmu/fadlan.f3bytes.my.id/public/vendor/autoload.php' (include_path='.:/opt/alt/php84/usr/share/pear:/opt/alt/php84/usr/share/php:/usr/share/pear:/usr/share/php') in /home/xburvzmu/fadlan.f3bytes.my.id/public/index.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/xburvzmu/fadlan.f3bytes.my.id/public/index.php on line 14
