@@ -69,7 +69,7 @@ class HomeController extends Controller
             ? 'mailto:' . $user->email
             : '#';
 
-        return view('pages.Home.home', compact(
+        return view('pages.home.home', compact(
             'recentProjects',
             'skills',
             'profilePhoto',
