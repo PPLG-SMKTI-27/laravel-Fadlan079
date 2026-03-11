@@ -57,21 +57,21 @@
 
                     <div class="bg-[#050505] p-6 md:p-8 flex flex-col h-full">
 
-                        <div class="flex items-center justify-between border-b border-border/30 pb-4 mb-6">
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 border-b border-border/30 pb-4 mb-6">
                             <div class="flex items-center gap-3">
                                 <i class="fa-solid fa-terminal text-primary"></i>
                                 <span
                                     class="text-sm font-mono font-bold uppercase tracking-widest text-text">COMMS_INTERFACE</span>
                             </div>
 
-                            <div class="flex items-center gap-2 border border-border/50 p-1 bg-surface/30"
+                            <div class="flex items-stretch sm:items-center gap-1 sm:gap-2 border border-border/50 p-1 bg-surface/30 w-full sm:w-auto"
                                 id="contact-method-tabs">
                                 <button type="button" data-method="email"
-                                    class="method-tab active px-3 py-1 text-[10px] font-mono uppercase tracking-widest transition-colors bg-primary/20 text-primary border border-primary/50">
+                                    class="method-tab active flex-1 sm:flex-none px-2 sm:px-3 py-2 sm:py-1 text-[10px] font-mono uppercase tracking-widest transition-colors bg-primary/20 text-primary border border-primary/50">
                                     [ SMTP ]
                                 </button>
                                 <button type="button" data-method="wa"
-                                    class="method-tab px-3 py-1 text-[10px] font-mono uppercase tracking-widest transition-colors text-muted hover:text-text border border-transparent">
+                                    class="method-tab flex-1 sm:flex-none px-2 sm:px-3 py-2 sm:py-1 text-[10px] font-mono uppercase tracking-widest transition-colors text-muted hover:text-text border border-transparent">
                                     [ WHATSAPP ]
                                 </button>
                             </div>
@@ -87,12 +87,12 @@
                                     data-i18n="contact.folder.field_type">
                                     > PARAM_01: PAYLOAD_TYPE
                                 </span>
-                                <div class="flex flex-wrap gap-3">
+                                <div class="grid grid-cols-1 sm:flex sm:flex-wrap gap-2 sm:gap-3">
                                     <label class="cursor-pointer relative">
                                         <input type="radio" name="type" value="project" class="peer sr-only"
                                             {{ old('type', 'project') === 'project' ? 'checked' : '' }}>
                                         <div
-                                            class="px-4 py-2 border border-border/50 bg-surface/20 text-[10px] font-mono uppercase tracking-widest text-muted peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary transition-colors">
+                                            class="w-full text-center sm:text-left px-3 py-2 sm:px-4 sm:py-2 border border-border/50 bg-surface/20 text-[10px] font-mono uppercase tracking-widest text-muted peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary transition-colors">
                                             [ INIT_PROJECT ]
                                         </div>
                                     </label>
@@ -100,7 +100,7 @@
                                         <input type="radio" name="type" value="collab" class="peer sr-only"
                                             {{ old('type') === 'collab' ? 'checked' : '' }}>
                                         <div
-                                            class="px-4 py-2 border border-border/50 bg-surface/20 text-[10px] font-mono uppercase tracking-widest text-muted peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary transition-colors">
+                                            class="w-full text-center sm:text-left px-3 py-2 sm:px-4 sm:py-2 border border-border/50 bg-surface/20 text-[10px] font-mono uppercase tracking-widest text-muted peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary transition-colors">
                                             [ COLLAB_SYNC ]
                                         </div>
                                     </label>
@@ -108,7 +108,7 @@
                                         <input type="radio" name="type" value="inquiry" class="peer sr-only"
                                             {{ old('type') === 'inquiry' ? 'checked' : '' }}>
                                         <div
-                                            class="px-4 py-2 border border-border/50 bg-surface/20 text-[10px] font-mono uppercase tracking-widest text-muted peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary transition-colors">
+                                            class="w-full text-center sm:text-left px-3 py-2 sm:px-4 sm:py-2 border border-border/50 bg-surface/20 text-[10px] font-mono uppercase tracking-widest text-muted peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary transition-colors">
                                             [ GEN_INQUIRY ]
                                         </div>
                                     </label>
