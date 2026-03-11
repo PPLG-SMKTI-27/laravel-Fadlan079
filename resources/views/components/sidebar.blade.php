@@ -183,6 +183,13 @@
             </div>
         </div>
 
+        {{-- Back to Public Site --}}
+        <a href="{{ route('portofolio.home') }}" target="_blank"
+            class="w-full group flex items-center justify-between px-4 py-3 rounded-none text-[10px] font-mono font-bold uppercase tracking-widest text-muted hover:bg-primary/10 hover:text-primary transition-colors border border-border hover:border-primary/30">
+            <span>Public_View</span>
+            <i class="fa-solid fa-arrow-up-right-from-square opacity-50 group-hover:opacity-100"></i>
+        </a>
+
         {{-- Logout Button --}}
         <form method="POST" action="{{ route('logout') }}">
             @csrf
