@@ -219,20 +219,71 @@
 
 /* --- 5. MEDIA QUERIES --- */
 @media (max-width: 768px) {
+    /* Ribbons on Mobile */
+    .ribbon {
+        width: 300%;
+        left: -100%;
+    }
+    
+    .ribbon-blue {
+        top: 85%;
+        transform: rotate(-8deg);
+    }
+    
+    .ribbon-white {
+        top: 85%;
+        transform: rotate(8deg);
+    }
+
+    .ribbon-track span {
+        font-size: 0.75rem;
+    }
+
+    /* Floats on Mobile */
     .float-icon {
         width: 36px;
         height: 36px;
         font-size: 1rem;
-        opacity: 0.7;
+        opacity: 0.6;
     }
+    
     .float-label { display: none; } /* Sembunyikan label di mobile agar tidak penuh */
 
-    .icon-instagram, .icon-mail, .icon-whatsapp {
-        bottom: 30%; top: auto;
+    /* Reposisi agar benar-benar di pojok dan tidak menutupi teks */
+    .icon-github { top: 12%; left: 6%; }
+    .icon-linkedin { top: 12%; right: 6%; }
+    /* Mail icon di posisi area kosong */
+    .icon-mail { top: 18%; left: 50%; transform: translateX(-50%); right: auto; bottom: auto; }
+    
+    /* WA dan IG sejajar di bawah, di atas pita */
+    .icon-whatsapp { top: auto; bottom: 22%; right: 10%; }
+    .icon-instagram { top: auto; bottom: 22%; left: 10%; }
+    
+    /* Hero Title Adjustments */
+    .hero-big {
+        font-size: clamp(2rem, 10vw, 3rem); /* Slight increase compared to last step, but scale controlled */
     }
-    .icon-instagram { left: 20%; }
-    .icon-mail { left: 45%; bottom: 80%; transform: translateX(-50%); }
-    .icon-whatsapp { right: 20%; }
+    
+    .hero-sub {
+        font-size: clamp(0.9rem, 4vw, 1.2rem);
+        margin-top: 0.5rem;
+    }
+
+    .hero-desc {
+        font-size: 0.8rem;
+        line-height: 1.6;
+        letter-spacing: normal;
+        padding: 0 1rem;
+    }
+
+    /* CTA Button sizing adjustments */
+    .cta-btn {
+        padding: 0.6rem 1rem !important;
+    }
+    
+    .cta-text {
+        font-size: 0.7rem;
+    }
 }
 
 @media (max-height: 650px) {
