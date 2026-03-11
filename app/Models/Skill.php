@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Skill extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['name', 'description', 'category', 'icon'];
+    protected $fillable = ['name', 'description', 'category', 'icon', 'is_core'];
 
     public function projects()
     {
@@ -25,7 +25,8 @@ class Skill extends Model
             'frontendCount' => $categoryCount['frontend'] ?? 0,
             'backendCount' => $categoryCount['backend'] ?? 0,
             'toolsCount' => $categoryCount['tools'] ?? 0,
-            'otherCount' => $skills->count() - ($categoryCount['frontend'] ?? 0) - ($categoryCount['backend'] ?? 0) - ($categoryCount['tools'] ?? 0)
+            'otherCount' => $skills->count() - ($categoryCount['frontend'] ?? 0) - ($categoryCount['backend'] ?? 0) - ($categoryCount['tools'] ?? 0),
+            'coreCount' => $skills->where('is_core', true)->count(),
         ];
     }
 }

@@ -70,22 +70,16 @@
                 </div>
 
             </div>
-            <div class="space-y-4 mt-6">
+            <div class="space-y-4 mt-6" x-data="{ visibility: 'draft' }">
 
                 <label class="text-sm uppercase tracking-wide text-muted">
                     Visibility
                 </label>
 
-                <select name="visibility" class="w-full border border-border bg-surface p-3 text-sm">
-
+                <select name="visibility" x-model="visibility" class="w-full border border-border bg-surface p-3 text-sm">
                     <option value="draft">Save as Draft</option>
                     <option value="published">Publish Now</option>
-                    <option value="scheduled">Schedule Publish</option>
-
                 </select>
-
-                <input type="datetime-local" name="published_at"
-                    class="w-full border border-border bg-surface p-3 text-sm">
 
             </div>
 

@@ -14,7 +14,7 @@
             {{-- HEADER MODULE --}}
             <header class="relative space-y-6 border-b border-border/50 pb-8 mt-4 md:mt-8">
                 <div
-                    class="absolute top-0 right-0 w-1/3 h-[1px] bg-gradient-to-r from-transparent to-primary/50 pointer-events-none">
+                    class="absolute top-0 right-0 w-1/3 h-px bg-linear-to-r from-transparent to-primary/50 pointer-events-none">
                 </div>
 
                 <div class="flex items-center justify-between">
@@ -57,7 +57,7 @@
             </header>
 
             {{-- METRICS DASHBOARD --}}
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
                 {{-- Stat 1: Total --}}
                 <div
                     class="relative border border-border/50 bg-surface/20 p-5 group hover:border-primary/50 transition-colors">
@@ -96,11 +96,23 @@
                     class="relative border border-border/50 bg-surface/20 p-5 group hover:border-amber-400/50 transition-colors">
                     <div class="absolute top-0 right-0 w-3 h-3 border-t border-r border-amber-400/50"></div>
                     <p class="text-[10px] font-mono uppercase tracking-widest text-muted mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-toolbox text-amber-400"></i> Core_Tools
+                        <i class="fa-solid fa-toolbox text-amber-400"></i> Tools
                     </p>
                     <h3 class="text-3xl font-mono font-bold text-amber-400">
                         {{ str_pad($summary['toolsCount'] + $summary['otherCount'], 2, '0', STR_PAD_LEFT) }}</h3>
                 </div>
+
+                {{-- Stat 5: Core Tools --}}
+                <div
+                    class="relative border border-border/50 bg-surface/20 p-5 group hover:border-emerald-400/50 transition-colors">
+                    <div class="absolute top-0 right-0 w-3 h-3 border-t border-r border-emerald-400/50"></div>
+                    <p class="text-[10px] font-mono uppercase tracking-widest text-muted mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-microchip text-emerald-400"></i> Core_Tools
+                    </p>
+                    <h3 class="text-3xl font-mono font-bold text-emerald-400">
+                        {{ str_pad($summary['coreCount'], 2, '0', STR_PAD_LEFT) }}</h3>
+                </div>
+                
             </div>
             {{-- ========================================== --}}
             {{-- SKILLS VISUALIZATION MATRIX (CHART.JS)     --}}
@@ -531,10 +543,10 @@
             // Event Delegation for Edit, Delete buttons inside the Container and Pagination Links
             container.addEventListener('click', (e) => {
                 // Pagination Intercept
-                const anchor = e.target.closest('a');
-                if (anchor && anchor.href && anchor.href.includes('page=')) {
+                const pBtn = e.target.closest('button.pagination-link');
+                if (pBtn && pBtn.dataset.url) {
                     e.preventDefault();
-                    const url = new URL(anchor.href, window.location.origin);
+                    const url = new URL(pBtn.dataset.url, window.location.origin);
                     url.searchParams.set('category', currentCategory);
                     url.searchParams.set('search', currentSearch);
                     url.searchParams.set('sort', currentSort);
@@ -551,8 +563,9 @@
                     const category = editBtn.dataset.category;
                     const icon = editBtn.dataset.icon;
                     const description = editBtn.dataset.description;
+                    const is_core = editBtn.dataset.is_core;
                     if (window.openEditSkillModal) {
-                        window.openEditSkillModal(id, name, category, icon, description);
+                        window.openEditSkillModal(id, name, category, icon, description, is_core);
                     }
                     return;
                 }

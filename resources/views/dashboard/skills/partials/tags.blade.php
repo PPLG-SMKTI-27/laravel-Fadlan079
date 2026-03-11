@@ -49,7 +49,13 @@
 
                 {{-- Action Buttons --}}
                 <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 border border-border/50 p-1">
-                    <button type="button" class="edit-skill-btn w-6 h-6 flex items-center justify-center text-muted hover:text-primary transition-colors" data-id="{{ $skill->id }}">
+                    <button type="button" class="edit-skill-btn w-6 h-6 flex items-center justify-center text-muted hover:text-primary transition-colors" 
+                        data-id="{{ $skill->id }}" 
+                        data-name="{{ $skill->name }}"
+                        data-category="{{ $skill->category }}"
+                        data-icon="{{ $skill->icon }}"
+                        data-description="{{ $skill->description }}"
+                        data-is_core="{{ $skill->is_core ? 1 : 0 }}">
                         <i class="fa-solid fa-pen text-[10px]"></i>
                     </button>
                     <button type="button" class="delete-skill-btn w-6 h-6 flex items-center justify-center text-muted hover:text-red-500 transition-colors" data-id="{{ $skill->id }}">
@@ -83,7 +89,7 @@
 
                     {{-- Data Line & Count --}}
                     <div class="flex items-center gap-3 mt-2">
-                        <div class="h-[1px] flex-1 bg-border/50 {{ $catStyle['line'] }} transition-colors"></div>
+                        <div class="h-px flex-1 bg-border/50 {{ $catStyle['line'] }} transition-colors"></div>
                         <span class="text-[9px] font-mono text-muted uppercase tracking-widest">
                             REF: <span class="text-text group-hover:text-primary">{{ str_pad($skill->projects_count, 2, '0', STR_PAD_LEFT) }}</span>
                         </span>
@@ -131,9 +137,9 @@
                 <span class="px-3 py-2 text-muted border border-border/50 bg-surface/30 opacity-50 cursor-not-allowed">[
                     PREV ]</span>
             @else
-                <a href="{{ $skills->previousPageUrl() }}"
-                    class="px-3 py-2 border border-border text-muted hover:border-primary hover:text-primary transition-colors">[
-                    PREV ]</a>
+                <button type="button" data-url="{{ $skills->previousPageUrl() }}"
+                    class="pagination-link px-3 py-2 border border-border text-muted hover:border-primary hover:text-primary transition-colors">[
+                    PREV ]</button>
             @endif
 
             <span class="px-4 py-2 border border-primary bg-primary/5 text-primary font-bold">
@@ -141,9 +147,9 @@
             </span>
 
             @if ($skills->hasMorePages())
-                <a href="{{ $skills->nextPageUrl() }}"
-                    class="px-3 py-2 border border-border text-muted hover:border-primary hover:text-primary transition-colors">[
-                    NEXT ]</a>
+                <button type="button" data-url="{{ $skills->nextPageUrl() }}"
+                    class="pagination-link px-3 py-2 border border-border text-muted hover:border-primary hover:text-primary transition-colors">[
+                    NEXT ]</button>
             @else
                 <span class="px-3 py-2 text-muted border border-border/50 bg-surface/30 opacity-50 cursor-not-allowed">[
                     NEXT ]</span>

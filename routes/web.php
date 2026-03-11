@@ -9,6 +9,8 @@ use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ContactController;
 
+
+
 Route::middleware(['auth', 'verified'])
     ->prefix('dashboard')
     ->as('dashboard.')

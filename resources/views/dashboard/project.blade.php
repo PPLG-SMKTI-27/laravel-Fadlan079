@@ -7,7 +7,7 @@
     {{-- Global Error Handler --}}
     @if ($errors->any())
         <div x-data="{ show: true }" x-show="show" x-transition.opacity.duration.500ms
-            class="fixed top-24 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-lg border-l-2 border-red-500 bg-red-500/10 p-4 shadow-[0_0_20px_rgba(239,68,68,0.2)] backdrop-blur-md">
+            class="fixed top-24 left-1/2 -translate-x-1/2 z-100 w-[90%] max-w-lg border-l-2 border-red-500 bg-red-500/10 p-4 shadow-[0_0_20px_rgba(239,68,68,0.2)] backdrop-blur-md">
             <div class="flex justify-between items-start">
                 <div class="flex gap-3 text-red-500">
                     <i class="fa-solid fa-triangle-exclamation mt-1 animate-pulse"></i>
@@ -40,7 +40,7 @@
             {{-- HEADER MODULE --}}
             <header class="relative space-y-6 border-b border-border/50 pb-8 mt-4 md:mt-8">
                 <div
-                    class="absolute top-0 right-0 w-1/3 h-[1px] bg-gradient-to-r from-transparent to-primary/50 pointer-events-none">
+                    class="absolute top-0 right-0 w-1/3 h-px bg-linear-to-r from-transparent to-primary/50 pointer-events-none">
                 </div>
 
                 <div class="flex items-center justify-between">
@@ -306,6 +306,8 @@
                                     class="px-4 py-1 text-xs uppercase tracking-widest badge-primary font-semibold">{{ $project->type }}</span>
                                 <span
                                     class="px-3 py-1 text-[10px] uppercase tracking-wide border {{ $project->statusClass }}">{{ $project->status }}</span>
+                                <span
+                                    class="px-3 py-1 text-[10px] uppercase tracking-wide border border-border text-muted">{{ $project->visibility === 'published' ? 'public' : $project->visibility }}</span>
                             </div>
 
                             <input type="checkbox" name="projects[]" value="{{ $project->id }}"
@@ -319,6 +321,7 @@
                                     data-id="{{ $project->id }}" data-title="{{ $project->title }}"
                                     data-desc="{{ $project->desc }}" data-type="{{ $project->type }}"
                                     data-status="{{ $project->status }}" data-visibility="{{ $project->visibility }}"
+                                    data-published="{{ $project->published_at ? $project->published_at->format('Y-m-d\TH:i') : '' }}"
                                     data-created="{{ $project->created_at->format('d M Y') }}"
                                     data-updated="{{ $project->updated_at->format('d M Y') }}"
                                     data-repo="{{ $project->repo }}" data-role="{{ $project->role }}"
@@ -329,6 +332,9 @@
                                             ? collect($project->screenshot)->map(fn($img) => ['path' => $img, 'url' => asset('storage/' . $img)])->values()
                                             : []
                                     )'
+                                    data-image-desktop="{{ $project->image_desktop ? asset('storage/' . $project->image_desktop) : '' }}"
+                                    data-image-tablet="{{ $project->image_tablet ? asset('storage/' . $project->image_tablet) : '' }}"
+                                    data-image-mobile="{{ $project->image_mobile ? asset('storage/' . $project->image_mobile) : '' }}"
                                     data-tech='@json($project->tech)'>
 
                                     <div>
@@ -415,7 +421,7 @@
 
             {{-- BULK ACTION BAR (Sticky HUD) --}}
             <div id="bulkBar"
-                class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[90] bg-[#0a0a0a]/90 backdrop-blur-md border border-primary/50 p-4 md:px-6 md:py-4 flex flex-col sm:flex-row items-center gap-4 shadow-[0_0_30px_rgba(var(--color-primary-rgb),0.15)] opacity-0 pointer-events-none translate-y-4 transition-all duration-300 w-[90%] md:w-auto min-w-[320px]">
+                class="fixed bottom-6 left-1/2 -translate-x-1/2 z-90 bg-[#0a0a0a]/90 backdrop-blur-md border border-primary/50 p-4 md:px-6 md:py-4 flex flex-col sm:flex-row items-center gap-4 shadow-[0_0_30px_rgba(var(--color-primary-rgb),0.15)] opacity-0 pointer-events-none translate-y-4 transition-all duration-300 w-[90%] md:w-auto min-w-[320px]">
 
                 <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary"></div>
                 <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary"></div>

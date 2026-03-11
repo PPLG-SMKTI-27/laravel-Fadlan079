@@ -52,6 +52,7 @@ export function projectModalAnimation() {
                 type: d.type,
                 status: d.status,
                 visibility: d.visibility,
+                published: d.published !== 'undefined' ? d.published : '',
                 title: d.title,
                 desc: d.desc,
                 role: d.role !== 'undefined' ? d.role : '',
@@ -59,7 +60,10 @@ export function projectModalAnimation() {
                 responsibilities: d.responsibilities !== 'undefined' ? d.responsibilities : '',
                 repo: d.repo !== 'undefined' ? d.repo : '',
                 live: d.live !== 'undefined' ? d.live : '',
-                screenshot: d.screenshot
+                screenshot: d.screenshot,
+                image_desktop: d.imageDesktop !== 'undefined' ? d.imageDesktop : '',
+                image_tablet: d.imageTablet !== 'undefined' ? d.imageTablet : '',
+                image_mobile: d.imageMobile !== 'undefined' ? d.imageMobile : ''
             };
 
             window.openEditModal(project);
@@ -248,27 +252,29 @@ if (editModal) {
     const editCloseBtn = document.getElementById('editModalClose');
     const cancelEditBtn = document.getElementById('cancelEdit');
 
-    window.openEditModal = function (project) {
+        window.openEditModal = function (project) {
 
         window.currentEditTech = project.tech;
 
         setTimeout(() => {
-            const els = document.querySelectorAll('#projectEditModal [x-data]');
-            if (els[0] && els[0]._x_dataStack) {
+            const techEl = document.getElementById('techStackEditRegion');
+            if (techEl && techEl._x_dataStack) {
                 try {
-                    els[0]._x_dataStack[0].tags = JSON.parse(project.tech);
+                    techEl._x_dataStack[0].tags = JSON.parse(project.tech);
                 } catch (e) {
-                    els[0]._x_dataStack[0].tags = [];
+                    techEl._x_dataStack[0].tags = [];
                 }
             }
-            if (els[1] && els[1]._x_dataStack && project.screenshot) {
+            
+            const imgEl = document.getElementById('imageUploadEditRegion');
+            if (imgEl && imgEl._x_dataStack && project.screenshot) {
                 try {
                     const images = JSON.parse(project.screenshot);
-                    els[1]._x_dataStack[0].existingImages = images;
-                    els[1]._x_dataStack[0].newImages = [];
-                    els[1]._x_dataStack[0].deletedImages = [];
+                    imgEl._x_dataStack[0].existingImages = images;
+                    imgEl._x_dataStack[0].newImages = [];
+                    imgEl._x_dataStack[0].deletedImages = [];
                 } catch (e) {
-                    els[1]._x_dataStack[0].existingImages = [];
+                    imgEl._x_dataStack[0].existingImages = [];
                 }
             }
         }, 50);
@@ -282,7 +288,16 @@ if (editModal) {
         document.getElementById('editId').value = project.id;
         document.getElementById('editType').value = project.type || 'Website';
         document.getElementById('editStatus').value = project.status || 'Shipped';
-        document.getElementById('editVisibility').value = project.visibility || 'draft';
+        
+        const visibilityEl = document.getElementById('editVisibility');
+        visibilityEl.value = project.visibility || 'draft';
+        visibilityEl.dispatchEvent(new Event('change')); // Trigger alpine change
+        
+        const publishedEl = document.getElementById('editPublishedAt');
+        if (publishedEl) {
+            publishedEl.value = project.published || '';
+        }
+
         document.getElementById('editTitle').value = project.title || '';
         document.getElementById('editDesc').value = project.desc || '';
         document.getElementById('editRepo').value = project.repo || '';
@@ -291,6 +306,37 @@ if (editModal) {
         document.getElementById('editRole').value = project.role || '';
         document.getElementById('editTeamSize').value = project.team_size || '';
         document.getElementById('editResponsibilities').value = project.responsibilities || '';
+        
+        // DEVICES PREVIEW
+        const deskWrapper = document.getElementById('previewDesktopWrapper');
+        const deskImg = document.getElementById('previewDesktop');
+        if (project.image_desktop) {
+            deskImg.src = project.image_desktop;
+            deskWrapper.classList.remove('hidden');
+        } else {
+            deskWrapper.classList.add('hidden');
+            deskImg.src = '';
+        }
+
+        const tabWrapper = document.getElementById('previewTabletWrapper');
+        const tabImg = document.getElementById('previewTablet');
+        if (project.image_tablet) {
+            tabImg.src = project.image_tablet;
+            tabWrapper.classList.remove('hidden');
+        } else {
+            tabWrapper.classList.add('hidden');
+            tabImg.src = '';
+        }
+
+        const mobWrapper = document.getElementById('previewMobileWrapper');
+        const mobImg = document.getElementById('previewMobile');
+        if (project.image_mobile) {
+            mobImg.src = project.image_mobile;
+            mobWrapper.classList.remove('hidden');
+        } else {
+            mobWrapper.classList.add('hidden');
+            mobImg.src = '';
+        }
 
         // SHOW MODAL
         editModal.classList.remove('hidden');

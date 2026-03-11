@@ -19,7 +19,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $recentProjects = Project::recent(5)->get();
+        $recentProjects = Project::public()->recent(5)->get();
 
         $skills = \App\Models\Skill::withCount('projects')
             ->where(function ($q) {
@@ -93,7 +93,7 @@ class HomeController extends Controller
 
     public function Showproject(Request $request)
     {
-        $query = Project::query();
+        $query = Project::public();
 
         if ($request->filled('search')) {
             $query->search($request->search);

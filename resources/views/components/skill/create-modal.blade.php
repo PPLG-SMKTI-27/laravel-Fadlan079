@@ -40,7 +40,7 @@
                         required>
                         <option value="frontend">Frontend</option>
                         <option value="backend">Backend</option>
-                        <option value="tools">Toolsp</option>
+                        <option value="tools">Tools</option>
                     </select>
                 </div>
 
@@ -51,7 +51,7 @@
                         Core Skill (show even without projects)
                     </span>
                 </div>
-                
+
                 <div>
                     <p class="text-muted uppercase tracking-wide text-xs mb-2">Description</p>
                     <textarea name="description" rows="3"

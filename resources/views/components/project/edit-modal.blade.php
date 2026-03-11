@@ -27,8 +27,8 @@
             @method('PUT')
             <input type="hidden" name="id" id="editId">
 
-            <!-- Type + Status -->
-            <div class="flex items-center gap-3">
+            <!-- Type + Status + Visibility -->
+            <div class="flex flex-wrap items-center gap-3" x-data="{ visibility: document.getElementById('editVisibility')?.value || 'draft' }" x-init="$watch('visibility', value => { if(value !== 'scheduled') { document.getElementById('editPublishedAt').value = ''; } })">
                 <select id="editType" name="type"
                     class="px-3 py-1 text-xs uppercase tracking-widest badge-primary font-semibold border border-border focus:ring-1 focus:ring-primary focus:outline-none">
                     <option value="Website">Website</option>
@@ -45,12 +45,14 @@
                     <option value="Archived">Archived</option>
                 </select>
 
-                <select id="editVisibility" name="visibility"
-                    class="px-3 py-1 text-[10px] uppercase tracking-wide border border-border text-muted focus:ring-1 focus:ring-primary focus:outline-none">
-                    <option value="draft">Draft</option>
-                    <option value="published">Published</option>
-                    <option value="scheduled">Scheduled</option>
-                </select>
+                <div class="flex items-center gap-2">
+                    <select id="editVisibility" name="visibility" x-model="visibility"
+                        class="px-3 py-1 text-[10px] uppercase tracking-wide border border-border text-muted focus:ring-1 focus:ring-primary focus:outline-none">
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                    </select>
+
+                </div>
             </div>
 
             <!-- Title -->
@@ -68,7 +70,7 @@
             </div>
 
             <!-- Tech Stack -->
-            <div x-data="tagInputEdit({{ Js::from($technologies) }})" x-ref="techComponent" class="w-full relative space-y-2">
+            <div id="techStackEditRegion" x-data="tagInputEdit({{ Js::from($technologies) }})" x-ref="techComponent" class="w-full relative space-y-2">
 
                 <p class="text-muted uppercase tracking-wide text-xs mb-2">
                     Tech Stack
@@ -166,25 +168,34 @@
                     <div class="border border-border p-3 bg-surface">
                         <p class="text-[10px] text-muted uppercase tracking-widest mb-2 border-b border-border pb-1">
                             Desktop view</p>
+                        <div id="previewDesktopWrapper" class="hidden mb-2 relative">
+                            <img id="previewDesktop" src="" class="w-full h-20 object-cover border border-border">
+                        </div>
                         <input type="file" name="image_desktop" accept="image/*"
                             class="w-full text-xs text-muted file:mr-2 file:py-1 file:px-2 file:border-0 file:text-[10px] file:uppercase file:bg-primary file:text-background hover:file:bg-primary/90">
                     </div>
                     <div class="border border-border p-3 bg-surface">
                         <p class="text-[10px] text-muted uppercase tracking-widest mb-2 border-b border-border pb-1">
                             Tablet view</p>
+                        <div id="previewTabletWrapper" class="hidden mb-2 relative">
+                            <img id="previewTablet" src="" class="w-full h-20 object-cover border border-border">
+                        </div>
                         <input type="file" name="image_tablet" accept="image/*"
                             class="w-full text-xs text-muted file:mr-2 file:py-1 file:px-2 file:border-0 file:text-[10px] file:uppercase file:bg-primary file:text-background hover:file:bg-primary/90">
                     </div>
                     <div class="border border-border p-3 bg-surface">
                         <p class="text-[10px] text-muted uppercase tracking-widest mb-2 border-b border-border pb-1">
                             Mobile view</p>
+                        <div id="previewMobileWrapper" class="hidden mb-2 relative">
+                            <img id="previewMobile" src="" class="w-full h-20 object-cover border border-border">
+                        </div>
                         <input type="file" name="image_mobile" accept="image/*"
                             class="w-full text-xs text-muted file:mr-2 file:py-1 file:px-2 file:border-0 file:text-[10px] file:uppercase file:bg-primary file:text-background hover:file:bg-primary/90">
                     </div>
                 </div>
             </div>
 
-            <div x-data="imageUpload({
+            <div id="imageUploadEditRegion" x-data="imageUpload({
                 existing: @json(collect($project->screenshot ?? [])->map(fn($path) => [
                             'path' => $path,
                             'url' => asset('storage/' . $path),
