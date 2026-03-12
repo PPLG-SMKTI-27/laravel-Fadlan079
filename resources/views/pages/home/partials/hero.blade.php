@@ -129,25 +129,35 @@
                 </span>
             </p>
 
-            <div class="flex gap-4 flex-wrap justify-center text-sm font-mono uppercase tracking-widest font-bold mt-2">
-                <a href="{{ route('portofolio.projects') }}"
-                    class="cta-btn relative overflow-hidden px-6 py-3 bg-primary text-background border-2 border-primary"
-                    style="--cta-bubble-color: var(--color-bg);">
-                    <span class="cta-bubble"></span>
-                    <span class="cta-text relative z-10 flex items-center gap-2">
-                       <span data-i18n="home.cta_btn_primary">PROJECTS</span>
-                    </span>
-                </a>
+<div class="flex gap-3 flex-wrap justify-center text-sm font-mono uppercase tracking-widest font-bold mt-2">
 
-                <a href="{{ route('portofolio.contact') }}"
-                    class="cta-btn relative overflow-hidden px-6 py-3 border-2 border-border text-text"
-                    style="--cta-bubble-color: var(--color-primary);">
-                    <span class="cta-bubble"></span>
-                    <span class="cta-text relative z-10 flex items-center gap-2">
-                        <span data-i18n="home.cta_btn_secondary">CONTACT</span>
-                    </span>
-                </a>
-            </div>
+    <a href="{{ route('portofolio.projects') }}"
+        class="cta-btn relative overflow-hidden flex items-center justify-center
+               w-[140px] sm:w-[180px] px-4 py-2
+               bg-primary text-background border-2 border-primary"
+        style="--cta-bubble-color: var(--color-bg);">
+
+        <span class="cta-bubble"></span>
+
+        <span class="cta-text relative z-10 flex items-center justify-center gap-2">
+            <span data-i18n="home.cta_btn_primary">PROJECTS</span>
+        </span>
+    </a>
+
+    <a href="{{ route('portofolio.contact') }}"
+        class="cta-btn relative overflow-hidden flex items-center justify-center
+               w-[140px] sm:w-[180px] px-4 py-2
+               border-2 border-border text-text"
+        style="--cta-bubble-color: var(--color-primary);">
+
+        <span class="cta-bubble"></span>
+
+        <span class="cta-text relative z-10 flex items-center justify-center gap-2">
+            <span data-i18n="home.cta_btn_secondary">CONTACT</span>
+        </span>
+    </a>
+
+</div>
         </div>
     </div>
 </section>
