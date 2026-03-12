@@ -43,12 +43,12 @@
                     <div class="absolute top-3 right-4 text-[9px] font-mono text-primary uppercase tracking-widest"
                         x-text="'RES: ' + deviceView.toUpperCase()"></div>
 
-                    <div class="relative bg-background border border-border shadow-[0_0_30px_rgba(0,0,0,0.5)] transition-all duration-700 ease-in-out overflow-hidden flex items-start justify-center group"
-                        :class="{
-                            'w-full aspect-[16/9] rounded-sm': deviceView === 'desktop',
-                            'w-[320px] md:w-[400px] aspect-[3/4] rounded-xl': deviceView === 'tablet',
-                            'w-[240px] md:w-[280px] aspect-[9/16] rounded-[2rem] border-4 border-surface': deviceView === 'mobile'
-                        }">
+                        <div class="relative bg-background border border-border shadow-[0_0_30px_rgba(0,0,0,0.5)] transition-all duration-700 ease-in-out overflow-hidden flex items-start justify-center group mx-auto"
+                            :class="{
+                                'w-full aspect-[16/9] rounded-sm': deviceView === 'desktop',
+                                'w-full max-w-[320px] md:max-w-[400px] aspect-[3/4] rounded-xl': deviceView === 'tablet',
+                                'w-full max-w-[220px] md:max-w-[280px] aspect-[9/16] rounded-[2rem] border-4 border-surface': deviceView === 'mobile'
+                            }">
 
                         <div class="absolute inset-0 z-30 pointer-events-none opacity-20"
                             style="background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 4px, 6px 100%;">
