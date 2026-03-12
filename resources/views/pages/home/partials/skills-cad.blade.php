@@ -64,12 +64,12 @@
 </style>
 
 <section id="skills-cad"
-    class="py-24 bg-background overflow-hidden relative font-mono text-text selection:bg-primary selection:text-black">
+    class="min-h-[100dvh] flex flex-col justify-center py-24 bg-background overflow-hidden relative font-mono text-text selection:bg-primary selection:text-black">
     <div class="absolute inset-0 z-0 opacity-10"
         style="background-image: linear-gradient(var(--color-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-border) 1px, transparent 1px); background-size: 40px 40px;">
     </div>
 
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="max-w-7xl w-full mx-auto px-6 relative z-10">
 
         <div
             class="border-t border-b border-text/20 py-2 flex justify-between text-[10px] uppercase tracking-widest mb-16">

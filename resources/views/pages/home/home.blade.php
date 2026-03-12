@@ -1,16 +1,47 @@
 @extends('layouts.main')
 @section('title', 'Portofolio')
 @vite(['resources/css/hero.css', 'resources/css/dashboard_project.css'])
+
 @section('content')
+
     @include('pages.home.partials.hero')
+
+
+    <div class="w-full flex flex-col items-center justify-center relative -mt-8 mb-24">
+        <div class="w-px h-20 md:h-32"></div>
+
+    </div>
+
 
     @include('pages.home.partials.featured-project')
 
+
+    <div class="w-full flex flex-col items-center justify-center relative my-24">
+        <div class="w-px h-20 md:h-32"></div>
+
+    </div>
+
+
     @include('pages.home.partials.about-teaser')
+
+
+    <div class="w-full flex flex-col items-center justify-center relative my-24">
+        <div class="w-px h-20 md:h-32"></div>
+
+    </div>
+
 
     @include('pages.home.partials.skills-cad')
 
+
+    <div class="w-full flex flex-col items-center justify-center relative mt-24 mb-0">
+        <div class="w-px h-20 md:h-32"></div>
+
+    </div>
+
+
     @include('pages.home.partials.cta')
+
 @endsection
 
 @push('script')

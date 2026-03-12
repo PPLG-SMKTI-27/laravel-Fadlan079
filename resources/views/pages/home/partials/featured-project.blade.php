@@ -1,9 +1,9 @@
-<section class="py-24 border-t border-border/50 relative overflow-hidden" id="featured-projects">
+<section class="min-h-[100dvh] flex flex-col justify-center py-24 border-t border-border/50 relative overflow-hidden" id="featured-projects">
     <div class="absolute inset-0 z-0 opacity-5"
         style="background-image: linear-gradient(var(--color-text) 1px, transparent 1px), linear-gradient(90deg, var(--color-text) 1px, transparent 1px); background-size: 40px 40px;">
     </div>
 
-    <div class="max-w-7xl mx-auto px-6 relative z-10" x-data="{
+    <div class="max-w-7xl w-full mx-auto px-6 relative z-10" x-data="{
         currentProject: 0,
         totalProjects: {{ count($recentProjects) }},
         deviceView: 'desktop', // desktop, tablet, mobile

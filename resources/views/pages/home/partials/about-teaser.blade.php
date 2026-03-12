@@ -1,9 +1,9 @@
-<section id="about-teaser" class="py-24 border-t border-border relative overflow-hidden">
+<section id="about-teaser" class="min-h-[100dvh] flex flex-col justify-center py-24 border-t border-border relative overflow-hidden">
     <div class="absolute inset-0 z-0 opacity-[0.03]"
         style="background-image: radial-gradient(circle, var(--color-text) 1px, transparent 1px); background-size: 24px 24px;">
     </div>
 
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="max-w-7xl w-full mx-auto px-6 relative z-10">
         <div class="grid lg:grid-cols-[1fr_400px] gap-12 lg:gap-20 items-center">
 
             <div class="font-mono">
