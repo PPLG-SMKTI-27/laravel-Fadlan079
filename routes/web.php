@@ -95,8 +95,6 @@ Route::name('portofolio.')->group(function () {
     Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 });
 
-Route::view('/test', 'pages.tes')->name('test');
-
 Route::get('/api/lang/{locale}', function ($locale) {
     if (! in_array($locale, ['id', 'en'])) {
         abort(404);

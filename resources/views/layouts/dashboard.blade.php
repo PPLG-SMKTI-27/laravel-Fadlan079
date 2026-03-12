@@ -170,7 +170,7 @@
             body:not([data-cursor-theme="native"]) label {
                 cursor: none !important;
             }
-            
+
             body[data-cursor-theme="native"],
             body[data-cursor-theme="native"] *,
             body[data-cursor-theme="native"] a,
@@ -361,20 +361,8 @@
                 'route' => 'dashboard.home',
                 'icon' => 'fa-solid fa-house',
             ],
-            [
-                'label' => 'Commits',
-                'href' => route('test'),
-                'route' => 'test',
-                'icon' => 'fa-brands fa-github',
-            ],
         ],
         'Portfolio' => [
-            [
-                'label' => 'About',
-                'href' => route('test'),
-                'route' => 'test',
-                'icon' => 'fa-solid fa-user',
-            ],
             [
                 'label' => 'Project',
                 'href' => route('dashboard.projects.index'),
