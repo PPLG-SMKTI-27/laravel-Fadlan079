@@ -120,28 +120,43 @@ class Project extends Model
         };
     }
 
-    public static function summary(): array
-    {
-        $projects = self::all();
+public static function summary(): array
+{
+    $projects = self::public()->get();
 
-        $statusCount = $projects->groupBy('status')->map->count();
+    $typeMap = [
+        'Website' => 'Web',
+        'Web App' => 'Web',
+        'Application' => 'Application',
+        'Design' => 'Design',
+    ];
 
-        return [
-            'totalProjects'   => $projects->count(),
-            'totalCategories' => $projects->pluck('type')->filter()->unique()->count(),
+    $normalizedTypes = $projects
+        ->pluck('type')
+        ->map(fn($type) => $typeMap[$type] ?? $type)
+        ->unique();
 
-            'activeCount' => ($statusCount['Shipped'] ?? 0) +
-                ($statusCount['In Progress'] ?? 0),
+    $statusCount = $projects->groupBy('status')->map->count();
 
-            'inactiveCount' => ($statusCount['Prototype'] ?? 0) +
-                ($statusCount['Archived'] ?? 0),
+    return [
+        'totalProjects' => $projects->count(),
 
-            'statusBreakdown' => [
-                'Shipped'     => $statusCount['Shipped'] ?? 0,
-                'In Progress' => $statusCount['In Progress'] ?? 0,
-                'Prototype'   => $statusCount['Prototype'] ?? 0,
-                'Archived'    => $statusCount['Archived'] ?? 0,
-            ],
-        ];
-    }
+        'totalCategories' => $normalizedTypes->count(),
+
+        'activeCount' =>
+            ($statusCount['Shipped'] ?? 0) +
+            ($statusCount['In Progress'] ?? 0),
+
+        'inactiveCount' =>
+            ($statusCount['Prototype'] ?? 0) +
+            ($statusCount['Archived'] ?? 0),
+
+        'statusBreakdown' => [
+            'Shipped'     => $statusCount['Shipped'] ?? 0,
+            'In Progress' => $statusCount['In Progress'] ?? 0,
+            'Prototype'   => $statusCount['Prototype'] ?? 0,
+            'Archived'    => $statusCount['Archived'] ?? 0,
+        ],
+    ];
+}
 }

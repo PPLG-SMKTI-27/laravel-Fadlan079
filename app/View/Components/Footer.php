@@ -14,12 +14,25 @@ class Footer extends Component
         public array $links = [],
         public array $socials = [],
         public ?int $year = null,
-    )
-    {
-    }
+    ) {}
 
     public function render(): View|Closure|string
     {
-        return view('components.footer');
+        $theme = current_theme();
+
+        $folderMap = [
+            'diary'  => 'book',
+            'clean'  => 'clean',
+            'system' => 'system',
+        ];
+
+        $footerName = $folderMap[$theme] ?? 'clean';
+        $themeView  = "components.footer.$footerName";
+
+        if (view()->exists($themeView)) {
+            return view($themeView);
+        }
+
+        return view('components.footer.clean');
     }
 }

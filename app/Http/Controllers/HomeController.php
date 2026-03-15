@@ -69,7 +69,7 @@ class HomeController extends Controller
             ? 'mailto:' . $user->email
             : '#';
 
-        return view('pages.home.home', compact(
+        return theme_view('home.home', compact(
             'recentProjects',
             'skills',
             'profilePhoto',
@@ -88,7 +88,7 @@ class HomeController extends Controller
     public function Showabout()
     {
         $profilePhoto = $this->profilePhotoUrl();
-        return view('pages.about', compact('profilePhoto'));
+        return theme_view('about', compact('profilePhoto'));
     }
 
     public function Showproject(Request $request)
@@ -108,27 +108,34 @@ class HomeController extends Controller
             ->paginate(6)->withQueryString();
         $summary  = Project::summary();
 
-        // AJAX: return JSON with rendered HTML partials
         if ($request->ajax() || $request->boolean('ajax')) {
+            $layout = current_theme();
+            $themeMap = [
+                'diary'  => 'book',
+                'clean'  => 'clean',
+                'system' => 'system_architecture'
+            ];
+            $themeName = $themeMap[$layout] ?? 'book';
+
             return response()->json([
-                'html'        => view('pages._projects-list', compact('projects'))->render(),
-                'pagination'  => view('pages._projects-pagination', compact('projects'))->render(),
+                'html'        => view("themes.{$themeName}.project.partials.project-list", compact('projects'))->render(),
+                'pagination'  => view("themes.{$themeName}.project.partials.project-pagination", compact('projects'))->render(),
                 'total'       => $projects->total(),
                 'currentPage' => $projects->currentPage(),
                 'lastPage'    => $projects->lastPage(),
             ]);
         }
 
-        return view('pages.project', compact('projects', 'summary'));
+        return theme_view('project.project', compact('projects', 'summary'));
     }
 
     public function Showcontact()
     {
-        return view('pages.contact');
+        return theme_view('contact');
     }
 
     public function Showsettings()
     {
-        return view('pages.settings');
+        return theme_view('settings');
     }
 }

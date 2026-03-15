@@ -3,24 +3,29 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class SettingsController extends Controller
 {
     public function index()
     {
-        return view('dashboard.settings');
+        $user = auth()->user();
+        $setting = $user->setting;
+        return view('dashboard.settings', compact('setting'));
     }
 
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'theme' => ['required', 'string', 'in:light,dark,system'],
-            'language' => ['required', 'string', 'in:en,id'],
-            'show_clock' => ['boolean'],
+            'design_theme' => ['required', 'string', 'in:diary,clean,system'],
+            'theme'        => ['required', 'string', 'in:light,dark,system'],
+            'language'     => ['required', 'string', 'in:en,id'],
+            'show_clock'   => ['boolean'],
             'clock_format' => ['required', 'string', 'in:12,24'],
             'show_seconds' => ['boolean'],
-            'show_date' => ['boolean'],
+            'show_date'    => ['boolean'],
             'cursor_theme' => ['required', 'string', 'in:viewfinder,blob,terminal,native'],
         ]);
 
@@ -28,15 +33,18 @@ class SettingsController extends Controller
         $user->setting()->updateOrCreate(
             ['user_id' => $user->id],
             [
-                'theme' => $validated['theme'],
-                'locale' => $validated['language'],
-                'show_clock' => $request->boolean('show_clock'),
+                'theme'        => $validated['theme'],
+                'locale'       => $validated['language'],
+                'show_clock'   => $request->boolean('show_clock'),
                 'clock_format' => $validated['clock_format'],
                 'show_seconds' => $request->boolean('show_seconds'),
-                'show_date' => $request->boolean('show_date'),
+                'show_date'    => $request->boolean('show_date'),
                 'cursor_theme' => $validated['cursor_theme'],
+                'design_theme' => $validated['design_theme'],
             ]
         );
+
+        Cache::forget('active_design_theme');
 
         return back()->with('success', 'Preferences saved successfully.');
     }
@@ -47,13 +55,14 @@ class SettingsController extends Controller
         $user->setting()->updateOrCreate(
             ['user_id' => $user->id],
             [
-                'theme' => 'system',
-                'locale' => 'en',
-                'show_clock' => true,
+                'theme'        => 'system',
+                'locale'       => 'en',
+                'show_clock'   => true,
                 'clock_format' => '24',
                 'show_seconds' => true,
-                'show_date' => true,
+                'show_date'    => true,
                 'cursor_theme' => 'viewfinder',
+                'design_theme' => 'diary',
             ]
         );
 

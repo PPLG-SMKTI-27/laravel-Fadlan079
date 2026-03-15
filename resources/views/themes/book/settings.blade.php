@@ -1,13 +1,13 @@
-@extends('layouts.dashboard')
-@section('title', 'Settings')
+@extends('layouts.main')
+@section('title', 'System Settings')
 
 @section('content')
     <div class="min-h-screen bg-background pt-24 pb-12 px-6">
-        <form action="{{ route('dashboard.settings.update') }}" method="POST" class="space-y-12">
+        <form action="{{ route('dashboard.settings.update') }}" method="POST" class="space-y-12 max-w-7xl mx-auto">
             @csrf
             @method('PUT')
 
-            <div class="space-y-2 border-b border-border/50 pb-8">
+            <div class="space-y-2 border-b border-border/50 pb-8 mt-12">
                 <div class="flex items-center gap-3 font-mono mb-4">
                     <span
                         class="px-2 py-1 bg-primary/10 text-primary border border-primary/20 text-[10px] uppercase tracking-widest">
@@ -34,7 +34,7 @@
 
                     <label class="relative cursor-pointer group">
                         <input type="radio" name="theme" value="light" class="peer sr-only"
-                            {{ (auth()->user()->setting->theme ?? 'system') === 'light' ? 'checked' : '' }}>
+                            {{ (auth()->user()?->setting?->theme ?? 'system') === 'light' ? 'checked' : '' }}>
                         <div
                             class="h-32 rounded-xl border-2 border-border bg-surface/30 p-4 hover:bg-surface transition-colors peer-checked:border-primary peer-checked:bg-primary/5">
                             <div
@@ -54,7 +54,7 @@
 
                     <label class="relative cursor-pointer group">
                         <input type="radio" name="theme" value="dark" class="peer sr-only"
-                            {{ (auth()->user()->setting->theme ?? 'system') === 'dark' ? 'checked' : '' }}>
+                            {{ (auth()->user()?->setting?->theme ?? 'system') === 'dark' ? 'checked' : '' }}>
                         <div
                             class="h-32 rounded-xl border-2 border-border bg-surface/30 p-4 hover:bg-surface transition-colors peer-checked:border-primary peer-checked:bg-primary/5">
                             <div
@@ -75,7 +75,7 @@
 
                     <label class="relative cursor-pointer group">
                         <input type="radio" name="theme" value="system" class="peer sr-only"
-                            {{ (auth()->user()->setting->theme ?? 'system') === 'system' ? 'checked' : '' }}>
+                            {{ (auth()->user()?->setting?->theme ?? 'system') === 'system' ? 'checked' : '' }}>
                         <div
                             class="h-32 rounded-xl border-2 border-border bg-surface/30 p-4 hover:bg-surface transition-colors peer-checked:border-primary peer-checked:bg-primary/5">
                             <div class="w-full h-12 rounded border border-border mb-4 flex overflow-hidden shadow-sm">
@@ -99,91 +99,69 @@
 
                 </div>
 
-                <div class="space-y-4 pt-6 border-t border-border/50">
+                <div class="space-y-4 pt-6 border-t border-border/50 hidden lg:block md:block">
                     <div class="flex items-center justify-between">
-                        <h2 class="text-sm font-bold font-mono uppercase tracking-widest text-text">
-                            <i class="fa-solid fa-paintbrush mr-2 text-primary"></i> Design Theme
-                        </h2>
-                        <span class="text-[10px] text-muted font-mono uppercase">Parameter_00</span>
+                        <label
+                            class="text-[10px] font-mono uppercase text-muted tracking-[0.2em]">Interaction_Cursor</label>
+                        <span class="text-[10px] font-mono text-primary uppercase">Parameter_XY</span>
                     </div>
-                    <p class="text-xs text-muted font-mono">Select the overall visual style for the public portfolio page.</p>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
 
-                        {{-- Diary Book --}}
                         <label class="relative cursor-pointer group">
-                            <input type="radio" name="design_theme" value="diary" class="peer sr-only"
-                                {{ ($setting->design_theme ?? 'diary') === 'diary' ? 'checked' : '' }}>
-                            <div class="h-36 rounded-xl border-2 border-border bg-surface/30 p-4 hover:bg-surface transition-colors peer-checked:border-primary peer-checked:bg-primary/5">
-                                <div class="w-full h-14 rounded border border-border mb-3 flex items-center gap-2 px-3 bg-[#faf6ef]">
-                                    <div class="flex flex-col gap-1.5 flex-1">
-                                        <div class="w-2/3 h-1.5 bg-[#c9b89a] rounded"></div>
-                                        <div class="w-1/2 h-1.5 bg-[#ddd0b8] rounded"></div>
-                                        <div class="w-3/4 h-1.5 bg-[#ddd0b8] rounded"></div>
-                                    </div>
-                                    <i class="fa-solid fa-book-open text-[#c9a87a] text-lg"></i>
+                            <input type="radio" name="cursor_theme" value="viewfinder" class="peer sr-only"
+                                {{ (auth()->user()?->setting?->cursor_theme ?? 'viewfinder') === 'viewfinder' ? 'checked' : '' }}>
+                            <div
+                                class="flex flex-col items-center justify-center p-4 border border-border bg-surface/30 peer-checked:border-primary peer-checked:bg-primary/5 transition-all h-24">
+                                <div
+                                    class="w-6 h-6 border-2 border-dashed border-muted group-hover:border-primary peer-checked:border-primary flex items-center justify-center mb-3 transition-colors">
+                                    <div class="w-1.5 h-1.5 bg-primary rounded-full"></div>
                                 </div>
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <span class="font-mono text-xs font-bold text-text uppercase block">Diary Book</span>
-                                        <span class="text-[9px] text-muted font-mono">Warm, personal, journal-style</span>
-                                    </div>
-                                    <i class="fa-solid fa-feather-pointed text-muted group-hover:text-primary transition-colors"></i>
-                                </div>
+                                <span
+                                    class="text-[9px] font-mono font-bold uppercase tracking-widest text-text">Viewfinder</span>
                             </div>
-                            <div class="absolute top-3 right-3 w-3 h-3 rounded-full bg-primary scale-0 transition-transform peer-checked:scale-100 shadow-[0_0_8px_var(--color-primary)]"></div>
                         </label>
 
-                        {{-- Clean (Apple/Cupertino) --}}
                         <label class="relative cursor-pointer group">
-                            <input type="radio" name="design_theme" value="clean" class="peer sr-only"
-                                {{ ($setting->design_theme ?? 'diary') === 'clean' ? 'checked' : '' }}>
-                            <div class="h-36 rounded-xl border-2 border-border bg-surface/30 p-4 hover:bg-surface transition-colors peer-checked:border-primary peer-checked:bg-primary/5">
-                                <div class="w-full h-14 rounded border border-border mb-3 flex items-center gap-2 px-3 bg-[#F5F5F7]">
-                                    <div class="flex flex-col gap-1.5 flex-1">
-                                        <div class="w-2/3 h-1.5 bg-[#D2D2D7] rounded"></div>
-                                        <div class="w-1/2 h-1.5 bg-[#E8E8ED] rounded"></div>
-                                        <div class="w-3/4 h-1.5 bg-[#E8E8ED] rounded"></div>
-                                    </div>
-                                    <i class="fa-brands fa-apple text-[#1D1D1F] text-lg"></i>
+                            <input type="radio" name="cursor_theme" value="blob" class="peer sr-only"
+                                {{ (auth()->user()?->setting?->cursor_theme ?? 'viewfinder') === 'blob' ? 'checked' : '' }}>
+                            <div
+                                class="flex flex-col items-center justify-center p-4 border border-border bg-surface/30 peer-checked:border-primary peer-checked:bg-primary/5 transition-all h-24">
+                                <div
+                                    class="w-6 h-6 rounded-full bg-white flex items-center justify-center mb-3 group-hover:scale-125 transition-transform">
+                                    <i class="fa-solid fa-plus text-[8px] text-black"></i>
                                 </div>
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <span class="font-mono text-xs font-bold text-text uppercase block">Clean</span>
-                                        <span class="text-[9px] text-muted font-mono">Minimal, Apple/Cupertino-style</span>
-                                    </div>
-                                    <i class="fa-brands fa-apple text-muted group-hover:text-primary transition-colors"></i>
-                                </div>
+                                <span
+                                    class="text-[9px] font-mono font-bold uppercase tracking-widest text-text">Invert_Blob</span>
                             </div>
-                            <div class="absolute top-3 right-3 w-3 h-3 rounded-full bg-primary scale-0 transition-transform peer-checked:scale-100 shadow-[0_0_8px_var(--color-primary)]"></div>
                         </label>
 
-                        {{-- System Architecture --}}
                         <label class="relative cursor-pointer group">
-                            <input type="radio" name="design_theme" value="system" class="peer sr-only"
-                                {{ ($setting->design_theme ?? 'diary') === 'system' ? 'checked' : '' }}>
-                            <div class="h-36 rounded-xl border-2 border-border bg-surface/30 p-4 hover:bg-surface transition-colors peer-checked:border-primary peer-checked:bg-primary/5">
-                                <div class="w-full h-14 rounded border border-border mb-3 flex items-center gap-2 px-3 bg-[#0d1117]">
-                                    <div class="flex flex-col gap-1.5 flex-1">
-                                        <div class="w-1/3 h-1.5 bg-primary/60 rounded"></div>
-                                        <div class="w-2/3 h-1.5 bg-primary/30 rounded"></div>
-                                        <div class="w-1/2 h-1.5 bg-primary/20 rounded"></div>
-                                    </div>
-                                    <i class="fa-solid fa-microchip text-primary/70 text-lg"></i>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <span class="font-mono text-xs font-bold text-text uppercase block">System</span>
-                                        <span class="text-[9px] text-muted font-mono">Dark, hacker, terminal-style</span>
-                                    </div>
-                                    <i class="fa-solid fa-terminal text-muted group-hover:text-primary transition-colors"></i>
-                                </div>
+                            <input type="radio" name="cursor_theme" value="terminal" class="peer sr-only"
+                                {{ (auth()->user()?->setting?->cursor_theme ?? 'viewfinder') === 'terminal' ? 'checked' : '' }}>
+                            <div
+                                class="flex flex-col items-center justify-center p-4 border border-border bg-surface/30 peer-checked:border-primary peer-checked:bg-primary/5 transition-all h-24">
+                                <div class="w-2.5 h-5 bg-primary animate-pulse mb-3"></div>
+                                <span
+                                    class="text-[9px] font-mono font-bold uppercase tracking-widest text-text">Terminal</span>
                             </div>
-                            <div class="absolute top-3 right-3 w-3 h-3 rounded-full bg-primary scale-0 transition-transform peer-checked:scale-100 shadow-[0_0_8px_var(--color-primary)]"></div>
+                        </label>
+
+                        <label class="relative cursor-pointer group">
+                            <input type="radio" name="cursor_theme" value="native" class="peer sr-only"
+                                {{ (auth()->user()?->setting?->cursor_theme ?? 'viewfinder') === 'native' ? 'checked' : '' }}>
+                            <div
+                                class="flex flex-col items-center justify-center p-4 border border-border bg-surface/30 peer-checked:border-primary peer-checked:bg-primary/5 transition-all h-24">
+                                <i
+                                    class="fa-solid fa-arrow-pointer text-lg text-muted group-hover:text-primary peer-checked:text-primary mb-3 transition-colors"></i>
+                                <span
+                                    class="text-[9px] font-mono font-bold uppercase tracking-widest text-text">Native_OS</span>
+                            </div>
                         </label>
 
                     </div>
                 </div>
+
 
                 <div class="space-y-6 pt-6 border-t border-border/50">
                     <div class="flex items-center justify-between">
@@ -197,7 +175,7 @@
 
                         <label class="relative cursor-pointer group">
                             <input type="radio" name="language" value="en" class="peer sr-only"
-                                {{ (auth()->user()->setting->locale ?? 'en') === 'en' ? 'checked' : '' }}>
+                                {{ (auth()->user()?->setting?->locale ?? 'en') === 'en' ? 'checked' : '' }}>
                             <div
                                 class="flex items-center gap-4 p-5 rounded-xl border-2 border-border bg-surface/30 hover:bg-surface transition-colors peer-checked:border-primary peer-checked:bg-primary/5">
                                 <div
@@ -215,7 +193,7 @@
 
                         <label class="relative cursor-pointer group">
                             <input type="radio" name="language" value="id" class="peer sr-only"
-                                {{ (auth()->user()->setting->locale ?? 'en') === 'id' ? 'checked' : '' }}>
+                                {{ (auth()->user()?->setting?->locale ?? 'en') === 'id' ? 'checked' : '' }}>
                             <div
                                 class="flex items-center gap-4 p-5 rounded-xl border-2 border-border bg-surface/30 hover:bg-surface transition-colors peer-checked:border-primary peer-checked:bg-primary/5">
                                 <div
@@ -253,7 +231,7 @@
                             <label class="relative inline-flex items-center cursor-pointer">
                                 <input type="hidden" name="show_clock" value="0">
                                 <input type="checkbox" name="show_clock" value="1" class="sr-only peer"
-                                    {{ auth()->user()->setting->show_clock ?? true ? 'checked' : '' }}>
+                                    {{ auth()->user()?->setting?->show_clock ?? true ? 'checked' : '' }}>
                                 <div
                                     class="w-11 h-6 bg-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary shadow-inner">
                                 </div>
@@ -269,14 +247,14 @@
                             <div class="inline-flex bg-background border border-border rounded-lg p-1">
                                 <label class="cursor-pointer">
                                     <input type="radio" name="clock_format" value="12" class="peer sr-only"
-                                        {{ (auth()->user()->setting->clock_format ?? '24') === '12' ? 'checked' : '' }}>
+                                        {{ (auth()->user()?->setting?->clock_format ?? '24') === '12' ? 'checked' : '' }}>
                                     <div
                                         class="px-4 py-1.5 text-xs font-mono font-bold rounded-md text-muted peer-checked:bg-primary/10 peer-checked:text-primary transition-colors">
                                         12H</div>
                                 </label>
                                 <label class="cursor-pointer">
                                     <input type="radio" name="clock_format" value="24" class="peer sr-only"
-                                        {{ (auth()->user()->setting->clock_format ?? '24') === '24' ? 'checked' : '' }}>
+                                        {{ (auth()->user()?->setting?->clock_format ?? '24') === '24' ? 'checked' : '' }}>
                                     <div
                                         class="px-4 py-1.5 text-xs font-mono font-bold rounded-md text-muted peer-checked:bg-primary/10 peer-checked:text-primary transition-colors">
                                         24H</div>
@@ -293,7 +271,7 @@
                             <label class="relative inline-flex items-center cursor-pointer">
                                 <input type="hidden" name="show_seconds" value="0">
                                 <input type="checkbox" name="show_seconds" value="1" class="sr-only peer"
-                                    {{ auth()->user()->setting->show_seconds ?? true ? 'checked' : '' }}>
+                                    {{ auth()->user()?->setting?->show_seconds ?? true ? 'checked' : '' }}>
                                 <div
                                     class="w-11 h-6 bg-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary shadow-inner">
                                 </div>
@@ -309,7 +287,7 @@
                             <label class="relative inline-flex items-center cursor-pointer">
                                 <input type="hidden" name="show_date" value="0">
                                 <input type="checkbox" name="show_date" value="1" class="sr-only peer"
-                                    {{ auth()->user()->setting->show_date ?? true ? 'checked' : '' }}>
+                                    {{ auth()->user()?->setting?->show_date ?? true ? 'checked' : '' }}>
                                 <div
                                     class="w-11 h-6 bg-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary shadow-inner">
                                 </div>
@@ -341,7 +319,7 @@
     </div>
 @endsection
 
-@push('scripts')
+@section('script')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const resetBtn = document.getElementById('reset-btn');
@@ -384,4 +362,4 @@
             }
         });
     </script>
-@endpush
+@endsection

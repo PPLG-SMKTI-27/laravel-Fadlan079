@@ -1,0 +1,286 @@
+@extends('layouts.main')
+@section('title', 'Profil Penulis')
+
+<style>
+    .bg-journal {
+        background-color: var(--color-bg);
+        position: relative;
+    }
+
+    .bg-journal::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+    }
+
+    .bg-journal {
+        background-color: var(--color-bg);
+        box-shadow: inset 0 0 80px rgba(0,0,0,0.05);
+    }
+
+    /* Kertas Polaroid / Kartu Jurnal */
+    .diary-paper {
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+        border-radius: 1.5rem;
+    }
+
+    /* Efek Selotip Kertas */
+    .washi-tape {
+        position: absolute;
+        width: 80px;
+        height: 25px;
+        background-color: color-mix(in srgb, var(--color-surface) 60%, transparent);
+        backdrop-filter: blur(4px);
+        border: 1px solid color-mix(in srgb, var(--color-border) 40%, transparent);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        z-index: 20;
+    }
+</style>
+
+@section('content')
+    <div class="bg-journal min-h-screen font-sans text-text pb-20 selection:bg-muted/30">
+
+    <section id="about-teaser" class="py-30 px-5 max-w-6xl mx-auto relative z-10">
+
+        <div class="relative inline-flex items-center gap-2.5 py-2 pl-9 pr-7 mb-6 transition-all duration-300 w-max group hover:-translate-y-0.5 hover:rotate-1"
+            style="filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.06));">
+
+            <div class="absolute inset-0 bg-warning border border-yellow-500 rounded-l-md z-0 transition-colors"
+                style="clip-path: polygon(0 0, 100% 0, 93% 50%, 100% 100%, 0 100%);">
+            </div>
+
+            <div class="absolute top-1/2 -left-5 w-7 h-[1.5px] bg-[#8B0000]/80 -translate-y-[calc(50%+1px)] origin-right -rotate-12 group-hover:-rotate-6 transition-transform duration-300 rounded-l-full z-0"></div>
+            <div class="absolute top-1/2 -left-4 w-6 h-[1.5px] bg-[#B22222]/80 -translate-y-[calc(50%-1px)] origin-right rotate-12 group-hover:rotate-6 transition-transform duration-300 rounded-l-full z-0"></div>
+
+            <div class="absolute left-3 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-surface shadow-[inset_1px_1px_3px_rgba(0,0,0,0.3)] border border-yellow-700/30 z-10"></div>
+
+            <i class="fa-regular fa-user relative z-10 text-yellow-800 text-xs mt-px group-hover:translate-x-0.5 transition-transform duration-300"></i>
+
+            <span class="relative z-10 text-[10px] sm:text-[11px] font-black tracking-[0.15em] uppercase text-yellow-900 mt-px">
+               Profil Saya
+            </span>
+        </div>
+
+        <div class="relative bg-surface rounded-lg shadow-[0_15px_40px_-15px_rgba(0,0,0,0.1)] border border-border p-8 md:p-14 lg:p-20 flex flex-col md:flex-row gap-12 lg:gap-16 items-center overflow-hidden">
+
+            <div class="absolute inset-0 pointer-events-none opacity-[0.03]" style="background-image: radial-gradient(var(--color-text) 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+            <div class="absolute top-0 bottom-0 left-0 w-10 bg-container border-r border-border/50 flex flex-col justify-center gap-16 items-center py-10 shadow-inner">
+                <div class="w-4 h-4 rounded-full bg-bg shadow-inner border border-border/70"></div>
+                <div class="w-4 h-4 rounded-full bg-bg shadow-inner border border-border/70"></div>
+                <div class="w-4 h-4 rounded-full bg-bg shadow-inner border border-border/70"></div>
+                <div class="w-4 h-4 rounded-full bg-bg shadow-inner border border-border/70"></div>
+            </div>
+
+            <div class="w-full md:w-3/5 pl-6 sm:pl-10 relative z-10">
+
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-text leading-[1.1]">
+                    Tentang Saya<br />
+                    <span class="text-muted font-medium italic font-serif">Latar belakang</span>
+                </h2>
+
+                <p class="text-base md:text-lg text-muted leading-relaxed mb-8 font-medium">
+                    Saya adalah siswa SMK TI Airlangga generasi ke-24 yang berfokus pada pengembangan web full-stack.
+                    Saat ini saya sedang mempelajari Laravel dan Vue, serta senang mengeksplorasi berbagai teknologi baru untuk mengembangkan kemampuan saya.
+                </p>
+
+                <div class="flex flex-wrap gap-3 mb-10">
+                    <span class="px-3 py-1.5 bg-bg text-muted border border-border text-[10px] font-bold uppercase tracking-widest shadow-sm rotate-1">
+                        <i class="fa-solid fa-location-dot text-primary mr-1"></i> Indonesia
+                    </span>
+                    <span class="px-3 py-1.5 bg-bg text-muted border border-border text-[10px] font-bold uppercase tracking-widest shadow-sm -rotate-1">
+                        <i class="fa-solid fa-code text-primary mr-1"></i> Aplikasi Web
+                    </span>
+                    <span class="px-3 py-1.5 bg-success/10 text-success border border-success/20 text-[10px] font-bold uppercase tracking-widest shadow-sm rotate-1 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-success animate-pulse"></span> Tersedia
+                    </span>
+                </div>
+            </div>
+
+            <div class="hidden w-full md:w-2/5 md:flex justify-center relative z-10 mt-8 md:mt-0">
+
+                <div class="relative bg-white p-3 pb-16 shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] border border-border/50 w-64 sm:w-72 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-surface/80 border border-border/50 shadow-sm backdrop-blur-md -rotate-2 z-20"></div>
+
+                    <div class="aspect-[4/5] overflow-hidden bg-container border border-border/50 relative">
+                        <div class="absolute inset-0 opacity-[0.03] pointer-events-none z-10" style="background-image: radial-gradient(#000 0.5px, transparent 0.5px); background-size: 6px 6px;"></div>
+
+                        <img src="{{ $profilePhoto }}" alt="Foto Fadlan"
+                            onerror="this.style.display='none'; document.getElementById('fallback-profile').style.display='flex';"
+                            class="w-full h-full object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-700">
+
+                        <div id="fallback-profile" style="display:none;" class="flex-col items-center justify-center w-full h-full text-muted p-4 text-center bg-surface">
+                            <i class="fa-regular fa-image text-3xl opacity-30 mb-2"></i>
+                            <span class="text-[9px] uppercase tracking-widest font-bold">Kliping Kosong</span>
+                        </div>
+                    </div>
+
+                    <div class="absolute -bottom-3 right-3 rotate-[-6deg]">
+                        <div class="bg-warning text-yellow-900 px-3 py-1 text-[10px] font-black uppercase tracking-widest shadow-md border-l-4 border-yellow-500 whitespace-nowrap w-max">
+                            Author Profile
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="w-full md:w-2/5 flex justify-center md:justify-end mt-22 md:mt-0 relative z-10  md:hidden -translate-y-8">
+
+            <div class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,var(--color-border)_10px,var(--color-border)_11px)] opacity-20 -z-10 rounded-[2rem] transform translate-x-4 translate-y-4"></div>
+
+            <div class="relative w-80 h-80 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-surface shadow-2xl border border-border p-3 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-16 h-8 bg-surface/80 backdrop-blur-sm border border-border/50 shadow-sm rotate-[-4deg] z-20"></div>
+
+                <div class="w-full h-full relative overflow-hidden bg-container border border-border/50">
+                    <div class="absolute inset-0 opacity-[0.03] pointer-events-none z-10" style="background-image: radial-gradient(var(--color-text) 1px, transparent 1px); background-size: 8px 8px;"></div>
+
+                    <img src="{{ $profilePhoto }}"
+                    alt="Fadlan Photo"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    class="w-full h-full object-cover grayscale-[0.4] hover:grayscale-0 transition-all duration-700">
+
+                    <div style="display:none;" class="flex-col items-center justify-center w-full h-full text-muted p-4 text-center bg-surface">
+                        <i class="fa-regular fa-image text-3xl opacity-30 mb-2"></i>
+                        <span class="text-[9px] uppercase tracking-widest font-bold">Kliping Kosong</span>
+                    </div>
+                </div>
+
+                <div class="absolute -bottom-3 right-3 rotate-[-6deg]">
+                    <div class="bg-warning text-yellow-900 px-3 py-1 text-[10px] font-black uppercase tracking-widest shadow-md border-l-4 border-yellow-500 whitespace-nowrap w-max">
+                        Author Profile
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="max-w-6xl mx-auto px-5 md:px-8 py-20 mt-10 border-t border-border/50">
+
+        <div class="flex flex-col md:flex-row gap-12 lg:gap-20">
+            <div class="w-full md:w-1/3">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-2 h-2 rounded-full bg-primary"></div>
+                    <span class="font-bold text-[10px] uppercase tracking-widest text-primary">
+                        Peta Jalan Karir
+                    </span>
+                </div>
+                <h3 class="text-4xl font-bold tracking-tight text-text leading-tight mb-4">
+                    Tujuan / Visi.
+                </h3>
+                <p class="text-sm text-muted font-medium">
+                    Hal yang ingin saya capai dalam perjalanan belajar web development.
+                </p>
+            </div>
+
+            <div class="w-full md:w-2/3 grid sm:grid-cols-2 gap-6">
+
+            <div class="diary-paper p-8 flex flex-col hover:-translate-y-1 transition-transform">
+                <p class="text-[10px] font-bold text-muted tracking-widest uppercase mb-4 border-b border-border/50 pb-2">
+                    Jangka Pendek
+                </p>
+
+                <h4 class="text-xl font-bold text-text mb-3">
+                    Memperkuat Dasar
+                </h4>
+
+                <p class="text-sm text-muted font-medium leading-relaxed">
+                    Fokus mempelajari Laravel, Vue, dan teknologi web lainnya sambil membangun berbagai proyek untuk memperkuat pemahaman dalam pengembangan web full-stack.
+                </p>
+            </div>
+
+            <div class="diary-paper p-8 flex flex-col hover:-translate-y-1 transition-transform bg-container">
+                <p class="text-[10px] font-bold text-muted tracking-widest uppercase mb-4 border-b border-border/50 pb-2">
+                    Jangka Panjang
+                </p>
+
+                <h4 class="text-xl font-bold text-text mb-3">
+                    Menjadi Web Developer
+                </h4>
+
+                <p class="text-sm text-muted font-medium leading-relaxed">
+                    Terus mengembangkan kemampuan dalam membangun aplikasi web yang bermanfaat, serta memperdalam pengalaman sebagai developer full-stack.
+                </p>
+            </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto px-5 md:px-8 py-20 border-t border-border/50">
+        <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-text mb-12">
+            Fokus Saya
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+
+            @php
+                $principles = [
+                    [
+                        'title' => 'Full-Stack Development',
+                        'desc' => 'Mempelajari pengembangan aplikasi web dari backend hingga frontend agar sistem dapat bekerja secara menyeluruh.'
+                    ],
+                    [
+                        'title' => 'Backend Development',
+                        'desc' => 'Fokus pada logika aplikasi, pengolahan data, dan pengelolaan database menggunakan Laravel.'
+                    ],
+                    [
+                        'title' => 'Frontend Development',
+                        'desc' => 'Membangun antarmuka web yang responsif dan mudah digunakan menggunakan HTML, TailwindCSS, dan JavaScript.'
+                    ],
+                    [
+                        'title' => 'Web Application',
+                        'desc' => 'Membangun berbagai proyek aplikasi web untuk melatih pemahaman dalam pengembangan sistem berbasis web.'
+                    ]
+                ];
+            @endphp
+
+            @foreach ($principles as $i => $principle)
+                <div class="space-y-3 group cursor-default">
+                    <div class="w-8 h-8 rounded-full bg-container text-muted flex items-center justify-center text-[10px] font-bold group-hover:bg-primary group-hover:text-white transition-colors">
+                        0{{ $i + 1 }}
+                    </div>
+                    <h4 class="text-lg font-bold text-text group-hover:text-primary transition-colors">
+                        {{ $principle['title'] }}
+                    </h4>
+                    <p class="text-sm text-muted font-medium leading-relaxed">
+                        {{ $principle['desc'] }}
+                    </p>
+                </div>
+            @endforeach
+
+        </div>
+    </section>
+
+    <section class="mt-20 py-20 border-t border-dashed border-border/50 bg-bg text-center font-serif">
+        <div class="max-w-3xl mx-auto px-6 relative">
+
+            <span class="absolute -top-8 left-4 md:-left-8 text-8xl text-text/50 font-serif leading-none select-none">
+                &ldquo;
+            </span>
+
+            <h3 class="text-2xl md:text-3xl font-medium text-text leading-relaxed italic relative z-10">
+                Framework dan tools membantu lebih cepat, tetapi dasar tetap yang utama.
+            </h3>
+
+            <div class="mt-8 flex items-center justify-center gap-4 relative z-10">
+                <div class="w-10 h-[1px] bg-border/50"></div>
+                <p class="text-base md:text-lg text-text font-semibold tracking-wider uppercase">
+                    Fadlan Firdaus
+                </p>
+                <div class="w-10 h-[1px] bg-border/50"></div>
+            </div>
+
+        </div>
+    </section>
+
+    </div>
+@endsection

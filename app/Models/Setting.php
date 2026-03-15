@@ -15,6 +15,7 @@ class Setting extends Model
         'show_seconds',
         'show_date',
         'cursor_theme',
+        'design_theme'
     ];
 
     /**

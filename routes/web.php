@@ -136,3 +136,17 @@ Route::post('/api/locale', function (Illuminate\Http\Request $request) {
     }
     return response()->json(['success' => true]);
 });
+
+Route::post('/api/layout', function (Illuminate\Http\Request $request) {
+    if ($user = $request->user()) {
+        $validated = $request->validate([
+            'layout' => ['required', 'string', 'in:diary,clean,system'],
+        ]);
+        /** @var \App\Models\User $user */
+        $user->setting()->updateOrCreate(
+            ['user_id' => $user->id],
+            ['design_theme' => $validated['layout']]
+        );
+    }
+    return response()->json(['success' => true]);
+});
