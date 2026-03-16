@@ -7,7 +7,6 @@
         ['id' => 'tools', 'name' => 'Tools', 'icon' => '<i class="fa-solid fa-toolbox"></i>', 'color' => 'text-emerald-700', 'bg' => 'bg-emerald-50', 'border' => 'border-emerald-200'],
     ];
 
-    // Array rotasi untuk memberikan efek miring yang natural dan acak pada kertas & selotip
     $cardRotations = ['-rotate-2', 'rotate-3', '-rotate-1', 'rotate-2', '-rotate-3'];
     $tapeRotations = ['rotate-3', '-rotate-2', 'rotate-1', '-rotate-4', 'rotate-2'];
 @endphp
@@ -19,11 +18,13 @@
             Tech Stack
         </h3>
 
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-text leading-tight">
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-text leading-tight"
+        data-i18n="home.skills.title">
             Skill & Teknologi
         </h2>
 
-        <p class="text-muted text-lg font-medium max-w-2xl mx-auto md:mx-0 italic">
+        <p class="text-muted text-lg font-medium max-w-2xl mx-auto md:mx-0 italic"
+        data-i18n="home.skills.description">
             Beberapa teknologi dan bahasa pemrograman yang saya gunakan dalam pengembangan web.
         </p>
     </div>
@@ -35,7 +36,7 @@
             @if($skillsByCategory->has($cat['id']) && $skillsByCategory->get($cat['id'])->count() > 0)
 
                 @php
-                    // Mengambil rotasi secara berurutan dari array
+
                     $cardRotation = $cardRotations[$index % count($cardRotations)];
                     $tapeRotation = $tapeRotations[$index % count($tapeRotations)];
                     $index++;

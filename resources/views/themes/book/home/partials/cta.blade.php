@@ -19,16 +19,18 @@
 
             <div class="inline-flex items-center gap-2 px-3 py-1 bg-bg border border-border shadow-sm transform -rotate-1 mb-8">
                 <i class="fa-solid fa-thumbtack text-primary text-[10px]"></i>
-                <span class="text-[10px] font-bold tracking-widest uppercase text-muted" data-i18n="home.cta_label">
-                    Status: Siap Menerima Proyek
+                <span class="text-[10px] font-bold tracking-widest uppercase text-muted" data-i18n="home.cta.status">
+                    Siap Menerima Proyek
                 </span>
             </div>
 
-            <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-text leading-tight font-serif italic">
+            <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-text leading-tight font-serif italic"
+            data-i18n="home.cta.title">
                 Mari Berkolaborasi
             </h2>
 
-            <p class="text-base md:text-lg text-muted mb-10 max-w-lg leading-relaxed font-medium">
+            <p class="text-base md:text-lg text-muted mb-10 max-w-lg leading-relaxed font-medium"
+            data-i18n="home.cta.description">
                 Jika Anda memiliki ide atau proyek yang ingin dikembangkan, saya terbuka untuk berdiskusi dan bekerja sama.
             </p>
 
@@ -36,14 +38,15 @@
 
                 <a href="{{ route('portofolio.contact') }}"
                    class="w-full sm:w-auto px-8 py-3.5 bg-text text-bg rounded-sm font-bold uppercase tracking-widest text-xs hover:-translate-y-1 transition-transform shadow-md flex items-center justify-center gap-3">
-                    <span>Tulis Pesan</span>
+                    <span data-i18n="home.cta.button_message">Tulis Pesan</span>
                     <i class="fa-solid fa-feather-pointed text-sm"></i>
                 </a>
 
                 <a href="mailto:fadlanfirdaus220@gmail.com"
                    class="group flex items-center justify-center gap-2 text-sm font-bold text-muted hover:text-primary transition-colors w-max">
                     <i class="fa-regular fa-envelope"></i>
-                    <span class="border-b border-border group-hover:border-primary pb-0.5 transition-colors">Kirim via Email</span>
+                    <span class="border-b border-border group-hover:border-primary pb-0.5 transition-colors"
+                    data-i18n="home.cta.button_email">Kirim via Email</span>
                 </a>
 
             </div>

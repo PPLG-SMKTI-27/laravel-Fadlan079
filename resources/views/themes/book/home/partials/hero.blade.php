@@ -19,7 +19,8 @@
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
             </span>
 
-            <span class="relative z-10 text-[10px] sm:text-xs font-black tracking-[0.15em] uppercase text-yellow-900 mt-px">
+            <span class="relative z-10 text-[10px] sm:text-xs font-black tracking-[0.15em] uppercase text-yellow-900 mt-px"
+            data-i18n="home.hero.status">
                 Tersedia Untuk Kolaborasi
             </span>
         </div>
@@ -31,7 +32,8 @@
             </h1>
         </div>
 
-        <p class="gsap-hero-item text-base md:text-lg text-muted max-w-xl leading-relaxed font-medium opacity-0 translate-y-4">
+        <p class="gsap-hero-item text-base md:text-lg text-muted max-w-xl leading-relaxed font-medium opacity-0 translate-y-4"
+        data-i18n="home.hero.description">
            Siswa SMK TI Airlangga generasi ke-24 yang berfokus pada pengembangan web full-stack dan tertarik mempelajari teknologi baru.
         </p>
 
@@ -42,9 +44,9 @@
                 class="relative flex items-center justify-center gap-3 px-8 pt-4 pb-6 bg-warning text-yellow-900 font-serif font-bold text-center hover:-translate-y-1 transition-transform duration-300 group w-full sm:w-auto"
                 style="clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 96% 100%, 92% 82%, 87% 95%, 82% 85%, 77% 100%, 72% 88%, 66% 98%, 60% 85%, 55% 100%, 48% 88%, 42% 95%, 36% 82%, 30% 100%, 25% 85%, 18% 98%, 12% 85%, 6% 95%, 0% 85%);">
 
-                    <div class="absolute top-1 left-0 w-full h-[1px] bg-yellow-900/10 z-0"></div>
+                    <div class="absolute top-1 left-0 w-full h-px bg-yellow-900/10 z-0"></div>
 
-                    <span class="relative z-10">Lihat Proyek</span>
+                    <span class="relative z-10" data-i18n="home.hero.button_projects">Lihat Proyek</span>
                     <i class="fa-solid fa-arrow-right-long text-sm relative z-10 group-hover:translate-x-1.5 transition-transform"></i>
                 </a>
             </div>
@@ -55,7 +57,7 @@
 
                 <div class="absolute -top-[1.5px] left-0 w-full h-[3px] bg-border/20 z-0"></div>
 
-                <span class="relative z-10 font-serif">Hubungi Saya</span>
+                <span class="relative z-10 font-serif" data-i18n="home.hero.button_contact">Hubungi Saya</span>
                 <i class="fa-solid fa-arrow-right-long text-sm relative z-10 group-hover:translate-x-1.5 transition-transform"></i>
 
             </a>
@@ -101,12 +103,12 @@
 
                 <div style="display:none;" class="flex-col items-center justify-center w-full h-full text-muted p-4 text-center bg-surface">
                     <i class="fa-regular fa-image text-3xl opacity-30 mb-2"></i>
-                    <span class="text-[9px] uppercase tracking-widest font-bold">Kliping Kosong</span>
+                    <span class="text-[9px] uppercase tracking-widest font-bold" data-i18n="home.hero.photo_placeholder">Kliping Kosong</span>
                 </div>
             </div>
 
             <div class="absolute -bottom-3 right-3 rotate-[-6deg]">
-                <div class="bg-warning text-yellow-900 px-3 py-1 text-[10px] font-black uppercase tracking-widest shadow-md border-l-4 border-yellow-500 whitespace-nowrap w-max">
+                <div class="bg-warning text-yellow-900 px-3 py-1 text-[10px] font-black uppercase tracking-widest shadow-md border-l-4 border-yellow-500 whitespace-nowrap w-max" data-i18n="home.hero.photo_author_tag">
                     Author Profile
                 </div>
             </div>
@@ -117,28 +119,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", (event) => {
-        // Pastikan GSAP dimuat
         if (typeof gsap !== 'undefined') {
 
-            // Buat timeline untuk sinkronisasi
             const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-            // 1. Animasi berurutan (stagger) untuk elemen teks di sebelah kiri
             tl.to(".gsap-hero-item", {
                 y: 0,
                 opacity: 1,
                 duration: 0.8,
-                stagger: 0.15, // Jarak waktu muncul antar elemen (150ms)
-                delay: 0.2 // Beri sedikit jeda awal agar tidak bertabrakan dengan animasi transisi halaman (jika ada)
+                stagger: 0.15,
+                delay: 0.2
             });
 
-            // 2. Animasi untuk foto polaroid di sebelah kanan
             tl.to(".gsap-hero-photo", {
                 y: 0,
                 opacity: 1,
                 duration: 1,
-                ease: "back.out(1.2)" // Sedikit memantul agar terlihat seperti diletakkan ke atas meja
-            }, "-=0.6"); // Mulai lebih awal, sebelum elemen teks selesai semua
+                ease: "back.out(1.2)"
+            }, "-=0.6");
         }
     });
 </script>

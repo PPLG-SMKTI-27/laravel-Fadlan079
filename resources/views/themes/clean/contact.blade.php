@@ -63,23 +63,10 @@
                                 <span
                                     class="text-sm font-mono font-bold uppercase tracking-widest text-text">COMMS_INTERFACE</span>
                             </div>
-
-                            <div class="flex items-stretch sm:items-center gap-1 sm:gap-2 border border-border/50 p-1 bg-surface/30 w-full sm:w-auto"
-                                id="contact-method-tabs">
-                                <button type="button" data-method="email"
-                                    class="method-tab active flex-1 sm:flex-none px-2 sm:px-3 py-2 sm:py-1 text-[10px] font-mono uppercase tracking-widest transition-colors bg-primary/20 text-primary border border-primary/50">
-                                    [ SMTP ]
-                                </button>
-                                <button type="button" data-method="wa"
-                                    class="method-tab flex-1 sm:flex-none px-2 sm:px-3 py-2 sm:py-1 text-[10px] font-mono uppercase tracking-widest transition-colors text-muted hover:text-text border border-transparent">
-                                    [ WHATSAPP ]
-                                </button>
-                            </div>
                         </div>
 
                         <form action="{{ route('portofolio.contact.send') }}" method="POST" class="space-y-6">
                             @csrf
-                            <input type="hidden" name="method" id="input-method" value="{{ old('method', 'email') }}">
 
                             <div class="space-y-3">
                                 <span
@@ -112,11 +99,19 @@
                                             [ GEN_INQUIRY ]
                                         </div>
                                     </label>
+                                    <label class="cursor-pointer relative">
+                                        <input type="radio" name="type" value="feedback" class="peer sr-only"
+                                            {{ old('type') === 'feedback' ? 'checked' : '' }}>
+                                        <div
+                                            class="w-full text-center sm:text-left px-3 py-2 sm:px-4 sm:py-2 border border-border/50 bg-surface/20 text-[10px] font-mono uppercase tracking-widest text-muted peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary transition-colors">
+                                            [ FEEDBACK ]
+                                        </div>
+                                    </label>
                                 </div>
                             </div>
 
                             <div class="space-y-3 relative group">
-                                <label for="input-sender" id="label-sender"
+                                <label for="input-sender"
                                     class="text-[10px] font-mono uppercase tracking-widest text-primary flex items-center gap-2 group-focus-within:text-sky-400 transition-colors"
                                     data-i18n="contact.folder.field_from">
                                     > PARAM_02: ORIGIN_NODE (EMAIL)
@@ -135,8 +130,6 @@
                                         class="text-[10px] font-mono text-red-500 bg-red-500/10 px-2 py-1 border border-red-500/30 inline-block mt-1">>
                                         SYS_ERR: {{ $message }}</span>
                                 @enderror
-                                <p id="helper-sender" class="text-[10px] font-mono text-amber-400 mt-1 hidden">> FORMAT REQ:
-                                    0812... or +62812...</p>
                             </div>
 
                             <div class="space-y-3 relative group">
@@ -440,59 +433,4 @@
             background: color-mix(in srgb, var(--color-primary) 50%, transparent);
         }
     </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabs = document.querySelectorAll('.method-tab');
-            const inputMethod = document.getElementById('input-method');
-            const inputSender = document.getElementById('input-sender');
-            const labelSender = document.getElementById('label-sender');
-            const helperSender = document.getElementById('helper-sender');
-
-            const transFromEmail = "> PARAM_02: ORIGIN_NODE (EMAIL)";
-            const transFromWa = "> PARAM_02: ORIGIN_NODE (WHATSAPP)";
-
-            @if (session('wa_url'))
-                window.open('{{ session('wa_url') }}', '_blank');
-            @endif
-
-            setMethod(inputMethod.value || 'email');
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    setMethod(this.dataset.method);
-                });
-            });
-
-            function setMethod(method) {
-                tabs.forEach(t => {
-                    if (t.dataset.method === method) {
-                        t.classList.remove('text-muted', 'hover:text-text', 'border-transparent');
-                        t.classList.add('bg-primary/20', 'text-primary', 'border-primary/50');
-                    } else {
-                        t.classList.add('text-muted', 'hover:text-text', 'border-transparent');
-                        t.classList.remove('bg-primary/20', 'text-primary', 'border-primary/50');
-                    }
-                });
-
-                inputMethod.value = method;
-
-                if (method === 'wa') {
-                    labelSender.textContent = transFromWa;
-                    labelSender.removeAttribute('data-i18n');
-                    inputSender.type = 'tel';
-                    inputSender.placeholder = 'INPUT_PHONE_NUMBER_';
-                    inputSender.removeAttribute('data-i18n-placeholder');
-                    helperSender.classList.remove('hidden');
-                } else {
-                    labelSender.textContent = transFromEmail;
-                    labelSender.setAttribute('data-i18n', 'contact.folder.field_from');
-                    inputSender.type = 'email';
-                    inputSender.placeholder = 'guest_node@domain.com';
-                    inputSender.setAttribute('data-i18n-placeholder', 'contact.folder.field_from_placeholder');
-                    helperSender.classList.add('hidden');
-                }
-            }
-        });
-    </script>
 @endpush

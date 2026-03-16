@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Profil Penulis')
+@section('title', 'About')
 
 <style>
     .bg-journal {
@@ -20,16 +20,12 @@
         background-color: var(--color-bg);
         box-shadow: inset 0 0 80px rgba(0,0,0,0.05);
     }
-
-    /* Kertas Polaroid / Kartu Jurnal */
     .diary-paper {
         background-color: var(--color-surface);
         border: 1px solid var(--color-border);
         box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
         border-radius: 1.5rem;
     }
-
-    /* Efek Selotip Kertas */
     .washi-tape {
         position: absolute;
         width: 80px;
@@ -61,7 +57,8 @@
 
             <i class="fa-regular fa-user relative z-10 text-yellow-800 text-xs mt-px group-hover:translate-x-0.5 transition-transform duration-300"></i>
 
-            <span class="relative z-10 text-[10px] sm:text-[11px] font-black tracking-[0.15em] uppercase text-yellow-900 mt-px">
+            <span class="relative z-10 text-[10px] sm:text-[11px] font-black tracking-[0.15em] uppercase text-yellow-900 mt-px"
+            data-i18n="about.teaser.label">
                Profil Saya
             </span>
         </div>
@@ -80,11 +77,11 @@
             <div class="w-full md:w-3/5 pl-6 sm:pl-10 relative z-10">
 
                 <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-text leading-[1.1]">
-                    Tentang Saya<br />
-                    <span class="text-muted font-medium italic font-serif">Latar belakang</span>
+                    <span data-i18n="about.title">Tentang Saya</span><br/>
+                    <span class="text-muted font-medium italic font-serif" data-i18n="about.subtitle">Latar belakang</span>
                 </h2>
 
-                <p class="text-base md:text-lg text-muted leading-relaxed mb-8 font-medium">
+                <p class="text-base md:text-lg text-muted leading-relaxed mb-8 font-medium" data-i18n="about.description">
                     Saya adalah siswa SMK TI Airlangga generasi ke-24 yang berfokus pada pengembangan web full-stack.
                     Saat ini saya sedang mempelajari Laravel dan Vue, serta senang mengeksplorasi berbagai teknologi baru untuk mengembangkan kemampuan saya.
                 </p>
@@ -117,13 +114,14 @@
 
                         <div id="fallback-profile" style="display:none;" class="flex-col items-center justify-center w-full h-full text-muted p-4 text-center bg-surface">
                             <i class="fa-regular fa-image text-3xl opacity-30 mb-2"></i>
-                            <span class="text-[9px] uppercase tracking-widest font-bold">Kliping Kosong</span>
+                            <span class="text-[9px] uppercase tracking-widest font-bold" data-i18n="about.photo_placeholder">Kliping Kosong</span>
                         </div>
                     </div>
 
                     <div class="absolute -bottom-3 right-3 rotate-[-6deg]">
-                        <div class="bg-warning text-yellow-900 px-3 py-1 text-[10px] font-black uppercase tracking-widest shadow-md border-l-4 border-yellow-500 whitespace-nowrap w-max">
-                            Author Profile
+                        <div class="bg-warning text-yellow-900 px-3 py-1 text-[10px] font-black uppercase tracking-widest shadow-md border-l-4 border-yellow-500 whitespace-nowrap w-max"
+                        data-i18n="about.author_label">
+                            Profil Penulis
                         </div>
                     </div>
                 </div>
@@ -149,12 +147,12 @@
 
                     <div style="display:none;" class="flex-col items-center justify-center w-full h-full text-muted p-4 text-center bg-surface">
                         <i class="fa-regular fa-image text-3xl opacity-30 mb-2"></i>
-                        <span class="text-[9px] uppercase tracking-widest font-bold">Kliping Kosong</span>
+                        <span class="text-[9px] uppercase tracking-widest font-bold" data-i18n="about.photo_placeholder">Kliping Kosong</span>
                     </div>
                 </div>
 
                 <div class="absolute -bottom-3 right-3 rotate-[-6deg]">
-                    <div class="bg-warning text-yellow-900 px-3 py-1 text-[10px] font-black uppercase tracking-widest shadow-md border-l-4 border-yellow-500 whitespace-nowrap w-max">
+                    <div class="bg-warning text-yellow-900 px-3 py-1 text-[10px] font-black uppercase tracking-widest shadow-md border-l-4 border-yellow-500 whitespace-nowrap w-max" data-i18n="about.author_label">
                         Author Profile
                     </div>
                 </div>
@@ -169,14 +167,17 @@
             <div class="w-full md:w-1/3">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="w-2 h-2 rounded-full bg-primary"></div>
-                    <span class="font-bold text-[10px] uppercase tracking-widest text-primary">
+                    <span class="font-bold text-[10px] uppercase tracking-widest text-primary"
+                    data-i18n="about.career_roadmap.label">
                         Peta Jalan Karir
                     </span>
                 </div>
-                <h3 class="text-4xl font-bold tracking-tight text-text leading-tight mb-4">
+                <h3 class="text-4xl font-bold tracking-tight text-text leading-tight mb-4"
+                data-i18n="about.career_roadmap.title">
                     Tujuan / Visi.
                 </h3>
-                <p class="text-sm text-muted font-medium">
+                <p class="text-sm text-muted font-medium"
+                data-i18n="about.career_roadmap.description">
                     Hal yang ingin saya capai dalam perjalanan belajar web development.
                 </p>
             </div>
@@ -184,29 +185,35 @@
             <div class="w-full md:w-2/3 grid sm:grid-cols-2 gap-6">
 
             <div class="diary-paper p-8 flex flex-col hover:-translate-y-1 transition-transform">
-                <p class="text-[10px] font-bold text-muted tracking-widest uppercase mb-4 border-b border-border/50 pb-2">
+                <p class="text-[10px] font-bold text-muted tracking-widest uppercase mb-4 border-b border-border/50 pb-2"
+                data-i18n="about.career_roadmap.short_term.label">
                     Jangka Pendek
                 </p>
 
-                <h4 class="text-xl font-bold text-text mb-3">
+                <h4 class="text-xl font-bold text-text mb-3"
+                data-i18n="about.career_roadmap.short_term.title">
                     Memperkuat Dasar
                 </h4>
 
-                <p class="text-sm text-muted font-medium leading-relaxed">
+                <p class="text-sm text-muted font-medium leading-relaxed"
+                data-i18n="about.career_roadmap.short_term.description">
                     Fokus mempelajari Laravel, Vue, dan teknologi web lainnya sambil membangun berbagai proyek untuk memperkuat pemahaman dalam pengembangan web full-stack.
                 </p>
             </div>
 
             <div class="diary-paper p-8 flex flex-col hover:-translate-y-1 transition-transform bg-container">
-                <p class="text-[10px] font-bold text-muted tracking-widest uppercase mb-4 border-b border-border/50 pb-2">
+                <p class="text-[10px] font-bold text-muted tracking-widest uppercase mb-4 border-b border-border/50 pb-2"
+                data-i18n="about.career_roadmap.long_term.label">
                     Jangka Panjang
                 </p>
 
-                <h4 class="text-xl font-bold text-text mb-3">
+                <h4 class="text-xl font-bold text-text mb-3"
+                data-i18n="about.career_roadmap.long_term.title">
                     Menjadi Web Developer
                 </h4>
 
-                <p class="text-sm text-muted font-medium leading-relaxed">
+                <p class="text-sm text-muted font-medium leading-relaxed"
+                data-i18n="about.career_roadmap.long_term.description">
                     Terus mengembangkan kemampuan dalam membangun aplikasi web yang bermanfaat, serta memperdalam pengalaman sebagai developer full-stack.
                 </p>
             </div>
@@ -216,45 +223,27 @@
     </section>
 
     <section class="max-w-6xl mx-auto px-5 md:px-8 py-20 border-t border-border/50">
-        <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-text mb-12">
+        <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-text mb-12"
+        data-i18n="about.focus.title">
             Fokus Saya
         </h3>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
 
-            @php
-                $principles = [
-                    [
-                        'title' => 'Full-Stack Development',
-                        'desc' => 'Mempelajari pengembangan aplikasi web dari backend hingga frontend agar sistem dapat bekerja secara menyeluruh.'
-                    ],
-                    [
-                        'title' => 'Backend Development',
-                        'desc' => 'Fokus pada logika aplikasi, pengolahan data, dan pengelolaan database menggunakan Laravel.'
-                    ],
-                    [
-                        'title' => 'Frontend Development',
-                        'desc' => 'Membangun antarmuka web yang responsif dan mudah digunakan menggunakan HTML, TailwindCSS, dan JavaScript.'
-                    ],
-                    [
-                        'title' => 'Web Application',
-                        'desc' => 'Membangun berbagai proyek aplikasi web untuk melatih pemahaman dalam pengembangan sistem berbasis web.'
-                    ]
-                ];
-            @endphp
-
             @foreach ($principles as $i => $principle)
-                <div class="space-y-3 group cursor-default">
-                    <div class="w-8 h-8 rounded-full bg-container text-muted flex items-center justify-center text-[10px] font-bold group-hover:bg-primary group-hover:text-white transition-colors">
-                        0{{ $i + 1 }}
-                    </div>
-                    <h4 class="text-lg font-bold text-text group-hover:text-primary transition-colors">
-                        {{ $principle['title'] }}
-                    </h4>
-                    <p class="text-sm text-muted font-medium leading-relaxed">
-                        {{ $principle['desc'] }}
-                    </p>
+            <div class="space-y-3 group cursor-default">
+                <div class="w-8 h-8 rounded-full bg-container text-muted flex items-center justify-center text-[10px] font-bold group-hover:bg-primary group-hover:text-white transition-colors">
+                    0{{ $i + 1 }}
                 </div>
+                <h4 class="text-lg font-bold text-text group-hover:text-primary transition-colors"
+                    data-i18n="about.focus.principles.{{ $i }}.title">
+                    {{ $principle['title'] }}
+                </h4>
+                <p class="text-sm text-muted font-medium leading-relaxed"
+                data-i18n="about.focus.principles.{{ $i }}.description">
+                    {{ $principle['description'] }}
+                </p>
+            </div>
             @endforeach
 
         </div>
@@ -267,7 +256,8 @@
                 &ldquo;
             </span>
 
-            <h3 class="text-2xl md:text-3xl font-medium text-text leading-relaxed italic relative z-10">
+            <h3 class="text-2xl md:text-3xl font-medium text-text leading-relaxed italic relative z-10"
+            data-i18n="about.quote.text">
                 Framework dan tools membantu lebih cepat, tetapi dasar tetap yang utama.
             </h3>
 

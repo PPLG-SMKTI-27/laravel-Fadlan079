@@ -87,8 +87,9 @@ class HomeController extends Controller
 
     public function Showabout()
     {
+        $principles = json_decode(file_get_contents(resource_path('lang/id.json')), true)['about']['focus']['principles'];
         $profilePhoto = $this->profilePhotoUrl();
-        return theme_view('about', compact('profilePhoto'));
+        return theme_view('about', compact('profilePhoto', 'principles'));
     }
 
     public function Showproject(Request $request)
@@ -108,6 +109,9 @@ class HomeController extends Controller
             ->paginate(6)->withQueryString();
         $summary  = Project::summary();
 
+        $translations = json_decode(file_get_contents(resource_path('lang/id.json')), true);
+        $projectPlaceholders = $translations['project']['search']['placeholder'];
+
         if ($request->ajax() || $request->boolean('ajax')) {
             $layout = current_theme();
             $themeMap = [
@@ -126,12 +130,14 @@ class HomeController extends Controller
             ]);
         }
 
-        return theme_view('project.project', compact('projects', 'summary'));
+        return theme_view('project.project', compact('projects', 'summary', 'projectPlaceholders'));
     }
 
     public function Showcontact()
     {
-        return theme_view('contact');
+        $user = User::first();
+        $waNumber = $user?->whatsapp ?? '';
+        return theme_view('contact', compact('waNumber'));
     }
 
     public function Showsettings()

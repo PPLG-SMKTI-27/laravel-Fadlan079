@@ -23,7 +23,7 @@
     <div class="wrap">
         <div class="top">
             <div class="label">New incoming request · Portfolio</div>
-            <div class="filename">📄 request_new.txt</div>
+            <div class="filename">request_new.txt</div>
         </div>
 
         <div class="body">

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Daftar Proyek')
+@section('title', 'Project')
 @vite(['resources/css/project.css'])
 
 @section('content')
@@ -30,17 +30,18 @@
 
                 <i class="fa-regular fa-folder-open relative z-10 text-yellow-800 text-[11px] mt-px"></i>
 
-                <span class="relative z-10 text-[10px] sm:text-xs font-black tracking-[0.15em] uppercase text-yellow-900 mt-px">
+                <span class="relative z-10 text-[10px] sm:text-xs font-black tracking-[0.15em] uppercase text-yellow-900 mt-px"
+                data-i18n="project.header.label">
                     Arsip Proyek
                 </span>
             </div>
 
             <h1 class="text-[clamp(3rem,8vw,6rem)] font-bold tracking-tighter leading-[1.05] text-text">
-                <span class="block">Daftar Proyek.</span>
-                <span class="block text-muted mt-2 text-[clamp(2rem,5vw,3.5rem)]">Karya & Eksplorasi</span>
+                <span class="block" data-i18n="project.header.main_title">Daftar Proyek.</span>
+                <span class="block text-muted mt-2 text-[clamp(2rem,5vw,3.5rem)]" data-i18n="project.header.subtitle">Karya & Eksplorasi</span>
             </h1>
 
-            <p class="text-base md:text-lg text-muted max-w-2xl leading-relaxed font-medium">
+            <p class="text-base md:text-lg text-muted max-w-2xl leading-relaxed font-medium" data-i18n="project.header.description">
                 Kumpulan dokumentasi dari aplikasi web, sistem informasi, dan eksperimen antarmuka yang telah saya rancang dan kembangkan.
             </p>
         </section>
@@ -52,7 +53,8 @@
                     <div class="before:content-[''] before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-1/2 before:h-4 before:bg-white/50 before:shadow-inner"></div>
 
                     <p class="text-[10px] font-bold uppercase tracking-widest text-muted mb-4 flex items-center gap-2 relative z-10">
-                        <i class="fa-solid fa-layer-group text-blue-500"></i> Total Proyek
+                        <i class="fa-solid fa-layer-group text-blue-500"></i>
+                        <span data-i18n="project.stats.totalProjects">Total Proyek</span>
                     </p>
                     <h3 class="text-4xl font-bold text-black relative z-10">{{ $summary['totalProjects'] }}</h3>
                 </div>
@@ -61,7 +63,8 @@
                     <div class="before:content-[''] before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-1/2 before:h-4 before:bg-white/50 before:shadow-inner"></div>
 
                     <p class="text-[10px] font-bold uppercase tracking-widest text-muted mb-4 flex items-center gap-2 relative z-10">
-                        <i class="fa-solid fa-tags text-indigo-500"></i> Kategori
+                        <i class="fa-solid fa-tags text-indigo-500"></i>
+                        <span data-i18n="project.stats.totalCategories">Kategori</span>
                     </p>
                     <h3 class="text-4xl font-bold text-black relative z-10">{{ $summary['totalCategories'] }}</h3>
                 </div>
@@ -70,7 +73,8 @@
                     <div class="before:content-[''] before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-1/2 before:h-4 before:bg-white/50 before:shadow-inner"></div>
 
                     <p class="text-[10px] font-bold uppercase tracking-widest text-muted mb-4 flex items-center gap-2 relative z-10">
-                        <i class="fa-solid fa-globe text-emerald-500"></i> Live / Aktif
+                        <i class="fa-solid fa-globe text-emerald-500"></i>
+                        <span data-i18n="project.stats.activeCount">Live / Aktif</span>
                     </p>
                     <h3 class="text-4xl font-bold text-black relative z-10">{{ $summary['activeCount'] }}</h3>
                 </div>
@@ -80,7 +84,8 @@
 
                     <div class="flex justify-between items-start mb-4 relative z-10">
                         <p class="text-[10px] font-bold uppercase tracking-widest text-muted flex items-center gap-2">
-                            <i class="fa-solid fa-box-archive text-amber-500"></i> Arsip
+                            <i class="fa-solid fa-box-archive text-amber-500"></i>
+                            <span data-i18n="project.stats.inactiveCount">Arsip</span>
                         </p>
                         @if ($summary['inactiveCount'] > 0)
                             <i class="fa-solid fa-circle-info text-muted cursor-help"></i>
@@ -99,19 +104,19 @@
 
                             <div class="space-y-2 font-serif">
                                 <div class="flex gap-4 justify-between items-center">
-                                    <span class="text-yellow-900/70 font-medium">Shipped</span>
+                                    <span class="text-yellow-900/70 font-medium" data-i18n="project.stats.statusBreakdown.Shipped">Shipped</span>
                                     <span class="font-bold text-yellow-900">{{ $summary['statusBreakdown']['Shipped'] ?? 0 }}</span>
                                 </div>
                                 <div class="flex gap-4 justify-between items-center">
-                                    <span class="text-yellow-900/70 font-medium">In Progress</span>
+                                    <span class="text-yellow-900/70 font-medium" data-i18n="project.stats.statusBreakdown.InProgress">In Progress</span>
                                     <span class="font-bold text-amber-600">{{ $summary['statusBreakdown']['In Progress'] ?? 0 }}</span>
                                 </div>
                                 <div class="flex gap-4 justify-between items-center">
-                                    <span class="text-yellow-900/70 font-medium">Prototype</span>
+                                    <span class="text-yellow-900/70 font-medium" data-i18n="project.stats.statusBreakdown.Prototype">Prototype</span>
                                     <span class="font-bold text-blue-600">{{ $summary['statusBreakdown']['Prototype'] ?? 0 }}</span>
                                 </div>
                                 <div class="flex gap-4 justify-between items-center">
-                                    <span class="text-yellow-900/70 font-medium">Archived</span>
+                                    <span class="text-yellow-900/70 font-medium" data-i18n="project.stats.statusBreakdown.Archived">Archived</span>
                                     <span class="font-bold text-red-600">{{ $summary['statusBreakdown']['Archived'] ?? 0 }}</span>
                                 </div>
                             </div>
@@ -130,7 +135,7 @@
 
                         <div class="relative w-full md:w-1/2 group">
                             <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-muted group-focus-within:text-primary transition-colors"></i>
-                            <input type="text" id="project-search" placeholder="Cari judul proyek atau tech stack..."
+                            <input type="text" id="project-search" placeholder="{{ $projectPlaceholders }}"
                                 class="w-full border-2 border-border bg-container rounded-lg px-4 py-3 pl-11 text-sm font-medium text-text placeholder:text-muted placeholder:italic placeholder:font-serif focus:outline-none focus:border-primary focus:ring-0 transition-all shadow-inner"
                                 style="background-image: repeating-linear-gradient(transparent, transparent 27px, var(--color-border) 27px, var(--color-border) 28px); line-height: 28px; background-attachment: local;" />
                         </div>
@@ -140,17 +145,19 @@
                                 class="w-full md:w-auto flex justify-between items-center gap-6 px-5 py-3 border-2 border-border bg-container rounded-lg text-xs font-bold uppercase tracking-widest text-text hover:border-primary hover:text-primary hover:-translate-y-0.5 transition-all shadow-[3px_3px_0px_var(--color-border)] focus:outline-none">
                                 <span class="flex items-center gap-2">
                                     <i class="fa-solid fa-arrow-down-short-wide"></i>
-                                    <span id="sort-label">Terbaru</span>
+                                    <span id="sort-label" data-i18n="project.sort.menu.latest">Terbaru</span>
                                 </span>
                                 <i class="fa-solid fa-chevron-down text-[10px]" id="sort-chevron"></i>
                             </button>
 
                             <div id="sort-menu"
                                 class="hidden absolute right-0 top-full mt-3 w-full min-w-[12rem] bg-surface rounded-lg border-2 border-border shadow-[4px_4px_0px_var(--color-border)] overflow-hidden">
-                                <button class="sort-option w-full text-left px-5 py-3 text-xs font-bold uppercase tracking-widest text-muted hover:bg-container hover:text-text transition-colors border-b-2 border-dashed border-border/50" data-sort="latest">
+                                <button class="sort-option w-full text-left px-5 py-3 text-xs font-bold uppercase tracking-widest text-muted hover:bg-container hover:text-text transition-colors border-b-2 border-dashed border-border/50" data-sort="latest"
+                                data-i18n="project.sort.menu.latest">
                                     Terbaru
                                 </button>
-                                <button class="sort-option w-full text-left px-5 py-3 text-xs font-bold uppercase tracking-widest text-muted hover:bg-container hover:text-text transition-colors" data-sort="oldest">
+                                <button class="sort-option w-full text-left px-5 py-3 text-xs font-bold uppercase tracking-widest text-muted hover:bg-container hover:text-text transition-colors" data-sort="oldest"
+                                data-i18n="project.sort.menu.oldest">
                                     Terlama
                                 </button>
                             </div>
@@ -159,19 +166,23 @@
 
                     <div class="flex overflow-x-auto no-scrollbar gap-4 pb-4 pt-2 px-2 -mx-2">
 
-                        <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all focus:outline-none bg-warning text-yellow-900 border-2 border-yellow-500 shadow-[2px_3px_0px_var(--color-border)] -translate-y-1 rotate-1" data-filter="all">
+                        <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all focus:outline-none bg-warning text-yellow-900 border-2 border-yellow-500 shadow-[2px_3px_0px_var(--color-border)] -translate-y-1 rotate-1" data-filter="all"
+                        data-i18n="project.filter.all">
                             Semua
                         </button>
 
-                        <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest text-muted bg-container border-2 border-border shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:-rotate-1 transition-all focus:outline-none" data-filter="Website">
+                        <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest text-muted bg-container border-2 border-border shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:-rotate-1 transition-all focus:outline-none" data-filter="Website"
+                        data-i18n="project.filter.website">
                             Website
                         </button>
 
-                        <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest text-muted bg-container border-2 border-border shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:rotate-1 transition-all focus:outline-none" data-filter="Application">
+                        <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest text-muted bg-container border-2 border-border shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:rotate-1 transition-all focus:outline-none" data-filter="Application"
+                        data-i18n="project.filter.application">
                             Aplikasi
                         </button>
 
-                        <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest text-muted bg-container border-2 border-border shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:-rotate-1 transition-all focus:outline-none" data-filter="Design">
+                        <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest text-muted bg-container border-2 border-border shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:-rotate-1 transition-all focus:outline-none" data-filter="Design"
+                        data-i18n="project.filter.design">
                             Desain
                         </button>
 
@@ -190,11 +201,11 @@
 
             <div class="w-2 h-2 bg-muted rounded-full mx-auto mb-6"></div>
 
-            <h3 class="text-sm font-bold uppercase tracking-widest text-muted mb-2">
+            <h3 class="text-sm font-bold uppercase tracking-widest text-muted mb-2" data-i18n="project.notes.title">
                 Project Notes
             </h3>
 
-            <p class="text-xs text-muted/70">
+            <p class="text-xs text-muted/70" data-i18n="project.notes.description">
                 Detail proyek dan pembaruan akan terus dikembangkan.
             </p>
 
@@ -206,6 +217,7 @@
         </section>
 
     </div>
+
 @endsection
 
 <x-project.detail-modal />
@@ -213,7 +225,6 @@
 @push('script')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Inisialisasi Slider Gambar pada Card (Tetap dipertahankan karena fungsional, bukan dekoratif animasi masuk)
             const initProjectSliders = () => {
                 document.querySelectorAll('.project-slider').forEach(slider => {
                     const slides = slider.querySelectorAll('.slide');
@@ -258,7 +269,6 @@
                 initProjectSliders();
             });
 
-            // Modal Controls
             window.openProjectModal = function() {
                 const modal = document.getElementById('projectDetailModal');
                 if (modal) {

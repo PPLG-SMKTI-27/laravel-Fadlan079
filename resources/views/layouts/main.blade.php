@@ -35,7 +35,6 @@
                 document.cookie = 'ui_layout=' + savedLayout + ';path=/;max-age=31536000;SameSite=Lax';
             }
 
-            // Sembunyikan html sementara untuk animasi masuk
             document.documentElement.classList.add('is-transitioning');
         })();
     </script>
@@ -49,7 +48,6 @@
     <title>Fadlan | @yield('title')</title>
 
     <style>
-        /* --- RESET DASAR --- */
         html { scroll-behavior: smooth; }
         * { scrollbar-width: thin; scrollbar-color: var(--color-primary) transparent; }
         ::-webkit-scrollbar { width: 10px; }
@@ -61,18 +59,11 @@
         ::selection {
             background: color-mix(in srgb, var(--color-primary) 25%, transparent); color: var(--color-primary);
         }
-
-        /* ---------------------------------------------------------
-           🎭 CSS TRANSISI 3 KEPRIBADIAN (DIAPLIKASIKAN KE WRAPPER)
-           --------------------------------------------------------- */
-
-        /* Keadaan Awal */
         html.is-transitioning #page-content-wrapper {
             opacity: 0;
             pointer-events: none;
         }
 
-        /* 1. TEMA DIARY */
         body.trans-diary #page-content-wrapper {
             transform: translateY(15px);
             transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -90,7 +81,7 @@
         }
 
         .trans-diary.page-loaded #page-content-wrapper {
-            clip-path: inset(0 100% 0 0); /* awal tersembunyi */
+            clip-path: inset(0 100% 0 0);
             animation: writeIn 0.8s forwards ease-out;
         }
 
@@ -98,7 +89,6 @@
             to { clip-path: inset(0 0 0 0); }
         }
 
-        /* 2. TEMA CLEAN */
         body.trans-clean #page-content-wrapper {
             transform: scale(0.98); filter: blur(4px);
             transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease-out;
@@ -110,8 +100,6 @@
             opacity: 0; transform: scale(0.98); filter: blur(4px);
             transition: opacity 0.3s ease-in, transform 0.3s ease-in, filter 0.3s ease-in;
         }
-
-        /* 3. TEMA SYSTEM */
         body.trans-system #page-content-wrapper {
             transform: skewX(-5deg); filter: contrast(1.5) brightness(1.2);
             transition: opacity 0.2s steps(3, end), transform 0.2s steps(2, end), filter 0.2s;
@@ -123,12 +111,8 @@
             opacity: 0; transform: skewX(5deg); filter: contrast(1.5) brightness(0.8);
             transition: opacity 0.15s steps(2, end), transform 0.15s, filter 0.15s;
         }
-
-
     </style>
-
 </head>
-
 <body class="bg-bg text-text overflow-x-hidden">
 
     <div id="transition-indicator" class="fixed inset-0 z-[8000] bg-bg pointer-events-none flex items-center justify-center opacity-0 transition-opacity duration-300">
@@ -174,12 +158,12 @@
 
     </div>
 
-        <x-navbar brand="Fadlan" :menus="[
-            ['key' => 'nav.home', 'href' => route('portofolio.home')],
-            ['key' => 'nav.about', 'href' => route('portofolio.about')],
-            ['key' => 'nav.projects', 'href' => route('portofolio.projects')],
-            ['key' => 'nav.contact', 'href' => route('portofolio.contact')],
-        ]" />
+    <x-navbar brand="Fadlan" :menus="[
+        ['key' => 'nav.home', 'href' => route('portofolio.home')],
+        ['key' => 'nav.about', 'href' => route('portofolio.about')],
+        ['key' => 'nav.projects', 'href' => route('portofolio.projects')],
+        ['key' => 'nav.contact', 'href' => route('portofolio.contact')],
+    ]" />
 
     <div id="page-content-wrapper" class="w-full min-h-screen flex flex-col">
 
@@ -215,14 +199,13 @@
             ['icon' => 'fa-brands fa-whatsapp', 'href' => $waLink],
         ]" />
     </div>
-        <x-global-modal />
-        <x-confirm-modal />
+
+    <x-global-modal />
+    <x-confirm-modal />
+
     @stack('script')
 
-
-
     <script>
-        // --- GLOBAL LAYOUT TRANSITION EXPORTER ---
         window.triggerPageWipe = function(targetUrl, forceMessage = null) {
             const body = document.body;
             let activeLayout = localStorage.getItem('ui_layout') || 'diary';
@@ -257,7 +240,6 @@
                 if(textEl) textEl.innerHTML = msg;
 
                 if(activeLayout === 'diary') {
-                    // Reset CSS transform lalu tembak ke atas sedikit
                     activeLoader.classList.remove('translate-y-6');
                     setTimeout(() => activeLoader.classList.add('translate-y-0'), 50);
                 }
@@ -284,7 +266,6 @@
             const indicatorOverlay = document.getElementById('transition-indicator');
             const variants = document.querySelectorAll('.loader-variant');
 
-            // 1. Setup Awal Saat Halaman Dimuat
             const currentLayout = localStorage.getItem('ui_layout') || 'diary';
             body.classList.add(`trans-${currentLayout}`);
 
@@ -334,7 +315,6 @@
                 });
             }
 
-            // 2. Logika Klik Pindah Halaman
             const links = document.querySelectorAll('a[href]:not([target="_blank"]):not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"])');
 
             links.forEach(link => {
@@ -349,7 +329,6 @@
                 });
             });
 
-            // Update class transisi saat tombol layout di navbar di-klik (hanya jaga-jaga)
             const layoutBtn = document.getElementById('layoutToggleBtn');
             if(layoutBtn) {
                 layoutBtn.addEventListener('click', () => {

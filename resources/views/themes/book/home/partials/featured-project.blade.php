@@ -2,13 +2,16 @@
 
     <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-            <h3 class="text-xs font-black uppercase tracking-[0.3em] text-muted mb-4">
+            <h3 class="text-xs font-black uppercase tracking-[0.3em] text-muted mb-4"
+            data-i18n="home.featured_project.label">
                 Karya Unggulan
             </h3>
-            <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-text leading-tight">
+            <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-text leading-tight"
+            data-i18n="home.featured_project.title">
                 Daftar Proyek.
             </h2>
-            <p class="text-zinc-600 text-lg mt-3 max-w-2xl leading-relaxed">
+            <p class="text-zinc-600 text-lg mt-3 max-w-2xl leading-relaxed"
+            data-i18n="home.featured_project.description">
                 Beberapa proyek pilihan yang menampilkan karya dan pengalaman pengembangan yang pernah saya buat.
             </p>
         </div>
@@ -26,7 +29,8 @@
 
             <div class="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-surface shadow-[inset_1px_1px_4px_rgba(0,0,0,0.3)] border border-yellow-700/30 z-10"></div>
 
-            <span class="relative z-10 tracking-wide text-lg">Lihat Semua Proyek</span>
+            <span class="relative z-10 tracking-wide text-lg"
+            data-i18n="home.featured_project.button_more">Lihat Semua Proyek</span>
             <i class="fa-solid fa-arrow-right text-sm relative z-10 group-hover:translate-x-1.5 transition-transform duration-300"></i>
         </a>
     </div>
@@ -134,11 +138,13 @@
                 </div>
 
                 <div class="relative z-20 space-y-3">
-                    <h3 class="text-3xl font-medium text-black font-handwriting tracking-wide">
+                    <h3 class="text-3xl font-medium text-black font-handwriting tracking-wide"
+                    data-i18n="home.featured_project.empty_archive.title">
                         Arsip Kosong
                     </h3>
 
-                    <p class="text-sm text-muted max-w-sm mx-auto italic font-serif opacity-90">
+                    <p class="text-sm text-muted max-w-sm mx-auto italic font-serif opacity-90"
+                    data-i18n="home.featured_project.empty_archive.description">
                         Belum ada proyek yang disorot untuk saat ini.
                     </p>
                 </div>

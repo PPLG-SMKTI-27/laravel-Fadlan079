@@ -1,9 +1,8 @@
 @extends('layouts.main')
-@section('title', 'Hubungi Saya')
+@section('title', 'Contact')
 
 @section('content')
 <style>
-
     .bg-journal {
         background-color: var(--color-bg);
         position: relative;
@@ -14,7 +13,6 @@
         position: absolute;
         inset: 0;
         pointer-events: none;
-
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
     }
 
@@ -23,16 +21,14 @@
         box-shadow: inset 0 0 80px rgba(0,0,0,0.05);
     }
 
-    /* Kertas Surat / Postcard */
     .letter-paper {
         background-color: var(--color-surface);
         border: 1px solid var(--color-border);
         box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
-        border-radius: 0.5rem; /* Lebih kotak seperti kertas surat */
+        border-radius: 0.5rem;
         position: relative;
     }
 
-    /* Input bergaya garis bawah (Garis Tulis Kertas) */
     .journal-input {
         width: 100%;
         background-color: transparent;
@@ -44,15 +40,21 @@
         color: var(--color-text);
         transition: border-color 0.3s;
     }
+
     .journal-input:focus {
         outline: none;
         border-bottom-style: solid;
         border-bottom-color: var(--color-primary);
     }
+
     .journal-input::placeholder {
         color: color-mix(in srgb, var(--color-muted) 50%, transparent);
         font-style: italic;
     }
+
+    /* Utilitas untuk menyembunyikan scrollbar tapi tetap bisa di-scroll */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
 
 <div class="bg-journal min-h-screen font-sans text-text pb-20 selection:bg-muted/30">
@@ -73,16 +75,19 @@
 
             <i class="fa-regular fa-paper-plane relative z-10 text-yellow-800 text-xs mt-px group-hover:translate-x-0.5 transition-transform duration-300"></i>
 
-            <span class="relative z-10 text-[10px] sm:text-[11px] font-black tracking-[0.15em] uppercase text-yellow-900 mt-px">
+            <span class="relative z-10 text-[10px] sm:text-[11px] font-black tracking-[0.15em] uppercase text-yellow-900 mt-px"
+            data-i18n="contact.header.label">
                 Saluran Komunikasi Terbuka
             </span>
         </div>
-        
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1.1] text-text mb-4">
+
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1.1] text-text mb-4"
+        data-i18n="contact.header.main_title">
             Mari Berdiskusi.
         </h1>
 
-        <p class="text-lg text-muted max-w-2xl mx-auto leading-relaxed font-medium">
+        <p class="text-lg text-muted max-w-2xl mx-auto leading-relaxed font-medium"
+        data-i18n="contact.header.description">
             Punya proyek, pertanyaan, atau kritik dan saran? Silakan kirim pesan Anda di bawah.
         </p>
 
@@ -92,7 +97,7 @@
 
         <div class="grid lg:grid-cols-[1fr_350px] gap-8 items-start">
 
-            <div class="letter-paper p-8 md:p-12">
+            <div class="letter-paper p-6 md:p-12 overflow-hidden sm:overflow-visible">
 
                 <div class="absolute -top-3 -left-4 w-20 h-8 bg-surface/80 backdrop-blur-sm border border-border/50 shadow-sm rotate-[-5deg] z-20"></div>
 
@@ -103,68 +108,70 @@
                 </div>
 
                 <div class="mb-10">
-                    <h2 class="text-3xl font-bold text-text mb-2">Tulis Pesan</h2>
-                    <p class="text-sm text-muted">Pilih metode pengiriman (Email atau WhatsApp).</p>
+                    <h2 class="text-3xl font-bold text-text mb-2" data-i18n="contact.form.title">Tulis Pesan</h2>
+                    <p class="text-sm text-muted" data-i18n="contact.form.description">Isi form di bawah dan pesan Anda akan dikirim via Email.</p>
                 </div>
 
                 <form action="{{ route('portofolio.contact.send') }}" method="POST" class="space-y-8 relative z-10">
                     @csrf
-                    <input type="hidden" name="method" id="input-method" value="{{ old('method', 'email') }}">
 
-                    <div class="flex items-center gap-2 mb-8 bg-container p-1 rounded-lg w-max" id="contact-method-tabs">
-                        <button type="button" data-method="email" class="method-tab active px-4 py-2 text-xs font-bold rounded-md transition-colors bg-white text-primary shadow-sm border border-border">
-                            Email
-                        </button>
-                        <button type="button" data-method="wa" class="method-tab px-4 py-2 text-xs font-bold rounded-md transition-colors text-muted hover:text-text border border-transparent">
-                            WhatsApp
-                        </button>
-                    </div>
-
-                    <div class="space-y-3">
-                        <label class="text-[11px] font-bold uppercase tracking-widest text-muted">
+                    <div class="space-y-3 w-full">
+                        <label class="text-[11px] font-bold uppercase tracking-widest text-muted"
+                        data-i18n="contact.form.type_label">
                             Jenis Pesan:
                         </label>
-                        <div class="flex flex-wrap gap-3">
-                            <label class="cursor-pointer">
+
+                        <div class="flex flex-nowrap sm:flex-wrap gap-3 overflow-x-auto w-full no-scrollbar pb-3 pt-1 scroll-smooth" style="-webkit-overflow-scrolling: touch;">
+
+                            <label class="cursor-pointer shrink-0">
                                 <input type="radio" name="type" value="project" class="peer sr-only" {{ old('type', 'project') === 'project' ? 'checked' : '' }}>
-                                <div class="px-4 py-2 border border-border rounded-full text-xs font-semibold text-muted peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all">
+                                <div class="px-5 py-2.5 border border-border rounded-full text-xs font-semibold text-muted peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all whitespace-nowrap shadow-sm"
+                                data-i18n="contact.form.types.project">
                                     Inisiasi Proyek
                                 </div>
                             </label>
-                            <label class="cursor-pointer">
+
+                            <label class="cursor-pointer shrink-0">
                                 <input type="radio" name="type" value="collab" class="peer sr-only" {{ old('type') === 'collab' ? 'checked' : '' }}>
-                                <div class="px-4 py-2 border border-border rounded-full text-xs font-semibold text-muted peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all">
+                                <div class="px-5 py-2.5 border border-border rounded-full text-xs font-semibold text-muted peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all whitespace-nowrap shadow-sm"
+                                data-i18n="contact.form.types.collab">
                                     Kolaborasi
                                 </div>
                             </label>
-                            <label class="cursor-pointer">
+
+                            <label class="cursor-pointer shrink-0">
                                 <input type="radio" name="type" value="inquiry" class="peer sr-only" {{ old('type') === 'inquiry' ? 'checked' : '' }}>
-                                <div class="px-4 py-2 border border-border rounded-full text-xs font-semibold text-muted peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all">
+                                <div class="px-5 py-2.5 border border-border rounded-full text-xs font-semibold text-muted peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all whitespace-nowrap shadow-sm"
+                                data-i18n="contact.form.types.inquiry">
                                     Pertanyaan Umum
                                 </div>
                             </label>
-                            <label class="cursor-pointer">
-                                <input type="radio" name="type" value="inquiry" class="peer sr-only" {{ old('type') === 'inquiry' ? 'checked' : '' }}>
-                                <div class="px-4 py-2 border border-border rounded-full text-xs font-semibold text-muted peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all">
+
+                            <label class="cursor-pointer shrink-0">
+                                <input type="radio" name="type" value="feedback" class="peer sr-only" {{ old('type') === 'feedback' ? 'checked' : '' }}>
+                                <div class="px-5 py-2.5 border border-border rounded-full text-xs font-semibold text-muted peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all whitespace-nowrap shadow-sm"
+                                data-i18n="contact.form.types.feedback">
                                     Kritik & Saran
                                 </div>
                             </label>
+
                         </div>
                     </div>
 
                     <div class="space-y-1 mt-6">
-                        <label for="input-sender" id="label-sender" class="text-[11px] font-bold uppercase tracking-widest text-muted">
+                        <label for="input-sender" class="text-[11px] font-bold uppercase tracking-widest text-muted"
+                        data-i18n="contact.form.sender_label">
                             Dikirim Dari (Email):
                         </label>
                         <input type="email" name="sender" id="input-sender" class="journal-input {{ $errors->has('sender') ? 'border-red-500 text-red-500' : '' }}" placeholder="email.anda@domain.com" value="{{ old('sender') }}">
                         @error('sender')
                             <p class="text-xs text-red-500 mt-1 font-medium"><i class="fa-solid fa-triangle-exclamation"></i> {{ $message }}</p>
                         @enderror
-                        <p id="helper-sender" class="text-xs text-amber-500 mt-1 hidden font-medium">Format: 0812... atau +62812...</p>
                     </div>
 
                     <div class="space-y-1">
-                        <label for="input-subject" class="text-[11px] font-bold uppercase tracking-widest text-muted">
+                        <label for="input-subject" class="text-[11px] font-bold uppercase tracking-widest text-muted"
+                        data-i18n="contact.form.subject_label">
                             Judul Pesan:
                         </label>
                         <input type="text" name="subject" id="input-subject" class="journal-input {{ $errors->has('subject') ? 'border-red-500 text-red-500' : '' }}" placeholder="Tulis judul pesan di sini..." value="{{ old('subject') }}">
@@ -174,7 +181,8 @@
                     </div>
 
                     <div class="space-y-1">
-                        <label for="input-message" class="text-[11px] font-bold uppercase tracking-widest text-muted">
+                        <label for="input-message" class="text-[11px] font-bold uppercase tracking-widest text-muted"
+                        data-i18n="contact.form.message_label">
                             Isi Pesan:
                         </label>
                         <textarea rows="4" name="message" id="input-message" class="journal-input resize-y {{ $errors->has('message') ? 'border-red-500 text-red-500' : '' }}" placeholder="Ceritakan detail kebutuhan atau pertanyaan Anda...">{{ old('message') }}</textarea>
@@ -186,11 +194,11 @@
                     <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-border/50">
                         <p class="text-xs font-bold text-muted flex items-center gap-2">
                             <i class="fa-regular fa-calendar text-primary"></i>
-                            Tanggal: {{ now()->translatedFormat('d F Y') }}
+                            <span data-i18n="contact.date_label">Tanggal:</span> {{ now()->translatedFormat('d F Y') }}
                         </p>
 
                         <button type="submit" class="w-full sm:w-auto px-8 py-4 bg-text text-bg rounded-xl font-bold uppercase tracking-widest hover:-translate-y-1 transition-transform shadow-md flex items-center justify-center gap-3">
-                            <span>Kirim Surat</span>
+                            <span data-i18n="contact.submit_button">Kirim Surat</span>
                             <i class="fa-regular fa-paper-plane"></i>
                         </button>
                     </div>
@@ -211,7 +219,8 @@
                 @endphp
 
                 <div class="pb-2 border-b border-border/50">
-                    <p class="text-xs font-bold uppercase tracking-widest text-muted">Jaringan Alternatif</p>
+                    <p class="text-xs font-bold uppercase tracking-widest text-muted"
+                    data-i18n="contact.alternative_networks">Jaringan Alternatif</p>
                 </div>
 
                 <a href="{{ $ghLink }}" target="_blank" class="block bg-surface p-5 rounded-xl border border-border shadow-sm hover:border-primary hover:-translate-y-1 transition-all group">
@@ -221,7 +230,7 @@
                         </div>
                         <div>
                             <h3 class="font-bold text-text">GitHub</h3>
-                            <p class="text-sm text-muted">Lihat Repositori</p>
+                            <p class="text-sm text-muted" data-i18n="contact.social.github.description">Lihat Repositori</p>
                         </div>
                         <i class="fa-solid fa-arrow-right ml-auto text-muted group-hover:text-primary transition-colors"></i>
                     </div>
@@ -234,7 +243,7 @@
                         </div>
                         <div>
                             <h3 class="font-bold text-text">LinkedIn</h3>
-                            <p class="text-sm text-muted">Koneksi Profesional</p>
+                            <p class="text-sm text-muted" data-i18n="contact.social.linkedin.description">Koneksi Profesional</p>
                         </div>
                         <i class="fa-solid fa-arrow-right ml-auto text-muted group-hover:text-primary transition-colors"></i>
                     </div>
@@ -247,15 +256,32 @@
                         </div>
                         <div>
                             <h3 class="font-bold text-text">Instagram</h3>
-                            <p class="text-sm text-muted">Log Personal</p>
+                            <p class="text-sm text-muted" data-i18n="contact.social.instagram.description">Log Personal</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-right ml-auto text-muted group-hover:text-primary transition-colors"></i>
+                    </div>
+                </a>
+
+                <a href="https://wa.me/{{ $waNumber }}?text={{ urlencode('Selamat siang! Saya tertarik berdiskusi tentang [topik/proyek] Anda.') }}"
+                target="_blank"
+                class="block bg-surface p-5 rounded-xl border border-border shadow-sm hover:border-primary hover:-translate-y-1 transition-all group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-container flex items-center justify-center text-muted group-hover:text-primary group-hover:bg-primary/10 transition-colors">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-text">WhatsApp</h3>
+                            <p class="text-sm text-muted" data-i18n="contact.social.whatsapp.description">Chat Langsung</p>
                         </div>
                         <i class="fa-solid fa-arrow-right ml-auto text-muted group-hover:text-primary transition-colors"></i>
                     </div>
                 </a>
 
                 <div class="mt-8 bg-warning text-yellow-900 p-5 shadow-md rotate-[2deg] border-l-4 border-yellow-500 rounded-r-md">
-                    <p class="text-[10px] font-black uppercase tracking-widest mb-2 opacity-80 border-b border-yellow-900/20 pb-2">Catatan</p>
-                    <p class="text-sm font-semibold leading-relaxed">
+                    <p class="text-[10px] font-black uppercase tracking-widest mb-2 opacity-80 border-b border-yellow-900/20 pb-2" data-i18n="contact.notes.label">
+                        Catatan
+                    </p>
+                    <p class="text-sm font-semibold leading-relaxed" data-i18n="contact.notes.description">
                         Pesan Anda akan dibaca sesegera mungkin. Waktu respons rata-rata adalah 1 hingga 2 hari kerja.
                     </p>
                 </div>
@@ -266,64 +292,10 @@
 
     <section id="contact-end" class="relative py-16 mt-10 border-t border-border/50 text-center">
         <div class="max-w-4xl mx-auto px-6">
-            <h3 class="text-xl font-bold text-muted mb-2 font-serif italic">Menunggu pesan Anda...</h3>
+            <h3 class="text-xl font-bold text-muted mb-2 font-serif italic" data-i18n="contact.footer.text">Menunggu pesan Anda...</h3>
             <div class="w-16 h-1 bg-border mx-auto rounded-full mt-6"></div>
         </div>
     </section>
 
 </div>
 @endsection
-
-@push('head')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabs = document.querySelectorAll('.method-tab');
-            const inputMethod = document.getElementById('input-method');
-            const inputSender = document.getElementById('input-sender');
-            const labelSender = document.getElementById('label-sender');
-            const helperSender = document.getElementById('helper-sender');
-
-            // Cek jika habis disubmit ke WA Controller
-            @if (session('wa_url'))
-                window.open('{{ session('wa_url') }}', '_blank');
-            @endif
-
-            // Set metode awal
-            setMethod(inputMethod.value || 'email');
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    setMethod(this.dataset.method);
-                });
-            });
-
-            function setMethod(method) {
-                // Update UI Tabs
-                tabs.forEach(t => {
-                    if (t.dataset.method === method) {
-                        t.classList.remove('text-muted', 'hover:text-text', 'border-transparent');
-                        t.classList.add('bg-white', 'text-primary', 'shadow-sm', 'border-border');
-                    } else {
-                        t.classList.add('text-muted', 'hover:text-text', 'border-transparent');
-                        t.classList.remove('bg-white', 'text-primary', 'shadow-sm', 'border-border');
-                    }
-                });
-
-                inputMethod.value = method;
-
-                // Update Input Placeholder & Label
-                if (method === 'wa') {
-                    labelSender.textContent = "Dikirim Dari (No. WhatsApp):";
-                    inputSender.type = 'tel';
-                    inputSender.placeholder = "081234567890";
-                    helperSender.classList.remove('hidden');
-                } else {
-                    labelSender.textContent = "Dikirim Dari (Email):";
-                    inputSender.type = 'email';
-                    inputSender.placeholder = "email.anda@domain.com";
-                    helperSender.classList.add('hidden');
-                }
-            }
-        });
-    </script>
-@endpush

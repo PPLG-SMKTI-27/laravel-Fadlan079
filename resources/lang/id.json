@@ -1,188 +1,202 @@
 {
-    "home": {
-        "cta_label": "Tersedia untuk kolaborasi",
-        "cta_title": "Punya proyek yang ingin diwujudkan?",
-        "cta_subtitle": "Mari kita bangun.",
-        "cta_desc": "Baik itu struktur aplikasi web, dasbor modern, maupun antarmuka dinamis, saya siap mengubah visi Anda menjadi kenyataan.",
-        "cta_btn_primary": "[ PROYEK_BARU ]",
-        "cta_btn_secondary": "KIRIM PESAN",
-        "cta_marquee": "MARI KITA BANGUN — PUNYA PROYEK? —",
-        "featured": "karya unggulan",
-        "featured_desc": "Proyek pilihan yang menyoroti solusi praktis, arsitektur bersih, dan praktik pengembangan web modern.",
-        "skills_cad": {
-            "desc": "Gambaran umum teknologi dan frameworks inti. Pilih kategori untuk melihat keahlian dan alat yang terperinci."
-        }
-    },
-
     "nav": {
         "home": "Beranda",
-        "about": "Tentang",
-        "skills": "Keahlian",
-        "experience": "Pengalaman",
+        "about": "Tentang Saya",
         "projects": "Proyek",
-        "education": "Pendidikan",
-        "contact": "Kontak"
+        "contact": "Kontak",
+        "main_menu":"Menu Utama",
+        "navigasi":"Navigasi",
+        "authenticated":"Autentikasi",
+        "login": "Masuk",
+        "dashboard": "Dasbor"
     },
 
-    "login": {
-        "subtitle": "Silakan masuk ke akun Anda",
-        "password": "Kata Sandi",
-        "demo_account": "Akun Demo: <span class='font-medium text-text'>admin@example.com</span> / <span class='font-medium text-text'>1234567</span>",
-        "enter": "Masuk",
-        "Remember": "Ingat Aku",
-        "Forgot": "Lupa password anda?",
-        "Back": "kembali ke login",
-        "Reset": "Kirim Tautan Reset",
-        "regis": {
-            "title": "Buat Akun",
-            "subtitle": "Buat akun Anda untuk memulai.",
-            "have_account": "Sudah terdaftar? Login"
+    "home": {
+        "hero": {
+            "status": "Tersedia Untuk Kolaborasi",
+            "description": "Siswa SMK TI Airlangga generasi ke-24 yang berfokus pada pengembangan web full-stack dan tertarik mempelajari teknologi baru.",
+            "button_projects": "Lihat Proyek",
+            "button_contact": "Hubungi Saya",
+            "photo_placeholder": "Kliping Kosong",
+            "photo_author_tag": "Profil Penulis"
+        },
+        "about_preview": {
+            "label": "Profil Singkat",
+            "title": "Tentang Saya",
+            "subtitle": "Latar belakang",
+            "description": "Saya adalah siswa SMK TI Airlangga generasi ke-24 yang berfokus pada pengembangan web full-stack. Saat ini saya sedang mempelajari Laravel dan Vue, serta senang mengeksplorasi berbagai teknologi baru untuk mengembangkan kemampuan saya.",
+            "button_more": "Lihat Selengkapnya",
+            "photo_alt": "Foto Fadlan",
+            "photo_placeholder": "Kliping Kosong",
+            "photo_author_tag": "Profil Penulis"
+        },
+        "featured_project": {
+            "label": "Karya Unggulan",
+            "title": "Daftar Proyek.",
+            "description": "Beberapa proyek pilihan yang menampilkan karya dan pengalaman pengembangan yang pernah saya buat.",
+            "button_more": "Lihat Semua Proyek",
+            "empty_archive": {
+                "title": "Arsip Kosong",
+                "description": "Belum ada proyek yang disorot untuk saat ini."
+            }
+        },
+        "skills": {
+            "title": "Keahlian & Teknologi",
+            "description": "Beberapa teknologi dan bahasa pemrograman yang saya gunakan dalam pengembangan web."
+        },
+        "cta": {
+            "status": "Siap Menerima Proyek",
+            "title": "Mari Berkolaborasi",
+            "description": "Jika Anda memiliki ide atau proyek yang ingin dikembangkan, saya terbuka untuk berdiskusi dan bekerja sama.",
+            "button_message": "Tulis Pesan",
+            "button_email": "Kirim via Email"
         }
-    },
-
-    "email_required": "Email wajib diisi.",
-    "email_email": "Email harus berupa alamat email yang valid.",
-    "password_required": "Kata sandi wajib diisi.",
-    "hero": {
-        "collaboration": "<i class='fa-solid fa-code text-primary'></i> Tersedia untuk Kolaborasi",
-        "hi": "Hai, saya",
-        "description": "Fokus membangun aplikasi web modern dengan struktur <strong class='text-text'>backend</strong> yang jelas, <strong class='text-text'>frontend</strong> responsif, dan sistem siap produksi."
     },
 
     "about": {
-        "title": "TENTANG",
-        "hero_outline": "STRUKTUR<br>DAN PERILAKU",
-        "narrative_1": "Saya merancang pengalaman digital dengan fokus pada <span class='text-primary'>struktur</span>, gerakan, dan <span class='text-text'>interaksi</span> yang intuitif.",
-        "narrative_2": "Karya saya berada di persimpangan desain dan teknologi — di mana antarmuka diperlakukan sebagai sistem yang hidup, bukan sekadar dekorasi.",
-        "values_title": "PRINSIP",
-        "values_subtitle": "Cara saya berpikir dan mengambil keputusan",
-        "principles": [
-            {
-                "title": "KEJELASAN",
-                "desc": "Informasi yang jelas selalu diutamakan, visual mendukung cerita."
-            },
-            {
-                "title": "STRUKTUR",
-                "desc": "Tata letak bekerja konsisten dan dapat diprediksi."
-            },
-            {
-                "title": "SISTEM",
-                "desc": "Komponen dirancang agar mudah berkembang dan beradaptasi."
-            },
-            {
-                "title": "DETAIL",
-                "desc": "Gerakan, jarak, dan timing membentuk pengalaman yang hidup."
-            }
-        ],
-        "constraints_title": "BATASAN",
-        "constraints_lines": [
-            "FUNGSIONALITAS DI ATAS KOMPLEKSITAS",
-            "OPTIMASI UNTUK KEMUDAHAN PEMELIHARAAN",
-            "ANTISIPASI DAN TANGANI KEGAGALAN"
-        ],
-        "visions": {
-            "label": "Peta_Karier",
-            "title": "Visi <br> Masa Depan",
+        "teaser": {
+            "label": "Profil Saya"
+        },
+        "title": "Tentang Saya",
+        "subtitle": "Latar belakang",
+        "description": "Saya adalah siswa SMK TI Airlangga generasi ke-24 yang berfokus pada pengembangan web full-stack. Saat ini saya sedang mempelajari Laravel dan Vue, serta senang mengeksplorasi berbagai teknologi baru untuk mengembangkan kemampuan saya.",
+        "photo_placeholder": "Kliping Kosong",
+        "author_label": "Profil Penulis",
+        "career_roadmap": {
+            "label": "Peta Jalan Karir",
+            "title": "Tujuan / Visi.",
+            "description": "Hal yang ingin saya capai dalam perjalanan belajar web development.",
             "short_term": {
-                "label": "Jangka_Pendek // 1-2 Tahun",
-                "title": "Menguasai & Merilis",
-                "desc": "Berfokus pada membangun aplikasi web berkualitas tinggi dan dapat diskalakan untuk dunia nyata. Saya ingin memperdalam keahlian saya dalam kerangka kerja modern, mengoptimalkan kinerja, dan memberikan pengalaman pengguna yang mulus."
+                "label": "Jangka Pendek",
+                "title": "Memperkuat Dasar",
+                "description": "Fokus mempelajari Laravel, Vue, dan teknologi web lainnya sambil membangun berbagai proyek untuk memperkuat pemahaman dalam pengembangan web full-stack."
             },
             "long_term": {
-                "label": "Jangka_Panjang // 3-5+ Tahun",
-                "title": "Kepemimpinan Teknis & Open Source",
-                "desc": "Berkembang menjadi Tech Lead atau System Architect. Saya bertujuan untuk memberikan kontribusi signifikan kepada komunitas open-source, membangun alat yang membantu pengembang lain, dan membimbing generasi berikutnya."
+                "label": "Jangka Panjang",
+                "title": "Menjadi Web Developer",
+                "description": "Terus mengembangkan kemampuan dalam membangun aplikasi web yang bermanfaat, serta memperdalam pengalaman sebagai developer full-stack."
             }
         },
-        "end": {
-            "cta_title": "Struktur yang kokoh,",
-            "cta_subtitle": "eksekusi yang bersih.",
-            "cta_desc": "Mengubah kebutuhan kompleks menjadi aplikasi web yang dapat diskalakan. Saya berfokus pada penulisan kode yang mudah dipelihara dan memberikan solusi andal yang berfungsi dengan baik.",
-            "auth_by": "Diautentikasi oleh"
+        "focus": {
+            "title": "Fokus Saya",
+            "principles": [
+                {
+                    "title": "Full-Stack Development",
+                    "description": "Mempelajari pengembangan aplikasi web dari backend hingga frontend agar sistem dapat bekerja secara menyeluruh."
+                },
+                {
+                    "title": "Backend Development",
+                    "description": "Fokus pada logika aplikasi, pengolahan data, dan pengelolaan database menggunakan Laravel."
+                },
+                {
+                    "title": "Frontend Development",
+                    "description": "Membangun antarmuka web yang responsif dan mudah digunakan menggunakan HTML, TailwindCSS, dan JavaScript."
+                },
+                {
+                    "title": "Web Application",
+                    "description": "Membangun berbagai proyek aplikasi web untuk melatih pemahaman dalam pengembangan sistem berbasis web."
+                }
+            ]
+        },
+        "quote": {
+            "text": "Framework dan tools membantu lebih cepat, tetapi dasar tetap yang utama.",
+            "author": "Fadlan Firdaus"
         }
     },
 
     "project": {
-        "hero": {
-            "title": "Proyek",
-            "subtitle": "Dibangun dengan tujuan.",
-            "description": "Pilihan <span class='text-primary font-semibold'>sistem, alat, dan antarmuka</span> yang dirancang dengan tujuan dan dibuat untuk penggunaan nyata.",
-            "note": "Pilihan proyek lintas sistem dan antarmuka"
+        "header": {
+            "label": "Arsip Proyek",
+            "main_title": "Daftar Proyek.",
+            "subtitle": "Karya & Eksplorasi",
+            "description": "Kumpulan dokumentasi dari aplikasi web, sistem informasi, dan eksperimen antarmuka yang telah saya rancang dan kembangkan."
         },
-        "index": {
-            "title": "Karya Terpilih",
-            "description": "Indeks terfokus dari proyek-proyek terpilih, yang disusun untuk mencerminkan struktur, cakupan, dan tujuan.",
-            "summary": {
-                "projects": "Proyek",
-                "categories": "Kategori",
-                "active": "Aktif",
-                "status": {
-                    "shipped": "Rilis",
-                    "in_progress": "Dalam Proses",
-                    "prototype": "Prototipe",
-                    "archived": "Diarsipkan"
-                }
+        "stats": {
+            "totalProjects": "Total Proyek",
+            "totalCategories": "Kategori",
+            "activeCount": "Live / Aktif",
+            "inactiveCount": "Arsip",
+            "statusBreakdown": {
+                "Shipped": "Dikirim",
+                "In Progress": "Dalam Proses",
+                "Prototype": "Prototipe",
+                "Archived": "Diarsipkan"
             }
         },
-        "empty": {
-            "title": "Belum ada apa pun di sini.",
-            "desc": "Tidak ada proyek yang sesuai dengan pencarian atau filter saat ini.",
-            "reset": "Hapus Pencarian & Filter"
+        "search": {
+            "placeholder": "Cari judul proyek atau tech stack..."
         },
-        "end": {
-            "title": "Proyek yang baik dibentuk oleh batasan.",
-            "description": "Batasan yang jelas memaksa keputusan yang tepat. Melalui cakupan, keterbatasan, dan iterasi, struktur terbentuk dan solusi menjadi lebih bermakna.",
-            "tags": "Sistem · Antarmuka · Alat",
-            "back_to_top": "Kembali ke atas"
+        "sort": {
+            "label": "Terbaru",
+            "menu": {
+                "latest": "Terbaru",
+                "oldest": "Terlama"
+            }
+        },
+        "filter": {
+            "all": "Semua",
+            "Website": "Website",
+            "Application": "Aplikasi",
+            "Design": "Desain"
+        },
+        "notes": {
+            "title": "Catatan Proyek",
+            "description": "Detail proyek dan pembaruan akan terus dikembangkan."
         }
     },
 
     "contact": {
-        "hero": {
-            "breadcrumb": "index / kontak",
-            "title": "Kontak",
-            "subtitle": "Mulai percakapan.",
-            "description": "Apakah kamu punya proyek, pertanyaan, atau sekadar ingin menyapa, jangan ragu untuk menghubungi. Saya selalu terbuka untuk percakapan baru."
+        "header": {
+            "label": "Saluran Komunikasi Terbuka",
+            "main_title": "Mari Berdiskusi.",
+            "subtitle": "Kirim Pesan Anda",
+            "description": "Punya proyek, pertanyaan, atau kritik dan saran? Kirim pesan Anda menggunakan formulir di bawah ini."
         },
-        "folder": {
-            "breadcrumb": "index / permintaan",
-            "title": "Folder permintaan",
-            "description": "Setiap pesan disimpan sebagai file permintaan dan ditinjau satu per satu.",
-            "tab": "Permintaan",
-            "badge": "Baru",
-            "doc_status": "● Draft",
-            "field_type": "Tipe",
-            "field_from": "Dari",
-            "field_from_placeholder": "kamu@email.com",
-            "field_subject": "Subjek",
-            "field_subject_placeholder": "Judul singkat permintaanmu",
-            "field_message_placeholder": "Tulis pesanmu di sini…",
-            "chip_project": "Proyek baru",
-            "chip_collab": "Kolaborasi",
-            "chip_inquiry": "Pertanyaan",
-            "submit": "Masukkan ke folder",
-            "filed": "Tersimpan",
-            "sidebar_note": "Folder ini menerima permintaan terbatas. Respons mungkin membutuhkan waktu 2–5 hari.",
-            "req_01_status": "Ditinjau · Jan 2025",
-            "req_02_status": "Menunggu · Feb 2025",
-            "req_new_status": "Draft · sekarang"
+        "form": {
+            "title": "Tulis Pesan",
+            "description": "Isi formulir di bawah dan pesan Anda akan dikirim melalui Email.",
+            "type_label": "Jenis Pesan:",
+            "types": {
+                "project": "Inisiasi Proyek",
+                "collab": "Kolaborasi",
+                "inquiry": "Pertanyaan Umum",
+                "feedback": "Kritik & Saran"
+            },
+            "sender_label": "Dikirim Dari (Email):",
+            "subject_label": "Judul Pesan:",
+            "message_label": "Isi Pesan:"
         },
+        "date_label": "Tanggal:",
+        "submit_button": "Kirim Surat",
+        "alternative_networks": "Jaringan Alternatif",
         "social": {
-            "breadcrumb": "index / sosial",
-            "title": "Temukan saya di tempat lain",
-            "description": "Tempat lain di mana saya berbagi karya, pemikiran, dan eksperimen yang sedang berjalan.",
-            "platform": "Platform"
+            "github": {
+                "description": "Lihat Repositori"
+            },
+            "linkedin": {
+                "description": "Koneksi Profesional"
+            },
+            "instagram": {
+                "description": "Log Personal"
+            },
+            "whatsapp": {
+                "description": "Chat Langsung"
+            }
         },
-        "end": {
-            "title": "Percakapan yang baik dimulai dari pesan sederhana.",
-            "description": "Niat yang jelas, komunikasi yang jujur, dan saling menghormati adalah fondasi dari setiap kolaborasi yang bermakna."
+        "notes": {
+            "label": "Catatan",
+            "description": "Pesan Anda akan dibaca sesegera mungkin. Waktu respons rata-rata adalah 1 hingga 2 hari kerja."
+        },
+        "footer": {
+            "text": "Menunggu pesan Anda..."
         }
     },
 
     "footer": {
-        "description": "Dibangun dengan struktur, kejelasan, dan tujuan.",
-        "quick_links": "Tautan Cepat",
-        "connect": "Hubungi",
-        "copyright": "Hak cipta dilindungi."
+        "brand_description": "Siswa SMK TI Airlangga generasi ke-24 yang tertarik pada pengembangan web full-stack.",
+        "quick_links_label": "Tautan Cepat",
+        "connect_label": "Hubungi",
+        "copyright": "Hak Cipta Dilindungi"
     }
+
 }

@@ -13,21 +13,28 @@
 
         <div class="w-full md:w-3/5 pl-6 sm:pl-10 relative z-10">
 
-        <div class="inline-block px-3 py-1 border-2 border-primary/40 text-primary font-bold text-[10px] tracking-widest uppercase mb-8 transform -rotate-2 opacity-80 rounded-sm">
+        <div class="inline-block px-3 py-1 border-2 border-primary/40 text-primary font-bold text-[10px] tracking-widest uppercase mb-8 transform -rotate-2 opacity-80 rounded-sm"
+        data-i18n="home.about_preview.label">
             PROFIL SINGKAT
         </div>
 
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-text leading-[1.1]">
-                Tentang Saya<br />
-                <span class="text-muted font-medium italic font-serif">Latar belakang</span>
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight  text-text leading-[1.1]"
+            data-i18n="home.about_preview.title">
+                Tentang Saya
             </h2>
+            <br>
+            <span class="text-4xl md:text-5xl lg:text-5xl font-bold tracking-tight mb-6 text-muted font-medium italic font-serif"
+            data-i18n="home.about_preview.subtitle">
+                Latar belakang
+            </span>
 
-            <p class="text-base md:text-lg text-muted leading-relaxed mb-8 font-medium">
+            <p class="text-base md:text-lg text-muted leading-relaxed mt-8 font-medium"
+            data-i18n="home.about_preview.description">
                 Saya adalah siswa SMK TI Airlangga generasi ke-24 yang berfokus pada pengembangan web full-stack.
                 Saat ini saya sedang mempelajari Laravel dan Vue, serta senang mengeksplorasi berbagai teknologi baru untuk mengembangkan kemampuan saya.
             </p>
 
-            <div class="flex flex-wrap gap-3 mb-10">
+            <div class="flex flex-wrap gap-3 mt-10">
                 <span class="px-3 py-1.5 bg-bg text-muted border border-border text-[10px] font-bold uppercase tracking-widest shadow-sm rotate-1">
                     <i class="fa-solid fa-location-dot text-primary mr-1"></i> Indonesia
                 </span>
@@ -40,9 +47,10 @@
             </div>
 
             <a href="{{ route('portofolio.about') }}"
-            class="inline-flex items-center gap-3 text-sm font-bold text-text hover:text-primary transition-colors group/link border-b border-text hover:border-primary pb-1">
+            class="inline-flex items-center gap-3 text-sm font-bold text-text hover:text-primary transition-colors group/link border-b border-text hover:border-primary pt-7"
+            data-i18n="home.about_preview.button_more">
                 Lihat Selengkapnya
-                <i class="fa-solid fa-feather-pointed transform group-hover/link:translate-x-1 transition-transform text-xs"></i>
+
             </a>
         </div>
 
@@ -61,11 +69,12 @@
 
                     <div id="fallback-profile" style="display:none;" class="flex-col items-center justify-center w-full h-full text-muted p-4 text-center bg-surface">
                         <i class="fa-regular fa-image text-3xl opacity-30 mb-2"></i>
-                        <span class="text-[9px] uppercase tracking-widest font-bold">Kliping Kosong</span>
+                        <span class="text-[9px] uppercase tracking-widest font-bold" data-i18n="home.about_preview.photo_placeholder">Kliping Kosong</span>
                     </div>
                 </div>
 
-                <div class="absolute -bottom-4 -left-4 bg-warning text-yellow-900 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest shadow-md -rotate-[6deg] border-l-4 border-yellow-500">
+                <div class="absolute -bottom-4 -left-4 bg-warning text-yellow-900 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest shadow-md -rotate-[6deg] border-l-4 border-yellow-500"
+                data-i18n="home.about_preview.photo_author_tag">
                     Author Profile
                 </div>
             </div>

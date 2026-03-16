@@ -19,13 +19,14 @@
                     <div class="w-16 h-1 bg-primary rounded-full mt-4"></div>
                 </div>
 
-                <p class="text-sm text-muted leading-relaxed max-w-sm font-medium">
+                <p class="text-sm text-muted leading-relaxed max-w-sm font-medium"
+                data-i18n="footer.brand_description">
                     Siswa SMK TI Airlangga generasi ke-24 yang tertarik pada pengembangan web full-stack.
                 </p>
             </div>
 
             <div class="md:col-span-6 lg:col-span-3 lg:col-start-7 space-y-6">
-                <p class="text-[11px] font-bold uppercase tracking-widest text-text border-b border-border/50 pb-2" data-i18n="footer.quick_links">
+                <p class="text-[11px] font-bold uppercase tracking-widest text-text border-b border-border/50 pb-2" data-i18n="footer.quick_links_label">
                     Tautan Cepat
                 </p>
 
@@ -43,7 +44,7 @@
             </div>
 
             <div class="md:col-span-6 lg:col-span-3 space-y-6">
-                <p class="text-[11px] font-bold uppercase tracking-widest text-text border-b border-border/50 pb-2" data-i18n="footer.connect">
+                <p class="text-[11px] font-bold uppercase tracking-widest text-text border-b border-border/50 pb-2" data-i18n="footer.connect_label">
                     Hubungi
                 </p>
 

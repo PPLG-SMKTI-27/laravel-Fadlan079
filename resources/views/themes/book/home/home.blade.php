@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Portfolio — System Architecture')
+@section('title', 'Portfolio')
 @vite(['resources/css/hero.css', 'resources/css/dashboard_project.css'])
 
 @section('content')
