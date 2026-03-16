@@ -71,7 +71,7 @@
             <div class="flex items-center gap-2 text-primary text-[10px] uppercase font-bold">
                 <span
                     class="w-2 h-2 bg-primary rounded-full animate-pulse shadow-[0_0_8px_var(--color-primary)]"></span>
-                CURRENT TIME
+                Local Time
             </div>
             <div id="hero-live-clock" data-format="{{ $clockFormat ?? '24' }}" data-seconds="{{ $showSeconds ?? '1' }}"
                 class="text-text text-sm font-semibold opacity-80">
@@ -110,22 +110,21 @@
 
     <div class="hero-center relative z-10 text-center max-w-3xl -top-10">
         <div class="text-center">
-            <span data-i18n="hero.collaboration"
+            <span data-i18n="home.hero.status"
                 class="hero-badge inline-flex items-center gap-2 px-4 py-1 mb-6 rounded-none border border-border bg-surface text-sm font-mono tracking-widest text-muted uppercase"></span>
 
             <h2 class="hero-title mb-6 leading-tight text-center">
                 <div class="hero-big hero-solid" data-text="HI">
-                    <span data-i18n="hero.hi">Hi, I'm</span>
+                    <span>Fadlan</span>
                 </div>
-                <div class="hero-big hero-outline">FADLAN</div>
-                <div class="hero-sub text-muted mt-4 font-semibold">Full Stack Developer</div>
+                <div class="hero-big hero-outline">Firdaus</div>
             </h2>
 
             <p
                 class="hero-desc max-w-xl mx-auto mb-5 text-sm md:text-base leading-loose tracking-wide text-muted/80 relative">
                 <span class="hero-desc-line"></span>
-                <span data-i18n="hero.description">
-                    Focus on building modern web applications with clear <strong class='text-text'>backend</strong> structures, responsive <strong class='text-text'>frontend</strong> and production-ready systems.
+                <span data-i18n="home.hero.description">
+                    Siswa SMK TI Airlangga generasi ke-24 yang berfokus pada pengembangan web full-stack dan tertarik mempelajari teknologi baru.
                 </span>
             </p>
 
@@ -135,7 +134,7 @@
                     style="--cta-bubble-color: var(--color-bg);">
                     <span class="cta-bubble"></span>
                     <span class="cta-text relative z-10 flex items-center gap-2">
-                       <span data-i18n="home.cta_btn_primary">PROJECTS</span>
+                       <span data-i18n="home.hero.button_projects">Lihat Proyek</span>
                     </span>
                 </a>
 
@@ -144,7 +143,7 @@
                     style="--cta-bubble-color: var(--color-primary);">
                     <span class="cta-bubble"></span>
                     <span class="cta-text relative z-10 flex items-center gap-2">
-                        <span data-i18n="home.cta_btn_secondary">CONTACT</span>
+                        <span data-i18n="home.hero.button_contact">Hubungi Saya</span>
                     </span>
                 </a>
             </div>

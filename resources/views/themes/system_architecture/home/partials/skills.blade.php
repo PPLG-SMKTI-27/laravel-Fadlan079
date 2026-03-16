@@ -3,7 +3,6 @@
 @endphp
 
 <style>
-    /* ── Tooltip ── */
     .skt-tip {
         position: fixed;
         z-index: 9999;
@@ -64,95 +63,72 @@
 </style>
 
 <section id="skills-cad"
-    class="min-h-[100dvh] flex flex-col justify-center py-24 bg-background overflow-hidden relative font-mono text-text selection:bg-primary selection:text-black">
+    class="min-h-[100dvh] flex flex-col justify-center py-16 md:py-24 bg-background overflow-hidden relative font-mono text-text selection:bg-primary selection:text-black">
     <div class="absolute inset-0 z-0 opacity-10"
         style="background-image: linear-gradient(var(--color-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-border) 1px, transparent 1px); background-size: 40px 40px;">
     </div>
 
     <div class="max-w-7xl w-full mx-auto px-6 relative z-10">
 
-        <div
-            class="border-t border-b border-text/20 py-2 flex justify-between text-[10px] uppercase tracking-widest mb-16">
-            <span>DWG. NO: SKL-2026-X</span>
-            <span>SCALE: 1:1</span>
-            <span>REV: 05_FOCUS</span>
-        </div>
 
         <div class="grid lg:grid-cols-2 gap-16 items-start">
 
-            <div class="relative sticky top-24">
+            <div class="relative lg:sticky top-24 mb-10 lg:mb-0">
                 <div class="absolute -top-4 -left-4 w-4 h-4 border-t border-l border-primary/50"></div>
-                <h3 class="text-5xl md:text-7xl font-bold tracking-tighter uppercase mb-6 leading-[0.9]">
-                    <span>Tech</span> <br />
-                    <span class="text-transparent border-text" style="-webkit-text-stroke: 1px var(--color-text);">Stack</span>
+                <h3 class="text-3xl md:text-7xl font-bold tracking-tighter uppercase mb-6 leading-[0.9]">
+                    <span class="text-transparent border-text" style="-webkit-text-stroke: 1px var(--color-text);">Tech Stack</span>
                 </h3>
                 <p class="text-xs uppercase leading-relaxed text-muted max-w-sm border-l border-primary/50 pl-4"
-                    data-i18n="home.skills_cad.desc">
-                    Overview of core technologies and frameworks. Select a category to view detailed skills and tools.
+                    data-i18n="home.skills.description">
+                    Beberapa teknologi dan bahasa pemrograman yang saya gunakan dalam pengembangan web.
                 </p>
             </div>
 
-            <div class="border border-text/20 relative p-8 min-h-[400px]" id="cad-schematic-box">
+            <div class="border border-text/20 relative p-5 md:p-8 min-h-[400px]" id="cad-schematic-box">
                 <div class="absolute -top-1 -left-1 w-2 h-2 bg-primary"></div>
                 <div class="absolute -bottom-1 -right-1 w-2 h-2 bg-primary"></div>
-                <div class="absolute top-0 right-4 -translate-y-full text-[9px] py-1 text-muted">WIDTH: 100%</div>
 
                 @php
                     $categories = [
                         [
                             'id' => 'backend',
-                            'name' => 'Backend Logic',
-                            'sec' => 'Sec_A',
-                            'ver' => '8.x',
+                            'name' => 'Backend & Database',
                             'color' => '#f87171',
-                            'sub' => 'Server · Database · API',
                         ],
                         [
                             'id' => 'frontend',
-                            'name' => 'Client Interface',
-                            'sec' => 'Sec_B',
-                            'ver' => '3.x',
+                            'name' => 'Frontend',
                             'color' => '#38bdf8',
-                            'sub' => 'UI · Markup · Styling',
                         ],
                         [
                             'id' => 'tools',
-                            'name' => 'DevOps & Tools',
-                            'sec' => 'Sec_C',
-                            'ver' => '1.x',
+                            'name' => 'Tools',
                             'color' => '#a3e635',
-                            'sub' => 'Scripting · DevOps',
                         ],
                     ];
                 @endphp
 
                 @foreach ($categories as $cat)
-                    {{-- Kategori Block --}}
                     <div class="cad-section mb-10 relative transition-all duration-500" id="sec-{{ $cat['id'] }}">
-                        <div class="absolute -left-12 top-2 text-[10px] -rotate-90 text-primary uppercase">
-                            {{ $cat['sec'] }}</div>
 
-                        <div class="flex justify-between items-end border-b border-text/30 pb-2 mb-4">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end border-b border-text/30 pb-2 mb-4 gap-2">
                             <div>
                                 <span class="text-sm font-bold uppercase tracking-widest">{{ $cat['name'] }}</span>
-                                <span class="text-[10px] text-muted ml-2">VER {{ $cat['ver'] }}</span>
                             </div>
-                            {{-- Tombol Expand / Focus --}}
                             <button
                                 class="cad-focus-btn text-[10px] uppercase tracking-widest text-primary hover:text-text transition-colors bg-transparent border-none cursor-pointer"
                                 onclick="toggleCadFocus('{{ $cat['id'] }}')">
-                                [+] ISOLATE
+                                [+] Focus
                             </button>
                         </div>
 
-                        {{-- Container Skill (Dengan limit tinggi default) --}}
                         <div class="cad-skill-list flex flex-wrap gap-3 overflow-hidden transition-all duration-700 max-h-[76px]"
                             id="list-{{ $cat['id'] }}">
                             @foreach ($skillsByCategory->get($cat['id'], []) as $skill)
                                 <span
                                     class="skt-node px-3 py-1 border border-text/20 text-xs hover:bg-text hover:text-background transition-colors cursor-crosshair"
                                     data-name="{{ $skill->name }}" data-cat="{{ strtoupper($cat['id']) }}"
-                                    data-color="{{ $cat['color'] }}" data-sub="{{ $cat['sub'] }}"
+                                    data-color="{{ $cat['color'] }}"
                                     data-desc="{{ $skill->description }}" data-proj="{{ $skill->projects_count }}">
                                     {{ $skill->name }}
                                 </span>
@@ -185,13 +161,10 @@
         const tipDesc = document.getElementById('sT2Desc');
         const tipProj = document.getElementById('sT2Proj');
 
-        // Grab all skill nodes generated by blade
         const nodes = document.querySelectorAll('.skt-node');
 
         function showTip(e) {
             const t = e.target;
-
-            // Extract data
             const cat = t.getAttribute('data-cat') || '';
             const name = t.getAttribute('data-name') || '';
             const color = t.getAttribute('data-color') || '#fbbf24';
@@ -199,7 +172,6 @@
             const desc = t.getAttribute('data-desc') || '';
             const proj = parseInt(t.getAttribute('data-proj') || '0', 10);
 
-            // Update Tooltip DOM
             tipCat.textContent = cat;
             tipCat.style.color = color;
 
@@ -232,7 +204,6 @@
             let tx = e.clientX + 16,
                 ty = e.clientY - TH / 2;
 
-            // Screen bounds checking
             if (tx + TW > window.innerWidth) tx = e.clientX - TW - 16;
             if (ty < 6) ty = 6;
             if (ty + TH > window.innerHeight) ty = window.innerHeight - TH - 6;
@@ -245,7 +216,6 @@
             tip.classList.remove('show');
         }
 
-        // Attach listeners to nodes
         nodes.forEach(node => {
             node.addEventListener('mouseenter', showTip);
             node.addEventListener('mousemove', moveTip);
@@ -253,7 +223,6 @@
         });
     });
 
-    // Logika untuk Focus Mode (Isolate View)
     function toggleCadFocus(targetId) {
         const sections = ['backend', 'frontend', 'tools'];
         const targetSec = document.getElementById('sec-' + targetId);
@@ -265,24 +234,22 @@
             const btn = sec.querySelector('.cad-focus-btn');
 
             if (!isCurrentlyFocused) {
-                // Mau masuk Focus Mode
                 if (id === targetId) {
                     sec.style.display = 'block';
                     sec.classList.add('is-focused');
-                    list.style.maxHeight = '2000px'; // Buka batas tinggi
-                    btn.innerHTML = '[-] RETURN';
+                    list.style.maxHeight = '2000px';
+                    btn.innerHTML = '[-] Unfocus';
                     btn.classList.replace('text-primary',
-                        'text-red-500'); // Ganti warna tombol buat indikasi balik
+                        'text-red-500');
                 } else {
-                    sec.style.display = 'none'; // Sembunyikan kategori lain
+                    sec.style.display = 'none';
                 }
             } else {
-                // Mau balik ke mode Normal (Tampil semua)
                 sec.style.display = 'block';
                 sec.classList.remove('is-focused');
                 list.style.maxHeight =
-                    '76px'; // Kembalikan batas tinggi (sesuaikan pixel ini dgn kira-kira 2 baris skill)
-                btn.innerHTML = '[+] ISOLATE';
+                    '76px';
+                btn.innerHTML = '[+] Focus';
                 btn.classList.replace('text-red-500', 'text-primary');
             }
         });

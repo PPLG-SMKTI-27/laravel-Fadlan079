@@ -112,6 +112,7 @@
             transition: opacity 0.15s steps(2, end), transform 0.15s, filter 0.15s;
         }
     </style>
+    @stack ('head')
 </head>
 <body class="bg-bg text-text overflow-x-hidden">
 

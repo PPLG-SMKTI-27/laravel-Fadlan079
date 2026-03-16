@@ -112,7 +112,7 @@
         },
         "stats": {
             "totalProjects": "Total Projects",
-            "totalCategories": "Categories",
+            "totalCategories": "Total Categories",
             "activeCount": "Live / Active",
             "inactiveCount": "Archived",
             "statusBreakdown": {

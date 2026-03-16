@@ -11,11 +11,6 @@
         <div class="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8">
 
             <div class="md:col-span-12 lg:col-span-5 space-y-6">
-                <div class="flex items-center gap-3 text-[10px] uppercase tracking-widest text-muted">
-                    <span class="w-2 h-2 bg-primary animate-pulse shadow-[0_0_8px_var(--color-primary)]"></span>
-                    SYS.IDENTITY_MODULE
-                </div>
-
                 <div>
                     <h2 class="text-3xl md:text-5xl font-bold tracking-tighter uppercase text-text leading-none">
                         {{ $brand }}
@@ -29,19 +24,18 @@
                     </div>
                 </div>
 
-                <p class="text-xs text-muted leading-relaxed max-w-sm font-sans" data-i18n="footer.description">
-                    Focus on building modern web applications with clear backend structures, responsive frontend and production-ready systems.
+                <p class="text-xs text-muted leading-relaxed max-w-sm font-sans" data-i18n="footer.brand_description">
+                    Siswa SMK TI Airlangga generasi ke-24 yang tertarik pada pengembangan web full-stack.
                 </p>
             </div>
 
             <div class="md:col-span-6 lg:col-span-3 lg:col-start-7 space-y-6">
-                <p class="text-[10px] uppercase tracking-[0.2em] text-primary" data-i18n="footer.quick_links">>> ROUTING_TABLE</p>
+                <p class="text-[10px] uppercase tracking-[0.2em] text-primary" data-i18n="footer.quick_links_label">Tautan Cepat</p>
 
                 <ul class="flex flex-col gap-4">
                     @foreach ($links as $link)
                         <li>
                             <a href="{{ $link['href'] }}" class="group flex items-center gap-3 text-xs uppercase tracking-widest text-muted hover:text-text transition-colors w-max">
-                                <span class="text-border group-hover:text-primary transition-colors">/DIR:</span>
                                 <span class="transform group-hover:translate-x-2 transition-transform" data-i18n="{{ $link['key'] }}">
                                     {{ strtoupper(str_replace('nav.', '', $link['key'])) }}
                                 </span>
@@ -52,7 +46,7 @@
             </div>
 
             <div class="md:col-span-6 lg:col-span-3 space-y-6">
-                <p class="text-[10px] uppercase tracking-[0.2em] text-primary" data-i18n="footer.connect">>> EXTERNAL_NODES</p>
+                <p class="text-[10px] uppercase tracking-[0.2em] text-primary" data-i18n="footer.connect_label">Hubungi</p>
 
                 <div class="grid grid-cols-5 md:grid-cols-3 gap-2">
                     @foreach ($socials as $social)
@@ -65,31 +59,16 @@
                         </a>
                     @endforeach
                 </div>
-
-                <div class="pt-4 text-[9px] text-muted uppercase tracking-widest flex items-center gap-2">
-                    <i class="fa-solid fa-lock text-[8px]"></i>
-                    Secure_Connection
-                </div>
             </div>
 
         </div>
 
-        <div class="mt-16 pt-6 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] uppercase tracking-widest text-muted">
-
+        <div class="mt-16 pt-6 border-t border-border/50 flex flex-col md:flex-row items-center justify-center gap-4 text-[10px] uppercase tracking-widest text-muted">
             <div class="flex items-center gap-4">
                 <span data-i18n="footer.copyright">© {{ date('Y') }}</span>
                 <span class="text-primary font-bold">{{ $brand }}</span>
-                <span class="hidden md:inline border-l border-border/50 pl-4">All_Rights_Reserved</span>
+                <span class="hidden md:inline border-l border-border/50 pl-4" data-i18n="footer.copyright">Hak Cipta Dilindungi</span>
             </div>
-
-            <div class="flex items-center gap-4">
-                <span class="hidden sm:inline">SYS_VER: 3.0.4</span>
-                <div class="border-l border-border/50 pl-4 flex items-center gap-2">
-                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                    <span class="text-text">ALL_SYSTEMS_NOMINAL</span>
-                </div>
-            </div>
-
         </div>
     </div>
 </footer>

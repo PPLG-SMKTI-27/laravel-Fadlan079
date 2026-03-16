@@ -64,7 +64,7 @@
 
                     <p class="text-[10px] font-bold uppercase tracking-widest text-muted mb-4 flex items-center gap-2 relative z-10">
                         <i class="fa-solid fa-tags text-indigo-500"></i>
-                        <span data-i18n="project.stats.totalCategories">Kategori</span>
+                        <span data-i18n="project.stats.totalCategories">Total Kategori</span>
                     </p>
                     <h3 class="text-4xl font-bold text-black relative z-10">{{ $summary['totalCategories'] }}</h3>
                 </div>
@@ -108,7 +108,7 @@
                                     <span class="font-bold text-yellow-900">{{ $summary['statusBreakdown']['Shipped'] ?? 0 }}</span>
                                 </div>
                                 <div class="flex gap-4 justify-between items-center">
-                                    <span class="text-yellow-900/70 font-medium" data-i18n="project.stats.statusBreakdown.InProgress">In Progress</span>
+                                    <span class="text-yellow-900/70 font-medium" data-i18n="project.stats.statusBreakdown.In Progress">In Progress</span>
                                     <span class="font-bold text-amber-600">{{ $summary['statusBreakdown']['In Progress'] ?? 0 }}</span>
                                 </div>
                                 <div class="flex gap-4 justify-between items-center">
@@ -127,67 +127,67 @@
                 </div>
             </div>
 
-                <div class="bg-surface border-2 border-dashed border-border shadow-sm rounded-2xl p-5 md:p-6 space-y-6 font-sans relative">
+            <div class="bg-surface border-2 border-dashed border-border shadow-sm rounded-2xl p-5 md:p-6 space-y-6 font-sans relative">
 
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-muted opacity-20 backdrop-blur-sm -rotate-2" style="clip-path: polygon(5% 0, 100% 5%, 95% 100%, 0 95%); z-index: 10;"></div>
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-muted opacity-20 backdrop-blur-sm -rotate-2" style="clip-path: polygon(5% 0, 100% 5%, 95% 100%, 0 95%); z-index: 10;"></div>
 
-                    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-5 border-b-2 border-dashed border-border/50 pb-6 relative z-20">
+                <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-5 border-b-2 border-dashed border-border/50 pb-6 relative z-20">
 
-                        <div class="relative w-full md:w-1/2 group">
-                            <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-muted group-focus-within:text-primary transition-colors"></i>
-                            <input type="text" id="project-search" placeholder="{{ $projectPlaceholders }}"
-                                class="w-full border-2 border-border bg-container rounded-lg px-4 py-3 pl-11 text-sm font-medium text-text placeholder:text-muted placeholder:italic placeholder:font-serif focus:outline-none focus:border-primary focus:ring-0 transition-all shadow-inner"
-                                style="background-image: repeating-linear-gradient(transparent, transparent 27px, var(--color-border) 27px, var(--color-border) 28px); line-height: 28px; background-attachment: local;" />
-                        </div>
-
-                        <div class="relative z-40">
-                            <button id="sort-toggle"
-                                class="w-full md:w-auto flex justify-between items-center gap-6 px-5 py-3 border-2 border-border bg-container rounded-lg text-xs font-bold uppercase tracking-widest text-text hover:border-primary hover:text-primary hover:-translate-y-0.5 transition-all shadow-[3px_3px_0px_var(--color-border)] focus:outline-none">
-                                <span class="flex items-center gap-2">
-                                    <i class="fa-solid fa-arrow-down-short-wide"></i>
-                                    <span id="sort-label" data-i18n="project.sort.menu.latest">Terbaru</span>
-                                </span>
-                                <i class="fa-solid fa-chevron-down text-[10px]" id="sort-chevron"></i>
-                            </button>
-
-                            <div id="sort-menu"
-                                class="hidden absolute right-0 top-full mt-3 w-full min-w-[12rem] bg-surface rounded-lg border-2 border-border shadow-[4px_4px_0px_var(--color-border)] overflow-hidden">
-                                <button class="sort-option w-full text-left px-5 py-3 text-xs font-bold uppercase tracking-widest text-muted hover:bg-container hover:text-text transition-colors border-b-2 border-dashed border-border/50" data-sort="latest"
-                                data-i18n="project.sort.menu.latest">
-                                    Terbaru
-                                </button>
-                                <button class="sort-option w-full text-left px-5 py-3 text-xs font-bold uppercase tracking-widest text-muted hover:bg-container hover:text-text transition-colors" data-sort="oldest"
-                                data-i18n="project.sort.menu.oldest">
-                                    Terlama
-                                </button>
-                            </div>
-                        </div>
+                    <div class="relative w-full md:w-1/2 group">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-muted group-focus-within:text-primary transition-colors"></i>
+                        <input type="text" id="project-search" placeholder="{{ $projectPlaceholders }}"
+                            class="w-full border-2 border-border bg-container rounded-lg px-4 py-3 pl-11 text-sm font-medium text-text placeholder:text-muted placeholder:italic placeholder:font-serif focus:outline-none focus:border-primary focus:ring-0 transition-all shadow-inner"
+                            style="background-image: repeating-linear-gradient(transparent, transparent 27px, var(--color-border) 27px, var(--color-border) 28px); line-height: 28px; background-attachment: local;" />
                     </div>
 
-                    <div class="flex overflow-x-auto no-scrollbar gap-4 pb-4 pt-2 px-2 -mx-2">
-
-                        <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all focus:outline-none bg-warning text-yellow-900 border-2 border-yellow-500 shadow-[2px_3px_0px_var(--color-border)] -translate-y-1 rotate-1" data-filter="all"
-                        data-i18n="project.filter.all">
-                            Semua
+                    <div class="relative z-40">
+                        <button id="sort-toggle"
+                            class="w-full md:w-auto flex justify-between items-center gap-6 px-5 py-3 border-2 border-border bg-container rounded-lg text-xs font-bold uppercase tracking-widest text-text hover:border-primary hover:text-primary hover:-translate-y-0.5 transition-all shadow-[3px_3px_0px_var(--color-border)] focus:outline-none">
+                            <span class="flex items-center gap-2">
+                                <i class="fa-solid fa-arrow-down-short-wide"></i>
+                                <span id="sort-label" data-i18n="project.sort.menu.latest">Terbaru</span>
+                            </span>
+                            <i class="fa-solid fa-chevron-down text-[10px]" id="sort-chevron"></i>
                         </button>
 
-                        <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest text-muted bg-container border-2 border-border shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:-rotate-1 transition-all focus:outline-none" data-filter="Website"
-                        data-i18n="project.filter.website">
-                            Website
-                        </button>
-
-                        <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest text-muted bg-container border-2 border-border shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:rotate-1 transition-all focus:outline-none" data-filter="Application"
-                        data-i18n="project.filter.application">
-                            Aplikasi
-                        </button>
-
-                        <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest text-muted bg-container border-2 border-border shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:-rotate-1 transition-all focus:outline-none" data-filter="Design"
-                        data-i18n="project.filter.design">
-                            Desain
-                        </button>
-
+                        <div id="sort-menu"
+                            class="hidden absolute right-0 top-full mt-3 w-full min-w-[12rem] bg-surface rounded-lg border-2 border-border shadow-[4px_4px_0px_var(--color-border)] overflow-hidden">
+                            <button class="sort-option w-full text-left px-5 py-3 text-xs font-bold uppercase tracking-widest text-muted hover:bg-container hover:text-text transition-colors border-b-2 border-dashed border-border/50" data-sort="latest"
+                            data-i18n="project.sort.menu.latest">
+                                Terbaru
+                            </button>
+                            <button class="sort-option w-full text-left px-5 py-3 text-xs font-bold uppercase tracking-widest text-muted hover:bg-container hover:text-text transition-colors" data-sort="oldest"
+                            data-i18n="project.sort.menu.oldest">
+                                Terlama
+                            </button>
+                        </div>
                     </div>
                 </div>
+
+                <div class="flex overflow-x-auto no-scrollbar gap-4 pb-4 pt-2 px-2 -mx-2">
+
+                    <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all focus:outline-none bg-warning text-yellow-900 border-2 border-yellow-500 shadow-[2px_3px_0px_var(--color-border)] -translate-y-1 rotate-1" data-filter="all"
+                    data-i18n="project.filter.all">
+                        Semua
+                    </button>
+
+                    <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest text-muted bg-container border-2 border-border shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:-rotate-1 transition-all focus:outline-none" data-filter="Website"
+                    data-i18n="project.filter.website">
+                        Website
+                    </button>
+
+                    <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest text-muted bg-container border-2 border-border shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:rotate-1 transition-all focus:outline-none" data-filter="Application"
+                    data-i18n="project.filter.application">
+                        Aplikasi
+                    </button>
+
+                    <button class="filter-btn shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest text-muted bg-container border-2 border-border shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:-rotate-1 transition-all focus:outline-none" data-filter="Design"
+                    data-i18n="project.filter.design">
+                        Desain
+                    </button>
+
+                </div>
+            </div>
 
             @include('themes.book.project.partials.project-list')
 

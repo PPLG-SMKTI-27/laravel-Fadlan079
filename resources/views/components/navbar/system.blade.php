@@ -1,5 +1,4 @@
 <style>
-    /* --- HUD NAVBAR STYLES --- */
     .hud-navbar {
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
@@ -9,7 +8,6 @@
         transform-origin: top center;
         will-change: transform;
     }
-
     .hud-link {
         position: relative;
         font-family: monospace;
@@ -22,7 +20,6 @@
         padding: 0.5rem 0.75rem;
         display: inline-block;
     }
-
     .hud-link::before,
     .hud-link::after {
         position: absolute;
@@ -45,11 +42,9 @@
     }
 </style>
 
-{{-- DESKTOP HUD NAVBAR --}}
 <nav id="mainNavbar" class="hud-navbar fixed top-4 lg:top-6 left-1/2 -translate-x-1/2
     w-[calc(100%-2rem)] md:w-[90%] md:max-w-2xl lg:max-w-2xl z-50">
 
-    {{-- Corner HUD Accents --}}
     <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/80"></div>
     <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary/80"></div>
     <div class="absolute top-0 right-0 w-8 h-[1px] bg-primary/50"></div>
@@ -57,15 +52,13 @@
 
     <div class="px-4 xl:px-6 py-1.5 flex justify-between items-center">
 
-        {{-- Brand / Init Sequence --}}
         <div id="secret-brand-trigger-desktop" class="flex items-center gap-2 cursor-pointer select-none group" data-target="{{ route('portofolio.settings') }}">
             <div class="w-1.5 h-4 bg-primary animate-pulse group-hover:scale-y-125 transition-transform duration-300"></div>
             <h1 class="hud-brand text-xs sm:text-sm">
-                {{ $brand ?? 'SYS_CORE' }}
+                {{ $brand ?? 'Fadlan' }}
             </h1>
         </div>
 
-        {{-- Navigation Links --}}
         <ul class="hidden md:flex items-center gap-1 lg:gap-2">
             @foreach ($menus as $menu)
             <li>
@@ -76,7 +69,6 @@
             @endforeach
         </ul>
 
-        {{-- Control Modules --}}
         <div class="flex items-center gap-4 md:border-l md:border-border/50 md:pl-4">
 
             <button id="layoutToggleBtn" class="text-muted hover:text-primary transition-colors flex items-center justify-center" title="Switch Design Layout">
@@ -91,7 +83,6 @@
                 <span id="langFlag" class="fi fi-id w-4 h-3 rounded-sm"></span>
             </button>
 
-            {{-- Mobile Trigger --}}
             <button id="mobileMenuBtn" class="md:hidden text-primary hover:text-text transition-colors">
                 <i class="fa-solid fa-bars-staggered text-lg"></i>
             </button>
@@ -99,8 +90,7 @@
     </div>
 </nav>
 
-{{-- MOBILE OVERLAY & SIDEBAR --}}
-<div id="mobileOverlay" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-[70] opacity-0 pointer-events-none transition"></div>
+<div id="mobileOverlay" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-70 opacity-0 pointer-events-none transition"></div>
 
 <aside id="mobileSidebar" class="fixed top-0 left-0 h-full w-[80%] max-w-[300px] bg-bg/95 backdrop-blur-2xl border-r border-border z-[100] -translate-x-full pointer-events-none transition-transform duration-300 flex flex-col shadow-2xl">
 
@@ -110,7 +100,7 @@
                 <i class="fa-solid fa-terminal"></i>
             </div>
             <span class="font-mono text-sm font-bold tracking-widest text-text uppercase">
-                {{ $brand ?? 'SYS_MENU' }}
+                {{ $brand ?? 'Fadlan' }}
             </span>
         </div>
         <button id="mobileCloseBtn" class="w-8 h-8 flex items-center justify-center rounded-md text-muted hover:bg-surface hover:text-text transition-colors">
@@ -119,7 +109,8 @@
     </div>
 
     <nav class="p-6 flex flex-col gap-2 text-sm flex-1 overflow-y-auto">
-        <p class="text-[10px] font-mono uppercase tracking-widest text-muted mb-2 px-2">Navigation</p>
+        <p class="text-[10px] font-mono uppercase tracking-widest text-muted mb-2 px-2"
+        data-i18n="nav.navigasi">Navigation</p>
 
         @foreach ($menus as $menu)
         @php $isActive = request()->url() == $menu['href']; @endphp
@@ -137,16 +128,19 @@
         @endforeach
 
         <div class="mt-8 pt-6 border-t border-border/50 space-y-4">
-            <p class="text-[10px] font-mono uppercase tracking-widest text-muted px-2">Authentication</p>
+            <p class="text-[10px] font-mono uppercase tracking-widest text-muted px-2"
+            data-i18n="nav.authenticated">Autentikasi</p>
 
             @if (!session('is_login'))
                 <a href="/login" class="w-full flex items-center justify-center gap-2 px-4 py-3 border border-primary text-primary font-mono text-xs font-bold uppercase tracking-widest hover:bg-primary hover:text-bg transition-colors">
-                    <i class="fa-solid fa-terminal"></i> SYS.LOGIN
+                    <i class="fa-solid fa-terminal"></i>
+                    <span data-i18n="nav.login">LOGIN</span>
                 </a>
             @else
                 <div class="flex gap-2">
                     <a href="{{ route('dashboard.home') }}" class="flex-1 flex items-center justify-center gap-2 px-4 py-3 border border-primary bg-primary/5 text-primary font-mono text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-colors">
-                        <i class="fa-solid fa-gauge"></i> DASHBOARD
+                        <i class="fa-solid fa-gauge"></i>
+                        <span data-i18n="navdashboard">DASHBOARD</span>
                     </a>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
@@ -163,7 +157,7 @@
     <div class="p-6 border-t border-border/50 bg-surface/30">
         <div class="flex items-center gap-2 text-primary text-[10px] uppercase font-bold mb-1 font-mono">
             <span class="w-2 h-2 bg-primary animate-pulse shadow-[0_0_8px_var(--color-primary)]"></span>
-            SYS.TIME
+            Local Time
         </div>
         <div id="mobile-live-clock" data-format="{{ $clockFormat ?? '24' }}" data-seconds="{{ $showSeconds ?? '1' }}" class="text-text text-sm font-semibold font-mono tracking-widest">
             00:00:00 WITA
@@ -177,7 +171,6 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // --- MOBILE MENU LOGIC ---
     const openBtn = document.getElementById('mobileMenuBtn');
     const closeBtn = document.getElementById('mobileCloseBtn');
     const sidebar = document.getElementById('mobileSidebar');
@@ -197,7 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
     closeBtn?.addEventListener('click', closeSidebar);
     overlay?.addEventListener('click', closeSidebar);
 
-    // --- MOBILE CLOCK LOGIC ---
     const mClock = document.getElementById('mobile-live-clock');
     const mDate = document.getElementById('mobile-live-date');
 
@@ -228,8 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(updateMobileClock, 1000);
     }
 
-
-    // --- LAYOUT SWITCHER LOGIC (Diary → Clean → System) ---
     const layouts = ['diary', 'clean', 'system'];
     const layoutIcons = {
         'diary':  'fa-solid fa-book',
@@ -273,19 +263,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
-    // colorToggleBtn wired via onclick="window.toggleTheme()" — handled by app.js
-
-
-
-    // --- LANGUAGE SWITCHER LOGIC ---
     const langBtn = document.getElementById('langToggle');
     const langFlag = document.getElementById('langFlag');
 
-    // Baca bahasa dari atribut lang html (diset oleh Laravel)
     let currentLocale = htmlEl.lang || 'id';
 
-    // Update bendera saat halaman diload
     if (langFlag) {
         langFlag.className = (currentLocale === 'id' ? 'fi fi-id' : 'fi fi-us') + ' w-4 h-3 rounded-sm';
     }
@@ -293,15 +275,12 @@ document.addEventListener('DOMContentLoaded', () => {
     langBtn?.addEventListener('click', () => {
         let nextLocale = currentLocale === 'id' ? 'en' : 'id';
 
-        // Simpan ke localStorage & Cookie agar persistence
         localStorage.setItem('locale', nextLocale);
         document.cookie = `locale=${nextLocale};path=/;max-age=31536000;SameSite=Lax`;
 
-        // Animasi keluar halaman (Soft/Hard tergantung tema)
         document.body.classList.remove('page-loaded');
         document.body.classList.add('page-exiting');
 
-        // Sinkronisasi dengan Backend
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
         if (csrfToken) {
@@ -314,7 +293,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify({ locale: nextLocale })
             }).then(() => {
-                // Beri jeda sedikit agar transisi keluar halaman sempat terlihat (sekitar 300ms)
                 if(window.triggerPageWipe) window.triggerPageWipe(window.location.href, `> SWITCH_LANG: [${nextLocale.toUpperCase()}]`); else setTimeout(() => { window.location.reload(); }, 300);
             }).catch(err => {
                 console.warn('Locale sync failed:', err);
@@ -325,8 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
-    // --- EASTER EGG LOGIC (Logo Ditekan 7x) ---
     function setupEasterEgg(elementId) {
         const trigger = document.getElementById(elementId);
         if (!trigger) return;

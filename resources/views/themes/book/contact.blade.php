@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Contact')
 
-@section('content')
+@push('head')
 <style>
     .bg-journal {
         background-color: var(--color-bg);
@@ -52,11 +52,21 @@
         font-style: italic;
     }
 
-    /* Utilitas untuk menyembunyikan scrollbar tapi tetap bisa di-scroll */
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-</style>
+    .scroll-fade {
+        mask-image: none;
+    }
 
+    @media (max-width: 640px) {
+        .scroll-fade {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+    }
+</style>
+@endpush
+
+@section('content')
 <div class="bg-journal min-h-screen font-sans text-text pb-20 selection:bg-muted/30">
 
     <section id="contact-hero" class="relative z-10 pt-32 pb-10 max-w-5xl mx-auto px-5 md:px-8 text-center">
@@ -121,7 +131,7 @@
                             Jenis Pesan:
                         </label>
 
-                        <div class="flex flex-nowrap sm:flex-wrap gap-3 overflow-x-auto w-full no-scrollbar pb-3 pt-1 scroll-smooth" style="-webkit-overflow-scrolling: touch;">
+                        <div class="flex flex-nowrap sm:flex-wrap gap-3 overflow-x-auto w-full no-scrollbar scroll-fade pb-3 pt-1 scroll-smooth" style="-webkit-overflow-scrolling: touch;">
 
                             <label class="cursor-pointer shrink-0">
                                 <input type="radio" name="type" value="project" class="peer sr-only" {{ old('type', 'project') === 'project' ? 'checked' : '' }}>
@@ -163,7 +173,8 @@
                         data-i18n="contact.form.sender_label">
                             Dikirim Dari (Email):
                         </label>
-                        <input type="email" name="sender" id="input-sender" class="journal-input {{ $errors->has('sender') ? 'border-red-500 text-red-500' : '' }}" placeholder="email.anda@domain.com" value="{{ old('sender') }}">
+                        <input type="email" name="sender" id="input-sender" class="journal-input {{ $errors->has('sender') ? 'border-red-500 text-red-500' : '' }}"
+                        placeholder="email.anda@domain.com" value="{{ old('sender') }}">
                         @error('sender')
                             <p class="text-xs text-red-500 mt-1 font-medium"><i class="fa-solid fa-triangle-exclamation"></i> {{ $message }}</p>
                         @enderror
@@ -174,7 +185,8 @@
                         data-i18n="contact.form.subject_label">
                             Judul Pesan:
                         </label>
-                        <input type="text" name="subject" id="input-subject" class="journal-input {{ $errors->has('subject') ? 'border-red-500 text-red-500' : '' }}" placeholder="Tulis judul pesan di sini..." value="{{ old('subject') }}">
+                        <input type="text" name="subject" id="input-subject" class="journal-input {{ $errors->has('subject') ? 'border-red-500 text-red-500' : '' }}"
+                        placeholder="Tulis judul pesan di sini..." value="{{ old('subject') }}">
                         @error('subject')
                             <p class="text-xs text-red-500 mt-1 font-medium"><i class="fa-solid fa-triangle-exclamation"></i> {{ $message }}</p>
                         @enderror
@@ -185,7 +197,8 @@
                         data-i18n="contact.form.message_label">
                             Isi Pesan:
                         </label>
-                        <textarea rows="4" name="message" id="input-message" class="journal-input resize-y {{ $errors->has('message') ? 'border-red-500 text-red-500' : '' }}" placeholder="Ceritakan detail kebutuhan atau pertanyaan Anda...">{{ old('message') }}</textarea>
+                        <textarea rows="4" name="message" id="input-message" class="journal-input resize-y {{ $errors->has('message') ? 'border-red-500 text-red-500' : '' }}"
+                            placeholder="Ceritakan detail kebutuhan atau pertanyaan Anda...">{{ old('message') }}</textarea>
                         @error('message')
                             <p class="text-xs text-red-500 mt-1 font-medium"><i class="fa-solid fa-triangle-exclamation"></i> {{ $message }}</p>
                         @enderror

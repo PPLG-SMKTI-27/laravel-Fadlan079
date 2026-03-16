@@ -113,7 +113,7 @@
         },
         "stats": {
             "totalProjects": "Total Proyek",
-            "totalCategories": "Kategori",
+            "totalCategories": "Total Kategori",
             "activeCount": "Live / Aktif",
             "inactiveCount": "Arsip",
             "statusBreakdown": {
@@ -135,9 +135,9 @@
         },
         "filter": {
             "all": "Semua",
-            "Website": "Website",
-            "Application": "Aplikasi",
-            "Design": "Desain"
+            "website": "Website",
+            "application": "Aplikasi",
+            "design": "Desain"
         },
         "notes": {
             "title": "Catatan Proyek",

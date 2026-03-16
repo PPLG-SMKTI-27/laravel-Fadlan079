@@ -24,10 +24,10 @@
         aria-hidden="true">
         <div
             class="animate-marquee text-[clamp(8rem,15vw,12rem)] font-extrabold tracking-tighter leading-none flex gap-8 text-text">
-            <span data-i18n="home.cta_marquee">LET'S BUILD IT — GOT A PROJECT? —</span>
-            <span data-i18n="home.cta_marquee">LET'S BUILD IT — GOT A PROJECT? —</span>
-            <span data-i18n="home.cta_marquee" aria-hidden="true">LET'S BUILD IT — GOT A PROJECT? —</span>
-            <span data-i18n="home.cta_marquee" aria-hidden="true">LET'S BUILD IT — GOT A PROJECT? —</span>
+            <span data-i18n="home.cta.title">Mari Berkolaborasi -</span>
+            <span data-i18n="home.cta.status">Siap Menerima Proyek</span>
+            <span data-i18n="home.cta.title">Mari Berkolaborasi -</span>
+            <span data-i18n="home.cta.status">Siap Menerima Proyek</span>
         </div>
     </div>
 
@@ -36,11 +36,11 @@
         <div
             class="inline-flex items-center gap-2 mb-8 bg-surface/50 border border-border px-4 py-2  backdrop-blur-md">
             <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            <p class="text-xs uppercase tracking-widest text-muted" data-i18n="home.cta_label">Available for collaboration</p>
+            <p class="text-xs uppercase tracking-widest text-muted" data-i18n="home.cta.status">Siap Menerima Proyek</p>
         </div>
 
         <h3 class="text-[clamp(3rem,7vw,5rem)] font-semibold leading-[1.05] mb-10 tracking-tight">
-            <span data-i18n="home.cta_title">Got a project in mind?</span>
+            <span data-i18n="home.cta.title">Mari Berkolaborasi</span>
         </h3>
 
         <div
@@ -54,7 +54,7 @@
                     transition-all duration-300 transform hover:-translate-y-1
                     shadow-[0_0_20px_rgba(var(--color-primary-rgb),0.2)] group">
 
-                <span data-i18n="home.cta_btn_primary">NEW_PROJECT</span>
+                <span data-i18n="home.cta.button_message">Tulis Pesan</span>
                 <i class="fa-solid fa-angle-right transition-transform duration-300 group-hover:translate-x-1"></i>
             </a>
 
@@ -64,7 +64,7 @@
                     border-2 border-border bg-surface/30 backdrop-blur-sm text-text
                     hover:border-primary transition-colors duration-300">
 
-                <span data-i18n="home.cta_btn_secondary">SEND MESSAGE</span>
+                <span data-i18n="home.cta.button_email">Kirim Via Email</span>
             </a>
 
         </div>

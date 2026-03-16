@@ -27,7 +27,7 @@
 
         <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-            <div class="lg:col-span-7 flex flex-col items-center w-full" @mouseenter="stopAuto()"
+            <div class="order-2 lg:order-1 lg:col-span-7 flex flex-col items-center w-full" @mouseenter="stopAuto()"
                 @mouseleave="startAuto()">
 
                 <div
@@ -37,11 +37,6 @@
                     <div class="absolute top-0 right-0 w-4 h-4 border-t border-r border-primary/50"></div>
                     <div class="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-primary/50"></div>
                     <div class="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-primary/50"></div>
-
-                    <div class="absolute top-3 left-4 text-[9px] font-mono text-muted uppercase tracking-widest">
-                        Viewport_Sim</div>
-                    <div class="absolute top-3 right-4 text-[9px] font-mono text-primary uppercase tracking-widest"
-                        x-text="'RES: ' + deviceView.toUpperCase()"></div>
 
                         <div class="relative bg-background border border-border shadow-[0_0_30px_rgba(0,0,0,0.5)] transition-all duration-700 ease-in-out overflow-hidden flex items-start justify-center group mx-auto"
                             :class="{
@@ -78,7 +73,8 @@
                         @empty
                             <div class="absolute inset-0 flex flex-col items-center justify-center bg-background text-muted p-4">
                                 <i class="fa-solid fa-image text-4xl mb-3 opacity-20"></i>
-                                <span class="font-mono text-[10px] uppercase tracking-widest">[ Null_Data: No Visual Preview ]</span>
+                                <span class="font-mono text-[10px] uppercase tracking-widest" data-i18n="home.featured_project.empty_archive.title">[Arsip Kosong]</span>
+                                <span class="font-mono text-[10px] uppercase tracking-widest" data-i18n="home.featured_project.empty_archive.description">Tidak ada proyek yang tersedia</span>
                             </div>
                         @endforelse
                     </div>
@@ -144,19 +140,19 @@
                 </div>
             </div>
 
-            <div class="lg:col-span-5" @mouseenter="stopAuto()" @mouseleave="startAuto()">
+            <div class="order-1 lg:order-2 lg:col-span-5" @mouseenter="stopAuto()" @mouseleave="startAuto()">
 
                 <div class="flex justify-between items-end mb-8 border-b border-border/50 pb-4">
                     <div>
-                        <p class="text-[10px] font-mono uppercase tracking-widest text-primary mb-2">
-                            >> Execution_Logs
-                        </p>
-                        <h3 class="text-3xl font-bold tracking-tight uppercase" data-i18n="home.featured">
-                            Featured Works
+                        <h3 class="text-xs font-black uppercase tracking-[0.3em] text-muted mb-4"
+                            data-i18n="home.featured_project.label">
+                            Karya Unggulan
                         </h3>
-                        <p class="text-sm text-muted mt-3 max-w-2xl" data-i18n="home.featured_desc">
-                            Selected projects highlighting practical solutions, clean architecture, and modern web
-                            development practices.
+                        <h3 class="text-3xl font-bold tracking-tight uppercase" data-i18n="home.featured_project.title">
+                            Daftar Proyek
+                        </h3>
+                        <p class="text-sm text-muted mt-3 max-w-2xl" data-i18n="home.featured_project.description">
+                            Beberapa proyek pilihan yang menampilkan karya dan pengalaman pengembangan yang pernah saya buat.
                         </p>
                     </div>
                     <div class="flex gap-2">

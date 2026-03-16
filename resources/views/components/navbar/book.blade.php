@@ -42,7 +42,7 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
-<nav class="paper-tab-nav fixed top-4 md:top-6 left-0 right-0 mx-auto z-[100] w-[95%] md:w-full max-w-full md:max-w-2xl lg:max-w-3xl rounded-xl flex items-center justify-between px-3 md:px-4 py-2 overflow-hidden border-b-2 border-r-2 border-gray-200/70 shadow-lg">
+<nav class="paper-tab-nav fixed top-4 md:top-6 left-0 right-0 mx-auto z-50 w-[95%] md:w-full max-w-full md:max-w-2xl lg:max-w-3xl rounded-xl flex items-center justify-between px-3 md:px-4 py-2 overflow-hidden border-b-2 border-r-2 border-gray-200/70 shadow-lg">
 
     <div class="shrink-0 flex items-center h-full">
         <div id="secret-brand-trigger-desktop" class="flex items-center justify-center cursor-pointer select-none group" data-target="{{ route('portofolio.settings') }}">

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'About')
+@section('title', 'About Me')
 
 <style>
     .bg-journal {

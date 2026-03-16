@@ -20,7 +20,7 @@
 
         <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-text leading-tight"
         data-i18n="home.skills.title">
-            Skill & Teknologi
+            Kemampuan & Teknologi
         </h2>
 
         <p class="text-muted text-lg font-medium max-w-2xl mx-auto md:mx-0 italic"

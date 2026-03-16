@@ -1,42 +1,43 @@
 @extends('layouts.main')
-@section('title', 'Portfolio — System Architecture')
+@section('title', 'Portfolio')
 @vite(['resources/css/hero.css', 'resources/css/dashboard_project.css'])
 
 @section('content')
-
-    @include('themes.system_architecture.home.partials.hero')
-
+    <div class="md:py-5">
+        @include('themes.system_architecture.home.partials.hero')
+    </div>
 
     <div class="w-full flex flex-col items-center justify-center relative -mt-8 mb-24">
         <div class="w-px h-20 md:h-32"></div>
     </div>
 
-
-    @include('themes.system_architecture.home.partials.featured-project')
-
+    <div class="md:px-5 md:py-5 bg-surface/40">
+        @include('themes.system_architecture.home.partials.about-preview')
+    </div>
 
     <div class="w-full flex flex-col items-center justify-center relative my-24">
         <div class="w-px h-20 md:h-32"></div>
     </div>
 
-
-    @include('themes.system_architecture.home.partials.about-preview')
-
+    <div class="md:px-5 md:py-5">
+        @include('themes.system_architecture.home.partials.featured-project')
+    </div>
 
     <div class="w-full flex flex-col items-center justify-center relative my-24">
         <div class="w-px h-20 md:h-32"></div>
     </div>
 
-
-    @include('themes.system_architecture.home.partials.skills')
-
+    <div class="md:px-5 md:py-5 bg-surface/40">
+        @include('themes.system_architecture.home.partials.skills')
+    </div>
 
     <div class="w-full flex flex-col items-center justify-center relative mt-24 mb-0">
         <div class="w-px h-20 md:h-32"></div>
     </div>
 
-
-    @include('themes.system_architecture.home.partials.cta')
+    <div class="md:px-5 md:py-5">
+        @include('themes.system_architecture.home.partials.cta')
+    </div>
 
 @endsection
 
