@@ -1,4 +1,4 @@
-<section id="featured-projects" class="py-16 md:py-24 px-5 max-w-7xl mx-auto relative z-10 border-t border-border/50">
+<section id="featured-projects" class="py-16 md:py-24 px-5 max-w-7xl mx-auto relative z-10 border-t border-[var(--color-border)]/50">
 
     <div class="absolute inset-0 z-0 opacity-[0.03]"
         style="background-image: linear-gradient(var(--color-text) 1px, transparent 1px), linear-gradient(90deg, var(--color-text) 1px, transparent 1px); background-size: 40px 40px;">
@@ -26,26 +26,26 @@
         <div class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
 
             <div class="order-1 lg:order-2 lg:col-span-5 flex flex-col justify-center" @mouseenter="stopAuto()" @mouseleave="startAuto()">
-                <div class="flex justify-between items-end mb-8 border-b border-border/50 pb-4">
+                <div class="flex justify-between items-end mb-8 border-b border-[var(--color-border)]/50 pb-4">
                     <div>
-                        <h3 class="text-xs font-black uppercase tracking-[0.3em] text-muted mb-4" data-i18n="home.featured_project.label">
+                        <h3 class="text-xs font-black uppercase tracking-[0.3em] text-[var(--color-muted)] mb-4" data-i18n="home.featured_project.label">
                             Karya Unggulan
                         </h3>
-                        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-text leading-tight mb-4" data-i18n="home.featured_project.title">
+                        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-[var(--color-text)] leading-tight mb-4" data-i18n="home.featured_project.title">
                             Daftar Proyek.
                         </h2>
-                        <p class="text-zinc-600 text-base md:text-lg leading-relaxed mb-8" data-i18n="home.featured_project.description">
+                        <p class="text-[var(--color-muted)] text-base md:text-lg leading-relaxed mb-8" data-i18n="home.featured_project.description">
                             Beberapa proyek pilihan yang menampilkan karya dan pengalaman pengembangan yang pernah saya buat.
                         </p>
                     </div>
                     <div class="flex gap-4 items-center mt-4">
                         <button @click="currentProject = currentProject > 0 ? currentProject - 1 : totalProjects - 1"
-                            class="group flex items-center justify-center gap-2 px-4 py-2 bg-[#fcfbf7] border-2 border-stone-800 text-stone-800 font-mono text-sm font-bold tracking-widest uppercase transition-all duration-300 transform -rotate-2 hover:rotate-0 shadow-[3px_3px_0px_rgba(41,37,36,1)] active:shadow-[0px_0px_0px_rgba(41,37,36,1)] active:translate-y-[3px] active:translate-x-[3px]">
+                            class="group flex items-center justify-center gap-2 px-4 py-2 bg-[var(--color-surface)] border-2 border-[var(--color-text)] text-[var(--color-text)] font-mono text-sm font-bold tracking-widest uppercase transition-all duration-300 transform -rotate-2 hover:rotate-0 shadow-[3px_3px_0px_var(--color-text)] active:shadow-[0px_0px_0px_var(--color-text)] active:translate-y-[3px] active:translate-x-[3px]">
                             <i class="fa-solid fa-arrow-left-long transition-transform group-hover:-translate-x-1"></i>
                         </button>
 
                         <button @click="currentProject = currentProject < totalProjects - 1 ? currentProject + 1 : 0"
-                            class="group flex items-center justify-center gap-2 px-4 py-2 bg-[#fcfbf7] border-2 border-stone-800 text-stone-800 font-mono text-sm font-bold tracking-widest uppercase transition-all duration-300 transform rotate-2 hover:rotate-0 shadow-[3px_3px_0px_rgba(41,37,36,1)] active:shadow-[0px_0px_0px_rgba(41,37,36,1)] active:translate-y-[3px] active:translate-x-[3px]">
+                            class="group flex items-center justify-center gap-2 px-4 py-2 bg-[var(--color-surface)] border-2 border-[var(--color-text)] text-[var(--color-text)] font-mono text-sm font-bold tracking-widest uppercase transition-all duration-300 transform rotate-2 hover:rotate-0 shadow-[3px_3px_0px_var(--color-text)] active:shadow-[0px_0px_0px_var(--color-text)] active:translate-y-[3px] active:translate-x-[3px]">
                             <i class="fa-solid fa-arrow-right-long transition-transform group-hover:translate-x-1"></i>
                         </button>
                     </div>
@@ -62,27 +62,27 @@
                             x-transition:leave-end="opacity-0 -translate-x-12"
                             class="absolute inset-0 w-full h-full">
 
-                            <div class="bg-white border border-[#e5e0d8] p-6 md:p-8 shadow-xl relative h-full flex flex-col justify-between overflow-hidden">
-                                <div class="absolute top-0 left-0 bottom-0 w-1 bg-warning/50"></div>
-                                <div class="absolute top-0 left-2 bottom-0 w-[0.5px] bg-[#e5e0d8]"></div>
+                            <div class="bg-[var(--color-surface)] border border-[var(--color-border)] p-6 md:p-8 shadow-xl relative h-full flex flex-col justify-between overflow-hidden">
+                                <div class="absolute top-0 left-0 bottom-0 w-1 bg-[var(--color-warning)]/50"></div>
+                                <div class="absolute top-0 left-2 bottom-0 w-[0.5px] bg-[var(--color-border)]"></div>
 
                                 <div class="relative z-10">
                                     <div class="flex justify-between items-start mb-4">
-                                        <span class="px-3 py-1 text-[10px] font-bold uppercase tracking-widest bg-warning text-yellow-900 border border-yellow-500 shadow-sm -rotate-1">
+                                        <span class="px-3 py-1 text-[10px] font-bold uppercase tracking-widest bg-[var(--color-warning)] text-[var(--color-bg)] border border-[var(--color-text)] shadow-sm -rotate-1">
                                             {{ $project->type }}
                                         </span>
-                                        <span class="text-[9px] font-mono text-muted uppercase italic">{{ $project->status }}</span>
+                                        <span class="text-[9px] font-mono text-[var(--color-muted)] uppercase italic">{{ $project->status }}</span>
                                     </div>
 
-                                    <h3 class="text-2xl font-bold mb-4 text-stone-800">{{ $project->title }}</h3>
-                                    <p class="text-sm text-stone-600 line-clamp-4 leading-relaxed mb-6 italic font-serif">
+                                    <h3 class="text-2xl font-bold mb-4 text-[var(--color-text)]">{{ $project->title }}</h3>
+                                    <p class="text-sm text-[var(--color-muted)] line-clamp-4 leading-relaxed mb-6 italic font-serif">
                                         "{{ $project->desc }}"
                                     </p>
                                 </div>
 
-                                <div class="relative z-10 flex items-center justify-between mt-auto pt-6 border-t border-stone-100">
+                                <div class="relative z-10 flex items-center justify-between mt-auto pt-6 border-t border-[var(--color-border)]">
                                     <a href="{{ route('portofolio.projects', ['search' => $project->title]) }}"
-                                       class="text-xs font-bold uppercase tracking-widest text-warning hover:text-yellow-700 flex items-center gap-2 group/btn">
+                                        class="text-xs font-bold uppercase tracking-widest text-[var(--color-primary)] hover:opacity-80 flex items-center gap-2 group/btn">
                                         Read Case Study
                                         <i class="fa-solid fa-arrow-right group-hover/btn:translate-x-1 transition-transform"></i>
                                     </a>
@@ -90,7 +90,7 @@
                             </div>
                         </div>
                     @empty
-                        <div class="flex items-center justify-center w-full h-full border-2 border-dashed border-[#e5e0d8] bg-[#fcfbf7] rounded-sm text-muted font-mono text-xs uppercase tracking-widest p-8 text-center italic">
+                        <div class="flex items-center justify-center w-full h-full border-2 border-dashed border-[var(--color-border)] bg-[var(--color-container)] rounded-sm text-[var(--color-muted)] font-mono text-xs uppercase tracking-widest p-8 text-center italic">
                             [ null_collection : archive_empty ]
                         </div>
                     @endforelse
@@ -100,7 +100,7 @@
                     @foreach ($recentProjects as $index => $project)
                         <button @click="currentProject = {{ $index }}"
                             class="h-1.5 transition-all duration-300 rounded-full"
-                            :class="currentProject === {{ $index }} ? 'bg-warning w-8 shadow-sm' : 'bg-[#e5e0d8] hover:bg-warning/50 w-2.5'">
+                            :class="currentProject === {{ $index }} ? 'bg-[var(--color-warning)] w-8 shadow-sm' : 'bg-[var(--color-border)] hover:bg-[var(--color-warning)]/50 w-2.5'">
                         </button>
                     @endforeach
                 </div>
@@ -108,8 +108,8 @@
 
             <div class="order-2 lg:order-1 lg:col-span-7 flex flex-col items-center w-full" @mouseenter="stopAuto()" @mouseleave="startAuto()">
 
-                <div class="relative w-full bg-[#fcfbf7] border border-[#e5e0d8] shadow-2xl p-5 md:p-10 overflow-hidden rounded-r-3xl border-l-[20px] border-l-stone-800"
-                    style="background-image: radial-gradient(#d1d5db 1px, transparent 1px); background-size: 24px 24px;">
+                <div class="relative w-full bg-[var(--color-container)] border border-[var(--color-border)] shadow-2xl p-5 md:p-10 overflow-hidden rounded-r-3xl border-l-[20px] border-l-[var(--color-text)]"
+                    style="background-image: radial-gradient(var(--color-border) 1px, transparent 1px); background-size: 24px 24px;">
 
                     <div class="relative mx-auto transition-all duration-700 ease-in-out"
                         :class="{
@@ -118,15 +118,15 @@
                             'w-full max-w-[280px] aspect-[9/16] scale-100': deviceView === 'mobile'
                         }">
 
-                        <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-32 h-8 bg-warning/40 border border-yellow-600/10 shadow-sm backdrop-blur-[1px] -rotate-3 z-40 flex items-center justify-center">
-                             <div class="w-full h-px bg-yellow-600/5 rotate-12"></div>
+                        <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-32 h-8 bg-[var(--color-warning)]/40 border border-[var(--color-border)]/50 shadow-sm backdrop-blur-[1px] -rotate-3 z-40 flex items-center justify-center">
+                             <div class="w-full h-px bg-[var(--color-text)]/10 rotate-12"></div>
                         </div>
 
-                        <div class="w-full h-full bg-white p-2 md:p-3 shadow-[10px_10px_30px_rgba(0,0,0,0.1)] border border-gray-100 relative group">
+                        <div class="w-full h-full bg-[var(--color-surface)] p-2 md:p-3 shadow-[10px_10px_30px_rgba(0,0,0,0.1)] border border-[var(--color-border)] relative group">
 
-                            <div class="relative w-full h-full bg-[#121212] overflow-hidden border border-gray-200">
+                            <div class="relative w-full h-full bg-[var(--color-bg)] overflow-hidden border border-[var(--color-border)]">
                                 @foreach ($recentProjects as $index => $project)
-                                    <div class="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar bg-background"
+                                    <div class="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar bg-[var(--color-bg)]"
                                         x-show="currentProject === {{ $index }}"
                                         x-transition:enter="duration-700 ease-out"
                                         x-transition:enter-start="opacity-0 scale-105"
@@ -147,7 +147,7 @@
                             </div>
 
                             <div class="absolute bottom-6 left-0 w-full text-center pointer-events-none">
-                                <span class="bg-stone-800/90 text-white text-[9px] px-3 py-1 font-mono tracking-widest uppercase shadow-lg"
+                                <span class="bg-[var(--color-text)]/90 text-[var(--color-surface)] text-[9px] px-3 py-1 font-mono tracking-widest uppercase shadow-lg"
                                       x-text="deviceView + ' view'"></span>
                             </div>
                         </div>
@@ -159,7 +159,7 @@
                     @foreach(['desktop' => 'fa-display', 'tablet' => 'fa-tablet-screen-button', 'mobile' => 'fa-mobile-screen'] as $view => $icon)
                         <button @click="setDevice('{{ $view }}')"
                             class="px-3 py-1.5 transition-all duration-300 transform hover:-translate-y-1 font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] font-black border-2"
-                            :class="deviceView === '{{ $view }}' ? 'bg-warning text-stone-900 border-stone-900 shadow-[4px_4px_0px_rgba(42,42,42,1)] -rotate-1' : 'bg-white text-stone-400 border-stone-200 hover:border-stone-400 hover:text-stone-600'">
+                            :class="deviceView === '{{ $view }}' ? 'bg-[var(--color-warning)] text-[var(--color-bg)] border-[var(--color-text)] shadow-[4px_4px_0px_var(--color-text)] -rotate-1' : 'bg-[var(--color-surface)] text-[var(--color-muted)] border-[var(--color-border)] hover:border-[var(--color-text)] hover:text-[var(--color-text)]'">
                             <i class="fa-solid {{ $icon }} mr-2"></i> {{ $view }}
                         </button>
                     @endforeach
