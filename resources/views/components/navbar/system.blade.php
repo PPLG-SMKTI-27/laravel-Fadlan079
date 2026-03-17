@@ -47,8 +47,8 @@
 
     <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/80"></div>
     <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary/80"></div>
-    <div class="absolute top-0 right-0 w-8 h-[1px] bg-primary/50"></div>
-    <div class="absolute bottom-0 left-0 w-8 h-[1px] bg-primary/50"></div>
+    <div class="absolute top-0 right-0 w-8 h-px bg-primary/50"></div>
+    <div class="absolute bottom-0 left-0 w-8 h-px bg-primary/50"></div>
 
     <div class="px-4 xl:px-6 py-1.5 flex justify-between items-center">
 
@@ -92,7 +92,7 @@
 
 <div id="mobileOverlay" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-70 opacity-0 pointer-events-none transition"></div>
 
-<aside id="mobileSidebar" class="fixed top-0 left-0 h-full w-[80%] max-w-[300px] bg-bg/95 backdrop-blur-2xl border-r border-border z-[100] -translate-x-full pointer-events-none transition-transform duration-300 flex flex-col shadow-2xl">
+<aside id="mobileSidebar" class="fixed top-0 left-0 h-full w-[80%] max-w-[300px] bg-bg/95 backdrop-blur-2xl border-r border-border z-100 -translate-x-full pointer-events-none transition-transform duration-300 flex flex-col shadow-2xl">
 
     <div class="h-16 px-6 flex justify-between items-center border-b border-border/50">
         <div id="secret-brand-trigger-mobile" class="flex items-center gap-3 cursor-pointer select-none" data-target="{{ route('portofolio.settings') }}">
