@@ -215,9 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!layouts.includes(currentLayout)) currentLayout = 'diary';
 
     // Set initial icons
-    layoutIcons.forEach(icon => {
-        if (icon) icon.className = layoutIconsMap[currentLayout] + ' text-[13px]';
-    });
+    if (layoutIcons[0]) layoutIcons[0].className = layoutIconsMap[currentLayout] + ' text-[13px]';
+    if (layoutIcons[1]) layoutIcons[1].className = layoutIconsMap[currentLayout] + ' text-sm';
 
     layoutBtns.forEach(btn => {
         btn?.addEventListener('click', () => {
@@ -228,12 +227,14 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('ui_layout', currentLayout);
             document.cookie = `ui_layout=${currentLayout};path=/;max-age=31536000;SameSite=Lax`;
 
-            layoutIcons.forEach(icon => {
-                if (icon) {
-                    icon.className = layoutIconsMap[currentLayout] + ' text-[13px]';
-                    icon.animate([{ transform: 'rotate(-90deg)' }, { transform: 'rotate(0)' }], { duration: 300 });
-                }
-            });
+            if (layoutIcons[0]) {
+                layoutIcons[0].className = layoutIconsMap[currentLayout] + ' text-[13px]';
+                layoutIcons[0].animate([{ transform: 'rotate(-90deg)' }, { transform: 'rotate(0)' }], { duration: 300 });
+            }
+            if (layoutIcons[1]) {
+                layoutIcons[1].className = layoutIconsMap[currentLayout] + ' text-sm';
+                layoutIcons[1].animate([{ transform: 'rotate(-90deg)' }, { transform: 'rotate(0)' }], { duration: 300 });
+            }
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
             if (csrfToken) {
@@ -265,6 +266,8 @@ document.addEventListener('DOMContentLoaded', () => {
     langBtns.forEach(btn => {
         btn?.addEventListener('click', () => {
             let nextLocale = currentLocale === 'id' ? 'en' : 'id';
+            
+            if (window.updateLangIcon) window.updateLangIcon(nextLocale);
 
             localStorage.setItem('locale', nextLocale);
             document.cookie = `locale=${nextLocale};path=/;max-age=31536000;SameSite=Lax`;

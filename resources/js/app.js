@@ -168,15 +168,19 @@ function applyTheme(theme) {
 }
 
 function updateIcon(theme) {
-    const savedTheme = localStorage.getItem(THEME_KEY);
+    const savedTheme = theme || localStorage.getItem(THEME_KEY) || 'system';
     ['themeIcon', 'colorIcon', 'colorIconMobile'].forEach(id => {
         const icon = document.getElementById(id);
         if (!icon) return;
         icon.classList.remove('fa-moon', 'fa-sun', 'fa-desktop');
-        if (!savedTheme || savedTheme === 'system') icon.classList.add('fa-desktop');
+        if (savedTheme === 'system') icon.classList.add('fa-desktop');
         else if (savedTheme === 'dark') icon.classList.add('fa-moon');
         else icon.classList.add('fa-sun');
         icon.classList.add('fa-solid');
+
+        if (icon.animate) {
+           icon.animate([{ transform: 'rotate(-90deg)' }, { transform: 'rotate(0)' }], { duration: 300 });
+        }
     });
 }
 
@@ -293,6 +297,7 @@ window.toggleTheme = function () {
 
     const performTransition = () => {
         localStorage.setItem(THEME_KEY, next);
+        updateIcon();
 
         if (window.triggerPageWipe) {
             window.triggerPageWipe(window.location.href, `Mengganti warna tema UI ke ${mappedColorName}...`);
@@ -380,6 +385,10 @@ function updateLangIcon(currentLocale) {
             flag.classList.add('fi-id');
         } else {
             flag.classList.add('fi-us');
+        }
+        
+        if (flag.animate) {
+           flag.animate([{ transform: 'scale(0.8)' }, { transform: 'scale(1)' }], { duration: 200 });
         }
     });
 }

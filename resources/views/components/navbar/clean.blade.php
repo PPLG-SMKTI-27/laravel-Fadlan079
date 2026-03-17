@@ -291,6 +291,8 @@ document.addEventListener('DOMContentLoaded', () => {
     langBtn?.addEventListener('click', () => {
         let nextLocale = currentLocale === 'id' ? 'en' : 'id';
 
+        if (window.updateLangIcon) window.updateLangIcon(nextLocale);
+
         // Simpan ke localStorage & Cookie agar persistence
         localStorage.setItem('locale', nextLocale);
         document.cookie = `locale=${nextLocale};path=/;max-age=31536000;SameSite=Lax`;
