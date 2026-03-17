@@ -49,7 +49,7 @@
         <section class="relative z-20 max-w-7xl mx-auto px-6 py-10 space-y-12">
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
-                <div class="bg-amber-100 p-6 rounded-sm shadow-md border border-border flex flex-col justify-between relative group/tooltip rotate-1 font-serif">
+                <div class="bg-amber-100 p-6 rounded-sm shadow-md border border-border flex flex-col justify-between relative group/tooltip rotate-1 font-serif hover:z-60 transition-all">
                     <div class="before:content-[''] before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-1/2 before:h-4 before:bg-white/50 before:shadow-inner"></div>
 
                     <p class="text-[10px] font-bold uppercase tracking-widest text-muted mb-4 flex items-center gap-2 relative z-10">
@@ -59,7 +59,7 @@
                     <h3 class="text-4xl font-bold text-black relative z-10">{{ $summary['totalProjects'] }}</h3>
                 </div>
 
-                <div class="bg-emerald-100 p-6 rounded-sm shadow-md border border-border flex flex-col justify-between relative group/tooltip rotate-2 font-serif">
+                <div class="bg-emerald-100 p-6 rounded-sm shadow-md border border-border flex flex-col justify-between relative group/tooltip rotate-2 font-serif hover:z-60 transition-all">
                     <div class="before:content-[''] before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-1/2 before:h-4 before:bg-white/50 before:shadow-inner"></div>
 
                     <p class="text-[10px] font-bold uppercase tracking-widest text-muted mb-4 flex items-center gap-2 relative z-10">
@@ -69,7 +69,7 @@
                     <h3 class="text-4xl font-bold text-black relative z-10">{{ $summary['totalCategories'] }}</h3>
                 </div>
 
-                <div class="bg-sky-100 p-6 rounded-sm shadow-md border border-border flex flex-col justify-between relative group/tooltip rotate--1 font-serif">
+                <div class="bg-sky-100 p-6 rounded-sm shadow-md border border-border flex flex-col justify-between relative group/tooltip rotate--1 font-serif hover:z-60 transition-all">
                     <div class="before:content-[''] before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-1/2 before:h-4 before:bg-white/50 before:shadow-inner"></div>
 
                     <p class="text-[10px] font-bold uppercase tracking-widest text-muted mb-4 flex items-center gap-2 relative z-10">
@@ -79,7 +79,7 @@
                     <h3 class="text-4xl font-bold text-black relative z-10">{{ $summary['activeCount'] }}</h3>
                 </div>
 
-                <div class="bg-rose-100 p-6 rounded-sm shadow-md border border-border flex flex-col justify-between relative group/tooltip rotate-1 font-serif">
+                <div class="bg-rose-100 p-6 rounded-sm shadow-md border border-border flex flex-col justify-between relative group/tooltip rotate-1 font-serif hover:z-60 transition-all">
                     <div class="before:content-[''] before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-1/2 before:h-4 before:bg-white/50 before:shadow-inner"></div>
 
                     <div class="flex justify-between items-start mb-4 relative z-10">
@@ -94,7 +94,7 @@
                     <h3 class="text-4xl font-bold text-black relative z-10">{{ $summary['inactiveCount'] }}</h3>
 
                     @if ($summary['inactiveCount'] > 0)
-                        <div class="absolute right-0 top-full w-48 bg-[#FEFCE8] border border-yellow-500/30 p-4 opacity-0 pointer-events-none group-hover/tooltip:opacity-100 transition-all duration-300 z-50 shadow-[4px_4px_10px_rgba(0,0,0,0.1)] text-xs space-y-3 -rotate-2 group-hover/tooltip:rotate-0 origin-bottom-right">
+                        <div class="absolute right-0 top-full -translate-y-5 w-48 bg-[#FEFCE8] border border-yellow-500/30 p-4 opacity-0 pointer-events-none group-hover/tooltip:opacity-100 transition-all duration-300 z-50 shadow-[4px_4px_10px_rgba(0,0,0,0.1)] text-xs space-y-3 -rotate-2 group-hover/tooltip:rotate-0 origin-bottom-right">
 
                             <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-white/60 backdrop-blur-[1px] border border-black/5 rotate-1"></div>
 

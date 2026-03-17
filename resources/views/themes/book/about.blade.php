@@ -160,6 +160,106 @@
         </div>
     </section>
 
+    <section class="max-w-5xl mx-auto px-5 md:px-8 py-20 border-t border-dashed border-border/70 relative z-10">
+
+        <div class="text-center mb-16 relative">
+            <h3 class="text-3xl md:text-5xl font-serif font-bold tracking-tight text-text mb-4">
+                Perjalanan Karir
+            </h3>
+            <p class="text-muted font-medium italic font-serif">
+                Proses yang membentuk pemahaman dan pengalaman saya.
+            </p>
+            <svg class="absolute left-1/2 -translate-x-1/2 -bottom-6 w-32 h-auto text-border opacity-70" viewBox="0 0 100 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M5,10 Q25,20 50,10 T95,10" />
+            </svg>
+        </div>
+
+        <div class="relative flex flex-col gap-12 md:gap-24 mt-10">
+
+            <div class="relative w-full md:w-3/4 mx-auto transform -rotate-1 hover:rotate-0 transition-transform duration-500">
+                <div class="washi-tape -top-3 left-1/2 -translate-x-1/2 rotate-2 z-20"></div>
+
+                <div class="diary-paper p-8 md:p-10 relative overflow-hidden group">
+                    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: linear-gradient(var(--color-text) 1px, transparent 1px), linear-gradient(90deg, var(--color-text) 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+                    <div class="flex flex-col md:flex-row gap-6 relative z-10">
+                        <div class="md:w-1/4 border-b-2 md:border-b-0 md:border-r-2 border-dashed border-border/50 pb-4 md:pb-0 md:pr-6 flex flex-col justify-center">
+                            <span class="font-serif text-2xl font-bold text-text">2024 - Sekarang</span>
+                            <span class="text-xs font-bold uppercase tracking-widest text-primary mt-1">Langkah Awal</span>
+                        </div>
+                        <div class="md:w-3/4">
+                            <h4 class="text-xl font-bold text-text mb-1">SMKTI AirLangga</h4>
+                            <p class="text-[10px] font-bold text-primary/70 uppercase tracking-[0.2em] mb-4 italic" data-i18n="roadmap.school.major">
+                                Pengembangan Perangkat Lunak dan Gim (PPLG)
+                            </p>
+                            <p class="text-muted font-medium leading-relaxed mb-4">
+                                Saya memulai dari dasar pemrograman dan struktur website, lalu berkembang membangun aplikasi dengan PHP Native, MySQL, dan konsep MVC, OOP, serta CRUD, hingga berlanjut ke Laravel dan diperkuat melalui ekstrakurikuler pengembangan web.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute -right-4 md:-right-10 -bottom-6 bg-warning text-yellow-900 p-4 shadow-[2px_4px_10px_rgba(0,0,0,0.1)] rotate-6 z-20 w-32 border border-yellow-500/30">
+                    <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-10 h-4 bg-white/40 backdrop-blur-sm border border-black/5 shadow-sm rotate-[-4deg]"></div>
+                    <p class="text-xs font-bold text-center leading-tight">First "Hello World!"</p>
+                </div>
+            </div>
+
+        {{-- <div class="relative w-full md:w-3/4 mx-auto transform rotate-2 hover:rotate-0 transition-transform duration-500 md:translate-x-10">
+                <div class="washi-tape -top-4 left-10 rotate-[-3deg] z-20 w-24"></div>
+                <div class="washi-tape -bottom-4 right-10 rotate-[4deg] z-20 w-16"></div>
+
+                <div class="diary-paper p-8 md:p-10 relative bg-container/50">
+                    <div class="flex flex-col md:flex-row gap-6 relative z-10">
+                        <div class="md:w-1/4 border-b-2 md:border-b-0 md:border-r-2 border-dashed border-border/50 pb-4 md:pb-0 md:pr-6 flex flex-col justify-center">
+                            <span class="font-serif text-2xl font-bold text-text">Saat Ini</span>
+                            <span class="text-xs font-bold uppercase tracking-widest text-success mt-1 flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-success animate-pulse"></span> Eksplorasi
+                            </span>
+                        </div>
+                        <div class="md:w-3/4">
+                            <h4 class="text-xl font-bold text-text mb-3">Memperdalam Framework</h4>
+                            <p class="text-muted font-medium leading-relaxed mb-4">
+                                Fokus mengembangkan keterampilan pengembangan full-stack. Saat ini sedang mendalami arsitektur Laravel untuk backend dan reaktivitas Vue.js untuk antarmuka pengguna.
+                            </p>
+                            <div class="flex gap-2">
+                                <span class="px-2 py-1 bg-surface border border-border text-[10px] font-bold text-primary rounded-sm shadow-sm">Laravel</span>
+                                <span class="px-2 py-1 bg-surface border border-border text-[10px] font-bold text-primary rounded-sm shadow-sm">Vue.js</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative w-full md:w-3/4 mx-auto transform -rotate-1 hover:rotate-0 transition-transform duration-500 md:-translate-x-5">
+                <div class="washi-tape -top-3 left-1/2 -translate-x-1/2 rotate-[-1deg] z-20"></div>
+
+                <div class="diary-paper p-8 md:p-10 relative">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,var(--color-border)_2px,var(--color-border)_4px)] opacity-20 rounded-bl-3xl"></div>
+
+                    <div class="flex flex-col md:flex-row gap-6 relative z-10">
+                        <div class="md:w-1/4 border-b-2 md:border-b-0 md:border-r-2 border-dashed border-border/50 pb-4 md:pb-0 md:pr-6 flex flex-col justify-center">
+                            <span class="font-serif text-2xl font-bold text-text">Masa Depan</span>
+                            <span class="text-xs font-bold uppercase tracking-widest text-primary mt-1">Visi Karir</span>
+                        </div>
+                        <div class="md:w-3/4">
+                            <h4 class="text-xl font-bold text-text mb-3">Full-Stack Web Developer</h4>
+                            <p class="text-muted font-medium leading-relaxed">
+                                Membangun solusi digital yang skalabel dan efisien. Berkontribusi pada proyek open-source, dan beradaptasi dengan teknologi baru seperti arsitektur cloud dan ekosistem serverless.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute -left-4 md:-left-12 top-10 rotate-[-15deg] z-20">
+                    <span class="text-danger font-bold text-sm tracking-wider border-2 border-danger px-2 py-0.5 rounded-sm shadow-sm transform inline-block" style="font-family: 'Comic Sans MS', cursive, sans-serif;">
+                        Tujuan Utama!
+                    </span>
+                </div>
+            </div> --}}
+
+        </div>
+    </section>
 
     <section class="max-w-6xl mx-auto px-5 md:px-8 py-20 mt-10 border-t border-border/50">
 
@@ -248,29 +348,5 @@
 
         </div>
     </section>
-
-    <section class="mt-20 py-20 border-t border-dashed border-border/50 bg-bg text-center font-serif">
-        <div class="max-w-3xl mx-auto px-6 relative">
-
-            <span class="absolute -top-8 left-4 md:-left-8 text-8xl text-text/50 font-serif leading-none select-none">
-                &ldquo;
-            </span>
-
-            <h3 class="text-2xl md:text-3xl font-medium text-text leading-relaxed italic relative z-10"
-            data-i18n="about.quote.text">
-                Framework dan tools membantu lebih cepat, tetapi dasar tetap yang utama.
-            </h3>
-
-            <div class="mt-8 flex items-center justify-center gap-4 relative z-10">
-                <div class="w-10 h-[1px] bg-border/50"></div>
-                <p class="text-base md:text-lg text-text font-semibold tracking-wider uppercase">
-                    Fadlan Firdaus
-                </p>
-                <div class="w-10 h-[1px] bg-border/50"></div>
-            </div>
-
-        </div>
-    </section>
-
     </div>
 @endsection

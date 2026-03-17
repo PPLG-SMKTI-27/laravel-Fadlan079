@@ -186,25 +186,4 @@
             </div>
         </div>
     </section>
-
-    <section class="mt-20 py-16 border-t border-border">
-
-        <div class="max-w-3xl mx-auto px-6">
-
-            <div class="bg-container border border-border rounded-xl p-8 text-center">
-
-                <p class="text-lg text-text leading-relaxed font-medium"
-                data-i18n="about.quote.text">
-                    Framework dan tools membantu lebih cepat, tetapi dasar tetap yang utama.
-                </p>
-
-                <div class="mt-6 text-sm text-muted font-semibold tracking-wide">
-                    Fadlan Firdaus
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
 @endsection
