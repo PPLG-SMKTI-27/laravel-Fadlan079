@@ -131,11 +131,11 @@
                             Jenis Pesan:
                         </label>
 
-                        <div class="flex flex-nowrap sm:flex-wrap gap-3 overflow-x-auto w-full no-scrollbar scroll-fade pb-3 pt-1 scroll-smooth" style="-webkit-overflow-scrolling: touch;">
+                        <div class="flex flex-nowrap gap-4 overflow-x-auto w-full no-scrollbar pb-4 pt-1 px-2 -mx-2 scroll-smooth">
 
                             <label class="cursor-pointer shrink-0">
                                 <input type="radio" name="type" value="project" class="peer sr-only" {{ old('type', 'project') === 'project' ? 'checked' : '' }}>
-                                <div class="px-5 py-2.5 border border-border rounded-full text-xs font-semibold text-muted peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all whitespace-nowrap shadow-sm"
+                                <div class="px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all bg-container border-2 border-border text-muted shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:-rotate-1 peer-checked:bg-warning peer-checked:text-yellow-900 peer-checked:border-yellow-500 peer-checked:shadow-[2px_3px_0px_var(--color-border)] peer-checked:-translate-y-1 peer-checked:rotate-1"
                                 data-i18n="contact.form.types.project">
                                     Inisiasi Proyek
                                 </div>
@@ -143,7 +143,7 @@
 
                             <label class="cursor-pointer shrink-0">
                                 <input type="radio" name="type" value="collab" class="peer sr-only" {{ old('type') === 'collab' ? 'checked' : '' }}>
-                                <div class="px-5 py-2.5 border border-border rounded-full text-xs font-semibold text-muted peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all whitespace-nowrap shadow-sm"
+                                <div class="px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all bg-container border-2 border-border text-muted shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:rotate-1 peer-checked:bg-warning peer-checked:text-yellow-900 peer-checked:border-yellow-500 peer-checked:shadow-[2px_3px_0px_var(--color-border)] peer-checked:-translate-y-1 peer-checked:-rotate-1"
                                 data-i18n="contact.form.types.collab">
                                     Kolaborasi
                                 </div>
@@ -151,7 +151,7 @@
 
                             <label class="cursor-pointer shrink-0">
                                 <input type="radio" name="type" value="inquiry" class="peer sr-only" {{ old('type') === 'inquiry' ? 'checked' : '' }}>
-                                <div class="px-5 py-2.5 border border-border rounded-full text-xs font-semibold text-muted peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all whitespace-nowrap shadow-sm"
+                                <div class="px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all bg-container border-2 border-border text-muted shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:-rotate-1 peer-checked:bg-warning peer-checked:text-yellow-900 peer-checked:border-yellow-500 peer-checked:shadow-[2px_3px_0px_var(--color-border)] peer-checked:-translate-y-1 peer-checked:rotate-1"
                                 data-i18n="contact.form.types.inquiry">
                                     Pertanyaan Umum
                                 </div>
@@ -159,7 +159,7 @@
 
                             <label class="cursor-pointer shrink-0">
                                 <input type="radio" name="type" value="feedback" class="peer sr-only" {{ old('type') === 'feedback' ? 'checked' : '' }}>
-                                <div class="px-5 py-2.5 border border-border rounded-full text-xs font-semibold text-muted peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all whitespace-nowrap shadow-sm"
+                                <div class="px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all bg-container border-2 border-border text-muted shadow-[1px_2px_0px_var(--color-border)] hover:shadow-[3px_4px_0px_var(--color-border)] hover:-translate-y-1 hover:rotate-1 peer-checked:bg-warning peer-checked:text-yellow-900 peer-checked:border-yellow-500 peer-checked:shadow-[2px_3px_0px_var(--color-border)] peer-checked:-translate-y-1 peer-checked:-rotate-1"
                                 data-i18n="contact.form.types.feedback">
                                     Kritik & Saran
                                 </div>

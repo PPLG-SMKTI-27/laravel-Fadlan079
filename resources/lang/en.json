@@ -34,6 +34,7 @@
             "label": "Featured Work",
             "title": "Project List.",
             "description": "A selection of projects showcasing the work and development experience I have created.",
+            "button_detail": "View Detail",
             "button_more": "View All Projects",
             "empty_archive": {
             "title": "Empty Archive",
@@ -62,8 +63,7 @@
         "photo_placeholder": "Empty Clipping",
         "author_label": "Author Profile",
         "career_roadmap": {
-            "label": "Career Roadmap",
-            "title": "Goals / Vision",
+            "title": "Vision.",
             "description": "What I aim to achieve in my journey of learning web development.",
             "short_term": {
                 "label": "Short Term",
@@ -76,26 +76,21 @@
                 "description": "Continuously improve skills in building useful web applications, while deepening experience as a full-stack developer."
             }
         },
-        "focus": {
-            "title": "My Focus",
-            "principles": [
-                {
-                    "title": "Full-Stack Development",
-                    "description": "Learning web application development from backend to frontend so that systems work seamlessly."
-                },
-                {
-                    "title": "Backend Development",
-                    "description": "Focus on application logic, data processing, and database management using Laravel."
-                },
-                {
-                    "title": "Frontend Development",
-                    "description": "Building responsive and user-friendly web interfaces using HTML, TailwindCSS, and JavaScript."
-                },
-                {
-                    "title": "Web Application",
-                    "description": "Developing various web projects to strengthen understanding of web-based systems."
-                }
-            ]
+        "mission": {
+            "title": "Mission.",
+            "description": "Practices I consistently follow to move toward my goals.",
+            "item1": {
+                "title": "Consistent Learning",
+                "description": "Study regularly with a focus on fundamentals, without rushing into more complex topics."
+            },
+            "item2": {
+                "title": "Practice & Exploration",
+                "description": "Apply what I learn through small projects. This process helps me understand errors and find solutions independently."
+            },
+            "item3": {
+                "title": "Documentation",
+                "description": "Document key points from learning and project work as a reference for future use."
+            }
         }
     },
 

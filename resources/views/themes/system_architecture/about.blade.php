@@ -101,12 +101,10 @@
                 <div class="relative z-10">
                     <div class="flex items-center gap-3 mb-8">
                         <div class="w-3 h-3 bg-primary animate-pulse"></div>
-                        <span class="font-mono text-[10px] uppercase tracking-widest text-primary"
-                            data-i18n="about.career_roadmap.label">Peta Jalan Karir</span>
                     </div>
 
                     <h3 class="text-4xl md:text-5xl font-bold tracking-tighter uppercase  text-text font-sans">
-                        <span data-i18n="about.career_roadmap.title">Tujuan / Visi</span>
+                        <span data-i18n="about.career_roadmap.title">Visi</span>
                     </h3>
                     <br>
                     <p class="text-sm text-muted font-medium mb-12"
@@ -148,41 +146,6 @@
 
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="max-w-6xl mx-auto space-y-16 pt-20 border-t border-border/50" id="about-values">
-            <div class="space-y-2">
-                <h3 class="text-[clamp(2.5rem,6vw,4rem)] font-bold tracking-tighter leading-none text-text uppercase"
-                    data-i18n="about.focus.title">
-                    Fokus Saya
-                </h3>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-
-                @foreach ($principles as $i => $principle)
-                    <div
-                        class="value-item group space-y-3 border-t border-text/10 pt-4 hover:border-primary transition-colors">
-
-                        <div class="text-[10px] font-mono text-muted">
-                            0{{ $i + 1 }}
-                        </div>
-
-                        <h4 class="value-title text-lg font-bold leading-none uppercase tracking-tight
-                            {{ $i === 1 ? 'text-primary' : 'text-text' }}"
-                            data-i18n="about.principles.{{ $i }}.title">
-                            {{ $principle['title'] }}
-                        </h4>
-
-                        <p class="value-desc text-sm text-muted font-medium leading-relaxed"
-                            data-i18n="about.principles.{{ $i }}.desc">
-                            {{ $principle['description'] }}
-                        </p>
-
-                    </div>
-                @endforeach
-
             </div>
         </div>
     </section>

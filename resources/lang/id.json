@@ -34,6 +34,7 @@
             "label": "Karya Unggulan",
             "title": "Daftar Proyek.",
             "description": "Beberapa proyek pilihan yang menampilkan karya dan pengalaman pengembangan yang pernah saya buat.",
+            "button_detail": "Lihat Detail",
             "button_more": "Lihat Semua Proyek",
             "empty_archive": {
                 "title": "Arsip Kosong",
@@ -63,8 +64,7 @@
         "photo_placeholder": "Kliping Kosong",
         "author_label": "Profil Penulis",
         "career_roadmap": {
-            "label": "Peta Jalan Karir",
-            "title": "Tujuan / Visi.",
+            "title": "Visi.",
             "description": "Hal yang ingin saya capai dalam perjalanan belajar web development.",
             "short_term": {
                 "label": "Jangka Pendek",
@@ -77,26 +77,21 @@
                 "description": "Terus mengembangkan kemampuan dalam membangun aplikasi web yang bermanfaat, serta memperdalam pengalaman sebagai developer full-stack."
             }
         },
-        "focus": {
-            "title": "Fokus Saya",
-            "principles": [
-                {
-                    "title": "Full-Stack Development",
-                    "description": "Mempelajari pengembangan aplikasi web dari backend hingga frontend agar sistem dapat bekerja secara menyeluruh."
-                },
-                {
-                    "title": "Backend Development",
-                    "description": "Fokus pada logika aplikasi, pengolahan data, dan pengelolaan database menggunakan Laravel."
-                },
-                {
-                    "title": "Frontend Development",
-                    "description": "Membangun antarmuka web yang responsif dan mudah digunakan menggunakan HTML, TailwindCSS, dan JavaScript."
-                },
-                {
-                    "title": "Web Application",
-                    "description": "Membangun berbagai proyek aplikasi web untuk melatih pemahaman dalam pengembangan sistem berbasis web."
-                }
-            ]
+        "mission": {
+            "title": "Misi.",
+            "description": "Hal-hal yang saya lakukan secara konsisten untuk mewujudkan Visi.",
+            "item1": {
+                "title": "Belajar Konsisten",
+                "description": "Belajar secara rutin dengan fokus pada pemahaman fundamental, tanpa terburu-buru ke hal yang lebih kompleks."
+            },
+            "item2": {
+                "title": "Praktik & Eksplorasi",
+                "description": "Menerapkan apa yang dipelajari melalui proyek kecil. Proses ini membantu memahami error dan menemukan solusi secara mandiri."
+            },
+            "item3": {
+                "title": "Berbagi & Dokumentasi",
+                "description": "Mencatat hal-hal penting dari proses belajar dan pengerjaan proyek sebagai referensi untuk penggunaan di masa mendatang."
+            }
         }
     },
 

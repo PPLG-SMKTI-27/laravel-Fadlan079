@@ -120,9 +120,9 @@
 </head>
 <body class="bg-bg text-text overflow-x-hidden">
 
-    <div id="transition-indicator" class="fixed inset-0 z-[8000] bg-bg pointer-events-none flex items-center justify-center opacity-0 transition-opacity duration-300">
+    <div id="transition-indicator" class="fixed inset-0 z-8000 bg-bg pointer-events-none flex items-center justify-center opacity-0 transition-opacity duration-300">
 
-        <div id="loader-diary" class="loader-variant hidden flex-col items-center justify-center transform translate-y-6 transition-transform duration-700 z-[999]">
+        <div id="loader-diary" class="loader-variant hidden flex-col items-center justify-center transform translate-y-6 transition-transform duration-700 z-999">
 
             <div class="relative bg-warning p-8 pt-10 border border-yellow-500 shadow-[8px_8px_20px_rgba(0,0,0,0.1)] transform rotate-2 w-64 max-w-[85vw] flex flex-col items-center justify-center font-serif">
 

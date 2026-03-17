@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <div class="relative w-full aspect-[4/3] md:aspect-square lg:aspect-auto lg:h-[350px]">
+                <div class="relative w-full aspect-square md:aspect-square lg:aspect-auto lg:h-[350px]">
                     @forelse($recentProjects as $index => $project)
                         <div x-show="currentProject === {{ $index }}"
                             x-transition:enter="transition ease-out duration-500 transform"
@@ -62,28 +62,29 @@
                             x-transition:leave-end="opacity-0 -translate-x-12"
                             class="absolute inset-0 w-full h-full">
 
-                            <div class="bg-[var(--color-surface)] border border-[var(--color-border)] p-6 md:p-8 shadow-xl relative h-full flex flex-col justify-between overflow-hidden">
+                             <div class="bg-[var(--color-surface)] p-5 md:p-8 border border-[var(--color-border)] shadow-xl relative h-full flex flex-col justify-between overflow-hidden">
                                 <div class="absolute top-0 left-0 bottom-0 w-1 bg-[var(--color-warning)]/50"></div>
                                 <div class="absolute top-0 left-2 bottom-0 w-[0.5px] bg-[var(--color-border)]"></div>
 
                                 <div class="relative z-10">
-                                    <div class="flex justify-between items-start mb-4">
+                                    <div class="flex justify-between items-start mb-3 md:mb-4">
                                         <span class="px-3 py-1 text-[10px] font-bold uppercase tracking-widest bg-[var(--color-warning)] text-[var(--color-bg)] border border-[var(--color-text)] shadow-sm -rotate-1">
                                             {{ $project->type }}
                                         </span>
                                         <span class="text-[9px] font-mono text-[var(--color-muted)] uppercase italic">{{ $project->status }}</span>
                                     </div>
 
-                                    <h3 class="text-2xl font-bold mb-4 text-[var(--color-text)]">{{ $project->title }}</h3>
-                                    <p class="text-sm text-[var(--color-muted)] line-clamp-4 leading-relaxed mb-6 italic font-serif">
+                                    <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4 text-[var(--color-text)]">{{ $project->title }}</h3>
+                                    <p class="text-xs md:text-sm text-[var(--color-muted)] line-clamp-3 md:line-clamp-4 leading-relaxed mb-4 md:mb-6 italic font-serif">
                                         "{{ $project->desc }}"
                                     </p>
                                 </div>
 
-                                <div class="relative z-10 flex items-center justify-between mt-auto pt-6 border-t border-[var(--color-border)]">
+                                <div class="relative z-10 flex items-center justify-between mt-auto pt-4 md:pt-6 border-t border-[var(--color-border)]">
                                     <a href="{{ route('portofolio.projects', ['search' => $project->title]) }}"
-                                        class="text-xs font-bold uppercase tracking-widest text-[var(--color-primary)] hover:opacity-80 flex items-center gap-2 group/btn">
-                                        Read Case Study
+                                        class="text-xs font-bold uppercase tracking-widest text-[var(--color-primary)] hover:opacity-80 flex items-center gap-2 group/btn"
+                                        data-i18n="home.featured_project.button_detail">
+                                        Lihat Detail
                                         <i class="fa-solid fa-arrow-right group-hover/btn:translate-x-1 transition-transform"></i>
                                     </a>
                                 </div>

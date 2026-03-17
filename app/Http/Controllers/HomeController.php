@@ -87,9 +87,8 @@ class HomeController extends Controller
 
     public function Showabout()
     {
-        $principles = json_decode(file_get_contents(resource_path('lang/id.json')), true)['about']['focus']['principles'];
         $profilePhoto = $this->profilePhotoUrl();
-        return theme_view('about', compact('profilePhoto', 'principles'));
+        return theme_view('about', compact('profilePhoto'));
     }
 
     public function Showproject(Request $request)

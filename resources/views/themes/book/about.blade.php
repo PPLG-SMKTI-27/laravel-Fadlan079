@@ -265,16 +265,9 @@
 
         <div class="flex flex-col md:flex-row gap-12 lg:gap-20">
             <div class="w-full md:w-1/3">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-2 h-2 rounded-full bg-primary"></div>
-                    <span class="font-bold text-[10px] uppercase tracking-widest text-primary"
-                    data-i18n="about.career_roadmap.label">
-                        Peta Jalan Karir
-                    </span>
-                </div>
                 <h3 class="text-4xl font-bold tracking-tight text-text leading-tight mb-4"
                 data-i18n="about.career_roadmap.title">
-                    Tujuan / Visi.
+                    Visi.
                 </h3>
                 <p class="text-sm text-muted font-medium"
                 data-i18n="about.career_roadmap.description">
@@ -323,29 +316,61 @@
     </section>
 
     <section class="max-w-6xl mx-auto px-5 md:px-8 py-20 border-t border-border/50">
-        <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-text mb-12"
-        data-i18n="about.focus.title">
-            Fokus Saya
-        </h3>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-
-            @foreach ($principles as $i => $principle)
-            <div class="space-y-3 group cursor-default">
-                <div class="w-8 h-8 rounded-full bg-container text-muted flex items-center justify-center text-[10px] font-bold group-hover:bg-primary group-hover:text-white transition-colors">
-                    0{{ $i + 1 }}
-                </div>
-                <h4 class="text-lg font-bold text-text group-hover:text-primary transition-colors"
-                    data-i18n="about.focus.principles.{{ $i }}.title">
-                    {{ $principle['title'] }}
-                </h4>
-                <p class="text-sm text-muted font-medium leading-relaxed"
-                data-i18n="about.focus.principles.{{ $i }}.description">
-                    {{ $principle['description'] }}
+        <div class="flex flex-col md:flex-row gap-12 lg:gap-20">
+            <div class="w-full md:w-1/3">
+                <h3 class="text-4xl font-bold tracking-tight text-text leading-tight mb-4"
+                data-i18n="about.mission.title">
+                    Misi.
+                </h3>
+                <p class="text-sm text-muted font-medium"
+                data-i18n="about.mission.description">
+                    Hal-hal yang saya lakukan secara konsisten untuk mewujudkan Visi.
                 </p>
             </div>
-            @endforeach
 
+            <div class="w-full md:w-2/3 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+
+                <div class="relative bg-yellow-100 text-slate-800 p-6 shadow-md -rotate-2 hover:rotate-0 transition-transform duration-300 ease-out flex flex-col">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-white/40 shadow-sm rotate-2"></div>
+
+                    <h4 class="text-lg font-bold mb-3"
+                    data-i18n="about.mission.item1.title">
+                        Belajar Konsisten
+                    </h4>
+                    <p class="text-sm font-medium leading-relaxed opacity-90"
+                    data-i18n="about.mission.item1.description">
+                        Belajar secara rutin dengan fokus pada pemahaman fundamental, tanpa terburu-buru ke hal yang lebih kompleks.
+                    </p>
+                </div>
+
+                <div class="relative bg-orange-50 text-slate-800 p-6 shadow-md rotate-2 hover:rotate-0 transition-transform duration-300 ease-out flex flex-col sm:mt-8">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-white/50 shadow-sm -rotate-2"></div>
+
+                    <h4 class="text-lg font-bold mb-3"
+                    data-i18n="about.mission.item2.title">
+                        Praktik & Eksplorasi
+                    </h4>
+                    <p class="text-sm font-medium leading-relaxed opacity-90"
+                    data-i18n="about.mission.item2.description">
+                        Menerapkan apa yang dipelajari melalui proyek kecil. Proses ini membantu memahami error dan menemukan solusi secara mandiri.
+                    </p>
+                </div>
+
+                <div class="relative bg-white text-slate-800 p-6 shadow-md -rotate-1 hover:rotate-0 transition-transform duration-300 ease-out flex flex-col sm:col-span-2 lg:col-span-1 lg:mt-4">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-gray-200/50 shadow-sm rotate-1"></div>
+
+                    <h4 class="text-lg font-bold mb-3"
+                    data-i18n="about.mission.item3.title">
+                        Dokumentasi
+                    </h4>
+                    <p class="text-sm font-medium leading-relaxed opacity-90"
+                    data-i18n="about.mission.item3.description">
+                        Mencatat hal-hal penting dari proses belajar dan pengerjaan proyek sebagai referensi untuk penggunaan di masa mendatang.
+                    </p>
+                </div>
+
+            </div>
         </div>
     </section>
     </div>
