@@ -268,9 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentLocale = htmlEl.lang || 'id';
 
-    if (langFlag) {
-        langFlag.className = (currentLocale === 'id' ? 'fi fi-id' : 'fi fi-us') + ' w-4 h-3 rounded-sm';
-    }
+    // Initial flags are now globally handled by app.js on DOMContentLoaded
 
     langBtn?.addEventListener('click', () => {
         let nextLocale = currentLocale === 'id' ? 'en' : 'id';

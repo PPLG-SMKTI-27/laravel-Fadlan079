@@ -169,7 +169,7 @@ function applyTheme(theme) {
 
 function updateIcon(theme) {
     const savedTheme = localStorage.getItem(THEME_KEY);
-    ['themeIcon', 'colorIcon'].forEach(id => {
+    ['themeIcon', 'colorIcon', 'colorIconMobile'].forEach(id => {
         const icon = document.getElementById(id);
         if (!icon) return;
         icon.classList.remove('fa-moon', 'fa-sun', 'fa-desktop');
@@ -370,16 +370,18 @@ window.applyI18n = function (root) {
 let currentLocale = document.documentElement.lang || 'id';
 
 function updateLangIcon(currentLocale) {
-    const flag = document.getElementById('langFlag');
-    if (!flag) return;
+    ['langFlag', 'langFlagMobile'].forEach(id => {
+        const flag = document.getElementById(id);
+        if (!flag) return;
 
-    flag.classList.remove('fi-id', 'fi-us');
+        flag.classList.remove('fi-id', 'fi-us');
 
-    if (currentLocale === 'id') {
-        flag.classList.add('fi-id');
-    } else {
-        flag.classList.add('fi-us');
-    }
+        if (currentLocale === 'id') {
+            flag.classList.add('fi-id');
+        } else {
+            flag.classList.add('fi-us');
+        }
+    });
 }
 
 window.tagInput = function (suggestions) {
@@ -572,6 +574,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     currentLocale = saved;
     await loadLanguage(saved);
     updateLangIcon(saved);
+    updateIcon();
     try { heroAnimation(); } catch (e) { console.warn(e) }
     try { heroRibbonAnimation(); } catch (e) { console.warn(e) }
     try { heroFloatingCards(); } catch (e) { console.warn(e) }

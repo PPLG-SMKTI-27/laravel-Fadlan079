@@ -133,6 +133,23 @@
                 <span data-i18n="{{ $menu['key'] }}">{{ $menuText }}</span>
             </a>
         @endforeach
+        
+        <div class="mt-6 pt-6 border-t border-gray-300/70">
+            <p class="text-[10px] font-bold uppercase tracking-widest text-muted mb-4 px-2" data-i18n="nav.settings">Pengaturan</p>
+            <div class="flex gap-2 px-2">
+                <button id="layoutToggleBtnMobile" class="flex-1 h-10 rounded-xl flex items-center justify-center border border-gray-300/70 bg-white text-muted hover:text-primary transition-colors shadow-sm" title="Switch Design Layout">
+                    <i id="layoutIconMobile" class="fa-solid fa-book text-sm"></i>
+                </button>
+
+                <button onclick="window.toggleTheme()" id="colorToggleBtnMobile" class="flex-1 h-10 rounded-xl flex items-center justify-center border border-gray-300/70 bg-white text-muted hover:text-warning transition-colors shadow-sm" title="Switch Light/Dark Mode">
+                    <i id="colorIconMobile" class="fa-solid fa-moon text-sm"></i>
+                </button>
+
+                <button id="langToggleMobile" class="flex-1 h-10 rounded-xl flex items-center justify-center border border-gray-300/70 bg-white text-muted transition-colors grayscale hover:grayscale-0 shadow-sm" title="Switch Language">
+                    <span id="langFlagMobile" class="fi fi-id text-sm rounded-sm"></span>
+                </button>
+            </div>
+        </div>
 
         <div class="mt-8 pt-8 border-t border-gray-300/70">
             <p class="text-[10px] font-bold uppercase tracking-widest text-muted mb-4 px-2" data-i18n="nav.authenticated">Autentikasi</p>
@@ -162,6 +179,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- Sidebar Toggle Logic ---
     const openBtn = document.getElementById('mobileMenuBtn');
     const closeBtn = document.getElementById('mobileCloseBtn');
     const sidebar = document.getElementById('mobileSidebar');
@@ -181,85 +199,110 @@ document.addEventListener('DOMContentLoaded', () => {
     closeBtn?.addEventListener('click', closeSidebar);
     overlay?.addEventListener('click', closeSidebar);
 
+    // --- Layout Toggle Logic ---
     const layouts = ['diary', 'clean', 'system'];
-    const layoutIcons = {
+    const layoutIconsMap = {
         'diary':  'fa-solid fa-book',
         'clean':  'fa-brands fa-apple',
         'system': 'fa-solid fa-terminal'
     };
 
-    const layoutBtn = document.getElementById('layoutToggleBtn');
-    const layoutIcon = document.getElementById('layoutIcon');
+    const layoutBtns = [document.getElementById('layoutToggleBtn'), document.getElementById('layoutToggleBtnMobile')];
+    const layoutIcons = [document.getElementById('layoutIcon'), document.getElementById('layoutIconMobile')];
     const htmlEl = document.documentElement;
 
     let currentLayout = localStorage.getItem('ui_layout') || htmlEl.getAttribute('data-layout') || 'diary';
     if (!layouts.includes(currentLayout)) currentLayout = 'diary';
-    if (layoutIcon) layoutIcon.className = layoutIcons[currentLayout] + ' text-[13px]';
 
-    layoutBtn?.addEventListener('click', () => {
-        let nextIndex = (layouts.indexOf(currentLayout) + 1) % layouts.length;
-        currentLayout = layouts[nextIndex];
-
-        htmlEl.setAttribute('data-layout', currentLayout);
-        localStorage.setItem('ui_layout', currentLayout);
-        document.cookie = `ui_layout=${currentLayout};path=/;max-age=31536000;SameSite=Lax`;
-
-        layoutIcon.className = layoutIcons[currentLayout] + ' text-[13px]';
-        layoutIcon.animate([{ transform: 'rotate(-90deg)' }, { transform: 'rotate(0)' }], { duration: 300 });
-
-        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-        if (csrfToken) {
-            fetch('/api/layout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({ layout: currentLayout })
-            })
-            .then(() => { if(window.triggerPageWipe) window.triggerPageWipe(window.location.href, `Mengganti desain ke ${currentLayout}...`); else window.location.reload(); })
-            .catch(() => { if(window.triggerPageWipe) window.triggerPageWipe(window.location.href, `Mengganti desain ke ${currentLayout}...`); else window.location.reload(); });
-        } else {
-            if(window.triggerPageWipe) window.triggerPageWipe(window.location.href, `Mengganti desain ke ${currentLayout}...`); else window.location.reload();
-        }
+    // Set initial icons
+    layoutIcons.forEach(icon => {
+        if (icon) icon.className = layoutIconsMap[currentLayout] + ' text-[13px]';
     });
 
-    const langBtn = document.getElementById('langToggle');
-    const langFlag = document.getElementById('langFlag');
+    layoutBtns.forEach(btn => {
+        btn?.addEventListener('click', () => {
+            let nextIndex = (layouts.indexOf(currentLayout) + 1) % layouts.length;
+            currentLayout = layouts[nextIndex];
+
+            htmlEl.setAttribute('data-layout', currentLayout);
+            localStorage.setItem('ui_layout', currentLayout);
+            document.cookie = `ui_layout=${currentLayout};path=/;max-age=31536000;SameSite=Lax`;
+
+            layoutIcons.forEach(icon => {
+                if (icon) {
+                    icon.className = layoutIconsMap[currentLayout] + ' text-[13px]';
+                    icon.animate([{ transform: 'rotate(-90deg)' }, { transform: 'rotate(0)' }], { duration: 300 });
+                }
+            });
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+            if (csrfToken) {
+                fetch('/api/layout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ layout: currentLayout })
+                })
+                .then(() => triggerPageReload(`Mengganti desain ke ${currentLayout}...`))
+                .catch(() => triggerPageReload(`Mengganti desain ke ${currentLayout}...`));
+            } else {
+                triggerPageReload(`Mengganti desain ke ${currentLayout}...`);
+            }
+        });
+    });
+
+    // --- Language Toggle Logic ---
+    const langBtns = [document.getElementById('langToggle'), document.getElementById('langToggleMobile')];
+    const langFlags = [document.getElementById('langFlag'), document.getElementById('langFlagMobile')];
 
     let currentLocale = htmlEl.lang || 'id';
-    if (langFlag) langFlag.className = (currentLocale === 'id' ? 'fi fi-id' : 'fi fi-us') + ' text-sm rounded-sm';
 
-    langBtn?.addEventListener('click', () => {
-        let nextLocale = currentLocale === 'id' ? 'en' : 'id';
+    // Initial flags and icons are now globally handled by app.js on DOMContentLoaded
 
-        localStorage.setItem('locale', nextLocale);
-        document.cookie = `locale=${nextLocale};path=/;max-age=31536000;SameSite=Lax`;
+    langBtns.forEach(btn => {
+        btn?.addEventListener('click', () => {
+            let nextLocale = currentLocale === 'id' ? 'en' : 'id';
 
-        document.body.classList.remove('page-loaded');
-        document.body.classList.add('page-exiting');
+            localStorage.setItem('locale', nextLocale);
+            document.cookie = `locale=${nextLocale};path=/;max-age=31536000;SameSite=Lax`;
 
-        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-        if (csrfToken) {
-            fetch('/api/locale', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({ locale: nextLocale })
-            }).then(() => {
-                if(window.triggerPageWipe) window.triggerPageWipe(window.location.href, `Mengganti bahasa tulisan ke ${nextLocale.toUpperCase()}...`); else setTimeout(() => window.location.reload(), 300);
-            }).catch(() => {
-                if(window.triggerPageWipe) window.triggerPageWipe(window.location.href, `Mengganti bahasa tulisan ke ${nextLocale.toUpperCase()}...`); else setTimeout(() => window.location.reload(), 300);
-            });
-        } else {
-            if(window.triggerPageWipe) window.triggerPageWipe(window.location.href, `Mengganti bahasa tulisan ke ${nextLocale.toUpperCase()}...`); else setTimeout(() => window.location.reload(), 300);
-        }
+            document.body.classList.remove('page-loaded');
+            document.body.classList.add('page-exiting');
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+            if (csrfToken) {
+                fetch('/api/locale', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ locale: nextLocale })
+                }).then(() => {
+                    triggerPageReload(`Mengganti bahasa tulisan ke ${nextLocale.toUpperCase()}...`, 300);
+                }).catch(() => {
+                    triggerPageReload(`Mengganti bahasa tulisan ke ${nextLocale.toUpperCase()}...`, 300);
+                });
+            } else {
+                triggerPageReload(`Mengganti bahasa tulisan ke ${nextLocale.toUpperCase()}...`, 300);
+            }
+        });
     });
 
+    // Helper function for page reloads
+    function triggerPageReload(message, delay = 0) {
+        if (window.triggerPageWipe) {
+            window.triggerPageWipe(window.location.href, message);
+        } else {
+            setTimeout(() => window.location.reload(), delay);
+        }
+    }
+
+    // --- Easter Egg Logic ---
     function setupEasterEgg(elementId) {
         const trigger = document.getElementById(elementId);
         if (!trigger) return;
