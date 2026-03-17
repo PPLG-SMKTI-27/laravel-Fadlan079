@@ -191,10 +191,10 @@ function initTheme() {
         savedTheme = savedTheme.replace('theme-', '');
         localStorage.setItem(THEME_KEY, savedTheme);
     }
-    if (savedTheme === 'light' || savedTheme === 'dark') {
-        applyTheme(savedTheme);
+    if (savedTheme === 'light' || savedTheme === 'dark' || savedTheme === 'system') {
+        applyTheme(savedTheme === 'system' ? getSystemTheme() : savedTheme);
     } else {
-        applyTheme(getSystemTheme());
+        applyTheme('light');
     }
 }
 
@@ -327,12 +327,13 @@ window.toggleTheme = function () {
     }
 };
 
-window.matchMedia('(prefers-color-scheme: dark)')
-    .addEventListener('change', e => {
-        if (!localStorage.getItem(THEME_KEY)) {
-            applyTheme(e.matches ? 'dark' : 'light');
-        }
-    });
+// Disabling automatic system theme listener to honor user request for consistent default light theme.
+// window.matchMedia('(prefers-color-scheme: dark)')
+//     .addEventListener('change', e => {
+//         if (!localStorage.getItem(THEME_KEY)) {
+//             applyTheme(e.matches ? 'dark' : 'light');
+//         }
+//     });
 
 async function loadLanguage(locale) {
     const res = await fetch(`/api/lang/${locale}`);

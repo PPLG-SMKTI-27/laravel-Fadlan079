@@ -25,10 +25,13 @@
                 : (localStorage.getItem('ui_layout') || dbLayout);
 
             if (!valid.includes(savedLayout)) savedLayout = 'diary';
-            var savedTheme = localStorage.getItem('ui_theme') || 'theme-light';
+            var savedTheme = localStorage.getItem('ui_theme') || 'light';
+            if (savedTheme === 'system') {
+                savedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
 
             document.documentElement.setAttribute('data-layout', savedLayout);
-            document.documentElement.className = savedTheme;
+            document.documentElement.className = 'theme-' + savedTheme;
 
             localStorage.setItem('ui_layout', savedLayout);
             if (!cookieLayout || !valid.includes(cookieLayout)) {

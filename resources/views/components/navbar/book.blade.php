@@ -81,9 +81,9 @@
     <div class="flex items-center justify-end shrink-0 pl-1 h-full md:border-l md:border-gray-300 ml-2">
 
         <div class="hidden md:flex items-center w-max gap-1">
-            <button id="layoutToggleBtn" class="w-8 h-8 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-neutral-100 transition-colors shrink-0" title="Switch Design Layout">
+            {{-- <button id="layoutToggleBtn" class="w-8 h-8 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-neutral-100 transition-colors shrink-0" title="Switch Design Layout">
                 <i id="layoutIcon" class="fa-solid fa-book text-[13px]"></i>
-            </button>
+            </button> --}}
 
             <button onclick="window.toggleTheme()" id="colorToggleBtn" class="w-8 h-8 rounded-lg flex items-center justify-center text-muted hover:text-warning hover:bg-neutral-100 transition-colors shrink-0" title="Switch Light/Dark Mode">
                 <i id="colorIcon" class="fa-solid fa-moon text-[13px]"></i>
@@ -133,13 +133,13 @@
                 <span data-i18n="{{ $menu['key'] }}">{{ $menuText }}</span>
             </a>
         @endforeach
-        
+
         <div class="mt-6 pt-6 border-t border-gray-300/70">
             <p class="text-[10px] font-bold uppercase tracking-widest text-muted mb-4 px-2" data-i18n="nav.settings">Pengaturan</p>
             <div class="flex gap-2 px-2">
-                <button id="layoutToggleBtnMobile" class="flex-1 h-10 rounded-xl flex items-center justify-center border border-gray-300/70 bg-white text-muted hover:text-primary transition-colors shadow-sm" title="Switch Design Layout">
+                {{-- <button id="layoutToggleBtnMobile" class="flex-1 h-10 rounded-xl flex items-center justify-center border border-gray-300/70 bg-white text-muted hover:text-primary transition-colors shadow-sm" title="Switch Design Layout">
                     <i id="layoutIconMobile" class="fa-solid fa-book text-sm"></i>
-                </button>
+                </button> --}}
 
                 <button onclick="window.toggleTheme()" id="colorToggleBtnMobile" class="flex-1 h-10 rounded-xl flex items-center justify-center border border-gray-300/70 bg-white text-muted hover:text-warning transition-colors shadow-sm" title="Switch Light/Dark Mode">
                     <i id="colorIconMobile" class="fa-solid fa-moon text-sm"></i>
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
     langBtns.forEach(btn => {
         btn?.addEventListener('click', () => {
             let nextLocale = currentLocale === 'id' ? 'en' : 'id';
-            
+
             if (window.updateLangIcon) window.updateLangIcon(nextLocale);
 
             localStorage.setItem('locale', nextLocale);
