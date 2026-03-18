@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     @php
-        // TANGKAP DATA YIELD KE VARIABEL AGAR AMAN (ANTI-BUG)
+        // TANGKAP DATA YIELD KE VARIABEL
         $errCode = trim($__env->yieldContent('code', '500'));
-        $errMsg = trim($__env->yieldContent('message', 'SYSTEM EXCEPTION'));
+        $errMsg = trim($__env->yieldContent('message', 'SERVER ERROR'));
     @endphp
 
-    <title>SYS_ERR // {{ $errCode }}</title>
+    <title>Error {{ $errCode }} - Halaman Sobek</title>
 
     {{-- Tailwind CSS CDN --}}
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,12 +21,12 @@
             theme: {
                 extend: {
                     colors: {
-                        background: '#0a0a0a',
-                        surface: '#121212',
-                        border: '#2a2a2a',
-                        text: '#f4f4f5',
-                        muted: '#71717a',
-                        primary: '#a855f7',
+                        bg: '#E5E4DF',
+                        surface: '#FDFCF8',
+                        ink: '#1e293b',
+                        muted: '#64748b',
+                        marginLine: '#f87171',
+                        primary: '#A67C52'
                     }
                 }
             }
@@ -34,98 +34,103 @@
     </script>
 
     <style>
-        body { background-color: #0a0a0a; color: #f4f4f5; }
-        
-        @keyframes glitch-1 {
-            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
-            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
-            40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
-            60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
-            80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
-            100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, -1px); }
-        }
-        
-        @keyframes glitch-2 {
-            0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
-            20% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 1px); }
-            40% { clip-path: inset(30% 0 20% 0); transform: translate(2px, -2px); }
-            60% { clip-path: inset(70% 0 10% 0); transform: translate(-2px, 2px); }
-            80% { clip-path: inset(20% 0 50% 0); transform: translate(1px, -1px); }
-            100% { clip-path: inset(50% 0 30% 0); transform: translate(-1px, 1px); }
+        body {
+            background-color: #E5E4DF;
+            /* Pattern meja kayu / tekstur kertas dasar */
+            background-image: radial-gradient(#d4d4d8 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
-        .glitch-wrapper:hover span:nth-child(1),
-        .glitch-wrapper:hover span:nth-child(2) { animation-duration: 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        /* Garis Buku Tulis */
+        .ruled-paper {
+            background-image: repeating-linear-gradient(
+                transparent,
+                transparent 31px,
+                #cbd5e1 31px,
+                #cbd5e1 32px
+            );
+            background-position: 0 1rem;
+        }
+
+        /* Tinta Mblobor (Ink Bleed) */
+        .ink-bleed {
+            color: #1e293b;
+            text-shadow: 0px 0px 3px rgba(30, 41, 59, 0.4),
+                         1px 1px 1px rgba(30, 41, 59, 0.7);
+        }
+
+        /* Animasi coretan perlahan */
+        @keyframes drawLine {
+            from { stroke-dashoffset: 200; }
+            to { stroke-dashoffset: 0; }
+        }
+        .scribble-line {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: drawLine 0.6s ease-out 0.3s forwards;
+        }
     </style>
 </head>
-<body class="antialiased selection:bg-primary/30 selection:text-primary">
+<body class="antialiased font-serif text-ink selection:bg-primary/30 selection:text-ink min-h-screen flex items-center justify-center p-4 md:p-8">
 
-    <div class="relative min-h-screen flex flex-col items-center justify-center p-6 overflow-hidden select-none">
-        
-        <div class="absolute inset-0 pointer-events-none opacity-5 z-0" style="background-image: linear-gradient(#f4f4f5 1px, transparent 1px), linear-gradient(90deg, #f4f4f5 1px, transparent 1px); background-size: 48px 48px;"></div>
-        <div class="absolute inset-0 pointer-events-none z-50 opacity-10" style="background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 4px, 3px 100%;"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] md:w-[40vw] md:h-[40vw] bg-red-600/5 rounded-full blur-[100px] pointer-events-none"></div>
+    <div class="w-full max-w-lg relative" style="filter: drop-shadow(2px 10px 15px rgba(0,0,0,0.15));">
 
-        <div class="relative z-10 w-full max-w-2xl border border-red-500/50 bg-[#050505]/90 backdrop-blur-sm p-8 md:p-12 shadow-[0_0_50px_rgba(239,68,68,0.15)] group animate-fade-in">
-            
-            <div class="absolute top-0 left-0 w-full h-1 bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(239,68,68,0.5)_4px,rgba(239,68,68,0.5)_8px)]"></div>
-            <div class="absolute bottom-0 left-0 w-full h-1 bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(239,68,68,0.5)_4px,rgba(239,68,68,0.5)_8px)]"></div>
-            <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-red-500"></div>
-            <div class="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-red-500"></div>
-            <div class="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-red-500"></div>
-            <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-red-500"></div>
+        <div class="relative w-full bg-surface ruled-paper pt-12 pb-20 px-6 md:px-10 overflow-hidden"
+             style="clip-path: polygon(
+                 0% 3%, 5% 0%, 10% 4%, 15% 1%, 20% 5%, 25% 0%, 30% 4%, 35% 1%, 40% 5%, 45% 0%, 50% 4%, 55% 1%, 60% 5%, 65% 0%, 70% 4%, 75% 1%, 80% 5%, 85% 0%, 90% 4%, 95% 1%, 100% 4%,
+                 100% 96%, 95% 100%, 90% 95%, 85% 99%, 80% 96%, 75% 100%, 70% 96%, 65% 99%, 60% 95%, 55% 100%, 50% 96%, 45% 99%, 40% 95%, 35% 100%, 30% 96%, 25% 99%, 20% 95%, 15% 100%, 10% 96%, 5% 99%, 0% 95%
+             );">
 
-            <div class="flex items-center justify-between border-b border-red-500/30 pb-4 mb-8">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 flex items-center justify-center border border-red-500/50 bg-red-500/10 text-red-500">
-                        <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
-                    </div>
-                    <span class="text-xs md:text-sm font-mono font-bold uppercase tracking-widest text-red-500">
-                        SYSTEM_EXCEPTION_TRIGGERED
-                    </span>
+            <div class="absolute top-0 bottom-0 left-8 md:left-12 w-0.5 bg-marginLine/50"></div>
+            <div class="absolute top-0 bottom-0 left-[38px] md:left-[54px] w-px bg-marginLine/40"></div>
+
+            <div class="absolute top-20 right-12 w-8 h-8 bg-ink/10 rounded-full blur-[2px] opacity-70 scale-x-125 rotate-45 pointer-events-none"></div>
+            <div class="absolute top-24 right-8 w-3 h-3 bg-ink/20 rounded-full blur-[1px] opacity-80 pointer-events-none"></div>
+            <div class="absolute bottom-16 left-20 w-12 h-10 bg-primary/10 rounded-full blur-[4px] opacity-50 pointer-events-none"></div>
+
+            <div class="relative z-10 pl-8 md:pl-12 flex flex-col items-center text-center mt-6">
+
+                <div class="relative inline-block mb-4 group cursor-default">
+                    <h1 class="text-[6rem] md:text-[8rem] font-bold leading-none ink-bleed italic tracking-tighter mix-blend-multiply">
+                        {{ $errCode }}
+                    </h1>
+
+                    <svg class="absolute top-1/2 left-[-10%] w-[120%] h-24 -translate-y-1/2 pointer-events-none" viewBox="0 0 200 100" preserveAspectRatio="none">
+                        <path d="M10,50 Q50,40 100,55 T190,45" fill="none" stroke="#1e293b" stroke-width="6" class="scribble-line" opacity="0.8"/>
+                        <path d="M15,60 Q80,70 185,35" fill="none" stroke="#1e293b" stroke-width="4" class="scribble-line" opacity="0.6"/>
+                    </svg>
                 </div>
-                <span class="text-[10px] font-mono text-red-500/70 uppercase tracking-widest hidden sm:block">
-                    ERR_CODE: HTTP_{{ $errCode }}
-                </span>
-            </div>
 
-            <div class="text-center mb-10 relative">
-                <h1 class="text-[clamp(5rem,15vw,10rem)] font-bold font-mono tracking-tighter leading-none text-transparent relative inline-block glitch-wrapper" data-text="{{ $errCode }}">
-                    <span class="absolute inset-0 text-red-500 opacity-70 -translate-x-1 animate-[glitch-1_2.5s_infinite_linear_alternate-reverse]">{{ $errCode }}</span>
-                    <span class="absolute inset-0 text-sky-500 opacity-70 translate-x-1 animate-[glitch-2_3s_infinite_linear_alternate-reverse]">{{ $errCode }}</span>
-                    <span class="relative text-text">{{ $errCode }}</span>
-                </h1>
-                <p class="text-lg md:text-2xl font-mono font-bold uppercase tracking-[0.2em] text-text mt-2">
-                    {{ $errMsg }}
-                </p>
-            </div>
-
-            <div class="bg-black border border-border/50 p-5 font-mono text-xs md:text-sm leading-relaxed text-muted mb-10 space-y-2">
-                <div class="flex gap-2"><span class="text-primary">></span> <span>VERIFYING_ACCESS_PROTOCOL...</span></div>
-                <div class="flex gap-2"><span class="text-primary">></span> <span>ANALYZING_PACKET_DATA...</span></div>
-                <div class="flex gap-2"><span class="text-red-500">></span> <span class="text-red-400">EXCEPTION_THROWN [HTTP_{{ $errCode }}]</span></div>
-                <div class="flex gap-2"><span class="text-primary">></span> <span>DIAGNOSTIC: <span class="text-text uppercase">{{ $errMsg }}. USER OPERATION HALTED.</span></span></div>
-                
-                <div class="flex mt-4 items-center gap-2">
-                    <span class="text-green-500">guest@sys:~$</span>
-                    <div class="w-2 h-4 bg-primary animate-pulse"></div>
+                <div class="mb-10 space-y-1 relative">
+                    <p class="text-2xl md:text-3xl font-medium ink-bleed italic -rotate-1">
+                        "This page couldn't be written..."
+                    </p>
+                    <p class="text-sm text-muted font-sans font-medium uppercase tracking-widest mt-4">
+                        [ {{ $errMsg }} ]
+                    </p>
                 </div>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8 w-full font-sans">
+
+                    <button onclick="window.history.back()"
+                            class="group relative flex items-center gap-2 text-sm font-bold text-muted hover:text-ink transition-colors">
+                        <i class="fa-solid fa-arrow-left-long group-hover:-translate-x-1 transition-transform"></i>
+                        <span class="border-b border-dashed border-muted group-hover:border-ink pb-0.5">Balik Halaman</span>
+                    </button>
+
+                    <span class="hidden sm:inline text-muted/30">|</span>
+
+                    <a href="/"
+                       class="group relative flex items-center gap-2 text-sm font-bold text-ink hover:text-primary transition-colors">
+                        <span class="border-b border-dashed border-ink group-hover:border-primary pb-0.5">Ke Halaman Awal</span>
+                        <i class="fa-solid fa-pen-nib group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                    </a>
+
+                </div>
+
             </div>
-
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button onclick="window.history.back()" class="w-full sm:w-auto px-6 py-3 border border-border text-[11px] font-mono font-bold uppercase tracking-widest text-muted hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-3">
-                    <i class="fa-solid fa-arrow-left"></i> [ TRACE_BACK ]
-                </button>
-
-                <a href="/" class="w-full sm:w-auto relative group px-6 py-3 bg-primary/10 border border-primary text-primary font-mono text-[11px] font-bold uppercase tracking-widest hover:bg-primary hover:text-background transition-colors flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
-                    <span>[ REBOOT_TO_ROOT ]</span>
-                    <i class="fa-solid fa-house group-hover:-translate-y-1 transition-transform"></i>
-                </a>
-            </div>
-
         </div>
     </div>
+
 </body>
 </html>
