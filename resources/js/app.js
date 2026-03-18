@@ -3,7 +3,12 @@ import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 import htmx from 'htmx.org';
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 window.htmx = htmx;
+window.gsap = gsap;
+window.ScrollTrigger = ScrollTrigger;
+gsap.registerPlugin(ScrollTrigger);
 
 import { heroAnimation } from './animations/hero';
 import { heroRibbonAnimation } from './animations/hero';

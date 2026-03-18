@@ -116,7 +116,7 @@
     </div>
 </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", (event) => {
         if (typeof gsap !== 'undefined') {

@@ -179,7 +179,6 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Sidebar Toggle Logic ---
     const openBtn = document.getElementById('mobileMenuBtn');
     const closeBtn = document.getElementById('mobileCloseBtn');
     const sidebar = document.getElementById('mobileSidebar');
@@ -199,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
     closeBtn?.addEventListener('click', closeSidebar);
     overlay?.addEventListener('click', closeSidebar);
 
-    // --- Layout Toggle Logic ---
     const layouts = ['diary', 'clean', 'system'];
     const layoutIconsMap = {
         'diary':  'fa-solid fa-book',
@@ -214,7 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLayout = localStorage.getItem('ui_layout') || htmlEl.getAttribute('data-layout') || 'diary';
     if (!layouts.includes(currentLayout)) currentLayout = 'diary';
 
-    // Set initial icons
     if (layoutIcons[0]) layoutIcons[0].className = layoutIconsMap[currentLayout] + ' text-[13px]';
     if (layoutIcons[1]) layoutIcons[1].className = layoutIconsMap[currentLayout] + ' text-sm';
 
@@ -255,13 +252,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Language Toggle Logic ---
     const langBtns = [document.getElementById('langToggle'), document.getElementById('langToggleMobile')];
     const langFlags = [document.getElementById('langFlag'), document.getElementById('langFlagMobile')];
 
     let currentLocale = htmlEl.lang || 'id';
-
-    // Initial flags and icons are now globally handled by app.js on DOMContentLoaded
 
     langBtns.forEach(btn => {
         btn?.addEventListener('click', () => {
@@ -296,7 +290,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Helper function for page reloads
     function triggerPageReload(message, delay = 0) {
         if (window.triggerPageWipe) {
             window.triggerPageWipe(window.location.href, message);
@@ -305,7 +298,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Easter Egg Logic ---
     function setupEasterEgg(elementId) {
         const trigger = document.getElementById(elementId);
         if (!trigger) return;
@@ -335,5 +327,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupEasterEgg('secret-brand-trigger-desktop');
     setupEasterEgg('secret-brand-trigger-mobile');
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const navbar = document.querySelector('.paper-tab-nav');
+
+    gsap.from(navbar, {
+        y: -150,
+        rotationZ: -2,
+        opacity: 0,
+        duration: 1,
+        ease: "back.out(1.2)",
+        delay: 0.2,
+        clearProps: "all"
+    });
+
+    const showHideNav = gsap.to(navbar, {
+        y: -150,
+        rotationZ: 1,
+        paused: true,
+        duration: 0.35,
+        ease: "power2.inOut"
+    });
+
+    ScrollTrigger.create({
+        start: "top top",
+        end: "max",
+        onUpdate: (self) => {
+
+            if (self.direction === 1 && self.scroll() > 50) {
+                showHideNav.play();
+            } else if (self.direction === -1) {
+                showHideNav.reverse();
+            }
+        }
+    });
+
+    const openBtn = document.getElementById('mobileMenuBtn');
 });
 </script>
